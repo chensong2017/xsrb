@@ -1,0 +1,506 @@
+<style type="text/css">
+	/*分页*/
+	
+	.pagination_FDMKCSUMB {
+		margin-left: 49%;
+		margin-top: 0px;
+	}
+	
+	.pagination_FDMKCSUMB a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_FDMKCSUMB a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_FDMKCSUMB span.current,
+	.pagination_FDMKCSUMB span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_FDMKCSUMB span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_FDMKCSUMB span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_FDMKCSUMB .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_FDMKCSUMB.go {
+		margin-left: 2%;
+		height: 20px;
+		line-height: 20px;
+		font-size: 10px;
+		width: 35px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: none;
+		background-color: #ddd;
+	}
+	
+	.go:hover {
+		background-color: #cfebee;
+	}
+	/*分页结束*/
+	
+	#MyTable_FDMKCSUMB_tableData {
+		height: 100%!important;
+	}
+	
+	.summaryds_th {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #99ccff;
+		border-bottom: 1px solid #c0c0c0!important;
+		border-right: 1px solid #C0C0C0!important;
+	}
+	
+	.disableViewhz {
+		cursor: pointer;
+		border: none;
+		background: none;
+		width: 120px;
+		color: red;
+	}
+	
+	.bordehz {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.viewBox_hz {
+		display: inline-block;
+		height: 22px;
+		margin-left: 20px;
+		margin-top: 0px;
+	}
+	
+	.viewBox_hz label {
+		line-height: 26px;
+	}
+	
+	.serchbox_hz {
+		height: 22px;
+		margin: 15px auto auto 50px;
+	}
+	
+	#serchsub_FDMKCSUMB:hover {
+		background-color: #99ccff;
+		cursor: pointer;
+	}
+	
+	#serchsub_FDMKCSUMB {
+		line-height: 23px;
+		padding: 0px 15px;
+		border: none;
+		color: #555;
+		margin-left: 20px;
+		border-radius: 2px;
+	}
+	
+	.datalebel_hz {
+		font-size: bold;
+	}
+	
+	#date_FDMKCSUMB {
+		background: url('themes/default/images/button/calendar.png') no-repeat 125px -8px;
+		height: 16px;
+		width: 150px;
+		border-radius: 2px;
+	}
+	
+	.pageContent_summary table {
+		border-left: 1px solid #c0c0c0;
+	}
+	
+	.headbutton_hz {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headbutton_hz span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton_hz:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton_hz:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.headbutton_hz i {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+	}
+	
+	.nav1_hz {
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.outputnav_hz {
+		background-color: #f9fafb;
+		border: 1px solid #b8d0d6;
+		width: 160px;
+		position: absolute;
+		z-index: 150;
+		top: -3px;
+		padding: 0;
+		left: 142px;
+		margin: 0;
+		border-radius: 3px;
+		display: none;
+		box-shadow: 1px 1px 20px #081629;
+	}
+	
+	.outputnav_hz a:hover {
+		text-decoration: none;
+	}
+	
+	.pageselect_hz li {
+		height: 19px;
+		width: 100%;
+	}
+	
+	.pageselect_hz {
+		display: none;
+		border-radius: 3px;
+		z-index: 160;
+		width: 160px;
+		position: absolute;
+		border: 1px solid #b8d0d6;
+		background-color: #f9fafb;
+		left: 160px;
+		top: 21px;
+		box-shadow: 1px 1px 20px #081629;
+	}
+	
+	.pageContent_summary li a {
+		display: inline-block;
+		height: 19px;
+		line-height: 19px;
+	}
+</style>
+</head>
+
+<body>
+	<div class="pageHeader">
+		<div class="bordehz"></div>
+		<a class="headbutton_hz" href="javascript:download123();"><span><i class="nav1_hz" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库存输出</i></span></a>
+		<div class="bordehz"></div>
+		<a class="headbutton_hz" href="javascript:download_kchz();"><span><i class="nav1_hz" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期初输出</i></span></a>
+		<div class="viewBox_hz"><label>选中项内容：</label><input type="text" disabled="disabled" value="" id="tdView_FDMKCSUMB" class="disableViewhz" /></div>
+		<label class="datalebel_hz">日期查询：</label>
+		<input id="date_FDMKCSUMB" class="date" dateFmt="yyyy-MM-dd" readonly="readonly" />
+		<button id="serchsub_FDMKCSUMB"> 查询</button>
+	</div>
+
+	<div class="pageContent pageContent_summary" layoutH="60" style="overflow: auto;">
+
+		<div id="rendrTable_FDMKCSUMB" style="margin:1% 4%;"></div>
+	</div>
+	<div class="panelBar">
+		<div class="pagination_FDMKCSUMB"></div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function() {
+		table_flag = 0;
+		setDateSearch("_FDMKCSUMB");
+		get_summaryds();
+		tableW_summaryds = window.screen.width * 0.847;
+		tableH_summaryds = window.screen.height * 0.54;
+		FixTable("MyTable_FDMKCSUMB", 2, tableW_summaryds, tableH_summaryds);
+		//查询指定日期的日报
+		$("#serchsub_FDMKCSUMB").click(function() {
+			if($("#date_FDMKCSUMB").val()) {
+				get_summaryds();
+				FixTable("MyTable_FDMKCSUMB", 2, tableW_summaryds, tableH_summaryds);
+			} else
+				alertMsg.warn("请选择查询日期");
+		});
+	}) //ready
+
+	function FixTable(TableID, FixColumnNumber, width, height) {
+		if($("#" + TableID + "_tableLayout").length != 0) {
+			$("#" + TableID + "_tableLayout").before($("#" + TableID));
+			$("#" + TableID + "_tableLayout").empty();
+		} else {
+			$("#" + TableID).after("<div id='" + TableID + "_tableLayout' style='height:" + height + "px; width:" + width + "px;'></div>");
+		}
+		$('<div id="' + TableID + '_tableFix"></div>' + '<div id="' + TableID + '_tableHead"></div>' + '<div id="' + TableID + '_tableColumn"></div>' + '<div id="' + TableID + '_tableData"></div>').appendTo("#" + TableID + "_tableLayout");
+		var oldtable = $("#" + TableID);
+		var tableFixClone = oldtable.clone(true);
+		tableFixClone.attr("id", TableID + "_tableFixClone");
+		$("#" + TableID + "_tableFix").append(tableFixClone);
+		var tableHeadClone = oldtable.clone(true);
+		tableHeadClone.attr("id", TableID + "_tableHeadClone");
+		$("#" + TableID + "_tableHead").append(tableHeadClone);
+		var tableColumnClone = oldtable.clone(true);
+		tableColumnClone.attr("id", TableID + "_tableColumnClone");
+		$("#" + TableID + "_tableColumn").append(tableColumnClone);
+		$("#" + TableID + "_tableData").append(oldtable);
+		$("#" + TableID + "_tableLayout table").each(function() {
+			$(this).css("margin", "0");
+		});
+		var HeadHeight = $("#" + TableID + "_tableHead thead").height();
+		HeadHeight += 2;
+		$("#" + TableID + "_tableHead").css("height", HeadHeight);
+		$("#" + TableID + "_tableFix").css("height", HeadHeight);
+		var ColumnsWidth = 0;
+		var ColumnsNumber = 0;
+		$("#" + TableID + "_tableColumn tr:last td:lt(" + FixColumnNumber + ")").each(function() {
+			ColumnsWidth += $(this).outerWidth(true);
+			ColumnsNumber++;
+		});
+		ColumnsWidth += 1;
+		if($.browser.msie) {
+			switch($.browser.version) {
+				case "7.0":
+					if(ColumnsNumber >= 3) ColumnsWidth--;
+					break;
+				case "8.0":
+					if(ColumnsNumber >= 2) ColumnsWidth--;
+					break;
+			}
+		}
+		$("#" + TableID + "_tableColumn").css("width", ColumnsWidth);
+		$("#" + TableID + "_tableFix").css("width", ColumnsWidth);
+		$("#" + TableID + "_tableData").scroll(function() {
+			$("#" + TableID + "_tableHead").scrollLeft($("#" + TableID + "_tableData").scrollLeft());
+			$("#" + TableID + "_tableColumn").scrollTop($("#" + TableID + "_tableData").scrollTop());
+		});
+		$("#" + TableID + "_tableFix").css({
+			"overflow": "hidden",
+			"position": "relative",
+			"z-index": "45"
+		});
+		$("#" + TableID + "_tableHead").css({
+			"overflow": "hidden",
+			"width": width - 17,
+			"position": "relative",
+			"z-index": "40"
+		});
+		$("#" + TableID + "_tableColumn").css({
+			"overflow": "hidden",
+			"height": height - 17,
+			"position": "relative",
+			"z-index": "35"
+		});
+		$("#" + TableID + "_tableData").css({
+			// "overflow": "scroll",
+			"width": width,
+			"height": height,
+			"position": "relative",
+			"z-index": "30"
+		});
+		if($("#" + TableID + "_tableHead").width() > $("#" + TableID + "_tableFix table").width()) {
+			$("#" + TableID + "_tableHead").css("width", $("#" + TableID + "_tableFix table").width());
+			$("#" + TableID + "_tableData").css("width", $("#" + TableID + "_tableFix table").width() + 17);
+		}
+		if($("#" + TableID + "_tableColumn").height() > $("#" + TableID + "_tableColumn table").height()) {
+			$("#" + TableID + "_tableColumn").css("height", $("#" + TableID + "_tableColumn table").height());
+			$("#" + TableID + "_tableData").css("height", $("#" + TableID + "_tableColumn table").height() + 17);
+		}
+		$("#" + TableID + "_tableFix").offset($("#" + TableID + "_tableLayout").offset());
+		$("#" + TableID + "_tableHead").offset($("#" + TableID + "_tableLayout").offset());
+		$("#" + TableID + "_tableColumn").offset($("#" + TableID + "_tableLayout").offset());
+		$("#" + TableID + "_tableData").offset($("#" + TableID + "_tableLayout").offset());
+	}
+	//去空
+	function canntEdit_fdmkchz(obj) {
+		$("#tdView_FDMKCSUMB").val(obj.text().replace(/\s*/, ""));
+	};
+	$("#output").click(function() {
+		if($(".outputnav_hz").css("display") == "none")
+			$(".outputnav_hz").css("display", "block");
+		stopEvent();
+	});
+	$(".exceli").hover(function() {
+		if($(".pageselect_hz").css("display") == "none")
+			$(".pageselect_hz").css("display", "block");
+		stopEvent();
+	});
+	$('body').click(function() {
+		if($(".outputnav_hz").css("display") == "block")
+			$(".outputnav_hz").css("display", "none");
+	});
+	$(".exceli").mouseleave(function() {
+		if($(".pageselect_hz").css("display") == "block")
+			$(".pageselect_hz").css("display", "none");
+	});
+	//获取默认数据
+	function get_summaryds() {
+		var url_search = URL + "FDMKCHZ/search/token/" + token;
+		var date = $("#date_FDMKCSUMB").val().replace(/\-/g, "");
+		url_search = url_search + "/startDate/" + date + "/endDate/" + date;
+		$.ajax({
+			type: "get",
+			url: url_search,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					showData(data, url_search);
+					$(".pagination_FDMKCSUMB").createPage({
+						pageCount: data.data.totalPage, //总页数
+						current: data.data.page, //初始页号
+						backFn: function(obj) {
+							get_pagenation_data_FDMKCSUMB(url_search, obj);
+						}
+					});
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				}
+			},
+			error: function() {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	};
+
+	function showData(data, url_search) {
+		var k = '<table style="width:1050px;color:#555;font-size: small;" id="MyTable_FDMKCSUMB" cellspacing="0" cellpadding="0">'
+		if(data.data.content.length != 0) {
+			$(".panelBar").css("display", "block");
+			var item = data.data.content[0].head;
+			k += '<thead>'
+			for(var i = 0; i < item.length; i++) {
+				k += '<tr>'
+				for(var j = 0; j < item[i].length; j++) {
+					k += '<td class="summaryds_th" rowspan="' + item[i][j].rowspan + '" colspan="' + item[i][j].colspan + '">' +
+						item[i][j].value +
+						'</td>'
+				}
+				k += '</tr>'
+			}
+
+			k += '</thead>'
+			if(data.data.content[0].data.length != "") {
+				var item_data = data.data.content[0].data;
+				k += '<tbody>'
+				for(var m = 0; m < item_data.length; m++) {
+					k += '<tr>'
+					for(var n = 0; n < item_data[m].length; n++) {
+						k += '<td class="summaryds_th" rowspan="' + item_data[m][n].rowspan + '" style="background-color: #fff;" onclick="canntEdit_fdmkchz($(this))" colspan="' + item_data[m][n].colspan + '">' +
+							item_data[m][n].value +
+							'</td>'
+					}
+					k += '</tr>'
+				}
+				k += '</tbody>'
+			}
+		} else {
+			k = '</tr>' +
+				'暂无数据' +
+				'</tr>'
+		}
+		k += '</table>'
+		$("#rendrTable_FDMKCSUMB").html(k);
+	}
+	//获取分页数据
+	function get_pagenation_data_FDMKCSUMB(url_search, page) {
+		$.ajax({
+			type: "get",
+			url: url_search + "/page/" + page,
+			dataType: "json",
+			async: false,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					showData(data, url_search);
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else {
+					tableW_summaryds = window.screen.width * 0.847;
+					tableH_summaryds = window.screen.height * 0.55;
+					FixTable("MyTable_FDMKCSUMB", 2, tableW_summaryds, tableH_summaryds);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+
+	// 库存导出
+	function download123() {
+		date1 = $("#date_FDMKCSUMB").val().replace(/\-/g, "");
+		var exc_url = URL + "FDMKCHZ/downloadExcel/startDate/" + date1 + "/endDate/" + date1 + "/token/" + token;
+		$.ajax({
+			type: "get",
+			url: exc_url,
+			dataType: "json",
+			success: function(data) {
+				window.open(data.data.downloadUrl);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("下载失败，重试或者检查网络设置！");
+			}
+		});
+	}
+	// 期初导出
+	function download_kchz() {
+		var exckchz_url = URL + "SPZQCTJ/toexcel/token/" + token;
+		$.ajax({
+			type: "get",
+			url: exckchz_url,
+			dataType: "json",
+			success: function(data) {
+				window.open(data.excel_url);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("下载失败，重试或者检查网络设置！");
+			}
+		});
+	}
+</script>

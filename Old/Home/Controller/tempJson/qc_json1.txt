@@ -1,0 +1,1651 @@
+{
+    "page": 1,
+    "total": 1,
+    "pagesize": 1,
+    "leftTitle": [
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "片区",
+                    "rowspan": 1,
+                    "colspan": "3"
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "销售部门",
+                    "rowspan": 1,
+                    "colspan": "3"
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "门类型",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "门类别",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "表面处理",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "40门",
+                    "rowspan": "6",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "标门",
+                    "rowspan": "3",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "副窗门",
+                    "rowspan": "3",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "60门",
+                    "rowspan": "14",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "标门",
+                    "rowspan": "5",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门低配",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "转印门高配",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属漆/粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "单门副窗门",
+                    "rowspan": "5",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门低配",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "转印门高配",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属漆/粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "对开子母门",
+                    "rowspan": "4",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属漆/粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "70常规门",
+                    "rowspan": "26",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "标门",
+                    "rowspan": "8",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门低配",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "转印门高配",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门低配(花边框100祥云)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门低配",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门高配(花边框100祥云)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门高配",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属漆/粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "单门副窗门",
+                    "rowspan": "8",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门低配",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "转印门高配",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门低配(花边框100祥云)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门低配",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门高配(花边框100祥云)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门高配",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属漆/粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "对开子母门",
+                    "rowspan": "4",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属漆/粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "钢套门",
+                    "rowspan": "6",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门(单扇)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "转印门(双扇)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门(120花边框)(单扇)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门(120花边框)(双扇)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门(单扇)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门(双扇)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "70等级门",
+                    "rowspan": "6",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "非标等级标门",
+                    "rowspan": "2",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": "0",
+                    "value": "等级标门",
+                    "rowspan": "2",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "非标门",
+                    "rowspan": "2",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "80门",
+                    "rowspan": "10",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "标门",
+                    "rowspan": "5",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿古红木",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿真铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属漆",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "单门副窗门",
+                    "rowspan": "5",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿古红木",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿真铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属漆",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "90常规门",
+                    "rowspan": "8",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "标门",
+                    "rowspan": "3",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属漆/粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "单门副窗门",
+                    "rowspan": "3",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属漆/粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "对开子母门",
+                    "rowspan": "2",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属漆/粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "90等级门",
+                    "rowspan": "4",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "非标准丁级",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "丁级门",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "非标准甲级",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "甲级门",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "100等级门",
+                    "rowspan": "2",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "甲级门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "非标准甲级",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "90钢套门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "对开子母门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "50防火门",
+                    "rowspan": "6",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "进户门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "进户子母门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },			
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "进户门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "进户子母门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },				
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "通道门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "管井门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "70防火门",
+                    "rowspan": "6",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "进户门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "进户子母门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },			
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "进户门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "进户子母门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },			
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "通道门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "管井门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "50门",
+                    "rowspan": "12",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "标门及副窗",
+                    "rowspan": "8",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门(框厚1.0及以下配置)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门(框厚1.0及以下配置)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属粉(框厚1.0及以下配置)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉(框厚1.0及以下配置)",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "对开子母门",
+                    "rowspan": "4",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "转印门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "仿铜门",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "金属粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "喷塑粉",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "室内门",
+                    "rowspan": "6",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "强化门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "强化门-单门套",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "强化门-单门扇",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "钢木门",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "烤漆",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "楼宇门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "单层板门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "木质门",
+                    "rowspan": "2",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "门扇",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "门套",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "外购门系列",
+                    "rowspan": "5",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "卫浴门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "活动板房门",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "室内门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "室内门门套",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "等级门",
+                    "rowspan": "1",
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "其他门",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "不能确定的分类产品",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "所有",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "锁把",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "锁把",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "锁把",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        },
+        {
+            "tr": [
+                {
+                    "dataType": 0,
+                    "value": "配件类",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "配件类",
+                    "rowspan": 1,
+                    "colspan": 1
+                },
+                {
+                    "dataType": 0,
+                    "value": "配件类",
+                    "rowspan": 1,
+                    "colspan": 1
+                }
+            ]
+        }
+    ]
+}

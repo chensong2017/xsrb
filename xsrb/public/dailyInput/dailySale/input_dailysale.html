@@ -1,0 +1,989 @@
+<style>
+	.selected_oi {
+		background-color: #E6EEEF!important;
+	}
+	
+	#rendrTable_inputds table tbody tr td input {
+		-moz-user-select: none;
+		-webkit-user-select: none
+	}
+	
+	.setvis {
+		display: none;
+	}
+	
+	.disable {
+		width: 100%;
+		cursor: pointer;
+		border: none !important;
+		background: none !important;
+		margin-left: -3px!important;
+		text-align: center;
+		height: 100%;
+	}
+	
+	.disableView {
+		cursor: pointer;
+		border: none;
+		background: none;
+		width: 120px;
+		color: red;
+		float: left;
+		margin-left: 3px;
+		margin-top: 2px;
+	}
+	
+	.inputds_th {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 15px;
+		padding-top: 15px;
+		text-align: center;
+		background-color: #99ccff;
+		border: 1px solid #c0c0c0!important;
+	}
+	
+	.inputds_td {
+		border: 1px solid #C0C0C0;
+		text-align: center;
+	}
+	
+	.changgecss {
+		background-color: #fff!important;
+		color: red!important;
+		text-align: center;
+	}
+	
+	.viewBox {
+		/*display:inline-block ;*/
+		height: 22px;
+		margin-top: 0px;
+		float: left;
+		width: 80px!important;
+	}
+	
+	.viewBox label {
+		line-height: 26px;
+	}
+	
+	.borde_lr {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px 40px auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.headbutton_lr {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headbutton_lr span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton_lr:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton_lr:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.nav1_lr {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.task {
+		float: right;
+		width: 90px;
+		line-height: 22px;
+		height: 22px;
+		text-align: center;
+		cursor: pointer;
+	}
+	
+	.taskselected {
+		background-color: #fff;
+		border: 2px solid #add2db;
+		color: #333;
+	}
+	
+	.tasknot {
+		border: 1px solid #b8d0d6;
+		background-color: #ecf0f6;
+		color: #888;
+	}
+	
+	.inputds_td {
+		text-align: center;
+	}
+</style>
+<div class="pageHeader" style="overflow: hidden;">
+	<a class="headbutton_lr" id="save6"><span><i class="nav1_lr" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -122px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保存刷新</i></span></a>
+	<div class="borde_lr"></div>
+	<label style="float: left;line-height: 22px;">选中项内容：</label><input type="text" disabled="disabled" value="" id="tdView_inputds" class="disableView" />
+	<div class="task tasknot" style="border-top-right-radius:22px;border-bottom-left-radius:22px;margin-left:-5px;" id="goods">商品业务</div>
+	<div class="task taskselected" style="border-bottom-left-radius:22px;border-top-right-radius:22px;" id="cash">现金业务</div>
+</div>
+
+<div class="pageContent" id="rendrTable_inputds" style="width:90%; margin-top:1%;margin-left: 5%;"></div>
+<script type="text/x-jsrender" id="tableContent_inputds">
+	<table class="table table_inputds" width="100%" layoutH="95" id="table_inputds" border="1">
+		<thead class="fixhead">
+			<tr>
+				{{for data[0].tr}} {{if !#getIndex()}}
+				<td class="inputds_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style="border-left: 1px solid #C0C0C0;">{{:value}}</td>
+				{{else}}
+				<td class="inputds_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{/if}} {{/for}}
+
+			</tr>
+		</thead>
+		<tbody class="dailysaleTbody">
+			{{for data}} {{if #getIndex()}}
+			<tr name="{{:#getIndex()}}">
+				{{for tr}} {{if dataType==0}}
+				<td class="inputds_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color: #ccffff;" onclick="canntEdit_XSRBLR($(this))">
+					{{:value}}</td>
+				{{else dataType==4||dataType==5}}
+				<td class="inputds_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color: #ccffcc;" name="{{:#getIndex()}}" onclick="canntEdit_XSRBLR($(this))" ondblclick="showdetail($(this))">{{:value}}
+					<!--<input  type="text" class="disable" value="{{:value}}" disabled="disabled"/>-->
+				</td>
+				{{else dataType==6}} {{if type_detail=="有效支出销售成本"}}
+				<td class="inputds_td costsum" colspan="{{:colspan}}" rowspan="{{:rowspan}}" name="{{:#getIndex()}}" style="background-color: #ffccff;" onclick="canntEdit_XSRBLR($(this))">{{:value}} {{else}}
+					<td class="inputds_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" name="{{:#getIndex()}}" style="background-color: #ffccff;" onclick="canntEdit_XSRBLR($(this))">{{:value}} {{/if}}
+					</td>
+					{{else}} {{if type_detail=="有效支出门或整机销售成本"&&dataType==2}}
+					<td class="inputds_td door" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color: #ffffff;" name="{{:#getIndex()}}" onmousemove="deal_mousemove($(this),'rendrTable_inputds')" onclick="edit1_XSRBLR($(this))">
+						<input type="text" class="disable" value="{{:value}}" onblur="blurset($(this))" onkeyup="fdmKeyup($(this));" onpaste="pasteVlr($(this),'rendrTable_inputds')" onmouseup="deal_mouseup($(this))" onmousedown="deal_mousedown(event,$(this),'rendrTable_inputds')" />
+					</td>
+					{{else type_detail=="有效支出门配或配件销售成本"&&dataType==2}}
+					<td class="inputds_td parts" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color: #ffffff;" name="{{:#getIndex()}}" onmousemove="deal_mousemove($(this),'rendrTable_inputds')" onclick="edit1_XSRBLR($(this))">
+						<input type="text" class="disable" value="{{:value}}" onblur="blurset($(this))" onkeyup="fdmKeyup($(this));" onpaste="pasteVlr($(this),'rendrTable_inputds')" onmouseup="deal_mouseup($(this))" onmousedown="deal_mousedown(event,$(this),'rendrTable_inputds')" />
+					</td>
+					{{else}}
+					<td class="inputds_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color: #ffffff;" name="{{:#getIndex()}}" onmousemove="deal_mousemove($(this),'rendrTable_inputds')" onclick="edit1_XSRBLR($(this))">
+						<input type="text" class="disable" value="{{:value}}" onblur="blurset($(this));" onkeyup="fdmKeyup($(this));" onpaste="pasteVlr($(this),'rendrTable_inputds')" onmouseup="deal_mouseup($(this))" onmousedown="deal_mousedown(event,$(this),'rendrTable_inputds')" />
+					</td>
+					{{/if}} {{/if}} {{/for}}
+			</tr>
+
+			{{/if}} {{/for}}
+		</tbody>
+	</table>
+
+</script>
+<script src="js/publicjs/common.js"></script>
+<script type="text/javascript">
+	flag_enter_XSRBLR = false;
+	type_XSRBLR = 111;
+	down_XSRBLR = 0; //光标下移
+	left_XSRBLR = 3; //光标左移
+	up_XSRBLR = 1; //光标上移
+	right_XSRBLR = 2; //光标右移
+	$(function() {
+		document.body.onselectstart = function() {
+			return false;
+		} //关闭IE中的文字选中，使其支持拖拽选中
+		get_inputds();
+		if(typeof data_inputds != "undefined") {
+			set_visable(-1);
+			for(var seti = 1; seti < data_inputds.data.length; seti++) {
+				if(data_inputds.data[seti].tr[0].value == "商品业务") {
+					length_goods = seti; //length_goods 商品业务的行数
+					break;
+				}
+			}
+			// alertMsg.info("试试在弹出框的表格中复制粘贴吧！可以增加工作效率哦");
+		}
+	});
+	//保存时若有错误数据出现则警告
+	$("#save6").click(function() {
+		if($(".errorData6").length) {
+			alertMsg.warn("请检查红框数据后再提交");
+			return;
+		}
+		post_inputds();
+	}); //click
+	function canntEdit_XSRBLR(obj) {
+		if(obj.text()) {
+			if($("#tdView_inputds").length > 0) {
+				$("#tdView_inputds").val(obj.text().replace(/\s*/, ""));
+
+			}
+		}
+	};
+	//添加输入框的上下左右移动效果以及border效果
+	function edit1_XSRBLR(obj) {
+		$("#tdView_inputds").val(obj.children().val());
+		obj.children().select();
+		if(obj.children().val() == 0) {
+			obj.children().val("");
+		}
+		obj.children().addClass("selectedIput_XSRBLR");
+		if($(".selectedIput_XSRBLR").length > 1) {
+			$(".selectedIput_XSRBLR").each(function() {
+				$(this).removeClass("selectedIput_XSRBLR");
+			})
+			obj.children().addClass("selectedIput_XSRBLR");
+		}
+		obj.css("border", "2px solid #000");
+	};
+
+	function backwhite(data) {
+		if(data.data.length > 0) {
+			data = eval(data.data);
+			for(var i = 0; i < data.length; i++) {
+				for(var j = 0; j < data[i].tr.length; j++) {
+					if(data[i].tr[j].dataType == 6 && (/[\u4E00-\u9FA5 ]/g.exec(data[i].tr[j].value) == null)) {
+						$("tr[name=" + i + "]").children("td[name=" + j + "]").addClass("changgecss");
+					}
+				}
+			}
+		}
+	}
+	//查询
+	function get_inputds() {
+		times = 0;
+		$.ajax({
+			type: "get",
+			url: URL + "XSRBLR/search/version/a20170208/token/" + token,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+					if(data.resultcode == -40 || data.resultcode == -41) {
+						alertMsg.warn(data.resultmsg);
+						window.location.href = "index.html";
+					}
+				} else {
+					data_inputds = data;
+					$("#rendrTable_inputds").html("");
+					var tableContent_inputds = $("#tableContent_inputds").render(data_inputds);
+					$("#rendrTable_inputds").append(tableContent_inputds);
+					backwhite(data);
+
+					//初始化改变     门配销售成本 + 门或数码销售成本 = 销售成本合计
+					$("tbody tr").each(function() {
+						if($(this).find("td").eq(2).text().trim() == "销售成本合计") {
+							$(this).find("td").eq(3).text(($(this).next().find("td").eq(3).text() * 1 + $(this).next().next().find("td").eq(3).text() * 1).toFixed(2));
+							$(this).find("td").eq(4).text(($(this).next().find("td").eq(4).find("input").val() * 1 + $(this).next().next().find("td").eq(4).find("input").val() * 1).toFixed(2));
+							$(this).find("td").eq(5).text(($(this).next().find("td").eq(5).find("input").val() * 1 + $(this).next().next().find("td").eq(5).find("input").val() * 1).toFixed(2));
+							$(this).find("td").eq(6).text(($(this).next().find("td").eq(6).find("input").val() * 1 + $(this).next().next().find("td").eq(6).find("input").val() * 1).toFixed(2));
+							$(this).find("td").eq(7).text(($(this).next().find("td").eq(7).find("input").val() * 1 + $(this).next().next().find("td").eq(7).find("input").val() * 1).toFixed(2));
+						}
+					})
+
+				}
+			},
+			error: function() {
+				alertMsg.error("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	};
+	//包含：两个其中的失去焦点后自动计算合计值    
+	function blurset(obj) {
+		if(!obj.val()) {
+			obj.val(0);
+		}
+		var td4 = $(obj).parent().parent().find("td").eq(4).find("input").val();
+		var td5 = $(obj).parent().parent().find("td").eq(5).find("input").val();
+		if(isNaN(td4) || isNaN(td5)) {
+			$(obj).parent().parent().find("td").eq(3).text(0);
+		} else {
+			$(obj).parent().parent().find("td").eq(3).text((td4 * 1 + td5 * 1).toFixed(2));
+		}
+		var min_col;
+		var min_row_goods;
+		var td_class = obj.parent().attr('class');
+		obj.parent().css({
+			"border": "none",
+			"border-right": "1px solid #C0C0C0",
+			"border-bottom": "1px solid #c0c0c0"
+		});
+		var int_replace_res = obj.val().replace(/^-?[1-9]\d*|0$/, "");
+		if(int_replace_res) {
+			var float_replace_res = obj.val().replace(/^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$/, "");
+			if(float_replace_res) {
+				obj.addClass("errorData6");
+				obj.parent().css({
+					"border": "2px solid red"
+				});
+				return;
+			}
+		}
+		obj.removeClass("errorData6");
+		var rowcode = parseInt(obj.parent().parent().attr("name"));
+		var colcode = parseInt(obj.parent().attr("name"));
+		var arr_class = td_class.split(" ");
+		//如果是门或整机销售成本
+		if($.inArray("door", arr_class) > 0) {
+			//获取同列门配的值
+			var bro = $("#rendrTable_inputds table tbody").children("tr[name=" + (rowcode + 1) + "]").children("td[name=" + colcode + "]").children("input").val();
+			var sum = parseFloat(obj.val()) + parseFloat(bro);
+			sum = sum.toFixed(2);
+			//处理销售成本的显示和json
+			$("#rendrTable_inputds table tbody").children("tr[name=" + (rowcode - 1) + "]").children("td[name=" + colcode + "]").html(sum);
+			data_inputds.data[rowcode - 1].tr[colcode].value = sum;
+		}
+		//如果是门配或配件销售成本
+		if($.inArray("parts", arr_class) > 0) {
+			//获取同列正门
+			var bro = $("#rendrTable_inputds table tbody").children("tr[name=" + (rowcode - 1) + "]").children("td[name=" + colcode + "]").children("input").val();
+			var sum = parseFloat(obj.val()) + parseFloat(bro);
+			sum = sum.toFixed(2);
+			$("#rendrTable_inputds table tbody").children("tr[name=" + (rowcode - 2) + "]").children("td[name=" + colcode + "]").html(sum);
+			data_inputds.data[rowcode - 2].tr[colcode].value = sum;
+
+		}
+		//赋值给json
+		data_inputds.data[rowcode].tr[colcode].value = parseFloat(obj.val());
+		//防盗门合计统计
+		var count_t1 = obj.parent().parent().find("td").eq(4).find("input").val();
+		var count_t2 = obj.parent().parent().find("td").eq(5).find("input").val();
+		data_inputds.data[rowcode].tr[4].value = obj.parent().parent().find("td").eq(4).find("input").val();
+		data_inputds.data[rowcode].tr[5].value = obj.parent().parent().find("td").eq(5).find("input").val();
+		data_inputds.data[rowcode].tr[7].value = obj.parent().parent().find("td").eq(7).find("input").val();
+		data_inputds.data[rowcode].tr[6].value = obj.parent().parent().find("td").eq(6).find("input").val();
+		data_inputds.data[rowcode].tr[3].value = (parseFloat(count_t1) + parseFloat(count_t2)).toFixed(2);
+		min_row = 1;
+		///查找下一行开始的第一个可编辑单元格
+		var flag = 0;
+		var now_col = colcode;
+		obj.removeClass("selectedIput_XSRBLR");
+		if((flag_enter_XSRBLR)) {
+			flag_enter_XSRBLR = false;
+			if((type_XSRBLR == down_XSRBLR) && ($("#cash").attr("class") == "task taskselected")) {
+				flag_enter_XSRBLR = false;
+				for(var findin = rowcode + 1; findin < length_goods; findin++) { //查找下一行开始的第一个可编辑单元格
+					var chayi = data_inputds.data[findin].tr.length - data_inputds.data[findin - 1].tr.length;
+					now_col = now_col + chayi;
+					if($("#rendrTable_inputds table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_inputds table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //不存在可编辑的下一行了,就去可编辑的第一行（下面简称第一行）下一列
+					//一直第一行查找下一列，知道存在可编辑
+					flagcol = 0;
+					for(var findcol = colcode + 1; findcol < data_inputds.data[min_row].tr.length; findcol++) {
+						if($("#rendrTable_inputds table tbody").children("tr[name=" + min_row + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+							flagcol = 1;
+							$("#rendrTable_inputds table tbody").children("tr[name=" + min_row + "]").children("td[name=" + findcol + "]").trigger("click");
+							return true;
+						}
+					}
+					if(!flagcol) { //没有找到从现在开始的下一列，就去第一行第一列
+						for(var findcol = 0; findcol < data_inputds.data[min_row].tr.length; findcol++) {
+							if($("#rendrTable_inputds table tbody").children("tr[name=" + min_row + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								$("#rendrTable_inputds table tbody").children("tr[name=" + min_row + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				}
+			} else if((type_XSRBLR == down_XSRBLR) && ($("#cash").attr("class") !== "task taskselected")) {
+				min_row_goods = length_goods + 2;
+				flag_enter_XSRBLR = false;
+				for(var findin = rowcode + 1; findin < data_inputds.data.length; findin++) { //查找下一行开始的第一个可编辑单元格
+					var chayi = data_inputds.data[findin].tr.length - data_inputds.data[findin - 1].tr.length;
+					now_col = now_col + chayi;
+					if($("#rendrTable_inputds table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_inputds table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //不存在可编辑的下一行了,就去可编辑的第一行（下面简称第一行）下一列
+					//一直第一行查找下一列，知道存在可编辑
+					flagcol = 0;
+					for(var findcol = colcode + 1; findcol < data_inputds.data[min_row_goods].tr.length; findcol++) {
+						if($("#rendrTable_inputds table tbody").children("tr[name=" + min_row_goods + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+							flagcol = 1;
+							$("#rendrTable_inputds table tbody").children("tr[name=" + min_row_goods + "]").children("td[name=" + findcol + "]").trigger("click");
+							return true;
+						}
+					}
+					if(!flagcol) { //没有找到从现在开始的下一列，就去最后一行最后一列
+						for(var findcol = 0; findcol < data_inputds.data[min_row_goods].tr.length; findcol++) {
+							if($("#rendrTable_inputds table tbody").children("tr[name=" + min_row_goods + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								$("#rendrTable_inputds table tbody").children("tr[name=" + min_row_goods + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				}
+			} else if((type_XSRBLR == up_XSRBLR) && ($("#cash").attr("class") == "task taskselected")) { //现金业务
+				for(var findin = rowcode - 1; findin >= min_row; findin--) { //查找上一行开始的第一个可编辑单元格
+					var chayi = data_inputds.data[findin].tr.length - data_inputds.data[findin + 1].tr.length;
+					now_col = now_col + chayi;
+					if($("#rendrTable_inputds table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_inputds table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //不存在可编辑的上一行了,就去可编辑的最后一行（下面简称最后一行）的上一列
+					//一直在最后一行查找上一列，直到存在可编辑
+					flagcol = 0;
+					for(var findi = length_goods; findi >= min_row; findi--) {
+						for(var findcol = colcode - 1; findcol >= 0; findcol--) {
+							var temp = findcol;
+							if($("#rendrTable_inputds table tbody").children("tr[name=" + findi + "]").children("td[name=" + temp + "]").children("input").length > 0) {
+								flagcol = 1;
+								$("#rendrTable_inputds table tbody").children("tr[name=" + findi + "]").children("td[name=" + temp + "]").trigger("click");
+								return true;
+							}
+						}
+
+					}
+					if(!flagcol) { //没有找到从现在开始的下一列，就去最后一行最后一列
+						for(var findi = length_goods; findi >= min_row; findi--) {
+							for(var findcol = data_inputds.data[findi].tr.length; findcol >= 0; findcol--) {
+								var temp = findcol;
+								if($("#rendrTable_inputds table tbody").children("tr[name=" + findi + "]").children("td[name=" + temp + "]").children("input").length > 0) {
+									$("#rendrTable_inputds table tbody").children("tr[name=" + findi + "]").children("td[name=" + temp + "]").trigger("click");
+									return true;
+								}
+							}
+
+						}
+
+					} //flsgcol
+				}
+			} else if((type_XSRBLR == up_XSRBLR) && ($("#cash").attr("class") !== "task taskselected")) { //商品业务
+				min_row_goods = length_goods + 2;
+				for(var findin = rowcode - 1; findin >= min_row_goods; findin--) { //查找下一行开始的第一个可编辑单元格
+					var chayi = data_inputds.data[findin].tr.length - data_inputds.data[findin + 1].tr.length;
+					now_col = now_col + chayi;
+					if($("#rendrTable_inputds table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_inputds table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //不存在可编辑的上一行了,就去可编辑最后第一行（下面简称最后一行）
+					//一直在一行查找上一列，直到存在可编辑
+					flagcol = 0;
+					for(var findi = data_inputds.data.length; findi >= min_row_goods; findi--) {
+						for(var findcol = colcode - 1; findcol >= 0; findcol--) {
+							var temp = findcol;
+							if($("#rendrTable_inputds table tbody").children("tr[name=" + findi + "]").children("td[name=" + temp + "]").children("input").length > 0) {
+								flagcol = 1;
+								$("#rendrTable_inputds table tbody").children("tr[name=" + findi + "]").children("td[name=" + temp + "]").trigger("click");
+								return true;
+							}
+						}
+
+					}
+					if(!flagcol) { //没有找到从现在开始的上一列，就去最后一行最后一列
+						for(var findi = data_inputds.data.length - 1; findi >= min_row_goods; findi--) {
+							for(var findcol = data_inputds.data[findi].tr.length - 1; findcol >= 0; findcol--) {
+								var temp = findcol + 1;
+								if($("#rendrTable_inputds table tbody").children("tr[name=" + findi + "]").children("td[name=" + temp + "]").children("input").length > 0) {
+									$("#rendrTable_inputds table tbody").children("tr[name=" + findi + "]").children("td[name=" + temp + "]").trigger("click");
+									return true;
+								}
+							}
+
+						}
+					}
+				}
+			} else if(type_XSRBLR == right_XSRBLR) { //右移键
+				flag_enter_XSRBLR = false;
+				for(var findcol = colcode + 1; findcol <= data_inputds.data[rowcode].tr.length; findcol++) {
+					//从左往右查找下一列开始的第一个可编辑单元格
+					if($("#rendrTable_inputds table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_inputds table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + findcol + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //在本行未找到，从下一行的第一列开始查找
+					var flagcol = 0;
+					if($("#cash").attr("class") == "task taskselected") { //现金业务
+						var temp_max_row = length_goods;
+					} else {
+						var temp_max_row = data_inputds.data.length;
+					}
+					for(var findin = rowcode + 1; findin < temp_max_row; findin++) {
+						//从上往下查找
+						for(var findcol = 0; findcol < data_inputds.data[findin].tr.length; findcol++) {
+							if($("#rendrTable_inputds table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								flagcol = 1;
+								$("#rendrTable_inputds table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+
+					if(!flagcol) { //在下面的数据行里已经没有可编辑，跳到左上角的第一个可编辑框
+						if($("#cash").attr("class") == "task taskselected") { //现金业务
+							var temp_min_row = 1;
+						} else {
+							var temp_min_row = length_goods + 2;
+						}
+						for(var find = 0; find < data_inputds.data[temp_min_row].tr.length; find++) {
+							if($("#rendrTable_inputds table tbody").children("tr[name=" + temp_min_row + "]").children("td[name=" + find + "]").children("input").length > 0) {
+								$("#rendrTable_inputds table tbody").children("tr[name=" + temp_min_row + "]").children("td[name=" + find + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} // flag
+			} //right
+			else if(type_XSRBLR == left_XSRBLR) { //左移键
+				flag_enter_XSRBLR = false;
+				for(var leftcol = colcode - 1; leftcol >= 0; leftcol--) {
+					//从右往左查找下一列开始的第一个可编辑单元格
+					if($("#rendrTable_inputds table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + leftcol + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_inputds table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + leftcol + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //在本行未找到，从上一行的最后列开始查找
+					var flagcol = 0;
+					if($("#cash").attr("class") == "task taskselected") { //现金业务
+						var temp_min_row = min_row;
+					} else {
+						var temp_min_row = length_goods + 2;
+					}
+					if($("#cash").attr("class") == "task taskselected") { //现金业务
+						var temp_start = length_goods + 1;
+					} else {
+						var temp_start = data_inputds.data.length;
+					}
+					for(var findin = rowcode - 1; findin >= temp_min_row; findin--) {
+						//从下往上查找
+						for(var findcol = data_inputds.data[findin].tr.length - 1; findcol > 0; findcol--) {
+							var temp = findcol + 1;
+							if($("#rendrTable_inputds table tbody").children("tr[name=" + findin + "]").children("td[name=" + temp + "]").children("input").length > 0) {
+								flagcol = 1;
+								$("#rendrTable_inputds table tbody").children("tr[name=" + findin + "]").children("td[name=" + temp + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+					if(!flagcol) { //在上面的数据行里已经没有可编辑，跳到右下角的最后可编辑框
+						var max_row_XSRBLR;
+						//查找最大可编辑行
+
+						for(var i = temp_start - 1; i >= temp_min_row; i--) { //从下往上查找
+							for(var j = 0; j < data_inputds.data[i].tr.length; j++) { //从左往右查找
+								if($("#rendrTable_inputds table tbody").children("tr[name=" + i + "]").children("td[name=" + j + "]").children("input").length > 0) {
+									//该行存在可编辑
+									max_row_XSRBLR = i;
+									break;
+								}
+							}
+							if(max_row_XSRBLR) {
+								break;
+							}
+						}
+						for(var findleft = data_inputds.data[max_row_XSRBLR].tr.length - 1; findleft > 0; findleft--) {
+							if($("#rendrTable_inputds table tbody").children("tr[name=" + max_row_XSRBLR + "]").children("td[name=" + findleft + "]").children("input").length > 0) {
+								$("#rendrTable_inputds table tbody").children("tr[name=" + max_row_XSRBLR + "]").children("td[name=" + findleft + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} // flag
+			} //left
+			else {
+				flag_enter_XSRBLR = false;
+			}
+		} //flag_ent
+
+	} //blur
+	function pasteVlr(obj, tableName) {
+		pasteV(obj, tableName);
+		setTimeout(function() {
+			fdmKeyup(obj);
+			setTimeout(function() {
+				$('#rendrTable_inputds').find("input").blur(); //粘贴完成不显示光标
+			}, 100)
+		}, 100)
+	}
+
+	function fdmKeyup(obj) {
+		setTimeout(function() {
+			var td4 = $(obj).parent().parent().find("td").eq(4).find("input").val();
+			var td5 = $(obj).parent().parent().find("td").eq(5).find("input").val();
+			if(isNaN(td4) || isNaN(td5)) {
+				$(obj).parent().parent().find("td").eq(3).text(0);
+			} else {
+				$(obj).parent().parent().find("td").eq(3).text((td4 * 1 + td5 * 1).toFixed(2));
+			}
+			if($(obj).parent().prev().prev().text().trim() == "门或数码销售成本") {
+
+				var tr_name = $(obj).parent().parent().prev().find("td").eq(4).parent().attr("name");
+				var td_name = $(obj).parent().parent().prev().find("td").eq(4).attr("name");
+				var tr_name1 = $(obj).parent().parent().prev().find("td").eq(5).parent().attr("name");
+				var td_name1 = $(obj).parent().parent().prev().find("td").eq(5).attr("name");
+				var tr_name2 = $(obj).parent().parent().prev().find("td").eq(6).parent().attr("name");
+				var td_name2 = $(obj).parent().parent().prev().find("td").eq(6).attr("name");
+				var tr_name3 = $(obj).parent().parent().prev().find("td").eq(7).parent().attr("name");
+				var td_name3 = $(obj).parent().parent().prev().find("td").eq(7).attr("name");
+				$(obj).parent().parent().prev().find("td").eq(4).text(($(obj).val() * 1 + $(obj).parent().parent().next().find("td").eq(4).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().find("td").eq(5).text(($(obj).parent().parent().find("td").eq(5).find("input").val() * 1 + $(obj).parent().parent().next().find("td").eq(5).find("input").val() * 1).toFixed(2));
+
+				//给第六列赋值（销售成本合计）
+				$(obj).parent().parent().prev().find("td").eq(6).text((obj.parent().parent().find("td").eq(6).find("input").val() * 1 + obj.parent().parent().next().find("td").eq(6).find("input").val() * 1).toFixed(2));
+				//给第七列赋值（销售成本合计）
+				$(obj).parent().parent().prev().find("td").eq(7).text((obj.parent().parent().find("td").eq(7).find("input").val() * 1 + obj.parent().parent().next().find("td").eq(7).find("input").val() * 1).toFixed(2));
+
+				data_inputds.data[tr_name].tr[td_name].value = $(obj).parent().parent().prev().find("td").eq(4).text();
+				data_inputds.data[tr_name1].tr[td_name1].value = $(obj).parent().parent().prev().find("td").eq(5).text();
+				data_inputds.data[tr_name2].tr[td_name2].value = $(obj).parent().parent().prev().find("td").eq(6).text();
+				data_inputds.data[tr_name3].tr[td_name3].value = $(obj).parent().parent().prev().find("td").eq(7).text();
+
+				$(obj).parent().parent().prev().find("td").eq(3).text(($(obj).parent().prev().text() * 1 + $(obj).parent().parent().next().find("td").eq(3).text() * 1).toFixed(2));
+				$(obj).parent().parent().next().find("td").eq(3).text(($(obj).parent().parent().next().find("td").eq(4).find("input").val() * 1 + $(obj).parent().parent().next().find("td").eq(5).find("input").val() * 1).toFixed(2));
+				var td1_name = $(obj).parent().parent().prev().find("td").eq(3).attr("name");
+				var tr1_name = $(obj).parent().parent().prev().find("td").eq(3).parent().attr("name");
+				data_inputds.data[tr1_name].tr[td1_name].value = $(obj).parent().parent().prev().find("td").eq(3).text();
+			} //1
+			if($(obj).parent().prev().prev().text().trim() == "门配销售成本") {
+				var tr_name = $(obj).parent().parent().prev().prev().find("td").eq(4).parent().attr("name");
+				var td_name = $(obj).parent().parent().prev().prev().find("td").eq(4).attr("name");
+				var tr_name1 = $(obj).parent().parent().prev().prev().find("td").eq(5).parent().attr("name");
+				var td_name1 = $(obj).parent().parent().prev().prev().find("td").eq(5).attr("name");
+				var tr_name2 = $(obj).parent().parent().prev().prev().find("td").eq(6).parent().attr("name");
+				var td_name2 = $(obj).parent().parent().prev().prev().find("td").eq(6).attr("name");
+				var tr_name3 = $(obj).parent().parent().prev().prev().find("td").eq(7).parent().attr("name");
+				var td_name3 = $(obj).parent().parent().prev().prev().find("td").eq(7).attr("name");
+				data_inputds.data[tr_name].tr[td_name].value = ($(obj).val() * 1 + $(obj).parent().parent().prev().find("td").eq(4).find("input").val() * 1).toFixed(2);
+				data_inputds.data[tr_name1].tr[td_name1].value = ($(obj).parent().parent().find("td").eq(5).find("input").val() * 1 + $(obj).parent().parent().prev().find("td").eq(5).find("input").val() * 1).toFixed(2);
+				$(obj).parent().parent().prev().prev().find("td").eq(4).text(($(obj).val() * 1 + $(obj).parent().parent().prev().find("td").eq(4).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().prev().find("td").eq(5).text(($(obj).parent().parent().find("td").eq(5).find("input").val() * 1 + $(obj).parent().parent().prev().find("td").eq(5).find("input").val() * 1).toFixed(2));
+				//给第六列赋值（销售成本合计）
+				$(obj).parent().parent().prev().prev().find("td").eq(6).text((obj.parent().parent().prev().find("td").eq(6).find("input").val() * 1 + obj.parent().parent().find("td").eq(6).find("input").val() * 1).toFixed(2));
+				data_inputds.data[tr_name2].tr[td_name2].value = (obj.parent().parent().prev().find("td").eq(6).find("input").val() * 1 + obj.parent().parent().find("td").eq(6).find("input").val() * 1).toFixed(2);
+				//给第七列赋值（销售成本合计）
+				$(obj).parent().parent().prev().prev().find("td").eq(7).text((obj.parent().parent().prev().find("td").eq(7).find("input").val() * 1 + obj.parent().parent().find("td").eq(7).find("input").val() * 1).toFixed(2));
+				data_inputds.data[tr_name3].tr[td_name3].value = (obj.parent().parent().prev().find("td").eq(7).find("input").val() * 1 + obj.parent().parent().find("td").eq(7).find("input").val() * 1).toFixed(2);
+
+				$(obj).parent().parent().prev().prev().find("td").eq(3).text(($(obj).parent().prev().text() * 1 + $(obj).parent().parent().prev().find("td").eq(3).text() * 1).toFixed(2));
+				var td1_name = $(obj).parent().parent().prev().find("td").eq(3).attr("name");
+				var tr1_name = $(obj).parent().parent().prev().find("td").eq(3).parent().attr("name");
+				data_inputds.data[Number(tr1_name) - 1].tr[td1_name].value = ($(obj).parent().prev().text() * 1 + $(obj).parent().parent().prev().find("td").eq(3).text() * 1).toFixed(2);
+			} //2
+			if($(obj).parent().prev().prev().prev().text().trim() == "门或数码销售成本") {
+				var tr_name0 = $(obj).parent().parent().prev().find("td").eq(4).parent().attr("name");
+				var td_name0 = $(obj).parent().parent().prev().find("td").eq(4).attr("name");
+				var tr_name = $(obj).parent().parent().prev().find("td").eq(5).parent().attr("name");
+				var td_name = $(obj).parent().parent().prev().find("td").eq(5).attr("name");
+				var tr_name1 = $(obj).parent().parent().prev().find("td").eq(6).parent().attr("name");
+				var td_name1 = $(obj).parent().parent().prev().find("td").eq(6).attr("name");
+				var tr_name2 = $(obj).parent().parent().prev().find("td").eq(7).parent().attr("name");
+				var td_name2 = $(obj).parent().parent().prev().find("td").eq(7).attr("name");
+				var td1_name = $(obj).parent().parent().prev().find("td").eq(3).attr("name");
+				var tr1_name = $(obj).parent().parent().prev().find("td").eq(3).parent().attr("name");
+				$(obj).parent().parent().prev().find("td").eq(5).text(($(obj).val() * 1 + $(obj).parent().parent().next().find("td").eq(5).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().find("td").eq(6).text(($(obj).parent().parent().find("td").eq(6).find("input").val() * 1 + $(obj).parent().parent().next().find("td").eq(6).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().find("td").eq(4).text(($(obj).parent().parent().find("td").eq(4).find("input").val() * 1 + $(obj).parent().parent().next().find("td").eq(4).find("input").val() * 1).toFixed(2));
+				//给第七列赋值（销售成本合计）
+				$(obj).parent().parent().prev().find("td").eq(7).text((obj.parent().parent().find("td").eq(7).find("input").val() * 1 + obj.parent().parent().next().find("td").eq(7).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().find("td").eq(3).text(($(obj).parent().prev().prev().text() * 1 + $(obj).parent().parent().next().find("td").eq(3).text() * 1).toFixed(2));
+				data_inputds.data[tr_name].tr[td_name].value = $(obj).parent().parent().prev().find("td").eq(5).text();
+				data_inputds.data[tr_name1].tr[td_name1].value = $(obj).parent().parent().prev().find("td").eq(6).text();
+				data_inputds.data[tr_name0].tr[td_name0].value = $(obj).parent().parent().prev().find("td").eq(4).text();
+				data_inputds.data[tr_name2].tr[td_name2].value = $(obj).parent().parent().prev().find("td").eq(7).text();
+				data_inputds.data[tr1_name].tr[td1_name].value = $(obj).parent().parent().prev().find("td").eq(3).text();
+			} //3
+			if($(obj).parent().prev().prev().prev().text().trim() == "门配销售成本") {
+				var tr_name0 = $(obj).parent().parent().prev().prev().find("td").eq(4).parent().attr("name");
+				var td_name0 = $(obj).parent().parent().prev().prev().find("td").eq(4).attr("name");
+				var tr_name = $(obj).parent().parent().prev().prev().find("td").eq(5).parent().attr("name");
+				var td_name = $(obj).parent().parent().prev().prev().find("td").eq(5).attr("name");
+				var tr_name1 = $(obj).parent().parent().prev().prev().find("td").eq(6).parent().attr("name");
+				var td_name1 = $(obj).parent().parent().prev().prev().find("td").eq(6).attr("name");
+				var tr_name2 = $(obj).parent().parent().prev().prev().find("td").eq(7).parent().attr("name");
+				var td_name2 = $(obj).parent().parent().prev().prev().find("td").eq(7).attr("name");
+				var td1_name = $(obj).parent().parent().prev().find("td").eq(3).attr("name");
+				var tr1_name = $(obj).parent().parent().prev().find("td").eq(3).parent().attr("name");
+				$(obj).parent().parent().prev().prev().find("td").eq(5).text(($(obj).val() * 1 + $(obj).parent().parent().prev().find("td").eq(5).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().prev().find("td").eq(6).text(($(obj).parent().parent().find("td").eq(6).find("input").val() * 1 + $(obj).parent().parent().prev().find("td").eq(6).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().prev().find("td").eq(4).text(($(obj).parent().parent().find("td").eq(4).find("input").val() * 1 + $(obj).parent().parent().prev().find("td").eq(4).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().prev().find("td").eq(7).text((obj.parent().parent().prev().find("td").eq(7).find("input").val() * 1 + obj.parent().parent().find("td").eq(7).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().prev().find("td").eq(3).text(($(obj).parent().prev().prev().text() * 1 + $(obj).parent().parent().prev().find("td").eq(3).text() * 1).toFixed(2));
+				data_inputds.data[tr_name].tr[td_name].value = $(obj).parent().parent().prev().prev().find("td").eq(5).text();
+				data_inputds.data[tr_name1].tr[td_name1].value = $(obj).parent().parent().prev().prev().find("td").eq(6).text();
+				data_inputds.data[tr_name0].tr[td_name0].value = $(obj).parent().parent().prev().prev().find("td").eq(4).text();
+				data_inputds.data[tr_name2].tr[td_name2].value = $(obj).parent().parent().prev().prev().find("td").eq(7).text();
+				data_inputds.data[Number(tr1_name) - 1].tr[td1_name].value = $(obj).parent().parent().prev().prev().find("td").eq(3).text();
+			} //4
+			if($(obj).parent().prev().prev().prev().prev().text().trim() == "门或数码销售成本") {
+				var tr_name = $(obj).parent().parent().prev().find("td").eq(6).parent().attr("name");
+				var td_name = $(obj).parent().parent().prev().find("td").eq(6).attr("name");
+				var tr_name1 = $(obj).parent().parent().find("td").eq(4).parent().attr("name");
+				var td_name1 = $(obj).parent().parent().find("td").eq(4).attr("name");
+				var tr_name2 = $(obj).parent().parent().prev().find("td").eq(5).parent().attr("name");
+				var td_name2 = $(obj).parent().parent().prev().find("td").eq(5).attr("name");
+				var tr_name3 = $(obj).parent().parent().find("td").eq(7).parent().attr("name");
+				var td_name3 = $(obj).parent().parent().find("td").eq(7).attr("name");
+				var td1_name = $(obj).parent().parent().prev().find("td").eq(3).attr("name");
+				var tr1_name = $(obj).parent().parent().prev().find("td").eq(3).parent().attr("name");
+				$(obj).parent().parent().prev().find("td").eq(6).text(($(obj).val() * 1 + $(obj).parent().parent().next().find("td").eq(6).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().find("td").eq(7).text(($(obj).parent().parent().find("td").eq(7).find("input").val() * 1 + $(obj).parent().parent().next().find("td").eq(7).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().find("td").eq(4).text(($(obj).parent().parent().find("td").eq(4).find("input").val() * 1 + $(obj).parent().parent().next().find("td").eq(4).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().find("td").eq(5).text(($(obj).parent().parent().find("td").eq(5).find("input").val() * 1 + $(obj).parent().parent().next().find("td").eq(5).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().find("td").eq(3).text(($(obj).parent().prev().prev().prev().text() * 1 + $(obj).parent().parent().next().find("td").eq(3).text() * 1).toFixed(2));
+				data_inputds.data[tr_name].tr[td_name].value = $(obj).parent().parent().prev().find("td").eq(6).text();
+				data_inputds.data[tr_name1].tr[td_name1].value = $(obj).parent().parent().prev().find("td").eq(4).text();
+				data_inputds.data[tr_name2].tr[td_name2].value = $(obj).parent().parent().prev().find("td").eq(5).text();
+				data_inputds.data[tr_name3].tr[td_name3].value = $(obj).parent().parent().prev().find("td").eq(7).text();
+				data_inputds.data[tr1_name].tr[td1_name].value = $(obj).parent().parent().prev().find("td").eq(3).text();
+			} //5
+			if($(obj).parent().prev().prev().prev().prev().text().trim() == "门配销售成本") {
+				var tr_name = $(obj).parent().parent().prev().prev().find("td").eq(6).parent().attr("name");
+				var td_name = $(obj).parent().parent().prev().prev().find("td").eq(6).attr("name");
+				var tr_name1 = $(obj).parent().parent().prev().prev().find("td").eq(4).parent().attr("name");
+				var td_name1 = $(obj).parent().parent().prev().prev().find("td").eq(4).attr("name");
+				var tr_name2 = $(obj).parent().parent().prev().prev().find("td").eq(5).parent().attr("name");
+				var td_name2 = $(obj).parent().parent().prev().prev().find("td").eq(5).attr("name");
+				var tr_name3 = $(obj).parent().parent().prev().prev().find("td").eq(7).parent().attr("name");
+				var td_name3 = $(obj).parent().parent().prev().prev().find("td").eq(7).attr("name");
+				var td1_name = $(obj).parent().parent().prev().find("td").eq(3).attr("name");
+				var tr1_name = $(obj).parent().parent().prev().find("td").eq(3).parent().attr("name");
+				$(obj).parent().parent().prev().prev().find("td").eq(6).text(($(obj).val() * 1 + $(obj).parent().parent().prev().find("td").eq(6).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().prev().find("td").eq(7).text(($(obj).parent().parent().find("td").eq(7).find("input").val() * 1 + $(obj).parent().parent().prev().find("td").eq(7).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().prev().find("td").eq(4).text(($(obj).parent().parent().find("td").eq(4).find("input").val() * 1 + $(obj).parent().parent().prev().find("td").eq(4).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().prev().find("td").eq(5).text(($(obj).parent().parent().find("td").eq(5).find("input").val() * 1 + $(obj).parent().parent().prev().find("td").eq(5).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().prev().find("td").eq(3).text(($(obj).parent().prev().prev().prev().text() * 1 + $(obj).parent().parent().prev().find("td").eq(3).text() * 1).toFixed(2));
+				data_inputds.data[tr_name].tr[td_name].value = $(obj).parent().parent().prev().prev().find("td").eq(6).text();
+				data_inputds.data[tr_name1].tr[td_name1].value = $(obj).parent().parent().prev().prev().find("td").eq(4).text();
+				data_inputds.data[tr_name2].tr[td_name2].value = $(obj).parent().parent().prev().prev().find("td").eq(5).text();
+				data_inputds.data[tr_name3].tr[td_name3].value = $(obj).parent().parent().prev().prev().find("td").eq(7).text();
+				data_inputds.data[Number(tr1_name) - 1].tr[td1_name].value = $(obj).parent().parent().prev().prev().find("td").eq(3).text();
+			} //6
+			if($(obj).parent().prev().prev().prev().prev().prev().text().trim() == "门或数码销售成本") {
+				var tr_name = $(obj).parent().parent().prev().find("td").eq(7).parent().attr("name");
+				var td_name = $(obj).parent().parent().prev().find("td").eq(7).attr("name");
+				var tr_name1 = $(obj).parent().parent().prev().find("td").eq(4).parent().attr("name");
+				var td_name1 = $(obj).parent().parent().prev().find("td").eq(4).attr("name");
+				var tr_name2 = $(obj).parent().parent().prev().find("td").eq(5).parent().attr("name");
+				var td_name2 = $(obj).parent().parent().prev().find("td").eq(5).attr("name");
+				var tr_name3 = $(obj).parent().parent().prev().find("td").eq(6).parent().attr("name");
+				var td_name3 = $(obj).parent().parent().prev().find("td").eq(6).attr("name");
+				var td1_name = $(obj).parent().parent().prev().find("td").eq(3).attr("name");
+				var tr1_name = $(obj).parent().parent().prev().find("td").eq(3).parent().attr("name");
+				$(obj).parent().parent().prev().find("td").eq(7).text(($(obj).val() * 1 + $(obj).parent().parent().next().find("td").eq(7).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().find("td").eq(4).text(($(obj).parent().parent().find("td").eq(4).find("input").val() * 1 + $(obj).parent().parent().next().find("td").eq(4).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().find("td").eq(5).text(($(obj).parent().parent().find("td").eq(5).find("input").val() * 1 + $(obj).parent().parent().next().find("td").eq(5).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().find("td").eq(6).text(($(obj).parent().parent().find("td").eq(6).find("input").val() * 1 + $(obj).parent().parent().next().find("td").eq(6).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().find("td").eq(3).text(($(obj).parent().prev().prev().prev().prev().text() * 1 + $(obj).parent().parent().next().find("td").eq(3).text() * 1).toFixed(2));
+				data_inputds.data[tr_name].tr[td_name].value = $(obj).parent().parent().prev().find("td").eq(7).text();
+				data_inputds.data[tr_name1].tr[td_name1].value = $(obj).parent().parent().prev().find("td").eq(4).text();
+				data_inputds.data[tr_name2].tr[td_name2].value = $(obj).parent().parent().prev().find("td").eq(5).text();
+				data_inputds.data[tr_name3].tr[td_name3].value = $(obj).parent().parent().prev().find("td").eq(6).text();
+				data_inputds.data[tr1_name].tr[td1_name].value = $(obj).parent().parent().prev().find("td").eq(3).text();
+			} //7
+			if($(obj).parent().prev().prev().prev().prev().prev().text().trim() == "门配销售成本") {
+				var tr_name = $(obj).parent().parent().prev().prev().find("td").eq(7).parent().attr("name");
+				var td_name = $(obj).parent().parent().prev().prev().find("td").eq(7).attr("name");
+				var tr_name1 = $(obj).parent().parent().prev().prev().find("td").eq(4).parent().attr("name");
+				var td_name1 = $(obj).parent().parent().prev().prev().find("td").eq(4).attr("name");
+				var tr_name2 = $(obj).parent().parent().prev().prev().find("td").eq(5).parent().attr("name");
+				var td_name2 = $(obj).parent().parent().prev().prev().find("td").eq(5).attr("name");
+				var tr_name3 = $(obj).parent().parent().prev().prev().find("td").eq(6).parent().attr("name");
+				var td_name3 = $(obj).parent().parent().prev().prev().find("td").eq(6).attr("name");
+				var td1_name = $(obj).parent().parent().prev().find("td").eq(3).attr("name");
+				var tr1_name = $(obj).parent().parent().prev().find("td").eq(3).parent().attr("name");
+				$(obj).parent().parent().prev().prev().find("td").eq(7).text(($(obj).val() * 1 + $(obj).parent().parent().prev().find("td").eq(7).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().prev().find("td").eq(4).text(($(obj).parent().parent().find("td").eq(4).find("input").val() * 1 + $(obj).parent().parent().prev().find("td").eq(4).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().prev().find("td").eq(5).text(($(obj).parent().parent().find("td").eq(5).find("input").val() * 1 + $(obj).parent().parent().prev().find("td").eq(5).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().prev().find("td").eq(6).text(($(obj).parent().parent().find("td").eq(6).find("input").val() * 1 + $(obj).parent().parent().prev().find("td").eq(6).find("input").val() * 1).toFixed(2));
+				$(obj).parent().parent().prev().prev().find("td").eq(3).text(($(obj).parent().prev().prev().prev().prev().text() * 1 + $(obj).parent().parent().prev().find("td").eq(3).text() * 1).toFixed(2));
+				data_inputds.data[tr_name].tr[td_name].value = $(obj).parent().parent().prev().prev().find("td").eq(7).text();
+				data_inputds.data[tr_name1].tr[td_name1].value = $(obj).parent().parent().prev().prev().find("td").eq(4).text();
+				data_inputds.data[tr_name2].tr[td_name2].value = $(obj).parent().parent().prev().prev().find("td").eq(5).text();
+				data_inputds.data[tr_name3].tr[td_name3].value = $(obj).parent().parent().prev().prev().find("td").eq(6).text();
+				data_inputds.data[Number(tr1_name) - 1].tr[td1_name].value = $(obj).parent().parent().prev().prev().find("td").eq(3).text();
+			} //8
+		}, 1000)
+	}
+	//保存数据
+	function post_inputds() {
+		$.ajax({
+			type: "post",
+			url: URL + "XSRBLR/submit/version/a20170208/token/" + token,
+			async: true,
+			dataType: 'json',
+			data: JSON.stringify(data_inputds),
+			success: function(data) {
+				alertMsg.correct(data.resultmsg);
+				navTab._reload(navTab._getTab("w_table6"), true);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn(errorThrown);
+			}
+		});
+	}
+	//明细的弹框显示
+	function showdetail(obj) {
+		//remark
+		// var title;
+		title = obj.text().replace(/\s+/, '');
+
+		var title_falg = false;
+		var title_arr = ["新增", "车辆费用", "资金调经营部", "减少预收款"];
+		var title2_arr = ["收回欠款", "经营费用", "资金调成总", "增加预收款"];
+		for(var i = 0; i < title_arr.length; i++) {
+			if(title == title_arr[i]) {
+				title_falg = true;
+				for(var findi = 0; findi < data_inputds.data.length; findi++) {
+					for(var findj = 0; findj < data_inputds.data[findi].tr.length; findj++) {
+						if(data_inputds.data[findi].tr[findj].value == title2_arr[i]) {
+							detaili = findi;
+							detailj = findj;
+						}
+					}
+				}
+			}
+		}
+		if(!title_falg) {
+			detaili = obj.parent().attr("name");
+			detailj = obj.attr("name");
+		}
+
+		if(title == "车辆费用" || title == "经营费用")
+			$.pdialog.open('public/dailyInput/dailySale/other_income.html', "pd`ialogid", title + "明细", {
+				maxable: false,
+				minable: false,
+				resizable: true,
+				mask: true,
+				width: 700,
+				height: 505
+			});
+		else if(title == "增加预收款" || title == "减少预收款")
+			$.pdialog.open('public/dailyInput/dailySale/other_income.html', "pdialogid", title + "明细", {
+				maxable: false,
+				minable: false,
+				resizable: true,
+				mask: true,
+				width: 560,
+				height: 405
+			});
+		else
+			$.pdialog.open('public/dailyInput/dailySale/other_income.html', "pdialogid", title + "明细", {
+				maxable: false,
+				minable: false,
+				resizable: true,
+				mask: true,
+				width: 539,
+				height: 205
+			});
+	}
+	//右上角tab页切换
+	function set_visable(exp) {
+		for(var seti = 1; seti < data_inputds.data.length;) {
+			if(data_inputds.data[seti].tr[0].value == "商品业务") {
+				var time = parseInt(data_inputds.data[seti].tr[0].rowspan);
+				for(time; time > 0; time--) {
+					if(exp > 0)
+						$('#rendrTable_inputds tbody tr[name=\"' + seti + '\"]').removeClass("setvis");
+					else
+						$('#rendrTable_inputds tbody tr[name=\"' + seti + '\"]').addClass("setvis");
+					seti = seti + 1;
+				}
+
+			} else {
+				if(exp > 0)
+					$('#rendrTable_inputds tbody tr[name=\"' + seti + '\"]').addClass("setvis");
+				else
+					$('#rendrTable_inputds tbody tr[name=\"' + seti + '\"]').removeClass("setvis");
+				seti = seti + 1;
+			}
+		}
+	}
+	//右上角现金业务
+	$("#cash").click(function() {
+		$(this).removeClass("tasknot");
+		$(this).addClass("taskselected");
+		$("#goods").addClass("tasknot");
+		$("#goods").removeClass("taskselected");
+		set_visable(-1);
+	});
+
+	//右上角商品业务
+	$("#goods").click(function() {
+		$(this).removeClass("tasknot");
+		$(this).addClass("taskselected");
+		$("#cash").addClass("tasknot")
+		$("#cash").removeClass("taskselected");
+		set_visable(1);
+	});
+
+	$(".justfloat").each(function() {
+		$(this).keyup(function() {
+			fdmKeyup($(this));
+		}); //keyup
+	});
+
+	function refresh_sun_div(url, data, callback) {
+		$("#rendrTable_inputds").loadUrl(url, data, callback);
+	}
+	$("#rendrTable_inputds").keydown(function() {
+		var e = arguments.callee.caller.arguments[0] || event;
+		var code = e.which || e.keyCode;
+		if(code == "13") { //enter键
+			if($(".selectedIput_XSRBLR").length > 0) {
+				flag_enter_XSRBLR = true;
+				type_XSRBLR = down_XSRBLR;
+				$(".selectedIput_XSRBLR").blur();
+			}
+		} else if(code == "40") //down键
+		{
+			if($(".selectedIput_XSRBLR").length > 0) {
+				flag_enter_XSRBLR = true;
+				type_XSRBLR = down_XSRBLR;
+				$(".selectedIput_XSRBLR").blur();
+			}
+		} else if(code == "38") //up键
+		{
+			if($(".selectedIput_XSRBLR").length > 0) {
+				flag_enter_XSRBLR = true;
+				type_XSRBLR = up_XSRBLR;
+				$(".selectedIput_XSRBLR").blur();
+			}
+		} else if(code == "39") //right键
+		{
+			if($(".selectedIput_XSRBLR").length > 0) {
+				flag_enter_XSRBLR = true;
+				type_XSRBLR = right_XSRBLR;
+				$(".selectedIput_XSRBLR").blur();
+			}
+		} else if(code == "37") //left键
+		{
+			if($(".selectedIput_XSRBLR").length > 0) {
+				flag_enter_XSRBLR = true;
+				type_XSRBLR = left_XSRBLR;
+				$(".selectedIput_XSRBLR").blur();
+			}
+		} else {
+			flag_enter_XSRBLR = false;
+		}
+	});
+</script>

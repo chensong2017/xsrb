@@ -1,0 +1,70 @@
+<?php
+require_once __DIR__ . '/Common.php';
+
+use OSS\OssClient;
+use OSS\Core\OssException;
+set_time_limit(300);
+header("Access-Control-Allow-Origin: *");
+
+uploadfile_ali_160112();
+
+
+function uploadfile_ali_160112()
+{
+	$bucket = Common::getBucketName();
+	$ossClient = Common::getOssClient();
+	if (is_null($ossClient)) exit(1);
+	$ret = array();
+	if ($_FILES["file"]["error"] > 0)
+	{
+		$ret['resultcode'] = "-1";
+		$ret['resultmsg'] = "upload file error!";
+		$ret['data']['url'] = "";
+	}
+	else
+	{
+	  echo "Upload: " . $_FILES["file"]["name"] . "<br />";
+	  echo "Type: " . $_FILES["file"]["type"] . "<br />";
+	  echo "Size: " . ($_FILES["file"]["size"] / 1024) . " Kb<br />";
+	  echo "Stored in: " . $_FILES["file"]["tmp_name"];
+	// $object = "111.png";
+	return;
+		sscanf($_FILES["file"]["name"], "%*[^.].%s", $format);
+		$object = date("YmdHis").'_'.rand(10000,99999).'.'.$format;
+	    $options = array();
+		try 
+		{
+		    $ossClient->uploadFile($bucket, $object, $_FILES["file"]["tmp_name"], $options);
+		    $ret['resultcode'] = "0";
+			$ret['resultmsg'] = "upload success!";
+			$ret['data']['url'] = Config::OSS_DOWNLOAD_DIR."/".$object;
+	    } 
+		catch (OssException $e) 
+		{
+			$ret['resultcode'] = "-1";
+			$ret['resultmsg'] = "upload file except!";
+			$ret['data']['url'] = "";
+		}
+    
+	}
+	echo json_encode($ret);
+/*
+	if(sscanf($pic, "data:%[^/]/%[^;];base64,%[^.]",$type, $format, $content) == 3)
+	{
+	//	$ossClient->putObject($bucket, "d.jpg", $ret["errormsg"]);
+		$object = date("YmdHis").'_'.rand(10000,99999).'.'.$format;
+		$data = base64_decode(str_replace(" ","+",$content));
+		$retobj = $ossClient->putObject($bucket, $object, $data);
+		$ret['resultcode'] = "0";
+		$ret['resultmsg'] = "upload success!";
+		$ret['data']['url'] = Config::OSS_DOWNLOAD_DIR."/".$object;
+	}
+	else 
+	{
+		$ret['resultcode'] = "-1";
+		$ret['resultmsg'] = "base64 data error!";
+		$ret['data']['url'] = "";
+	}
+	echo json_encode($ret);*/
+}
+?>

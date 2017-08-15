@@ -1,0 +1,312 @@
+<style type="text/css">
+	/*分页*/
+	
+	.pagination_YSKMX {
+		float: right;
+		margin-top: 0px;
+	}
+	
+	.pagination_YSKMX a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_YSKMX a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_YSKMX span.current,
+	.pagination_YSKMX span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_YSKMX span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_YSKMX span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_YSKMX .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_YSKMX.go {
+		margin-left: 2%;
+		height: 20px;
+		line-height: 20px;
+		font-size: 10px;
+		width: 35px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: none;
+		background-color: #ddd;
+	}
+	
+	.pagination_YSKMX.go:hover {
+		background-color: #cfebee;
+	}
+	/*分页结束*/
+	
+	.table_YSKMX table {
+		text-align: center;
+	}
+	
+	.th_YSKMX {
+		background: rgb(153, 204, 255);
+	}
+	
+	.pageContent_YSKMX th,
+	.pageContent_YSKMX td {
+		width: auto !important;
+		border: 1px solid darkgray;
+		text-align: center;
+	}
+	
+	.pageContent_YSKMX table tbody tr:nth-child(1) {
+		background: none;
+	}
+	
+	.pageContent_YSKMX table tbody tr:first-child {
+		background: none !important;
+	}
+	/*		输出按钮*/
+	
+	.headbutton_ysk {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headbutton_ysk span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton_ysk:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton_ysk:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.headbutton_ysk i {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+	}
+	
+	.nav1_ysk {
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.borde_ysk {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.date_label {
+		display: inline-block;
+		padding-left: 15px;
+	}
+</style>
+<div class="pageHeader">
+	<div class="borde_ysk"></div>
+	<a class="headbutton_ysk" href="javascript:download_yuskmx();"><span><i class="nav1_ysk" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出</i></span></a>
+	<div class="borde_ysk"></div>
+	<div class="serchbox_digital_store2" style="float: left;">
+		<label class="date_label">日期</label>
+		<input id="date_YSKMX" class="date" dateFmt="yyyy-MM-dd" readonly="readonly" />
+		<button class="find_date_YSKMX"> 查询</button>
+	</div>
+
+</div>
+
+<div class="pageContent pageContent_YSKMX" layoutH="60">
+</div>
+<div class="panelBar">
+	<div class="pagination_YSKMX"></div>
+</div>
+<script type="text/x-jsrender" class="tableContent_YSKMX">
+	<table class="table table_YSKMX" width="100%" layoutH="95" border="1">
+		<thead>
+			{{for data[0]}}
+			<tr>
+				{{for tr}}
+
+				<th class="th_YSKMX" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style="vertical-align:middle;">{{:value}}</th>
+				{{/for}}
+			</tr>
+			{{/for}} {{for data[1]}}
+			<tr>
+				{{for tr}}
+
+				<th class="th_YSKMX" rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</th>
+				{{/for}}
+			</tr>
+			{{/for}}
+		</thead>
+		<tbody>
+			{{for data}} {{if #getIndex()>1}}
+			<tr class="tr_YSKMX">
+				{{for tr}} {{if type=="部门"}}
+				<td rowspan="{{:rowspan}}" colspan="{{:colspan}}" style="background-color: rgb(204,255,255)!important">{{:value}}</td>
+				{{else}}
+				<td rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{/if}} {{/for}}
+			</tr>
+			{{/if}} {{/for}}
+		</tbody>
+	</table>
+</script>
+<script type="text/javascript">
+	$(function() {
+		authorize_export(); //common.js中的显示是片区 or经营部 
+		setDateSearch("_YSKMX"); //common.js中的默认查询时间为今天
+		get_YSKMX();
+
+	})
+	//输出
+	function download_yuskmx() {
+		var url_downl = URL_Z + "YSKMX/toexcel/token/" + token;
+		var date_YSKMX = $("#date_YSKMX").val();
+		if(date_YSKMX) {
+			date_YSKMX = $("#date_YSKMX").val().replace(/\-/g, "");
+			url_downl = url_downl + "/date/" + date_YSKMX;
+		}
+		$.ajax({
+			type: "get",
+			url: url_downl,
+			async: false,
+			success: function(data) {
+				if(JSON.parse(data).excel_url) {
+					window.open(JSON.parse(data).excel_url);
+				} else if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else {
+					alertMsg.info("暂无数据可以下载！");
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("下载失败，重试或者检查网络设置！");
+			}
+		});
+	}
+	//默认获取明细表数据
+	function get_YSKMX(date_YSKMX) {
+		if(!date_YSKMX) {
+			var url_YUSKMX = URL_Z + "YSKMX/search/token/" + token;
+		} else {
+			var url_YUSKMX = URL_Z + "YSKMX/search/token/" + token + "/date/" + date_YSKMX;
+		}
+		$.ajax({
+			type: "get",
+			url: url_YUSKMX,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else if(data.total == 'null' || data.total == null || data.total == undefined) {
+					alertMsg.info("暂无数据！");
+				} else {
+					$(".pageContent_YSKMX").html("");
+					var tableContent_YSKMX = $(".tableContent_YSKMX").render(data);
+					$(".pageContent_YSKMX").append(tableContent_YSKMX);
+					navTab.getCurrentPanel().initUI();
+					navTab.getCurrentPanel().find("[layoutH]").layoutH();
+					$(".pagination_YSKMX").createPage({
+						pageCount: data.total, //总页数
+						current: data.page, //初始页号
+						backFn: function(obj) {
+							get_YSKMX_page(url_YUSKMX, obj);
+						}
+					});
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+	//分页
+	function get_YSKMX_page(url_page, page) {
+		$.ajax({
+			type: "get",
+			url: url_page + "/page/" + page,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else if(data.total == 'null' || data.total == null || data.total == undefined) {
+					alertMsg.info("暂无数据！");
+				} else {
+					$(".pageContent_YSKMX").html("");
+					var tableContent_YSKMX = $(".tableContent_YSKMX").render(data);
+					$(".pageContent_YSKMX").empty();
+					$(".pageContent_YSKMX").append(tableContent_YSKMX);
+					navTab.getCurrentPanel().initUI();
+					navTab.getCurrentPanel().find("[layoutH]").layoutH();
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+
+	//查询
+	$(".find_date_YSKMX").click(function() {
+		var date_YSKMX = $("#date_YSKMX").val().replace(/\-/g, "");
+		if(date_YSKMX == "" || date_YSKMX == null || date_YSKMX == undefined) {
+			alertMsg.warn("查询日期不能为空");
+			return;
+		}
+		get_YSKMX(date_YSKMX);
+	})

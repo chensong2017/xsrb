@@ -1,0 +1,875 @@
+<style type="text/css">
+	/*分页*/
+	
+	.pagination_fdsmkcb {
+		margin-left: 40%;
+		margin-top: 0px;
+	}
+	.addColor{
+		background-color: #CCFFFF !important;
+	}
+	.pagination_fdsmkcb a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_fdsmkcb a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_fdsmkcb span.current,
+	.pagination_fdsmkcb span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_fdsmkcb span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_fdsmkcb span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_fdsmkcb .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_fdsmkcb.go {
+		margin-left: 2%;
+		height: 20px;
+		line-height: 20px;
+		font-size: 10px;
+		width: 35px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: none;
+		background-color: #ddd;
+	}
+	
+	.pagination_fdsmkcb.go:hover {
+		background-color: #cfebee;
+	}
+	/*分页结束*/
+	
+	.pageContent_NMXCX table {
+		border: none;
+	}
+	
+	.tableLeftxmxcx th,
+	.tableLeftxmxcx td {
+		/*background-color: rgb(153, 204, 255);*/
+		text-align: center;
+		/*padding: 3px 5px;*/
+	}
+	/*保存按钮*/
+	
+	.headxbutton {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headxbutton span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headxbutton:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headxbutton:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.headxbutton i {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+	}
+	
+	.navmingnxicx {
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.bordexmxcx {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+	}
+	
+	.sdate_xlabel {
+		display: inline-block;
+		padding-left: 15px;
+	}
+	
+	.pageContent_NMXCX {
+		position: relative;
+	}
+	
+	#tbody_xmxcx td input {
+		width: 50px;
+	}
+	
+	#tbody_xmxcx tr td span {
+		line-height: 100%;
+		padding: 2px;
+	}
+	
+	#tbody_xmxcx td {
+		border-right: 1px solid #C0C0C0;
+		border-bottom: 1px solid #C0C0C0;
+		border-right: 1px solid #c0c0c0 !important;
+		border-bottom: 1px solid #c0c0c0;
+	}
+	
+	#tbody_xmxcx tr:nth-child(1) td span {
+		height: 100%px;
+	}
+	
+	#tbody_xmxcx tr td:nth-child(1) span,
+	#tbody_xmxcx tr td:nth-child(2) span {
+		width: 120px;
+		display: inline-block;
+		line-height: 24px;
+	}
+	
+	#tableLeftxmxcx_xmingxiCX {
+		margin: 0px;
+	}
+	
+	#mcxtile {
+		float: left;
+		z-index: 9999;
+		position: absolute;
+		height: auto;
+		left: 0px;
+		width: 200px;
+	}
+	/*.mingxicx_input {
+		background: none;
+		border: none;
+		text-align: center;
+	}*/
+	
+	#thead_xmxcx td {
+		border-right: 1px solid #C0C0C0;
+		border-bottom: 1px solid #C0C0C0;
+		background-color: rgb(153, 204, 255);
+	}
+	
+	#mingxic_yxbt,
+	#mingxic_wxbt {
+		float: right;
+		width: 90px;
+		line-height: 22px;
+		height: 26px;
+		text-align: center;
+		cursor: pointer;
+		border-bottom-left-radius: 22px;
+		border-top-right-radius: 22px;
+		font-size: 12px;
+		background-color: #FFFFFF;
+	}
+	
+	.mxcx_xth {
+		font-weight: bold;
+	}
+	
+	#pageContainer_NMXCX1 {
+		margin-left: -33px;
+	}
+	
+	#tableLeftxmxcx_xmingxiCX thead tr td:nth-child(1),
+	#tableLeftxmxcx_xmingxiCX thead tr td:nth-child(2) {
+		width: 105px;
+	}
+	
+	.pageContent_NMXCX {
+		width: 100%;
+		position: relative !important;
+	}
+	
+	#tableLeftxmxcx_NMXCX1,
+	#tableLeftxmxcx_xmingxiCX {
+		/*width: 400px;*/
+	}
+	
+	#thead_xmxcx tr td span {
+		padding: 2px;
+	}
+	
+	#tbody_xmxcx {
+		position: absolute;
+		left: 1px;
+		top: 91px;
+		/*width: 400px;*/
+		z-index: 2;
+	}
+	
+	#thead_xmxcx {
+		position: absolute;
+		left: 0px;
+		top: 0;
+		width: 400px;
+		z-index: 999;
+		border-left: 1px solid #C0C0C0;
+		border-right: 1px solid #C0C0C0;
+	}
+	
+	#thead_xmxcx tr:nth-child(1) td span {
+		line-height: 27px;
+		height: 27px;
+	}
+	/*1行高*/
+	/*3*/
+	
+	#thead_xmxcx tr td:nth-child(3) select {
+		margin-left: -2px;
+	}
+	
+	#thead_xmxcx tr td:nth-child(4) select,
+	#thead_xmxcx tr td:nth-child(5) select {
+		margin-left: 48px;
+	}
+	
+	#thead_xmxcx tr td:nth-child(6) select {
+		margin-left: 30px;
+	}
+	
+	#thead_xmxcx tr td:nth-child(7) select,
+	#thead_xmxcx tr td:nth-child(8) select,
+	#thead_xmxcx tr td:nth-child(9) select,
+	#thead_xmxcx tr td:nth-child(10) select,
+	#thead_xmxcx tr td:nth-child(11) select {
+		margin-left: 20px;
+	}
+	
+	#tbody_xmxcx tr td:nth-child(3) span {
+		width: 120px;
+		display: inline-block;
+	}
+	
+	#thead_xmxcx tr:nth-child(2) td:nth-child(3) span {
+		width: 120px;
+		display: inline-block;
+	}
+	
+	#tbody_xmxcx tr td:nth-child(4) span {
+		width: 120px;
+		display: inline-block;
+	}
+	
+	#thead_xmxcx tr:nth-child(2) td:nth-child(4) span {
+		width: 120px;
+		display: inline-block;
+	}
+	
+	#tbody_xmxcx tr td:nth-child(5) span {
+		width: 120px;
+		display: inline-block;
+	}
+	
+	#thead_xmxcx tr:nth-child(2) td:nth-child(5) span {
+		width: 120px;
+		display: inline-block;
+	}
+	
+	#tbody_xmxcx tr td:nth-child(6) span,
+	#tbody_xmxcx tr td:nth-child(7) span,
+	#tbody_xmxcx tr td:nth-child(8) span,
+	#tbody_xmxcx tr td:nth-child(9) span,
+	#tbody_xmxcx tr td:nth-child(10) span,
+	#tbody_xmxcx tr td:nth-child(11) span,
+	#tbody_xmxcx tr td:nth-child(12) span,
+	#tbody_xmxcx tr td:nth-child(13) span,
+	#tbody_xmxcx tr td:nth-child(14) span {
+		width: 120px;
+		display: inline-block;
+	}
+	/*14以后*/
+	
+	#tbody_xmxcx tr td span {
+		width: 120px;
+		display: inline-block;
+	}
+	
+	#thead_xmxcx tr td span {
+		display: inline-block !important;
+		;
+		width: 120px;
+	}
+	
+	.kcbsel_xtr td,
+	.kcbsel_xtr1 td {
+		position: relative;
+	}
+	
+	.kcbsel_xtr select,
+	.kcbsel_xtr1 select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 0;
+		padding: 2px 39px;
+		border-radius: 3px;
+		background: url(img/select.png) no-repeat 98% 5px;
+		cursor: pointer;
+		position: absolute;
+		border: none;
+		top: 7px;
+		right: 18px
+	}
+	
+	.reset_xkcb {
+		float: right;
+		cursor: pointer;
+		border: 2px solid #99ccff;
+		border-radius: 3px;
+		background-color: transparent;
+		color: #555;
+		margin-right: 10px;
+	}
+	
+	#mengce_xkcb {
+		z-index: 999999999;
+		position: absolute;
+		top: 40%;
+		left: 45%;
+		background: url(public/initialStage/images/loading.gif) no-repeat;
+		width: 100px;
+		height: 50px;
+		display: none;
+	}
+	
+	.countkcb_xsel {
+		display: none;
+	}
+	
+	.mxcxadd_xtd {}
+</style>
+</head>
+
+<body>
+	<div class="pageHeader" style="overflow: hidden;">
+
+		<div class="bordexmxcx"></div>
+		<div class="borde_x"></div>
+		<a class="headxbutton" href="javascript:mingxi_xshuchu();"><span><i class="navmingnxicx" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出</i></span></a>
+		<div class="borde_x"></div>
+
+		<button id="mingxic_wxbt" onclick="mingxicx_xwxsj()">无效数据</button>
+		<button id="mingxic_yxbt" onclick="mingxicx_xyxsj()">有效数据</button>
+		<div class="bordexmxcx" style="margin-left:50px ;"></div>
+
+		<label class="edate_xlabel">选择日期:</label>
+		<input id="mxendxdate" class="date" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" readonly="readonly" />
+		<button id="search_date_xmxcx" style="cursor: pointer;"> 查询</button>
+		<button class="reset_xkcb" onclick="resetChoose_xkcb()">重置筛选</button>
+	</div>
+
+	<div class="pageContent_NMXCX" layoutH="60">
+		<div id="mcxtile"></div>
+		<div id="pageContainer_NMXCX1"></div>
+	</div>
+	<div class="panelBar">
+		<div class="pagination_fdsmkcb"></div>
+	</div>
+	<script type="text/x-jsrender" id="mingxicx_xrender1">
+
+	</script>
+	<script type="text/x-jsrender" id="mingxicx_xrender1_tbody">
+		<tr>
+			{{for tr}} {{if (#getIndex()
+			<2)}} {{if dataType==0}} <td class="mxcxadd_xtd" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color: rgb(204,255,255);">{{:value}}</td>
+				{{else}}
+				<td onclick="pdxclick(this);" onblur="pdxblur(this);" name="{{:#getIndex()}}" class="mxcxadd_xtd" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color:#CCFFFF;">{{:value}}
+				</td>
+				{{/if}} {{/if}} {{/for}}
+		</tr>
+	</script>
+
+	<script type="text/x-jsrender" id="mingxicx_xrender">
+		<div id="containerLeft_xmingxiCX">
+			<table id="tableLeftxmxcx_xmingxiCX" class="tableLeftxmxcx" width="100%">
+				<thead id="thead_xmxcx">
+					<tr>
+						{{for data[0].tr}}
+						<td class="mxcx_xth" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/for}}
+					</tr>
+					<tr class="kcbsel_xtr">
+						{{for data[1].tr}} {{if dataType==-1}}
+						<td class="mxcx_xth mingxixhide" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{else}}
+						<td class="mxcx_xth" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/if}} {{/for}}
+					</tr>
+					<tr>
+						{{for data[2].tr}} {{if dataType==-1}}
+						<td class="mxcx_xth mingxixhide" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{else}}
+						<td class="mxcx_xth" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/if}} {{/for}}
+					</tr>
+					<tr style="height:25px;" class="countkcb_xsel1">
+						{{for data[3].tr}} {{if dataType==-1}}
+						<td class="mxcx_xth mingxixhide" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{else}}
+						<td class="mxcx_xth" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/if}} {{/for}}
+					</tr>
+				</thead>
+				<tbody id="tbody_xmxcx">
+
+				</tbody>
+			</table>
+		</div>
+	</script>
+	<script type="text/x-jsrender" id="mingxicx_xrender_tbody">
+		<tr>
+			{{for tr}} {{if dataType==0}}
+			<td class="mxcxadd_xtd" colspan="{{:colspan}}" rowspan="{{:rowspan}}" ><span>{{:value}}</span></td>
+			{{else}}
+			<td class="mingxixhide" name="{{:#getIndex()}}" class="mxcxadd_xtd" colspan="{{:colspan}}" rowspan="{{:rowspan}}"><span>{{:value}}</span>
+			</td>
+			{{/if}} {{/for}}
+		</tr>
+	</script>
+</body>
+<div id="mengce_xkcb"></div>
+<script src="js/publicjs/common.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$(".mxcxadd_xtd").click(function(){
+		alert("666");
+	});
+		/*
+		 * xfdmspkcb_flag=true则为无效，反之。  
+		 * 
+		 * 1、当为无效时，直发销售支出和库房销售支出前端隐藏
+		 * */
+		var edate1 = $("#mxendxdate").val(getToday2());
+		if(xfdmspkcb_flag) {
+			cx = "SPZMX/search/type/0/date/" + getToday2();
+			$("#mingxic_wxbt").css({ "border": "2px solid #add2db" });
+			$("#mingxic_yxbt").css({ "border": "1px solid #b8d0d6", "background-color": "#ecf0f6", "color": "#888" });
+		} else {
+			cx = "SPZMX/search/type/1/date/" + getToday2();
+			$("#mingxic_yxbt").css({ "border": "2px solid #add2db" });
+			$("#mingxic_wxbt").css({ "border": "1px solid #b8d0d6", "background-color": "#ecf0f6", "color": "#888" });
+		}
+		$("#mxendxdate").val()
+		get_init_xmingxicx();
+
+		$("#search_date_xmxcx").click(function() {
+			if(xfdmspkcb_flag) {
+				cx = "SPZMX/search/type/0" + "/date/" + $("#mxendxdate").val();
+			} else {
+				cx = "SPZMX/search/type/1" + "/date/" + $("#mxendxdate").val();
+			}
+			get_init_xmingxicx();
+		})
+	});
+	
+	
+	
+	setTimeout(
+		function() {
+
+			$("div").scroll(function(e) {
+				$("#mcxtile").css("left", $(this).scrollLeft());
+				// if($(this).scrollTop()==4){
+
+				// }
+
+			})
+		}, 500
+	)
+	//在data.data.length大于500时调用
+	//	function loadxmore(){
+	//		var html1 = $('#mingxicx_xrender1_tbody').render(FDSMSPKCB_data.data.slice(1));
+	//		$('#tableLeftxmxcx_NMXCX1 tbody').append(html1);
+	//		var html = $('#mingxicx_xrender_tbody').render(FDSMSPKCB_data.data.slice(1));
+	//		$('#tableLeftxmxcx_xmingxiCX tbody').append(html);
+	//		if(!xfdmspkcb_flag) {}
+	//		if(xfdmspkcb_flag) {
+	//			$(".mingxixhide").css("display", "none");
+	//			$("#thead_xmxcx tr td").eq(3).attr("colspan", "12");
+	//		}
+	//
+	//	}
+	function pdxclick(obj) {
+		$(obj).parent().css("bordexmxcxr", "2px solid #000");
+	}
+
+	function pdxblur(obj) {
+		$(obj).parent().css("bordexmxcxr", "1px solid #c0c0c0");
+	}
+
+	function get_init_xmingxicx() {
+		var url = URL + cx + "/token/" + token,
+			url = url.replace('home', 'NewSPZ');
+		$.ajax({
+			type: "get",
+			// url: URL + cx + "/token/" + token,
+			url: url,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+					if(data.resultcode == -1) {
+						alertMsg.warn(data.resultmsg);
+
+						return;
+					} else if(data.resultcode == 0) {
+						FDSMSPKCB_data = data;
+						$("#mxendxdate").val(FDSMSPKCB_data.date);
+						var tableContent_MXCX = $("#mingxicx_xrender").render(data);
+						var tableContent_MXCX1 = $("#mingxicx_xrender1").render(data);
+						$("#pageContainer_NMXCX1").html("").append(tableContent_MXCX).css("margin-left", "-33px");
+						$("#mcxtile").html("").append(tableContent_MXCX1);
+						//如果大于500，则从第四条开始渲染
+						if(data.data.length > 500) {
+							initTbody_xkcb(data.data.slice(4, 500));
+							//							loadxmore();
+						} else {
+							initTbody_xkcb(data.data.slice(4));
+						}
+
+						set_xhead(data.data);
+						//分页
+						$(".pagination_fdsmkcb").createPage({
+							pageCount: data.cntperpage, //总页数
+							current: data.page, //初始页号
+							backFn: function(obj) {
+								get_fdmkcb_xpage(url, obj); //修改
+							}
+						});
+					} else {}
+				}
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.error("加载失败，刷新或者检查网络设置！");
+			}
+		});
+		
+		//td
+	
+	}
+
+	function initTbody_xkcb(data) {
+		var html1 = $('#mingxicx_xrender1_tbody').render(data);
+		$('#tableLeftxmxcx_NMXCX1 tbody').html(html1);
+		var html = $('#mingxicx_xrender_tbody').render(data);
+		$('#tableLeftxmxcx_xmingxiCX tbody').html(html);
+		countkcb_xselect();
+		if(!xfdmspkcb_flag) {}
+		//		1、当为无效时，直发销售支出和库房销售支出前端隐藏
+		if(xfdmspkcb_flag) {
+			$(".mingxixhide").css("display", "none");
+			$("#thead_xmxcx tr td").eq(3).attr("colspan", "12");
+		}
+
+		setTimeout(function() {
+			$("#mengce_xkcb").css("display", "none");
+			$(".pageContent_NMXCX").css("opacity", "1");
+		}, 500);
+	$("#tableLeftxmxcx_xmingxiCX tbody tr td").click(function(){
+		$(this).parent("tr").addClass("addColor");
+		$(this).parent("tr").siblings(".addColor").removeClass("addColor");
+	});
+	
+	}
+	//分页
+	function get_fdmkcb_xpage(url_page, page) {
+		$.ajax({
+			type: "get",
+			url: url_page + "/page/" + page,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+					if(data.resultcode == -1) {
+						alertMsg.warn(data.resultmsg);
+
+						return;
+					}
+				}
+				FDSMSPKCB_data = data;
+				$("#mxendxdate").val(FDSMSPKCB_data.date);
+				var tableContent_MXCX = $("#mingxicx_xrender").render(data);
+				var tableContent_MXCX1 = $("#mingxicx_xrender1").render(data);
+				$("#pageContainer_NMXCX1").html("").append(tableContent_MXCX).css("margin-left", "-33px");
+				$("#mcxtile").html("").append(tableContent_MXCX1);
+				if(data.data.length > 500) {
+					initTbody_xkcb(data.data.slice(4, 500));
+					//					loadxmore();
+				} else {
+					initTbody_xkcb(data.data.slice(4));
+				}
+				set_xhead(data.data);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.error("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+
+	//给head设置下拉选项
+	function set_xhead(data) {
+
+		$($('.kcbsel_xtr td')[0]).append('<select class="selx_0" onchange="changeData_xkcb(\'jiancehng\',0)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[1]).append('<select class="selx_1" onchange="changeData_xkcb(\'bumen\',1)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[2]).append('<select class="selx_2" onchange="changeData_xkcb(\'leibie\',2)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[3]).append('<select class="selx_3" onchange="changeData_xkcb(\'dangci\',3)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[4]).append('<select class="selx_4" onchange="changeData_xkcb(\'menkuang\',4)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[5]).append('<select class="selx_5" onchange="changeData_xkcb(\'biaomianyq\',5)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[6]).append('<select class="selx_6" onchange="changeData_xkcb(\'houdu\',6)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[7]).append('<select class="selx_7" onchange="changeData_xkcb(\'qianban\',7)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[8]).append('<select class="selx_8" onchange="changeData_xkcb(\'houban\',8)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[9]).append('<select class="selx_9" onchange="changeData_xkcb(\'cailiao\',9)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[10]).append('<select class="selx_10" onchange="changeData_xkcb(\'menshan \',10)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[11]).append('<select class="selx_11" onchange="changeData_xkcb(\'guige  \',11)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[12]).append('<select class="selx_12" onchange="changeData_xkcb(\'kaixiang \',12)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[13]).append('<select class="selx_13" onchange="changeData_xkcb(\'jiaolain\',13)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[14]).append('<select class="selx_14" onchange="changeData_xkcb(\'huase\',14)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[15]).append('<select class="selx_15" onchange="changeData_xkcb(\'biaomianfangshi\',15)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[16]).append('<select class="selx_16" onchange="changeData_xkcb(\'yaoqiu\',16)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[17]).append('<select class="selx_17" onchange="changeData_xkcb(\'maoyan\',17)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[18]).append('<select class="selx_18" onchange="changeData_xkcb(\'biaopai\',18)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[19]).append('<select class="selx_19" onchange="changeData_xkcb(\'zhusuo\',19)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[20]).append('<select class="selx_20" onchange="changeData_xkcb(\'fusuo\',20)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[21]).append('<select class="selx_21" onchange="changeData_xkcb(\'suoba\',21)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[22]).append('<select class="selx_22" onchange="changeData_xkcb(\'biaojian\',22)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[23]).append('<select class="selx_23" onchange="changeData_xkcb(\'pinpai\',23)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[24]).append('<select class="selx_24" onchange="changeData_xkcb(\'baozhuangfangshi\',24)"><option value="">全部</option></select>');
+		$($('.kcbsel_xtr td')[25]).append('<select class="selx_25" onchange="changeData_xkcb(\'qita\',25)"><option value="">全部</option></select>');
+		getThead_xkcb(data);
+	}
+
+	//head下拉选项的一系列方法
+	var filObj_xkcb = {};
+	var countkcb_28, countkcb_30, countkcb_32, countkcb_34, countkcb_36, countkcb_38, countkcb_40, countkcb_42, countkcb_44, countkcb_46, countkcb_48, countkcb_50, countkcb_52, countkcb_54;
+
+	function changeData_xkcb(sel, _index) {
+		$("#mengce_xkcb").css("display", "block");
+		$(".pageContent_NMXCX").css("opacity", "0.5");
+		//清空数据，重新赋值
+		countkcb_28 = 0;
+		countkcb_30 = 0;
+		countkcb_32 = 0;
+		countkcb_34 = 0;
+		countkcb_36 = 0;
+		countkcb_38 = 0;
+		countkcb_40 = 0;
+		countkcb_42 = 0;
+		countkcb_44 = 0;
+		countkcb_46 = 0;
+		countkcb_48 = 0;
+		countkcb_50 = 0;
+		countkcb_52 = 0;
+		countkcb_54 = 0;
+
+		var data = FDSMSPKCB_data.data.slice(4);
+		filObj_xkcb[_index] = $('.selx_' + _index).val();
+		for(var i in filObj_xkcb) {
+			data = filter_xkcb(data, filObj_xkcb[i], i);
+		}
+		console.log(data);
+		//	        	if(data.length>500){
+		//			initTbody_xkcb(data.slice(0,500));
+		//			loadxmore();
+		//		}else{
+		initTbody_xkcb(data);
+		//		}
+
+		if($('#tbody_xmxcx tr:visible').length == FDSMSPKCB_data.data.length - 4) {
+			$("#tbody_xmxcx").css("top", "91px");
+			$("#thead_xmxcx").find("tr").eq(4).hide();
+
+		} else {
+			$("#thead_xmxcx").find("tr").eq(4).show();
+
+			$("#tbody_xmxcx").css("top", "91px");
+
+		}
+		setcountkcb_xselect();
+	}
+	//表头第四行赋值
+	function setcountkcb_xselect() {
+
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(28).find("span").text(countkcb_28);
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(30).find("span").text(countkcb_30);
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(32).find("span").text(countkcb_32);
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(34).find("span").text(countkcb_34);
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(36).find("span").text(countkcb_36);
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(38).find("span").text(countkcb_38);
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(40).find("span").text(countkcb_40);
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(42).find("span").text(countkcb_42);
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(44).find("span").text(countkcb_44);
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(46).find("span").text(countkcb_46);
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(48).find("span").text(countkcb_48);
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(50).find("span").text(countkcb_50)
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(52).find("span").text(countkcb_52);
+		$("#thead_xmxcx").find("tr").eq(4).find("td").eq(54).find("span").text(countkcb_54);
+
+	}
+
+	function filter_xkcb(arr, str, index) {
+		if(str == '') {
+			return arr;
+		}
+		return $.map(arr, function(value) {
+			return value.tr[index].value == str ? value : null;
+		});
+	}
+
+	function getThead_xkcb(arr) {
+		arr = arr.slice(4);
+		var my_arr = [];
+		for(var i = 0, len1 = arr.length; i < len1; i++) {
+			for(var j = 0, len2 = 26; j < len2; j++) {
+				if(my_arr[j] == undefined || my_arr[j] == '') {
+					my_arr[j] = [];
+				}
+				if(my_arr[j].indexOf(arr[i].tr[j].value) == -1 && arr[i].tr[j].value != "") {
+					my_arr[j].push(arr[i].tr[j].value);
+				}
+			}
+		}
+		for(var a = 0; a < my_arr.length; a++) {
+			for(var b = 0; b < my_arr[a].length; b++) {
+				$('.selx_' + a).append('<option style="background-color:#fff;">' + my_arr[a][b] + '</option>');
+			}
+		}
+	}
+	//最多显示两位小数
+	function countkcb_xselect() {
+		for(i = 0; i < $('#tbody_xmxcx tr:visible').length; i++) {
+			countkcb_28 = (parseFloat(countkcb_28) + parseFloat($($('#tbody_xmxcx tr:visible')[i]).find("td").eq(28).find("span").text())).toFixed(2);
+			countkcb_32 = (parseFloat(countkcb_32) + parseFloat($($('#tbody_xmxcx tr:visible')[i]).find("td").eq(32).find("span").text())).toFixed(2);
+			countkcb_34 = (parseFloat(countkcb_34) + parseFloat($($('#tbody_xmxcx tr:visible')[i]).find("td").eq(34).find("span").text())).toFixed(2);
+			countkcb_36 = (parseFloat(countkcb_36) + parseFloat($($('#tbody_xmxcx tr:visible')[i]).find("td").eq(36).find("span").text())).toFixed(2);
+			countkcb_38 = (parseFloat(countkcb_38) + parseFloat($($('#tbody_xmxcx tr:visible')[i]).find("td").eq(38).find("span").text())).toFixed(2);
+			countkcb_40 = (parseFloat(countkcb_40) + parseFloat($($('#tbody_xmxcx tr:visible')[i]).find("td").eq(40).find("span").text())).toFixed(2);
+			countkcb_42 = (parseFloat(countkcb_42) + parseFloat($($('#tbody_xmxcx tr:visible')[i]).find("td").eq(42).find("span").text())).toFixed(2);
+			countkcb_44 = (parseFloat(countkcb_44) + parseFloat($($('#tbody_xmxcx tr:visible')[i]).find("td").eq(44).find("span").text())).toFixed(2);
+			countkcb_46 = (parseFloat(countkcb_46) + parseFloat($($('#tbody_xmxcx tr:visible')[i]).find("td").eq(46).find("span").text())).toFixed(2);
+			countkcb_48 = (parseFloat(countkcb_48) + parseFloat($($('#tbody_xmxcx tr:visible')[i]).find("td").eq(48).find("span").text())).toFixed(2);
+			countkcb_50 = (parseFloat(countkcb_50) + parseFloat($($('#tbody_xmxcx tr:visible')[i]).find("td").eq(50).find("span").text())).toFixed(2);
+			countkcb_52 = (parseFloat(countkcb_52) + parseFloat($($('#tbody_xmxcx tr:visible')[i]).find("td").eq(52).find("span").text())).toFixed(2);
+			countkcb_54 = (parseFloat(countkcb_54) + parseFloat($($('#tbody_xmxcx tr:visible')[i]).find("td").eq(54).find("span").text())).toFixed(2);
+
+		}
+
+	}
+	//重置筛选
+	function resetChoose_xkcb() {
+		$("#mengce_xkcb").css("display", "block");
+		$(".pageContent_NMXCX").css("opacity", "0.5");
+		for(var i = 0; i < 11; i++) {
+			$($('.mxcx_xth')[i]).find("select").val("全部").attr("selected", true);
+		}
+		filObj_xkcb = {};
+		//		if(FDSMSPKCB_data.data.length>500){
+		//			initTbody_xkcb(FDSMSPKCB_data.data.slice(4,500));
+		//			loadxmore();
+		//		}else{
+		initTbody_xkcb(FDSMSPKCB_data.data.slice(4));
+		//		}
+		$("#tbody_xmxcx").css("top", "91px");
+		$("#thead_xmxcx").find("tr").eq(4).hide();
+
+	}
+
+	function mingxicx_xyxsj() {
+		xfdmspkcb_flag = false;
+		$("#fdmsplkcb").trigger("click");
+
+	}
+
+	function mingxicx_xwxsj() {
+		xfdmspkcb_flag = true;
+		$("#fdmsplkcb").trigger("click");
+
+	}
+
+	function mingxi_xshuchu() {
+		if(xfdmspkcb_flag) {
+			mingxishuchu_url = fdmUrl + "SPZMX/toexcel/type/0/token/" + token;
+		} else {
+			mingxishuchu_url = fdmUrl + "SPZMX/toexcel/type/1/token/" + token;
+		}
+		$.ajax({
+			type: "get",
+			url: mingxishuchu_url,
+			async: true,
+			dateType: 'json',
+			success: function(data) {
+
+				if(data.resultcode == -1) {
+					alertMsg.warn(data.resultmsg);
+
+					return;
+				}
+				if(data.resultcode == -2) {
+					alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				window.open(JSON.parse(data).excel_url);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.error(errorThrown);
+			}
+		});
+	}
+
+	$('.pageContent_NMXCX').scroll(function(top) {
+		$('thead').css('top', $(this).scrollTop() + 'px');
+	});
+</script>
+
+</html>

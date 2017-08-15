@@ -1,0 +1,316 @@
+<style type="text/css">
+	/*分页*/
+	
+	.pagination_QCCXTJ {
+		margin-left: 40%;
+		margin-top: 0px;
+	}
+	
+	.pagination_QCCXTJ a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_QCCXTJ a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_QCCXTJ span.current,
+	.pagination_QCCXTJ span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_QCCXTJ span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_QCCXTJ span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_QCCXTJ .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_QCCXTJ.go {
+		margin-left: 2%;
+		height: 20px;
+		line-height: 20px;
+		font-size: 10px;
+		width: 35px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: none;
+		background-color: #ddd;
+	}
+	
+	.pagination_QCCXTJ.go:hover {
+		background-color: #cfebee;
+	}
+	/*分页结束*/
+	
+	.pagination_QCCXTJ table {
+		text-align: center;
+	}
+	
+	.pagination_QCCXTJ thead {
+		background: rgb(153, 204, 255);
+	}
+	
+	.pagination_QCCXTJ thead tr th {
+		width: auto !important;
+	}
+	
+	.pagination_QCCXTJ tbody {
+		/*background: rgb(204,255,255);*/
+	}
+	
+	.pagination_QCCXTJ tbody td {
+		border: 1px solid darkgrey;
+		width: auto !important;
+	}
+	/*		输出按钮*/
+	
+	.headbutton {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headbutton span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.headbutton i {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+	}
+	
+	.nav1 {
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.borde {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.date_label {
+		display: inline-block;
+	}
+	
+	.pageContent_qccxtj table {
+		text-align: center;
+	}
+	
+	.pageContent_qccxtj table thead tr th {
+		background: rgb(153, 204, 255);
+	}
+	
+	.pageContent_qccxtj th,
+	.pageContent_qccxtj td {
+		width: auto !important;
+		border: 1px solid darkgray;
+	}
+	
+	.pageContent_qccxtj table tbody tr:nth-child(1) {
+		background: none;
+	}
+	
+	.pageContent_qccxtj table tbody tr:first-child {
+		background: none !important;
+	}
+	
+	.green {
+		background-color: rgb(204, 255, 255)!important;
+	}
+</style>
+<div class="pageHeader">
+	<div class="borde"></div>
+	<a class="headbutton" href="javascript:download_qccxtj();"><span><i class="nav1" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出</i></span></a>
+	<div class="borde"></div>
+	<div class="serchbox_digital_store2">
+		<label class="date_label">日期</label>
+		<input id="date_qccxtj" class="date" dateFmt="yyyy-MM-dd" readonly="readonly" />
+		<button class="find_date_qccxtj"> 查询</button>
+	</div>
+</div>
+
+<div class="pageContent pageContent_qccxtj" layoutH="60">
+</div>
+<div class="panelBar">
+	<div class="pagination_QCCXTJ"></div>
+</div>
+<script type="text/x-jsrender" class="tableContent_QCCXTJ">
+	<table class="table" width="100%">
+		<thead>
+			{{for title}}
+			<tr>
+				{{for tr}}
+				<th rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</th>
+				{{/for}}
+			</tr>
+			{{/for}}
+		</thead>
+		<tbody>
+			{{for data.data}} {{for dept}}
+			<tr>
+				{{for tr}} {{if product==""}}
+				<td rowspan="{{:rowspan}}" colspan="{{:colspan}}" class="green">{{:value}}</td>
+				{{else}}
+				<td rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{/if}} {{/for}}
+			</tr>
+			{{/for}} {{/for}}
+		</tbody>
+	</table>
+</script>
+<script type="text/javascript">
+	$(function() {
+		setDateSearch("_qccxtj"); //common.js中的默认查询时间为今天
+		get_QCCXTJ();
+	});
+	//输出
+	function download_qccxtj() {
+		var url_downl = URL_C + "QCCXTJ/printExcel/token/" + token;
+		var date_qccxtj = $("#date_qccxtj").val()
+		if(!date_qccxtj) {
+			date_qccxtj = GetYesterday();
+		} else if(parseInt(date_qccxtj.replace(/\-/g, "")) > parseInt(getToday())) {
+			alertMsg.info("无数据可以导出！");
+			return;
+		} else {
+			date_qccxtj = date_qccxtj.replace(/\-/g, "");
+		}
+		url_downl = url_downl + "/date/" + date_qccxtj;
+		//要修改！！！！！token,date等都需要处理
+		window.open(url_downl);
+	}
+
+	//默认获取数据
+	function get_QCCXTJ() {
+		var date_qccxtj = $("#date_qccxtj").val();
+		if(!date_qccxtj) {
+			date_qccxtj = GetYesterday();
+		} else if(parseInt(date_qccxtj.replace(/\-/g, "")) > parseInt(getToday())) {
+			alertMsg.info("无数据可以导出");
+			return;
+		} else {
+			date_qccxtj = date_qccxtj.replace(/\-/g, "");
+		}
+		var url_QCCXTJ = URL_C + "QCCXTJ/search/token/" + token + "/date/" + date_qccxtj;
+		$.ajax({
+			type: "get",
+			url: url_QCCXTJ,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else if(data.total == 'null' || data.total == null || data.total == undefined) {
+					alertMsg.info("暂无数据！");
+				} else {
+					$(".pageContent_qccxtj").empty();
+					var tableContent_QCCXTJ = $(".tableContent_QCCXTJ").render(data);
+					$(".pageContent_qccxtj").append(tableContent_QCCXTJ);
+					navTab.getCurrentPanel().initUI();
+					navTab.getCurrentPanel().find("[layoutH]").layoutH();
+					$(".pagination_QCCXTJ").createPage({
+						pageCount: data.total, //总页数
+						current: data.page, //初始页号
+						backFn: function(obj) {
+							get_QCCXTJ_page(url_QCCXTJ, obj);
+						}
+					});
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+	//分页
+	function get_QCCXTJ_page(url_page, page) {
+		$.ajax({
+			type: "get",
+			url: url_page + "/page/" + page,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else if(data.total == 'null' || data.total == null || data.total == undefined) {
+					alertMsg.info("暂无数据！");
+				} else {
+					var tableContent_QCCXTJ = $(".tableContent_QCCXTJ").render(data);
+					$(".pageContent_qccxtj").empty();
+					$(".pageContent_qccxtj").append(tableContent_QCCXTJ);
+					navTab.getCurrentPanel().initUI();
+					navTab.getCurrentPanel().find("[layoutH]").layoutH();
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+
+	//查询
+	$(".find_date_qccxtj").click(function() {
+		var date_qccxtj = $("#date_qccxtj").val();
+		if(date_qccxtj == "" || date_qccxtj == null || date_qccxtj == undefined) {
+			alertMsg.warn("查询日期不能为空");
+			return;
+		}
+		get_QCCXTJ(date_qccxtj);
+	})

@@ -1,0 +1,592 @@
+<script src="./js/publicjs/common.js"></script>
+<style>
+	tr {
+		padding: 0px;
+		margin: 0px;
+	}
+	
+	select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+	}
+	
+	#rendrTable_szmx_jxc {
+		width: 100%;
+		overflow: visible !important;
+	}
+	/*thead*/
+	
+	#rendrTable_szmx_jxc table thead {
+		width: 2670px;
+		position: absolute;
+		left: 0;
+		z-index: 100;
+	}
+	
+	#rendrTable_szmx_jxc table thead tr td {
+		color: #000;
+		font-weight: bold;
+		text-align: center;
+		background-color: #99ccff;
+		height: 26px;
+		line-height: 26px;
+		border-right: 1px solid #c0c0c0!important;
+		border-bottom: 1px solid #c0c0c0!important;
+	}
+	
+	#rendrTable_szmx_jxc table thead tr td select {
+		width: 0;
+		height: 0;
+		padding: 8px !important;
+		border: none;
+		float: right;
+		position: absolute;
+		background: url(img/select.png) no-repeat 100% 7px;
+		cursor: pointer;
+	}
+	
+	#rendrTable_szmx_jxc table thead tr td:after {
+		clear: both;
+	}
+	
+	#rendrTable_szmx_jxc table thead tr td span {
+		display: inline-block;
+		float: left;
+		padding-top: 4px;
+	}
+	/*tbody*/
+	
+	.tbody_jxcsz {
+		width: 2670px;
+		position: absolute;
+		left: 0;
+		z-index: 99;
+	}
+	
+	.tbody_jxcsz tr td {
+		border-right: 1px solid #c0c0c0;
+		border-bottom: 1px solid #c0c0c0;
+		text-align: center;
+		padding: 0px !important;
+		margin: 0px;
+		height: 30px;
+		line-height: 1.5;
+		word-break: break-all;
+	}
+	/*查询*/
+	
+	.btn_szmx_j {
+		cursor: pointer;
+	}
+	/*重置*/
+	
+	.resetsz_btn {
+		float: right;
+		cursor: pointer;
+		border: 2px solid #99ccff;
+		border-radius: 3px;
+		background-color: transparent;
+		color: #555;
+	}
+	/*分页*/
+	
+	.pagination_szmx_j {
+		float: right;
+		margin-top: 0px;
+	}
+	
+	.pagination_szmx_j a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_szmx_j a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_szmx_j span.current,
+	.pagination_szmx_j span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_szmx_j span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_szmx_j span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_szmx_j .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_szmx_j.go:hover {
+		background-color: #cfebee;
+	}
+	
+	.pagination_szmx_j table thead {
+		background: rgb(153, 204, 255);
+	}
+	
+	.pagination_szmx_j table {
+		text-align: center;
+	}
+	
+	.pagination_szmx_j th,
+	.pagination_szmx_j td {
+		border: 1px solid lightgrey;
+	}
+	
+	.w100 {
+		width: 100px
+	}
+	
+	.w60 {
+		width: 60px
+	}
+	
+	.w80 {
+		width: 80px
+	}
+	
+	.w81 {
+		width: 81px
+	}
+	
+	.w79 {
+		width: 79px
+	}
+	
+	.w120 {
+		width: 120px
+	}
+	
+	.w150 {
+		width: 150px
+	}
+	
+	.w200 {
+		width: 200px
+	}
+</style>
+<div class="pageHeader" style="overflow: hidden;">
+	<div style="float:left;margin-top:2px;">
+		<label>日期:</label>
+		<input style="width:80px" id="sdate_JXSZMX" class="date" dateFmt="yyyy-MM-dd"  readonly="readonly" /> — <input style="width:80px" id="edate_JXSZMX" class="date" dateFmt="yyyy-MM-dd"  readonly="readonly" />
+		<input type="text" placeholder="部门名称" id="deptNameId_sz" style="display: none;" />
+
+		<button class="btn_szmx_j">查询</button>
+	</div>
+	<button class="resetsz_btn" onclick="resetszChoose()">重置筛选</button>
+	<div style="clear:both"></div>
+</div>
+</div>
+
+<div style="overflow: auto;" class="scrollBox" layoutH="65">
+	<div class="pageContent" id="rendrTable_szmx_jxc">
+		<table  id="table_szmx" cellspacing="0" cellpadding="0" border="0">
+			<thead class="table_theadszmx">
+				<tr class="deptNameClass_sz" style="display: none;">
+					<td class="entryinid_thspkc_sz" style="text-align: center;" colspan="38"></td>
+				</tr>
+				<tr>
+					<td class="w80">日期</td>
+					<td class="w80">客户姓名</td>
+					<td class="w80">收支类别</td>
+					<td class="w60">档次
+						<select class="getdangci" onchange="get_szmx('selectList','dangci',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w120">门框
+						<select class="getmenkuang" onchange="get_szmx('selectList','menkuang',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w60">框厚
+						<select class="getkuanghou" onchange="get_szmx('selectList','kuanghou',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w80">前板厚
+						<select class="getqianbanhou" onchange="get_szmx('selectList','qianbanhou',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w80">后板厚
+						<select class="gethoubanhou" onchange="get_szmx('selectList','houbanhou',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w100">底框材料
+						<select class="getdikuangcl" onchange="get_szmx('selectList','dikuangcl',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w80">门扇
+						<select class="getmenshan" onchange="get_szmx('selectList','menshan',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w80">规格
+						<select class="getguige" onchange="get_szmx('selectList','guige',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w60">开向
+						<select class="getkaixiang" onchange="get_szmx('selectList','kaixiang',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w100">铰链
+						<select class="getjiaolian" onchange="get_szmx('selectList','jiaolian',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w80">花色
+						<select class="gethuase" onchange="get_szmx('selectList','huase',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w80">表面方式
+						<select class="getbiaomianfs" onchange="get_szmx('selectList','biaomianfs',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w150">表面要求
+						<select class="getbiaomianyq" onchange="get_szmx('selectList','biaomianyq',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w80">窗花
+						<select class="getchuanghua" onchange="get_szmx('selectList','chuanghua',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w120">猫眼
+						<select class="getmaoyan" onchange="get_szmx('selectList','maoyan',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w80">标牌
+						<select class="getbiaopai" onchange="get_szmx('selectList','biaopai',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w120">主锁
+						<select class="getzhusuo" onchange="get_szmx('selectList','zhusuo',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w120">副锁
+						<select class="getfusuo" onchange="get_szmx('selectList','fusuo',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w100">锁把
+						<select class="getsuoba" onchange="get_szmx('selectList','suoba',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w80">标件
+						<select class="getbiaojian" onchange="get_szmx('selectList','biaojian',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w80">包装品牌
+						<select class="getbaozhuangpp" onchange="get_szmx('selectList','baozhuangpp',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w80">包装方式
+						<select class="getbaozhuangfs" onchange="get_szmx('selectList','baozhuangfs',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w200">其他</td>
+					<td class="w120">制造部门
+						<select class="getzhizaobm" onchange="get_szmx('selectList','zhizaobm',this)">
+							<option value="">全部</option>
+						</select>
+					</td>
+					<td class="w60">数量</td>
+					<td class="w60">单价</td>
+				</tr>
+			</thead>
+			<tbody class="tbody_jxcsz">
+				<tbody>
+		</table>
+	</div>
+</div>
+
+<div class="panelBar">
+	<div class="pagination_szmx_j"></div>
+</div>
+<script type="text/jsrender" id="jsxRender_szbody">
+	{{for list}}
+	<tr>
+		<td class="w81">{{:create_date}}</td>
+		<td class="w80">{{:customer_name}}</td>
+		<td class="w79">{{:operate_name}}</td>
+		<td class="w60">{{:dangci}}</td>
+		<td class="w120">{{:menkuang}}</td>
+		<td class="w60">{{:kuanghou}}</td>
+		<td class="w80">{{:qianbanhou}}</td>
+		<td class="w80">{{:houbanhou}}</td>
+		<td class="w100">{{:dikuangcl}}</td>
+		<td class="w80">{{:menshan}}</td>
+		<td class="w80">{{:guige}}</td>
+		<td class="w60">{{:kaixiang}}</td>
+		<td class="w100">{{:jiaolian}}</td>
+		<td class="w80">{{:huase}}</td>
+		<td class="w80">{{:biaomianfs}}</td>
+		<td class="w150">{{:biaomianyq}}</td>
+		<td class="w80">{{:chuanghua}}</td>
+		<td class="w120">{{:maoyan}}</td>
+		<td class="w80">{{:biaopai}}</td>
+		<td class="w120">{{:zhusuo}}</td>
+		<td class="w120">{{:fusuo}}</td>
+		<td class="w100">{{:suoba}}</td>
+		<td class="w80">{{:biaojian}}</td>
+		<td class="w80">{{:baozhuangpp}}</td>
+		<td class="w80">{{:baozhuangfs}}</td>
+		<td class="w200">{{:qita}}</td>
+		<td class="w120">{{:zhizaobm}}</td>
+		<td class="w60">{{:amount}}</td>
+		<td class="w60">{{:qc_price}}</td>
+	</tr>
+	{{/for}}
+</script>
+<script type="text/javascript">
+	$(function() {
+		$("#sdate_JXSZMX").val(getServiceTime_szmx());
+		$("#edate_JXSZMX").val(getServiceTime_szmx());
+		get_szmx("mainList");
+	});
+
+	var labelDataArrSzmx = []; //搜索参数
+	//初始数据查询
+	function get_szmx(identity, label, _this) {
+		var fdm_spszmxUrl = "";
+		var labelData = "";
+		var sdate = $("#sdate_JXSZMX").val().replace(/\-/g, "");
+		var edate = $("#edate_JXSZMX").val().replace(/\-/g, "");
+		//按总部和片区决定按部门名称查询的输入框是否显示
+		if(dept_Id == 1 || dept_Id == '1' || pId == 1 || pId == '1') {
+			$("#deptNameId_sz").show();
+		} else {
+			$("#deptNameId_sz").hide();
+		}
+
+		var deptnameVal = $("#deptNameId_sz").val().trim();
+
+		if(isDataValid(sdate) && isDataValid(edate)) {
+			if(Number(edate) < Number(sdate)) {
+				alertMsg.warn("起始时间不能大于结束时间！");
+				return false;
+			}
+		}
+
+		if(identity == "mainList") {
+			if(isDataValid(deptnameVal)) {
+				fdm_spszmxUrl = newUrl + "saleStockSystem/index.php/admin/inoutRecord/shouzhimx/pageSize/20/" + "startDate/" + sdate + "/endDate/" + edate + "/deptName/" + deptnameVal + "/token/" + token;
+			} else {
+				fdm_spszmxUrl = newUrl + "saleStockSystem/index.php/admin/inoutRecord/shouzhimx/pageSize/20/" + "startDate/" + sdate + "/endDate/" + edate + "/token/" + token;
+			}
+
+		} else if(identity == "selectList") {
+			var params = "/" + label + "/" + _this.value;
+			if(labelDataArrSzmx.indexOf(params) == -1) {
+				labelDataArrSzmx.push(params);
+			}
+			labelData = labelDataArrSzmx.join(" ")
+			if(isDataValid(deptnameVal)) {
+				fdm_spszmxUrl = newUrl + "saleStockSystem/index.php/admin/inoutRecord/shouzhimx/pageSize/20/" + "startDate/" + sdate + "/endDate/" + edate + "/token/" + token + labelData;
+			} else {
+				fdm_spszmxUrl = newUrl + "saleStockSystem/index.php/admin/inoutRecord/shouzhimx/pageSize/20/" + "startDate/" + sdate + "/endDate/" + edate + "/deptName/" + deptnameVal + "/token/" + token + labelData;
+			}
+
+		}
+		$.ajax({
+			type: "get",
+			url: fdm_spszmxUrl,
+			async: true,
+			cache: false,
+			dataType: "json",
+			success: function(data) {
+				if(data.resultcode == -1) {
+					alertMsg.info(data.resultmsg);
+					return;
+				} else if(data.resultcode == -2) {
+					alertMsg.info("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				if(data.resultcode == 0) {
+					//按总部和片区决定按表头的经营部是否显示
+					
+					if(isDataValid(data.data.deptName)) {
+						$(".deptNameClass_sz").show().find("td").text(data.data.deptName);
+						$("#rendrTable_szmx_jxc table thead tr td select").css("top","29px");
+						$(".tbody_jxcsz").css("top","54px");
+					} else {
+						$(".deptNameClass_sz").hide();
+						$("#rendrTable_szmx_jxc table thead tr td select").css("top","2px");
+						$(".tbody_jxcsz").css("top","27px");
+					}
+					
+					
+					if(isDataValid(data.data.list)) {
+						var JxcSZMX = $("#jsxRender_szbody").render(data.data);
+						$(".tbody_jxcsz").html("").append(JxcSZMX);
+						initSelectSz(data.data.list);
+						fixThead_szmx_j();
+
+					} else {
+						$(".tbody_jxcsz").text("暂无数据！");
+						$(".pagination_szmx_j").hide();
+					}
+					//查询数据为空的情况下也有可能会有分页数 
+					$(".pagination_szmx_j").show().createPage({
+						pageCount: Math.ceil(parseInt(data.data.totalPage)), //总页数
+						current: 1, //初始页号
+						backFn: function(obj) {
+							get_jszmx_page(fdm_spszmxUrl, obj);
+						}
+					});
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.error(errorThrown);
+			}
+		});
+	};
+
+	$(".btn_szmx_j").click(function() {
+		get_szmx("mainList");
+	});
+
+	function fixThead_szmx_j() {
+		$('.scrollBox').scroll(function() {
+			$('#rendrTable_szmx_jxc table thead').css('top', $(this).scrollTop() + 'px');
+		});
+	}
+
+	//获取服务器时间
+	function getServiceTime_szmx() {
+		var getServiceTime_url = URL + "Schedule/SERVER_TIME";
+		var getServiceTime = "";
+		$.ajax({
+			type: "get",
+			url: getServiceTime_url,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+				getServiceTime = data.server_time;
+				return;
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alert(errorThrown);
+			}
+		});
+		return getServiceTime;
+	}
+
+	//初始化下拉选项
+	function initSelectSz(data) {
+		console.log(data);
+		var selectArr = {};
+		for(var i = 0; i < data.length; i++) {
+			for(var j in data[i]) {
+				if(selectArr[j] == undefined || selectArr[j] == '') {
+					selectArr[j] = [];
+				}
+				if(selectArr[j].indexOf(data[i][j]) == -1) {
+					if(data[i][j] != "") {
+						selectArr[j].push(data[i][j]);
+					}
+				}
+			}
+		}
+		for(var m in selectArr) {
+			for(var n = 0; n < selectArr[m].length; n++) {
+				$('.get' + m).html('<option value="">全部</option>');
+			}
+			for(var n = 0; n < selectArr[m].length; n++) {
+				$('.get' + m).append('<option>' + selectArr[m][n] + '</option>');
+			}
+		}
+	}
+	//重置筛选
+	function resetszChoose() {
+		get_szmx("mainList");
+		labelDataArrSzmx = [];
+	}
+
+	//分页
+	function get_jszmx_page(url_page, page) {
+		$.ajax({
+			type: "get",
+			url: url_page + "/page/" + page,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.resultcode == -2) {
+					alert("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+				}
+				if(data.resultcode == 0) {
+					
+					if(isDataValid(data.data.deptName)) {
+						$(".deptNameClass_sz").show().find("td").text(data.data.deptName);
+						$("#rendrTable_szmx_jxc table thead tr td select").css("top","29px");
+						$(".tbody_jxcsz").css("top","54px");
+					} else {
+						$(".deptNameClass_sz").hide();
+						$("#rendrTable_szmx_jxc table thead tr td select").css("top","2px");
+						$(".tbody_jxcsz").css("top","27px");
+					}
+					
+					
+					if(isDataValid(data.data.list)) {
+						var JxcSZMX = $("#jsxRender_szbody").render(data.data);
+					$(".tbody_jxcsz").html("").append(JxcSZMX);
+					initSelectSz(data.data.list);
+
+					} else {
+						$(".tbody_jxcsz").text("暂无数据！");
+					}
+					
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alert("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+</script>

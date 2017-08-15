@@ -1,0 +1,323 @@
+<style type="text/css">
+	/*分页*/
+	
+	.pagination_FDMKCBMX {
+		float: right;
+		margin-top: 0px;
+	}
+	
+	.pagination_FDMKCBMX a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_FDMKCBMX a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_FDMKCBMX span.current,
+	.pagination_FDMKCBMX span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_FDMKCBMX span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_FDMKCBMX span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_FDMKCBMX .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_FDMKCBMX.go {
+		margin-left: 2%;
+		height: 20px;
+		line-height: 20px;
+		font-size: 10px;
+		width: 35px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: none;
+		background-color: #ddd;
+	}
+	
+	.pagination_FDMKCBMX.go:hover {
+		background-color: #cfebee;
+	}
+	/*分页结束*/
+	
+	.pageContent_FDMKCBMX table thead {
+		background: rgb(153, 204, 255);
+	}
+	
+	.pageContent_FDMKCBMX table thead tr th,
+	.pageContent_FDMKCBMX table tbody tr td {
+		text-align: center;
+	}
+	
+	.table_FDMKCBMX thead tr th {
+		background: rgb(153, 204, 255);
+	}
+	
+	.pageContent_FDMKCBMX th,
+	.pageContent_FDMKCBMX td {
+		border: 1px solid darkgray;
+		width: auto !important;
+	}
+	/*		输出按钮*/
+	
+	.headbutton {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headbutton span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.headbutton i {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+	}
+	
+	.nav1 {
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.borde {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.date_label {
+		display: inline-block;
+		padding-left: 15px;
+	}
+</style>
+<div class="pageHeader">
+	<div class="borde"></div>
+	<a class="headbutton" href="javascript:download_FDMKCBMX();"><span><i class="nav1" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出</i></span></a>
+	<div class="borde"></div>
+	<div class="serchbox_digital_store2" style="float: left;">
+		<label class="date_label">日期</label>
+		<input id="date_FDMKCBMX" class="date" dateFmt="yyyy-MM-dd" readonly="readonly" />
+		<button class="find_date_FDMKCBMX"> 查询</button>
+	</div>
+</div>
+
+<div class="pageContent pageContent_FDMKCBMX" layoutH="60">
+</div>
+<div class="panelBar">
+	<div class="pagination_FDMKCBMX"></div>
+</div>
+<script type="text/x-jsrender" class="tableContent_FDMKCBMX">
+	<table class="table table_FDMKCBMX" width="100%" layoutH="175">
+		<thead>
+			{{for data[0]}}
+			<tr>
+				{{for tr}}
+				<th rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</th>
+				{{/for}}
+			</tr>
+			{{/for}} {{for data[1]}}
+			<tr>
+				{{for tr}}
+				<th rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</th>
+				{{/for}}
+			</tr>
+			{{/for}} {{for data[2]}}
+			<tr>
+				{{for tr}}
+				<th rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</th>
+				{{/for}}
+			</tr>
+			{{/for}} {{for data[3]}}
+			<tr>
+				{{for tr}}
+				<th rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</th>
+				{{/for}}
+			</tr>
+			{{/for}}
+		</thead>
+		<tbody>
+			{{for data}}
+			<tr>
+				{{for tr}} {{if product==""}}
+				<td style="background-color: rgb(204,255,255)!important" rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{else}}
+				<td rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{/if}} {{/for}}
+			</tr>
+			{{/for}}
+		</tbody>
+	</table>
+</script>
+<script type="text/javascript">
+	$(function() {
+		table_flag = 0;
+		authorize_export();
+		setDateSearch("_FDMKCBMX"); //common中设置默认时间
+		resize_table(); //common中控制table宽
+		get_FDMKCBMX();
+
+	})
+	//导出
+	function download_FDMKCBMX() {
+		var url_downl = URL_Z + "FDMKCBMX/toexcel/token/" + token;
+		var date_FDMKCBMX = $("#date_FDMKCBMX").val();
+		if(date_FDMKCBMX) {
+			date_FDMKCBMX = $("#date_FDMKCBMX").val().replace(/\-/g, "");
+			url_downl = url_downl + "/date/" + date_FDMKCBMX;
+		}
+		//要修改！！！！！token,date等都需要处理
+		$.ajax({
+			type: "get",
+			url: url_downl,
+			dataType: "json",
+			async: false,
+			cache: false,
+			success: function(data) {
+				if(data.excel_url) {
+					window.open(data.excel_url);
+				} else if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else {
+					alertMsg.info("暂无数据可以下载！");
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("下载失败，重试或者检查网络设置！");
+			}
+		})
+	}
+	//获取默认数据
+	function get_FDMKCBMX(date_FDMKCBMX) {
+		if(!date_FDMKCBMX) {
+			var url_FDMKCBMX = URL_Z + "FDMKCBMX/search/token/" + token;
+		} else {
+			var url_FDMKCBMX = URL_Z + "FDMKCBMX/search/token/" + token + "/date/" + date_FDMKCBMX;
+		}
+		$.ajax({
+			type: "get",
+			url: url_FDMKCBMX,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else if(data.total == 'null' || data.total == null || data.total == undefined) {
+					alertMsg.info("暂无数据！");
+				} else {
+					$(".pageContent_FDMKCBMX").html("");
+					var tableContent_FDMKCBMX = $(".tableContent_FDMKCBMX").render(data);
+					$(".pageContent_FDMKCBMX").append(tableContent_FDMKCBMX);
+					$("table tbody tr:first-child,table tbody tr:nth-child(2),table tbody tr:nth-child(3),table tbody tr:nth-child(4)").remove();
+					navTab.getCurrentPanel().initUI();
+					navTab.getCurrentPanel().find("[layoutH]").layoutH();
+					$(".pagination_FDMKCBMX").createPage({
+						pageCount: data.total, //总页数
+						current: data.page, //初始页号
+						backFn: function(obj) {
+							get_FDMKCBMX_page(url_FDMKCBMX, obj);
+						}
+					});
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+	//分页
+	function get_FDMKCBMX_page(url_page, page) {
+		$.ajax({
+			type: "get",
+			url: url_page + "/page/" + page,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else if(data.total == 'null' || data.total == null || data.total == undefined) {
+					alertMsg.info("暂无数据！");
+				} else {
+					$(".pageContent_FDMKCBMX").html("");
+					var tableContent_FDMKCBMX = $(".tableContent_FDMKCBMX").render(data);
+					$(".pageContent_FDMKCBMX").append(tableContent_FDMKCBMX);
+					$("table tbody tr:first-child,table tbody tr:nth-child(2),table tbody tr:nth-child(3),table tbody tr:nth-child(4)").remove();
+					navTab.getCurrentPanel().initUI();
+					navTab.getCurrentPanel().find("[layoutH]").layoutH();
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+
+	//查询
+	$(".find_date_FDMKCBMX").click(function() {
+		var date_FDMKCBMX = $("#date_FDMKCBMX").val().replace(/\-/g, "");
+		if(date_FDMKCBMX == "" || date_FDMKCBMX == null || date_FDMKCBMX == undefined) {
+			alertMsg.warn("查询日期不能为空");
+			return;
+		}
+		get_FDMKCBMX(date_FDMKCBMX);
+	})

@@ -1,0 +1,603 @@
+<script src="js/publicjs/common.js"></script>
+<style>
+	/*分页*/
+	
+	.pagination_fdmcustomer {
+		float: right;
+		margin-top: 0px;
+	}
+	
+	.pagination_fdmcustomer a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_fdmcustomer a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_fdmcustomer span.current,
+	.pagination_fdmcustomer span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_fdmcustomer span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_fdmcustomer span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_fdmcustomer .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_fdmcustomer.go {
+		margin-left: 2%;
+		height: 20px;
+		line-height: 20px;
+		font-size: 10px;
+		width: 35px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: none;
+		background-color: #ddd;
+	}
+	
+	.pagination_fdmcustomer.go:hover {
+		background-color: #cfebee;
+	}
+	
+	#rendrTable_fdmcustomer table tbody tr td input {
+		-moz-user-select: none;
+		-webkit-user-select: none
+	}
+	
+	.add_td {
+		border-bottom: 1px solid #c0c0c0;
+		border-left: 1px solid #C0C0C0;
+		border-top: none;
+		text-align: center;
+		height: 20px;
+	}
+	
+	.add_td button:hover {
+		cursor: pointer;
+	}
+	
+	.disable {
+		width: 100%;
+		cursor: pointer;
+		margin-left: -3px !important;
+		border: none !important;
+		background: none !important;
+		text-align: center;
+		height: 100%;
+	}
+	
+	.headbutton_fdmcustomer {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+		cursor: pointer;
+	}
+	
+	.nav1 {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.icon-img {
+		position: absolute;
+		top: 11px;
+		left: 309px;
+	}
+	
+	.fdmcustomer table thead tr th,
+	.fdmcustomer table tbody tr td {
+		text-align: center;
+		padding: 8px 6px;
+		border-right: 1px solid #a9a9a9;
+		border-bottom: 1px solid #a9a9a9;
+	}
+	
+	.fdmcustomer table thead tr th {
+		background: #99cdff;
+		font-weight: bold;
+	}
+	
+	.fdmcustomer select {
+		border: 1px solid lightgrey;
+		margin: 2px;
+		padding: 4px;
+	}
+	
+	.btn {
+		border: none;
+		background: none;
+	}
+	
+	button:hover {
+		cursor: pointer;
+	}
+	
+	.fdmcustomer tbody tr td input {
+		width: 100px;
+	}
+	
+	.fdmcustomer tbody tr td {
+		padding: 4px 0 !important;
+	}
+	
+	.border_smjkc {
+		float: left;
+		height: 10px;
+		display: inline-block;
+		margin: 7px 10px auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.prov,
+	.city,
+	.dist {
+		width: 64px;
+		text-overflow: ellipsis;
+		overflow: hidden !important;
+	}
+</style>
+<div class="pageHeader" style="overflow: hidden;">
+	<a class="headbutton_fdmcustomer" onclick="add_fdmcustomer()"><span><i class="nav1" style="height:16px;line-height: 20px;padding: 2px 4px;background: url(public/initialStage/images/alllicon.png) no-repeat 0px -554px;text-align:right;width: 40px;font-style:normal;">&nbsp;&nbsp;&nbsp;&nbsp;新增</i></span></a>
+
+	<div class="border_smjkc"></div>
+	<div>
+		<div>
+			<input type="text" id="customerNumber" placeholder="客户电话" style="margin-left: 35px;" />
+			<input type="text" id="customerName" placeholder="客户姓名" />
+			<button class="btncx_fdmcustomer" onclick="init()">查询</button>
+		</div>
+	</div>
+</div>
+<div class="pageContent fdmcustomer" id="rendrTable_fdmcustomer" layoutH="62">
+	<table width="100%">
+		<thead>
+			<tr>
+				<th>客户姓名</th>
+				<th>客户电话</th>
+				<th>省市区</th>
+				<th>客户级别</th>
+				<th>详细地址</th>
+				<th>创建记录的时间</th>
+				<th>创建人</th>
+				<th>最新一次修改时间</th>
+				<th>最新一次修改者</th>
+				<th>客户所属部门名称</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody class="customerTobdy">
+		</tbody>
+	</table>
+
+</div>
+
+<div class="panelBar">
+	<div class="pagination_fdmcustomer">
+	</div>
+</div>
+<script type="text/x-jsrender" id="fdmcustomerRenderID">
+	{{for data.subitem}}
+	<tr>
+
+		<td>
+			<span>{{:name}}</span>
+			<input type="text" value="{{:name}}" style="display: none;" />
+		</td>
+		<td>
+			<span>{{:phone}}</span>
+			<input type="text" value="{{:phone}}" style="display: none;" />
+		</td>
+		<td>
+			<span>{{:addr_province}}{{:addr_city}}{{:addr_country}} </span>
+			<div id="cityEdit{{:id}}" style="display: none;">
+				<select class="prov"></select>
+				<select class="city" disabled="disabled"></select>
+				<select class="dist" disabled="disabled"></select>
+			</div>
+		</td>
+		<td class="levelSel{{:id}}">{{:level}}</td>
+		<td>
+			<span>{{:addr_detail}}</span>
+			<input type="text" value="{{:addr_detail}}" style="display: none;" />
+		</td>
+		<td> {{if created_at!=null}}
+			<p>{{:created_at.split(" ")[0]}}</p>
+			<p>{{:created_at.split(" ")[1]}}</p>
+			{{else}}
+			<p></p>
+			<p></p>
+			{{/if}}
+		</td>
+		<td>{{:created_by}}</td>
+		<td>{{if modified_at!=null}}
+			<p>{{:modified_at.split(" ")[0]}}</p>
+			<p>{{:modified_at.split(" ")[1]}}</p>
+			{{else}}
+			<p></p>
+			<p></p>
+			{{/if}}
+		</td>
+		<td>{{:modified_by}}</td>
+		<td>{{:dname}}</td>
+		<td>
+			<button class="btn" onclick='edit_fdmcustomer({{:id}},"{{:addr_province}}","{{:level}}","{{:addr_city}}","{{:addr_country}}",this)'>编辑</button>
+			<button class="btn" onclick='delcustomer(1,this,{{:id}})'>删除</button>
+			<button class="btn" onclick='saveSingle()' style="display: none;">保存</button>
+			<button class="btn" onclick='cancelcustomer()' style="display: none;">取消 </button>
+
+		</td>
+	</tr>
+	{{/for}}
+</script>
+
+<script type="text/x-jsrender" id="levelRender">
+	{{for data.subitem}}
+	<option value="{{:id}}">{{:level_name}}</option>
+	{{/for}}
+</script>
+<script type="text/javascript" language="javascript">
+	var level = ""; //客户等级
+	var flag = false;
+	init();
+
+	function init() {
+		flag=false;
+		var url = fdmUrl + "Managecustomer/customers";
+		var customerNumber = $("#customerNumber").val().trim();
+		var customerName = $("#customerName").val().trim();
+		if(isDataValid(customerNumber)) {
+			url += "/uid/" + customerNumber;
+		}
+		if(isDataValid(customerName)) {
+			url += "/uname/" + customerName;
+		}
+
+		$.ajax({
+			type: "get",
+			url: url + "/pagesize/20/token/" + token,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+
+				if(data.resultcode == 0) {
+					var fdmcustomerRenderID = $("#fdmcustomerRenderID").render(data);
+					$(".customerTobdy").html("").append(fdmcustomerRenderID);
+
+					var pagecount = data.data.pagecount;
+					var page = data.data.page;
+					$(".pagination_fdmcustomer").createPage({
+						pageCount: pagecount,
+						current: page,
+						backFn: function(obj) {
+							fdmcustomerPagenation(url, obj);
+						}
+					});
+				} else if(data.resultcode == -2) {
+					alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+
+					window.location.href = "index.html";
+					return;
+				} else {
+					alertMsg.warn(data.resultmsg);
+					return;
+				}
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.warn(errorThrown);
+			}
+		});
+	}
+
+	// 分页
+	function fdmcustomerPagenation(url_page, page) {
+		flag = false;
+		$.ajax({
+			type: "get",
+			url: url_page + "/page/" + page + "/pagesize/20/token/" + token,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+
+				if(data.resultcode == 0) {
+					var fdmcustomerRenderID = $("#fdmcustomerRenderID").render(data);
+					$(".customerTobdy").html("").append(fdmcustomerRenderID);
+					
+				} else if(data.resultcode == -2) {
+					alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				} else {
+					alertMsg.warn(data.resultmsg);
+					return;
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				layer.msg(JSON.stringify(textStatus));
+			}
+		});
+	}
+
+	//添加一行
+	function add_fdmcustomer() {
+		if(flag) {
+			return;
+		}
+		flag = true;
+		$newc1 = $("<tr class='addtr'><td><input type='text' id='addnameID'/></td><td><input type='text' id='addnumberID' /></td><td><div id='city'><select class='prov'></select><select class='city' disabled='disabled'></select><select class='dist' disabled='disabled'></select></div></td><td class='leveladd'></td><td><input type='text' id='detailadd' /></td><td></td><td></td><td></td><td></td><td></td><td><button class='btn' onclick='saveSingle()'>保存</button><button onclick='delcustomer(2,this)' class='btn'>取消</button></td></tr>")
+		$(".customerTobdy").prepend($newc1);
+		$("#city").citySelect({
+			nodata: "none",
+			required: false,
+		});
+		if($(".customerTobdy select.city option").length < 1) {
+			$("select.city").hide();
+		}
+		if($(".customerTobdy select.dist option").length < 1) {
+			$("select.dist").hide();
+		}
+		$(".dist").change(function() {
+			var obj1 = $(this).prev().prev().val();
+			var obj2 = $(this).prev().val();
+			var obj3 = $(this).val();
+			getArea(obj1, obj2, obj3);
+		});
+
+	}
+
+	//编辑
+	function edit_fdmcustomer(ids, provs, level, citys, dists, obj) {
+		if(flag) {
+			return;
+		}
+		flag = true;
+		$(obj).parents("tr").find("td:nth-child(1) span,td:nth-child(2) span,td:nth-child(3) span,td:nth-child(4)>span,td:nth-child(5) span").hide();
+		$(obj).parents("tr").find("td:nth-child(1) input,td:nth-child(2) input,td:nth-child(3)>div,td:nth-child(4)>div,td:nth-child(5) input").show();
+		$(obj).hide().next().hide().nextAll().show();
+
+		$("#cityEdit" + ids).citySelect({
+			required: false,
+			prov: provs,
+			city: citys,
+			dist: dists,
+		});
+
+		idsFlag = ids;
+		objs = obj;
+		$(".dist").change(function() {
+			var obj1 = $(this).prev().prev().val();
+			var obj2 = $(this).prev().val();
+			var obj3 = $(this).val();
+			getArea(obj1, obj2, obj3, ids);
+		});
+	}
+	//取消
+	function cancelcustomer() {
+		init();
+		flag = false;
+	}
+
+	//保存
+	function saveSingle() {
+		if($(".addtr").length == 1) {
+			if(!isDataValid($("#addnumberID").val().trim()) || !isDataValid($("#addnameID").val().trim()) || !isDataValid($(".prov").val()) || !isDataValid($(".city").val()) || !isDataValid($(".dist").val()) || !isDataValid($("#detailadd").val().trim())) {
+				$(".leveladd").html("");
+				alertMsg.warn("有未填数据！");
+				return;
+
+			};
+			if(!((/^1[3|4|5|7|8][0-9]\d{8}$/.test($("#addnumberID").val())) || (/^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/.test($("#addnumberID").val())))) {
+				alertMsg.warn("电话号码有误！");
+				return;
+			};
+			var data = {
+				data: {
+					user_tel: $("#addnumberID").val().trim(),
+					user_name: $("#addnameID").val().trim(),
+					level_id: $(".leveladd").text(),
+					province: $(".prov").val(),
+					city: $(".city").val(),
+					country: $(".dist").val(),
+					addr_detail: $("#detailadd").val().trim()
+				}
+			};
+
+			$.ajax({
+				type: "post",
+				url: fdmUrl + "Managecustomer/add_custom/token/" + token,
+				async: false,
+				dataType: 'json',
+				data: JSON.stringify(data),
+				success: function(data) {
+					if(data.resultcode == 0) {
+						alertMsg.correct("保存成功");
+						navTab._reload(navTab._getTab("new_fdmcustomer"), true);
+					} else if(data.resultcode == -2) {
+						alertMsg.info("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						return;
+						window.location.href = "index.html";
+					} else {
+						alertMsg.warn(data.resultmsg);
+						return;
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alertMsg.warn("XMLHttpRequest:" + XMLHttpRequest + ",textStatus:" + textStatus + ",errorThrown:" + errorThrown);
+				}
+			});
+
+		} else if(flag) {
+			var $cusnum = $(objs).parents("tr").find("td:nth-child(2) input").val().trim();
+			var $cusname = $(objs).parents("tr").find("td:nth-child(1) input").val().trim();
+			var $cuspro = $(objs).parents("tr").find("td:nth-child(3) div select:nth-child(1)").val();
+			var $cuscity = $(objs).parents("tr").find("td:nth-child(3) div select:nth-child(2)").val();
+			var $cusdist = $(objs).parents("tr").find("td:nth-child(3) div select:nth-child(3)").val();
+			var $cusdetail = $(objs).parents("tr").find("td:nth-child(5) input").val().trim();
+			var $level = $(objs).parents("tr").find("td:nth-child(4)").text().trim();
+			if(!isDataValid($cusnum) || !isDataValid($cusname) || !isDataValid($cuspro) || !isDataValid($cuscity) || !isDataValid($cusdist) || !isDataValid($cusdetail)) {
+				alertMsg.warn("有未填数据!");
+				return;
+			};
+			if(!((/^1[3|4|5|7|8][0-9]\d{8}$/.test($cusnum)) || (/^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/.test($cusnum)))) {
+				alertMsg.warn("电话号码有误！");
+				return;
+			};
+			var data = {
+				id: idsFlag,
+				data: { //要修改的数据部分
+					user_tel: $cusnum, //客户电话
+					user_name: $cusname, //客户姓名
+					level_id: $level,
+					province: $cuspro, //省
+					city: $cuscity, //市
+					country: $cusdist, //县 or 区
+					addr_detail: $cusdetail //详细地址(具体到乡镇)
+				}
+			};
+			$.ajax({
+				type: "post",
+				url: fdmUrl + "Managecustomer/update_custom/token/" + token,
+				async: false,
+				dataType: 'json',
+				data: JSON.stringify(data),
+				success: function(data) {
+					if(data.resultcode == 0) {
+						alertMsg.correct("保存成功");
+						navTab._reload(navTab._getTab("new_fdmcustomer"), true);
+					} else if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+						return;
+					} else {
+						alertMsg.warn(data.resultmsg);
+						return;
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alertMsg.warn("XMLHttpRequest:" + XMLHttpRequest + ",textStatus:" + textStatus + ",errorThrown:" + errorThrown);
+				}
+			});
+		} else {
+			init();
+		}
+
+	}
+	//删除
+
+	function delcustomer(num, obj, ids) {
+
+		if(num == 1) {
+			if(flag) {
+				return;
+			}
+			flag = true;
+			alertMsg.confirm("确认删除此条数据?", {
+				okCall: function() {
+					var data = {
+						id: ids
+					}
+					$.ajax({
+						type: "post",
+						url: fdmUrl + "Managecustomer/del_custom/token/" + token,
+						async: true,
+						dateType: 'json',
+						data: JSON.stringify(data),
+						success: function(data) {
+
+							if(data.resultcode == 0) {
+								init();
+							} else if(data.resultcode == -2) {
+								alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+								window.location.href = "index.html";
+								flag = false;
+								return;
+							} else {
+								alertMsg.warn(data.resultmsg);
+								flag = false;
+								return;
+							}
+
+							
+						},
+						error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+							alertMsg.error(errorThrown);
+						}
+					});
+				},
+				cancelCall: function() {
+					flag = false;
+				}
+			});
+
+		}
+		if(num == 2) {
+			$(obj).parents("tr").remove();
+			flag = false;
+		}
+	}
+
+	//选择省市区后调用客户等级
+	function getArea(obj1, obj2, obj3, id) {
+
+		if(isDataValid(obj1) && isDataValid(obj2) && isDataValid(obj3)) {
+			$.ajax({
+				type: "get",
+				url: fdmUrl + "Managecustomer/kehugrade/province/" + obj1 + "/city/" + obj2 + "/country/" + obj3,
+				async: false,
+				dataType: 'json',
+				success: function(data) {
+					level = data.grade;
+					if(!isDataValid(id)) {
+						$(".leveladd").text(level);
+					} else {
+						$(".levelSel" + id).text(level);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alertMsg.warn("XMLHttpRequest:" + XMLHttpRequest + ",textStatus:" + textStatus + ",errorThrown:" + errorThrown);
+				}
+			});
+		} else {
+			alertMsg.warn("请选择完省市区");
+		}
+	}
+</script>

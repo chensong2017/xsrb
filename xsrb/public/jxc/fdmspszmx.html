@@ -1,0 +1,1847 @@
+<style>
+	.gridHeader {
+		width: 100% !important;
+	}
+	
+	.gridScroller {
+		width: 100% !important;
+	}
+	
+	#rendrTable_spszmx table tbody tr td input {
+		-moz-user-select: none;
+		-webkit-user-select: none
+	}
+	
+	.spszps_style {
+		margin: 5px 10px;
+		background-color: #fff;
+	}
+	
+	.resetfdmszmx_btn {
+		float: right;
+		cursor: pointer;
+		border: 2px solid #99ccff;
+		border-radius: 3px;
+		background-color: transparent;
+		color: #555;
+	}
+	
+	.spsz_notice {
+		float: left;
+		color: red;
+		margin-top: 7px
+	}
+	
+	tr {
+		padding: 0px;
+		margin: 0px;
+	}
+	
+	.td_spsz {
+		border-right: 1px solid #c0c0c0;
+		border-bottom: 1px solid #c0c0c0;
+		text-align: center;
+		padding: 0px !important;
+		margin: 0px;
+		width: 80px;
+	}
+	
+	.tb_spsz {
+		width: 2695px;
+		position: absolute;
+		top: 69px;
+		left: 0;
+		z-index: 99;
+	}
+	
+	.tb_spsz td input {
+		width: 75px;
+		font-size: 12px;
+		border: none;
+		text-align: center;
+		cursor: pointer;
+	}
+	
+	.tb_spsz tr td select option {
+		visibility: hidden;
+	}
+	
+	.disable_sz {
+		width: 100%;
+		cursor: pointer;
+		margin-left: -3px !important;
+		border: none !important;
+		background: none !important;
+		text-align: center;
+		height: 100%;
+	}
+	
+	input.readonly {
+		background: none;
+		text-align: center;
+	}
+	
+	select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+	}
+	
+	.select_spsz {
+		width: auto;
+		font-size: 12px;
+		border: none;
+	}
+	
+	.select_spsz option {
+		text-align: center;
+	}
+	
+	.borde_sz {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.headbutton_sz {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+		cursor: pointer;
+	}
+	
+	.headbutton_sz span {
+		background: none;
+		height: 26px;
+		line-height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton_sz:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton_sz:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+	}
+	
+	.a-hover:hover {
+		background: none !important;
+	}
+	
+	.a-hover:hover span {
+		background: none !important;
+	}
+	
+	.entryinid_thspsz {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #99ccff;
+		border-right: 1px solid #c0c0c0!important;
+		border-bottom: 1px solid #c0c0c0!important;
+	}
+	
+	.entryinid_thspsz td:nth-child(1) {
+		width: 80px;
+	}
+	
+	.entryinid_thspsz input {
+		width: 5px;
+	}
+	
+	.entryinid_thspsz select {
+		width: 80px;
+	}
+	
+	.nav1sz {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+		padding-right: 5px;
+	}
+	
+	#index_yxspsz,
+	#index_wxspsz {
+		float: right;
+		width: 90px;
+		line-height: 22px;
+		height: 26px;
+		text-align: center;
+		cursor: pointer;
+		border-bottom-left-radius: 22px;
+		border-top-right-radius: 22px;
+		font-size: 12px;
+		background-color: #FFFFFF;
+	}
+	
+	.webuploader-pick {
+		border: none;
+		background: none;
+	}
+	
+	.icon-imgspsz {
+		position: absolute;
+		top: 11px;
+		left: 409px;
+	}
+	
+	.xuanze_spsz {
+		position: absolute;
+		top: 5%;
+		left: 1%;
+		width: 97%;
+		background-color: #fff;
+		z-index: 900;
+		text-align: center;
+		display: none;
+		 overflow-x: scroll;
+   		 height: 500px;
+	}
+	
+	.xuanze_spszbg {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 888;
+		background-color: rgba(0, 0, 0, .3);
+		display: none;
+		text-align: center;
+	}
+	
+	.selsz_tr td {
+		position: relative;
+	}
+	
+	.selsz_tr select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 0;
+		padding: 2px 39px;
+		border-radius: 3px;
+		background: url(img/select.png) no-repeat 98% 5px;
+		cursor: pointer;
+		position: absolute;
+		border: none;
+		top: 0;
+		left: 0;
+	}
+	
+	#qcable_sz select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 0;
+		padding: 2px 6px;
+		border-radius: 3px;
+		background: url(img/select.png) no-repeat 98% 5px;
+		cursor: pointer;
+		position: absolute;
+		border: none;
+		top: 0;
+		right: 0;
+	}
+	
+	.entryinid_thspsz1 {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #99ccff;
+		border-right: 1px solid #c0c0c0!important;
+		border-bottom: 1px solid #c0c0c0!important;
+		position: relative;
+		/*width: 100px*/
+	}
+	
+	.tboy_optionspsz {
+		width: 100%;
+	}
+	
+	.tboy_headersz {
+		width: 100%;
+	}
+	
+	.spsz_close {
+		position: absolute;
+		top: 2%;
+		bottom: 0;
+		left: 97%;
+		z-index: 999;
+		color: red;
+	}
+	
+	.sz_closeicon {
+		background: url(public/initialStage/images/alllicon.png) no-repeat 0px -574px;
+		display: inline-block;
+		width: 40px;
+		height: 20px;
+		cursor: pointer;
+	}
+	
+	.datai_spsz {
+		display: none;
+	}
+	
+	#mengce_spsz {
+		z-index: 999999999;
+		position: absolute;
+		top: 200px;
+		left: 50%;
+		background: url(public/initialStage/images/loading.gif) no-repeat;
+		width: 100px;
+		height: 50px;
+		display: none;
+	}
+	
+	#mengce_spsz1 {
+		z-index: 9999999;
+		position: absolute;
+		top: 200px;
+		left: 50%;
+		width: 100px;
+		height: 50px;
+		display: none;
+		background-color: rgba(0, 0, 0, .3);
+	}
+	
+	.sdate_spsz {
+		display: inline-block;
+		padding-left: 30px;
+	}
+	
+	.table {
+		width: 100%;
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+	
+	.spsz_xuanze {
+		position: relative;
+		top: 0%;
+		left: 0%;
+		right: 0%;
+		width: 100%;
+		background-color: #fff;
+		text-align: center;
+	}
+	
+	#uploader_failspsz {
+		position: absolute;
+		top: 10%;
+		left: 0;
+		width: 98%;
+		background-color: #fff;
+		z-index: 999999999;
+		text-align: center;
+		display: none;
+		height: 80%;
+		overflow-y: scroll;
+	}
+	
+	.xsrbspsz_close1 {
+		position: absolute;
+		top: 8.5%;
+		bottom: 0;
+		left: 97%;
+		z-index: 99999999999;
+		color: red;
+	}
+	
+	.failtable_tdsz {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #fff;
+		border-right: 1px solid #c0c0c0!important;
+		border-bottom: 1px solid #c0c0c0!important;
+		/*width: 80px;*/
+		height: 15px;
+	}
+	
+	.xuanze_spszbg {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 888;
+		background-color: rgba(0, 0, 0, .3);
+		display: none;
+	}
+	
+	.btn_fdmspszmx {
+		cursor: pointer;
+	}
+	
+	.entryinid_thspsz select {
+		padding: 4px;
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 100%;
+		background: url(img/select.png) no-repeat 100% 7px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		cursor: pointer;
+	}
+	
+	#table_fdmspsz thead tr td select {
+		width: 0;
+		height: 0;
+		padding: 11px !important;
+		position: absolute;
+		z-index: 9999;
+		margin-left: 55px;
+	}
+	
+	.table_theadspsz {
+		width: 2695px;
+		position: absolute;
+		top: 71;
+		left: 0;
+		z-index: 100;
+	}
+	
+	.table_theadspsz .entryinid_thspsz {
+		width: 100px;
+	}
+	
+	#rendrTable_spszmx {
+		width: 100%;
+		overflow: visible !important;
+	}
+	
+	.choosefdmspqc tr td {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		border-right: 1px solid #c0c0c0!important;
+		border-bottom: 1px solid #c0c0c0!important;
+		position: relative;
+		width: 100px;
+	}
+	
+	.w40 {
+		width: 40px;
+	}
+	
+	.w50 {
+		width: 50px;
+	}
+	
+	.w60 {
+		width: 60px;
+	}
+	
+	.w70 {
+		width: 70px;
+	}
+	
+	.w80 {
+		width: 80px;
+	}
+	
+	.w90 {
+		width: 90px;
+	}
+	
+	.w100 {
+		width: 100px;
+	}
+	
+	.w110 {
+		width: 110px;
+	}
+	
+	.w120 {
+		width: 120px;
+	}
+	
+	.w130 {
+		width: 130px;
+	}
+	
+	.w200 {
+		width: 200px;
+	}
+	
+	.addColor {
+		background-color: #CCFFFF !important;
+	}
+</style>
+<div class="pageHeader" style="overflow: hidden;">
+
+	<div class="borde_sz"></div>
+	<a class="headbutton_sz" href="javascript:spsz_shuchu();"><span><i class="nav1sz" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出</i></span></a>
+	<div class="borde_sz"></div>
+	<a class="headbutton_sz" id="savefdmszmx"><span><i class="nav1sz" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px 4px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保存刷新</i></span></a>
+	<div class="borde_sz"></div>
+	<a class="headbutton_sz" onclick="add_trspsz()"><span><i class="nav1sz" style="height:16px;line-height: 20px;padding: 2px 4px;background: url(public/initialStage/images/alllicon.png) no-repeat 0px -554px;text-align:right;width: 40px;font-style:normal;">&nbsp;&nbsp;&nbsp;&nbsp;新增</i></span></a>
+	<div class="borde_sz" style="margin-right: 10px;"></div>
+	<button id="index_wxspsz" onclick="index_wxcxsz()">无效数据</button>
+	<button id="index_yxspsz" onclick="index_yxcxsz()">有效数据</button>
+
+	<span style="text-align: center;line-height: 20px; position: absolute;top: 6px;left: 350px;background: url(public/initialStage/images/alllicon.png)  no-repeat 0px -756px; width: 60px;height: 18px;">导入</span>
+	<div class="img-div">
+		<div class="left-div" style="float:left">
+			<span id="icon_selectspsz" class="choose">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<input type="text" id="shop_icon" style="display: none;">
+		</div>
+		<div class="right-div" id="icon"></div>
+		<div style="float:left;margin-left:150px;margin-top:2px;">
+			<label class="sdate_spsz">日期:</label>
+			<input style="width:80px" id="sdate_FDMSZ" class="date" dateFmt="yyyy-MM-dd" readonly="readonly" /> — <input style="width:80px" id="edate_FDMSZ" class="date" dateFmt="yyyy-MM-dd"  readonly="readonly" />
+			<button class="btn_fdmspszmx"> 查询</button>
+		</div>
+		<div style="clear:both"></div>
+	</div>
+</div>
+
+<div class="spszps_style">
+	<div class="spsz_notice">ps:收支类别，收支明细，产品信息为必填项！</div>
+	<button class="resetfdmszmx_btn" onclick="resetfdmszmx()">重置筛选</button>
+	<div style="clear: both"></div>
+</div>
+
+<div id="mengce_spsz"></div>
+<div style="overflow: auto;" class="scrollBox" layoutH="100">
+	<div class="pageContent" id="rendrTable_spszmx"></div>
+</div>
+<div class="xuanze_spszbg"></div>
+<div id="xuanze_spsz" class="xuanze_spsz">
+	<div class="tboy_headersz"></div>
+	<div class="tboy_optionspsz"></div>
+</div>
+<div class="spsz_close"> </div>
+<div class="xuanze_spszbg"> </div>
+<div class="xsrbspsz_close1"> </div>
+<div id="uploader_failspsz">
+</div>
+
+<script src="js/publicjs/common.js"></script>
+<script type="text/javascript">
+	$(function() {
+		document.body.onselectstart = function() {
+			return false;
+		} //关闭IE中的文字选中，使其支持拖拽选中
+		flag_enter_FDMKC = false;
+		cp_magspsz = [];
+		cp_magdataspsz = {};
+		type_FDMKC = 111;
+		down_fdmkc = 0; //光标下移
+		up_fdmkc = 1; //光标上移
+		right_fdmkc = 2; //光标右移
+		left_fdmkc = 3; //光标左移
+		spsztr = 0;
+		nowTime = new Date().getHours();
+		//默认查询服务器时间
+		$("#sdate_FDMSZ").val(getServiceTime_spsz());
+		$("#edate_FDMSZ").val(getServiceTime_spsz());
+		get_fdmspszmx();
+		//提交
+		$("#savefdmszmx").click(function() {
+			tj_fdmspszmx();
+		})
+	});
+
+	// 导入url
+	var postUrl_spsz;
+	if(fdmspszmx_flag) {
+		postUrl_spsz = URL1 + "SZMX/importFromExcel/flagType/0/token/" + token;
+		$("#index_wxspsz").css({ "border": "2px solid #add2db" });
+		$("#index_yxspsz").css({ "border": "1px solid #b8d0d6", "background-color": "#ecf0f6", "color": "#888" });
+	} else {
+		postUrl_spsz = URL1 + "SZMX/importFromExcel/flagType/1/token/" + token;
+		$("#index_yxspsz").css({ "border": "2px solid #add2db" });
+		$("#index_wxspsz").css({ "border": "1px solid #b8d0d6", "background-color": "#ecf0f6", "color": "#888" });
+	}
+	var postUrl_spsz = postUrl_spsz.replace("home", "NewSPZ");
+
+	//初始数据查询
+	function get_fdmspszmx() {
+		var sdate = $("#sdate_FDMSZ").val().replace(/\-/g, "");
+		var edate = $("#edate_FDMSZ").val().replace(/\-/g, "");
+		if(fdmspszmx_flag) {
+			fdmsp_szurl = URL1 + "SZMX/search/type/0/" + "sdate/" + sdate + "/edate/" + edate + "/token/" + token
+		} else {
+			fdmsp_szurl = URL1 + "SZMX/search/type/1/" + "sdate/" + sdate + "/edate/" + edate + "/token/" + token
+		}
+		var fdmsp_szurl = fdmsp_szurl.replace("home", "NewSPZ");
+		$.ajax({
+			type: "get",
+			url: fdmsp_szurl,
+			async: true,
+			cache: false,
+			dataType: "json",
+			success: function(data) {
+				if(data.resultcode == -1) {
+					alertMsg.info(data.resultmsg);
+					return;
+				}
+				if(data.resultcode == -2) {
+					alertMsg.info("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				FDMSPSZMX_test = data;
+				datalength_sz = data.data.data.length;
+				$("#rendrTable_spszmx").html("");
+				showData_spsz(data);
+				localStorage.setItem("checked_spsz", 0);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.error(errorThrown);
+			}
+		});
+	};
+	//查询数据
+	$(".btn_fdmspszmx").click(function() {
+		get_fdmspszmx();
+	});
+	//显示数据内容
+	function showData_spsz(data) {
+		var k = "";
+		k += '<table  id="table_fdmspsz" cellspacing="0" cellpadding="0" border="0">'
+		var flag = "";
+		if(data.data.head.length != 0) {
+			var item = data.data.head;
+			k += '<thead class="table_theadspsz">'
+			for(var i = 0; i < 3; i++) {
+				flag = i;
+				flag == 1 ? k += '<tr class="selsz_tr">' : k += '<tr>'
+				for(var j = 0; j < item[i].length; j++) {
+					if(flag == 2) {
+						k += '<td class="entryinid_thspsz" style="background-color:#fff;width:80px;" rowspan="' + item[i][j].rowspan + '" colspan="' + item[i][j].colspan + '">' +
+							'<span>' + item[i][j].value + '</span>' +
+							'</td>'
+					} else {
+						k += '<td class="entryinid_thspsz" style="width:80px;" rowspan="' + item[i][j].rowspan + '" colspan="' + item[i][j].colspan + '">' +
+							'<span >' + item[i][j].value + '</span>' +
+							'</td>'
+					}
+				}
+				if(flag == 0) {
+					k += '<td  class="entryinid_thspsz" rowspan="2" colspan="1">操作</td>'
+				}
+
+				k += '</tr>'
+			}
+
+			k += '</thead>'
+			var item_data = data.data.data;
+			k += '<tbody class="tb_spsz"><tbody></table>'
+			$("#rendrTable_spszmx").append(k); //渲染head
+			if(item_data.length > 500) {
+				initTbody_spsz(item_data.slice(0, 500)); //渲染body
+				loadmore_spsz(item_data.slice(500));
+			} else {
+				initTbody_spsz(item_data); //渲染body
+			}
+
+		} else {
+			k = '</tr>' +
+				'暂无数据' +
+				'</tr>' +
+				'</tbody>' +
+				'</table>'
+			$("#rendrTable_spszmx").append(k);
+		}
+		//给head设置下拉选项
+		$($('.selsz_tr td')[1]).append('<select class="selshouzhilb" onchange="cgData_sz(\'shouzhilb\',1)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[2]).append('<select class="selshouzhimx" onchange="cgData_sz(\'shouzhimx\',2)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[3]).append('<select class="selshangpinjc" onchange="cgData_sz(\'shangpinjc\',3)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[4]).append('<select class="selzhizaobm" onchange="cgData_sz(\'zhizaobm\',4)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[5]).append('<select class="seldingdanlb" onchange="cgData_sz(\'dingdanlb\',5)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[6]).append('<select class="seldangci" onchange="cgData_sz(\'dangci\',6)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[7]).append('<select class="selmenkuang" onchange="cgData_sz(\'menkuang\',7)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[8]).append('<select class="selkuanghou" onchange="cgData_sz(\'kuanghou\',8)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[9]).append('<select class="selqianbanhou" onchange="cgData_sz(\'qianbanhou\',9)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[10]).append('<select class="selhoubanhou" onchange="cgData_sz(\'houbanhou\',10)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[11]).append('<select class="seldikuangcl" onchange="cgData_sz(\'dikuangcl\',11)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[12]).append('<select class="selmenshan" onchange="cgData_sz(\'menshan\',12)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[13]).append('<select class="selguige" onchange="cgData_sz(\'guige\',13)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[14]).append('<select class="selkaixiang" onchange="cgData_sz(\'kaixiang\',14)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[15]).append('<select class="seljiaolian" onchange="cgData_sz(\'jiaolian\',15)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[16]).append('<select class="selhuase" onchange="cgData_sz(\'huase\',16)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[17]).append('<select class="selbiaomianfs" onchange="cgData_sz(\'biaomianfs\',17)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[18]).append('<select class="selbiaomianyq" onchange="cgData_sz(\'biaomianyq\',18)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[19]).append('<select class="selchuanghua" onchange="cgData_sz(\'chuanghua\',19)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[20]).append('<select class="selmaoyan" onchange="cgData_sz(\'maoyan\',20)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[21]).append('<select class="selbiaopai" onchange="cgData_sz(\'biaopai\',21)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[22]).append('<select class="selzhusuo" onchange="cgData_sz(\'zhusuo\',22)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[23]).append('<select class="selfusuo" onchange="cgData_sz(\'fusuo\',23)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[24]).append('<select class="selsuoba" onchange="cgData_sz(\'suoba\',24)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[25]).append('<select class="selbiaojian" onchange="cgData_sz(\'biaojian\',25)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[26]).append('<select class="selbaozhuangpp" onchange="cgData_sz(\'baozhuangpp\',26)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[27]).append('<select class="selbaozhuangfs" onchange="cgData_sz(\'baozhuangfs\',27)"><option value="">全部</option></select>');
+		$($('.selsz_tr td')[28]).append('<select class="selqita" onchange="cgData_sz(\'qita\',28)"><option value="">全部</option></select>');
+		getThead_spqc(item_data);
+		fixThead_sz();
+		if(isDataValid(data.data.error)) {
+			$(".xuanze_spszbg").css({ "display": "block" });
+			$("#uploader_failspsz").css("display", "block");
+			$(".xsrbspsz_close1").append('<span class="sz_closeicon"  onclick="closetk_sz()" />');
+			show_Faildataqcsz(data.data);
+			localStorage.setItem("faildqc_datasz", JSON.stringify(data.data.error));
+		}
+	}
+
+	function initTbody_spsz(item_data) {
+		var k = '';
+		$("tbody.tb_spsz").empty();
+		if(item_data != 0) {
+			for(var m = 0; m < item_data.length; m++) {
+				k += '<tr class="spsztr' + m + ' olddata">' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].create_date + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<span class="datai_spsz">' + m + '</span><select class="select_spsz"> <option value="' + item_data[m].shouzhilb + '">' + item_data[m].shouzhilb + '</option> </select>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input type="text" value="' + item_data[m].shouzhimx + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input type="text" value="' + item_data[m].shangpinjc + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].zhizaobm + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].dingdanlb + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].dangci + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].menkuang + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].kuanghou + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].qianbanhou + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color:none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].houbanhou + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].dikuangcl + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].menshan + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].guige + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].kaixiang + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].jiaolian + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].huase + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].biaomianfs + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].biaomianyq + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].chuanghua + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].maoyan + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].biaopai + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].zhusuo + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].fusuo + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].suoba + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].biaojian + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].baozhuangpp + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].baozhuangfs + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].qita + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: rgb(204, 255, 255);width:80px;border-right:1px solid #c0c0c0;border-bottom:1px solid #c0c0c0;" onclick="edit_FDMSZMX($(this))"  >' +
+					'<input type="text" class="disable_sz" value="' + item_data[m].shuliang + '" onkeyup="checkint_sz(this)" onblur="onblur_sz(this)"/>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					'<input type="text" readonly="readonly" class="disable_sz" value="' + item_data[m].danjia + '" />' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: none;">' +
+					' <input type="text" readonly="readonly" class="disable_sz" value="' + item_data[m].jine + '">' +
+					'</td>'
+
+					+
+					'<td class="td_spsz">' +
+					'<a class="" onclick="appDeleteOne_sz(this)"  style="display:inline-block;width:100px;"><span style="display: inline-block;height: 26px;line-height: 26px;width:100px;">删除</span></a>' +
+					'</td>' +
+					'</tr>'
+			}
+			$("tbody.tb_spsz").append(k);
+			var serviceTime_spsz = getServiceTime_spsz();
+			//遍历每一行数据，当日期不是当日则隐藏删除按钮（当日前的数据不可改）
+			for(s = 0; s < Math.floor($(".tb_spsz tr").length); s++) {
+				$(".tb_spsz tr").eq(s).find("td").eq(1).find("select option").css("visibility", "visible");
+				if($(".tb_spsz tr").eq(s).find("td").eq(0).find("input").val() != serviceTime_spsz) {
+					$(".tb_spsz tr").eq(s).find("td").eq(32).find("a").css({ "color": "lightgrey", "cursor": 'not-allowed' });
+				}
+			}
+		} else {
+			add_trspsz(); //没有数据情况下，自动加载一行
+
+		}
+
+		$("#table_fdmspsz tbody tr.olddata td.td_spsz").click(function() {
+			$(this).parent("tr").addClass("addColor");
+			$(this).parent("tr").find("input").addClass("addColor");
+			$(this).parent("tr").siblings(".addColor").removeClass("addColor");
+			$(this).parent("tr").siblings().find("input").removeClass("addColor");
+		});
+
+	}
+	// 加载更多>500
+	function loadmore_spsz(item_data) {
+		if(item_data != 0) {
+			var k = "";
+			for(var m = 0; m < item_data.length; m++) {
+				k += '<tr class="spsztr' + m + '">' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].create_date + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<span class="datai_spsz">' + m + '</span><select class="select_spsz"> <option value="' + item_data[m].shouzhilb + '">' + item_data[m].shouzhilb + '</option> </select>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input type="text" value="' + item_data[m].shouzhimx + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input type="text" value="' + item_data[m].shangpinjc + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].zhizaobm + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].dingdanlb + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].dangci + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].menkuang + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].kuanghou + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].qianbanhou + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].houbanhou + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].dikuangcl + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].menshan + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].guige + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].kaixiang + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].jiaolian + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].huase + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].biaomianfs + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].biaomianyq + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].chuanghua + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].maoyan + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].biaopai + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].zhusuo + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].fusuo + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].suoba + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].biaojian + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].baozhuangpp + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].baozhuangfs + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input readonly="readonly" type="text" value="' + item_data[m].qita + '"></input>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: rgb(204, 255, 255);width:80px;border-right:1px solid #c0c0c0;border-bottom:1px solid #c0c0c0;" onclick="edit_FDMSZMX($(this))"  >' +
+					'<input type="text" style="width:80px;"  class="disable_sz" value="' + item_data[m].shuliang + '" onkeyup="checkint_sz(this)" onblur="onblur_sz(this)"/>' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					'<input type="text" readonly="readonly" class="disable_sz" value="' + item_data[m].danjia + '" />' +
+					'</td>' +
+					'<td class="td_spsz" style="background-color: #fff;">' +
+					' <input type="text" readonly="readonly" class="disable_sz" value="' + item_data[m].jine + '">' +
+					'</td>'
+
+					+
+					'<td class="td_spsz">' +
+					'<a class="" onclick="appDeleteOne_sz(this)" style="display:inline-block;width:100px;"><span style="display: inline-block;height: 26px;line-height: 26px;width:100px;">删除</span></a>' +
+					'</td>' +
+					'</tr>'
+			}
+			$("tbody.tb_spsz").append(k);
+			var serviceTime_spsz = getServiceTime_spsz();
+			//遍历每一行数据，当日期不是当日则隐藏删除按钮（当日前的数据不可改）
+			for(s = 0; s < Math.floor($(".tb_spsz tr").length); s++) {
+				$(".tb_spsz tr").eq(s).find("td").eq(1).find("select option").css("visibility", "visible");
+				if($(".tb_spsz tr").eq(s).find("td").eq(0).find("input").val() != serviceTime_spsz) {
+					$(".tb_spsz tr").eq(s).find("td").eq(32).find("a").css({ "color": "lightgrey", "cursor": 'not-allowed' });
+				}
+			}
+		} else {
+			add_trspsz(); //没有数据情况下，自动加载一行
+		}
+	}
+
+	function fixThead_sz() {
+		$('.scrollBox').scroll(function() {
+			$('.table_theadspsz').css('top', $(this).scrollTop() + 'px');
+		});
+	}
+	//head下拉选项的一系列方法
+	var filObj_sz = {};
+
+	function cgData_sz(sel, _index) {
+		console.log($('.sel' + sel).val());
+		var data = FDMSPSZMX_test.data.data;
+		filObj_sz[sel] = $('.sel' + sel).val();
+		for(var k in filObj_sz) {
+			data = filter_sz(data, filObj_sz[k], k);
+		}
+		console.log(filObj_sz[sel]);
+		if(data.length > 500) {
+			initTbody_spsz(data.slice(0, 500)); //渲染body
+			loadmore_spsz(data.slice(500));
+		} else {
+			initTbody_spsz(data); //渲染body
+		}
+	}
+
+	function filter_sz(arr, str, index) {
+		if(str == '') {
+			return arr;
+		}
+		return $.map(arr, function(value) {
+			return value[index] == str ? value : null;
+		});
+	}
+
+	function getThead_spqc(arr) {
+		var theadObj = {};
+		for(var j = 0; j < arr.length; j++) {
+			for(var k in arr[j]) {
+				if(theadObj[k] == undefined || theadObj[k] == '') {
+					theadObj[k] = [];
+				}
+				if(theadObj[k].indexOf(arr[j][k]) == -1) {
+					if(arr[j][k] != "") {
+						theadObj[k].push(arr[j][k]);
+					}
+
+				}
+			}
+		}
+		for(var k in theadObj) {
+			for(var n = 0; n < theadObj[k].length; n++) {
+				$('.sel' + k).append('<option>' + theadObj[k][n] + '</option>');
+			}
+		}
+	}
+
+	//查询数据显示期初错误数据
+	function show_Faildataqcsz(data) {
+		var item = data.error;
+		var k = "";
+		k += '<table class="" id="" border="0" cellspacing="0" cellpadding="0" style="width:2600px;color:#555;font-size: small;">' +
+			'<thead>' +
+			'<tr>' +
+			'<td class="entryinid_thspsz1" rowspan="1" colspan="31">错误期初数据显示</td>' +
+			'</tr>' +
+			'<tr>' +
+			'<td class="entryinid_thspsz1 w40">行数</td>' +
+			'<td  class="entryinid_thspsz1 w90">日期</td>' +
+			'<td  class="entryinid_thspsz1 w100">收支类别</td>' +
+			'<td  class="entryinid_thspsz1 w100">收支明细</td>' +
+			'<td  class="entryinid_thspsz1 w130">商品简称</td>' +
+			'<td  class="entryinid_thspsz1 w120">制造部门</td>' +
+			'<td  class="entryinid_thspsz1 w100">订单类别</td>' +
+			'<td  class="entryinid_thspsz1 w100">档次</td>' +
+			'<td  class="entryinid_thspsz1 w120">门框</td>' +
+			'<td  class="entryinid_thspsz1 w50">框厚</td>' +
+			'<td  class="entryinid_thspsz1 w60">前板厚</td>' +
+			'<td  class="entryinid_thspsz1 w60">后板厚</td>' +
+			'<td  class="entryinid_thspsz1 w100">底框材料</td>' +
+			'<td  class="entryinid_thspsz1 w90">门扇</td>' +
+			'<td  class="entryinid_thspsz1 w80">规格</td>' +
+			'<td  class="entryinid_thspsz1 w60">开向</td>' +
+			'<td  class="entryinid_thspsz1 w100">铰链</td>' +
+			'<td  class="entryinid_thspsz1 w90">花色</td>' +
+			'<td  class="entryinid_thspsz1 w90">表面方式</td>' +
+			'<td  class="entryinid_thspsz1 w90">表面要求</td>' +
+			'<td  class="entryinid_thspsz1 w130">窗花</td>' +
+			'<td  class="entryinid_thspsz1 w130">猫眼</td>' +
+			'<td  class="entryinid_thspsz1 w80">标牌</td>' +
+			'<td  class="entryinid_thspsz1 w130">主锁</td>' +
+			'<td  class="entryinid_thspsz1 w130">副锁</td>' +
+			'<td  class="entryinid_thspsz1 w100">锁把</td>' +
+			'<td  class="entryinid_thspsz1 w90">标件</td>' +
+			'<td  class="entryinid_thspsz1 w120">包装品牌</td>' +
+			'<td  class="entryinid_thspsz1 w90">包装方式</td>' +
+			'<td  class="entryinid_thspsz1 w90">其它</td>' +
+			'<td  class="entryinid_thspsz1 w200">备注</td>' +
+			'</tr>' +
+			'</thead>' +
+			'<tbody>'
+		for(var s = 0; s < item.length; s++) {
+			k += '<tr>'
+			for(var j = 0; j < item[s].length; j++) {
+				if(item[s][j].type == 0) {
+					k += '<td class="failtable_tdsz" style="color: red;" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				} else {
+					k += '<td class="failtable_tdsz" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				}
+
+			}
+			k += '</tr>'
+		}
+		k += '</tbody></table>'
+		$("#uploader_failspsz").append(k);
+	}
+
+	//关闭弹框按钮
+	function closetk_sz() {
+		console.log("ksjdk");
+		var error = JSON.parse(localStorage.getItem("faildqc_datasz"));
+		$(".xsrbspsz_close1").html("");
+		$("#uploader_failspsz").html("");
+		$("#uploader_failspsz").css("display", "none");
+		$(".xuanze_spszbg").css({ "display": "none" });
+		for(var i = 0; i < $(".tb_spsz tr").length; i++) {
+			for(var j = 0; j < error.length; j++) {
+				$(".tb_spsz").find("tr").eq(error[j][0].value - 1).find("td").find("input").css("color", "red");
+			}
+		}
+	}
+	//重置筛选
+	function resetfdmszmx() {
+		for(var i = 0; i < 27; i++) {
+			$($('.selsz_tr td')[i]).find("select option[value='']").attr("selected", true);
+		}
+		filObj_sz = {};
+		if(FDMSPSZMX_test.data.data.length > 500) {
+			initTbody_spsz(FDMSPSZMX_test.data.data.slice(0, 500)); //渲染body
+			loadmore_spsz(FDMSPSZMX_test.data.data.slice(500));
+		} else {
+			initTbody_spsz(FDMSPSZMX_test.data.data); //渲染body
+		}
+	}
+
+	// 添加选项
+	function option_addsz(test_sz) {
+		arrayLb = FDMSPSZMX_test.data.option.shouzhilb;
+		var optionsa = [];
+		for(var i = 0; i < arrayLb.length; i++) {
+			optionsa.push("<option value='" + arrayLb[i] + "'> " + arrayLb[i] + " </option>");
+		};
+		$(".tb_spsz").find(".spsztr" + test_sz).find("select").eq(0).append(optionsa.join(''));
+		$(".tb_spsz").find(".spsztr" + test_sz).find("input").eq(15).attr("readonly", "readonly");
+		$(".tb_spsz").find(".spsztr" + test_sz).find("input").eq(16).attr("readonly", "readonly");
+		$("option").css("visibility", "visible");
+	}
+	//添加一行
+	function add_trspsz() {;
+		if($(".tb_spsz tr").length == 0) {
+			test_sz = 0;
+		} else {
+			test_sz = $(".tb_spsz tr").length + 1;
+		}
+		$longtd = "<td class='td_spsz' onclick='select_spsz(this," + test_sz + ")' style='width: 80px;'> <input readonly='readonly' type='text' style='width: 78px;'/></td>"
+		$longtd1 = "<td  class='td_spsz'  style='background-color: rgb(204, 255, 255);width:80px;' onclick='edit_FDMSZMX($(this))'><input class='disable_sz' style='width:78px;' onkeyup='checkint_sz(this)' onblur='onblur_sz(this)' type='text' value='0'></td>  "
+		$longtd2 = "<td  class='td_spsz'  style='background-color: #fff;width:80px;'><input class='disable_sz' type='text' style='width: 78px;' value='0.00' readonly='readonly'></td>  "
+		$longtd3 = "<td  class='td_spsz' style='background-color: #fff;width:80px;'><input class='disable_sz' type='text' style='width: 78px;' value='0.00' readonly='readonly'></td>  "
+		$longtd4 = '<a class="" onclick="appDeleteOne_sz(this)" style="display: inline-block;width:100px;"><span style="display: inline-block;cursor: pointer;height: 26px;line-height: 26px;width:65px;">取消</span></a>';
+
+		$newc1 = $("<tr class='spsztr" + test_sz + "'><td class='td_spsz' style='width: 80px;'><input readonly='readonly' style='width: 78px;'></td><td class='td_spsz' style='width:80px;'><span class='datai_spsz'>" + test_sz + "</span><select class='select_spsz' style='width: 80px !important;'> <option ></option></select></td><td class='td_spsz'><input type='text' style='width: 78px;'></td>" + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd + $longtd1 + $longtd2 + $longtd3 + "<td class='td_spsz'>" + $longtd4 + "</td></tr>")
+
+		$(".tb_spsz").prepend($newc1);
+		option_addsz(test_sz);
+		$(".spsztr" + test_sz).find("td").eq(0).find("input").val(getServiceTime_spsz());
+	}
+
+	//获取服务器时间
+	function getServiceTime_spsz() {
+		var getServiceTime_url = URL1 + "Schedule/SERVER_TIME";
+		var getServiceTime = "";
+		$.ajax({
+			type: "get",
+			url: getServiceTime_url,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+				getServiceTime = data.server_time;
+				return;
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.warn(errorThrown);
+			}
+		});
+		return getServiceTime;
+	}
+
+	//删除一行
+	function appDeleteOne_sz(obj) {
+		var lastDay = $(obj).parents("tr").find("td").eq(0).find("input").val().replace(/\-/g, "");
+		var currentDay = getServiceTime_spsz().replace(/\-/g, "");
+		if(parseInt(lastDay) == parseInt(currentDay)) {
+			$(obj).parent().parent().remove();
+		} else {
+			alertMsg.warn("以往数据不能被删除！");
+			return;
+		}
+
+	}
+	//导入
+	uploader = WebUploader.create({
+		// 自动上传。
+		auto: true,
+		swf: 'js/Uploader.swf',
+		server: postUrl_spsz,
+		pick: '#icon_selectspsz',
+		accept: {
+			title: 'excel',
+			extensions: 'xls,xlsx,csv',
+			mimeTypes: '.xls,.xlsx,.csv'
+		}
+	});
+	uploader.on('fileQueued', function(file) {
+		$("#iconsz").html("");
+		var $li = $(
+				'<div id="' + file.id + '" class="icon-imgspsz">' +
+				file.name +
+				'</div>'
+			),
+			$img = $li.find('img');
+		$("#iconsz").append($li);
+		$(".icon-imgspsz").show();
+		$("#mengce_spsz").css("display", "block");
+		$("body").css("opacity", "0.5");
+	});
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	uploader.on('uploadSuccess', function(file, response) {
+		$(".icon-imgspsz").hide();
+		$("#mengce_spsz").css("display", "none");
+		$("body").css("opacity", "1");
+		if(response.resultcode == -2) {
+			alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+			window.location.href = "index.html";
+		} else {
+			if(isDataValid(response.error)) {
+				$(".xuanze_spszbg").css({ "display": "block" });
+				$("#uploader_failspsz").css("display", "block");
+				$(".xsrbspsz_close1").append('<span class="sz_closeicon"  onclick="closetk_spsz()" />');
+				show_Faildata(response);
+			} else {
+				alertMsg.warn(response.resultmsg);
+				navTab._reload(navTab._getTab("new_fdmspszmx1"), true);
+			}
+		}
+	});
+
+	//导入期初错误提示关闭
+	function closetk_spsz() {
+		$("#uploader_failspsz").css("display", "none");
+		$(".xsrbspsz_close1").css("display", "none");
+		navTab._reload(navTab._getTab("new_fdmspszmx1"), true);
+	}
+
+	//导入后如有错误数据弹框
+	function show_Faildata(response) {
+		var item = response.error;
+		var k = "";
+		k += '<table class="" id="" border="0" cellspacing="0" cellpadding="0" style="width:2400px;color:#555;font-size: small;">' +
+			'<thead>' +
+			'<tr>' +
+			'<td class="entryinid_thspsz1" rowspan="1" colspan="33">错误数据显示</td>' +
+			'</tr>' +
+			'<tr>' +
+			'<td class="entryinid_thspsz1 w40">行数</td>' +
+			'<td class="entryinid_thspsz1 w90">日期</td>' +
+			'<td  class="entryinid_thspsz1 w100">收支类别</td>' +
+			'<td  class="entryinid_thspsz1 w100">收支明细</td>' +
+			'<td  class="entryinid_thspsz1 w130">商品简称</td>' +
+			'<td  class="entryinid_thspsz1 w120">制造部门</td>' +
+			'<td  class="entryinid_thspsz1 w100">订单类别</td>' +
+			'<td  class="entryinid_thspsz1 w100">档次</td>' +
+			'<td  class="entryinid_thspsz1 w120">门框</td>' +
+			'<td  class="entryinid_thspsz1 w50">框厚</td>' +
+			'<td  class="entryinid_thspsz1 w60">前板厚</td>' +
+			'<td  class="entryinid_thspsz1 w60">后板厚</td>' +
+			'<td  class="entryinid_thspsz1 w100">底框材料</td>' +
+			'<td  class="entryinid_thspsz1 w90">门扇</td>' +
+			'<td  class="entryinid_thspsz1 w80">规格</td>' +
+			'<td  class="entryinid_thspsz1 w60">开向</td>' +
+			'<td  class="entryinid_thspsz1 w100">铰链</td>' +
+			'<td  class="entryinid_thspsz1 w90">花色</td>' +
+			'<td  class="entryinid_thspsz1 w90">表面方式</td>' +
+			'<td  class="entryinid_thspsz1 w90">表面要求</td>' +
+			'<td  class="entryinid_thspsz1 w130">窗花</td>' +
+			'<td  class="entryinid_thspsz1 w130">猫眼</td>' +
+			'<td  class="entryinid_thspsz1 w80">标牌</td>' +
+			'<td  class="entryinid_thspsz1 w130">主锁</td>' +
+			'<td  class="entryinid_thspsz1 w130">副锁</td>' +
+			'<td  class="entryinid_thspsz1 w100">锁把</td>' +
+			'<td  class="entryinid_thspsz1 w90">标件</td>' +
+			'<td  class="entryinid_thspsz1 w120">包装品牌</td>' +
+			'<td  class="entryinid_thspsz1 w90">包装方式</td>' +
+			'<td  class="entryinid_thspsz1 w90">其它</td>' +
+			'<td  class="entryinid_thspsz1 w50">数量</td>' +
+			'<td  class="entryinid_thspsz1 w50">单价</td>' +
+			'<td  class="entryinid_thspsz1 w200">备注</td>' +
+			'</tr>' +
+			'</thead>' +
+			'<tbody>'
+		for(var s = 0; s < item.length; s++) {
+			k += '<tr>'
+			for(var j = 0; j < item[s].length; j++) {
+				if(item[s][j].type == 0) {
+					k += '<td class="failtable_tdsz" style="color: red;" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				} else {
+					k += '<td class="failtable_tdsz" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				}
+
+			}
+			k += '</tr>'
+		}
+		k += '</tbody></table>'
+		$("#uploader_failspsz").append(k);
+	}
+
+	//输出
+	function spsz_shuchu() {
+		var spsz_shuchuURL = URL1 + "SZMX/printExcel/token/" + token;
+		var spsz_shuchuURL = spsz_shuchuURL.replace('home', 'NewSPZ');
+		if(isDataValid($("#edate_FDMSZ").val())) {
+			spsz_shuchuURL += "/date/" + $("#edate_FDMSZ").val();
+		}
+		if(fdmspszmx_flag) {
+			spsz_shuchuURL += "/type/0";
+			window.open(spsz_shuchuURL);
+		} else {
+			spsz_shuchuURL += "/type/1";
+			window.open(spsz_shuchuURL);
+		}
+		navTab._reload(navTab._getTab("new_fdmspszmx1"), true);
+	}
+
+	function check_spsz(obj, trlength) {
+		var type = document.getElementsByName("radio_sz");
+		for(i = 0; i < type.length; i++) { //遍历单选框
+			if(type[i].checked) {
+				localStorage.setItem("checked_spsz", i);
+				cp_magspsz = [];
+				cp_magdataspsz = {};
+				closeBg_spsz(trlength);
+				$(".tb_spsz").find("td").eq(31).find("input").val(($(".tb_spsz").find("td").eq(30).find("input").val() * $(".tb_spsz").find("td").eq(29).find("input").val()).toFixed(2));
+			}
+		}
+	}
+
+	// 选择后的期初信息赋值在列表中
+	function closeBg_spsz(trlength) {
+		var tr_index = parseInt(localStorage.getItem("checked_spsz")) + 1;
+		var shangpinjc = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(1).find("text").text();
+		var zhizaobm = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(2).find("text").text();
+		var dingdanlb = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(3).find("text").text();
+		var dangci = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(4).find("text").text();
+		var menkuang = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(5).find("text").text();
+		var kuanghou = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(6).find("text").text();
+		var qianbanhou = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(7).find("text").text();
+		var houbanhou = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(8).find("text").text();
+		var dikuangcl = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(9).find("text").text();
+		var menshan = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(10).find("text").text();
+		var guige = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(11).find("text").text();
+		var kaixiang = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(12).find("text").text();
+		var jiaolian = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(13).find("text").text();
+		var huase = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(14).find("text").text();
+		var biaomianfs = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(15).find("text").text();
+		var biaomianyq = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(16).find("text").text();
+		var chuanghua = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(17).find("text").text();
+		var maoyan = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(18).find("text").text();
+		var biaopai = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(19).find("text").text();
+		var zhusuo = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(20).find("text").text();
+		var fusuo = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(21).find("text").text();
+		var suoba = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(22).find("text").text();
+		var biaojian = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(23).find("text").text();
+		var baozhuangpp = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(24).find("text").text();
+		var baozhuangfs = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(25).find("text").text();
+		var qita = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(26).find("text").text();
+		var price = $(".spsz_xuanze").find("tr").eq(tr_index).find("td").eq(27).find("text").text();
+
+		cp_magdataspsz = { "shangpinjc": shangpinjc, "zhizaobm": zhizaobm, "dingdanlb": dingdanlb, "dangci": dangci, "menkuang": menkuang, "kuanghou": kuanghou, "qianbanhou": qianbanhou, "houbanhou": houbanhou, "dikuangcl": dikuangcl, "menshan": menshan, "guige": guige, "kaixiang": kaixiang, "jiaolian": jiaolian, "huase": huase, "biaomianfs": biaomianfs, "biaomianyq": biaomianyq, "chuanghua": chuanghua, "maoyan": maoyan, "biaopai": biaopai, "zhusuo": zhusuo, "fusuo": fusuo, "suoba": suoba, "biaojian": biaojian, "baozhuangpp": baozhuangpp, "baozhuangfs": baozhuangfs, "qita": qita, "price": price, };
+		cp_magspsz.push(cp_magdataspsz);
+		var option_wg = [];
+		if(cp_magspsz.length != 0) {
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(3).find("input").val(cp_magspsz[0].shangpinjc);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(4).find("input").val(cp_magspsz[0].zhizaobm);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(5).find("input").val(cp_magspsz[0].dingdanlb);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(6).find("input").val(cp_magspsz[0].dangci);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(7).find("input").val(cp_magspsz[0].menkuang);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(8).find("input").val(cp_magspsz[0].kuanghou);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(9).find("input").val(cp_magspsz[0].qianbanhou);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(10).find("input").val(cp_magspsz[0].houbanhou);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(11).find("input").val(cp_magspsz[0].dikuangcl);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(12).find("input").val(cp_magspsz[0].menshan);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(13).find("input").val(cp_magspsz[0].guige);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(14).find("input").val(cp_magspsz[0].kaixiang);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(15).find("input").val(cp_magspsz[0].jiaolian);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(16).find("input").val(cp_magspsz[0].huase);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(17).find("input").val(cp_magspsz[0].biaomianfs);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(18).find("input").val(cp_magspsz[0].biaomianyq);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(19).find("input").val(cp_magspsz[0].chuanghua);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(20).find("input").val(cp_magspsz[0].maoyan);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(21).find("input").val(cp_magspsz[0].biaopai);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(22).find("input").val(cp_magspsz[0].zhusuo);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(23).find("input").val(cp_magspsz[0].fusuo);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(24).find("input").val(cp_magspsz[0].suoba);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(25).find("input").val(cp_magspsz[0].biaojian);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(26).find("input").val(cp_magspsz[0].baozhuangpp);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(27).find("input").val(cp_magspsz[0].baozhuangfs);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(28).find("input").val(cp_magspsz[0].qita);
+			$(".tb_spsz").find(".spsztr" + trlength).find("td").eq(30).find("input").val(cp_magspsz[0].price);
+			cp_magspsz = [];
+			cp_magdataspsz = {};
+		}
+		$(".tboy_optionspsz").html("");
+		var xuanze_spsz = document.getElementById('xuanze_spsz');
+		xuanze_spsz.style.display = "none";
+		$(".xuanze_spszbg").css({ "display": "none" });
+		$(".spsz_close").html("");
+
+	}
+	//打开产品信息弹框
+	function select_spsz(obj, spsztrlh) {
+		$(".tboy_optionspsz").html("");
+		if(fdmspszmx_flag) {
+			spsz_qcurl = URL1 + "SPZQC/search/type/0/token/" + token
+		} else {
+			spsz_qcurl = URL1 + "SPZQC/search/type/1/token/" + token
+		}
+		var spsz_qcurl = spsz_qcurl.replace("home", 'NewSPZ');
+		$.ajax({
+			type: "get",
+			url: spsz_qcurl,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+				if(data.resultcode == -1) {
+					alertMsg.info(data.resultmsg);
+					return;
+				}
+				if(data.resultcode == -2) {
+					alertMsg.info("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				if(data.data.length <= 3) {
+					alertMsg.info("未录入期初数据！");
+				} else {
+					$("#xuanze_spsz").css({ "display": "block" });
+					$(".xuanze_spszbg").css({ "display": "block" });
+					if(data.data.length < 6) {
+						$("#xuanze_spsz").css("height", "500px")
+					}
+					_qcData_sz = data.data.splice(3);
+					_qcChecked_sz = spsztrlh;
+					showcp_spsz(_qcData_sz, spsztrlh);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.error(errorThrown);
+			}
+		});
+	}
+
+	//选择期初弹框表头
+	function showcp_spsz(item, trlength) {
+		$(".tboy_optionspsz").empty();
+		$(".spsz_close").empty();
+		var k = "";
+		k += '<table class="spsz_xuanze" id="qcable_sz" border="0" cellspacing="0" cellpadding="0" style="width:2300px;color:#555;font-size: small;">' +
+			'<thead>' +
+			'<tr>' +
+			'<td class="entryinid_thspsz1 w50">选择</td>' +
+			'<td  class="entryinid_thspsz1 w130">商品简称<select class="szqc0" onchange="cgQcData(0)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w120">制造部门<select class="szqc1" onchange="cgQcData(1)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w100">订单类别<select class="szqc2" onchange="cgQcData(2)" ><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w100">档次<select class="szqc3" onchange="cgQcData(3)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w120">门框<select class="szqc4" onchange="cgQcData(4)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w50">框厚<select class="szqc5" onchange="cgQcData(5)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w60">前板厚<select class="szqc6" onchange="cgQcData(6)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w60">后板厚<select class="szqc7" onchange="cgQcData(7)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w100">底框材料<select class="szqc8" onchange="cgQcData(8)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w90">门扇<select class="szqc9" onchange="cgQcData(9)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w80">规格<select class="szqc10" onchange="cgQcData(10)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w60">开向<select class="szqc11" onchange="cgQcData(11)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w100">铰链<select class="szqc12" onchange="cgQcData(12)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w90">花色<select class="szqc13" onchange="cgQcData(13)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w90">表面方式<select class="szqc14" onchange="cgQcData(14)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w90">表面要求<select class="szqc15" onchange="cgQcData(15)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w130">窗花<select class="szqc16" onchange="cgQcData(16)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w130">猫眼<select class="szqc17" onchange="cgQcData(17)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w80">标牌<select class="szqc18" onchange="cgQcData(18)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w130">主锁<select class="szqc19" onchange="cgQcData(19)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w130">副锁<select class="szqc20" onchange="cgQcData(20)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w100">锁把<select class="szqc21" onchange="cgQcData(21)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w90">标件<select class="szqc22" onchange="cgQcData(22)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w120">包装品牌<select class="szqc23" onchange="cgQcData(23)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w90">包装方式<select class="szqc24" onchange="cgQcData(24)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w90">其它<select class="szqc25" onchange="cgQcData(25)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thspsz1 w50">单价</td>' +
+			'</tr>' +
+			'</thead>' +
+			'<tbody class="choosefdmspqc">' +
+			'</tbody>' +
+			'</table>'
+		$(".tboy_optionspsz").append(k);
+		$(".spsz_close").append(' <div class="spsz_close" ><span class="sz_closeicon"  onclick="closeBg_spsz(' + trlength + ')" /></div>');
+
+		initQc_sz(item, trlength);
+		localStorage.setItem("checked_spsz", 0);
+		var checked_spsz = localStorage.getItem("checked_spsz");
+		$("#radio_sz" + checked_spsz).attr("checked", 'true');
+		getQcThead_spsz(item);
+	}
+	var _qcData_sz;
+	var _qcChecked_sz;
+
+	//选择期初弹框表头tbody
+	function initQc_sz(item, trlength) {
+		var k = '';
+		if(item != "" && item[0].tr.length != 0) {
+			$('#qcable_sz tbody').empty();
+			for(var i = 0; i < item.length; i++) {
+				var radio_value = i;
+				k += '<tr>' +
+					'<td style="background-color:#FFFFFF;width:50px;" ><input type="radio" name="radio_sz" id="radio_sz' + radio_value + '" onclick="check_spsz(this,' + trlength + ')" value="' + radio_value + '"/></td>' +
+					'<td><text>' + item[i].tr[0].value + '</text></td>' +
+					'<td><text>' + item[i].tr[1].value + '</text></td>' +
+					'<td><text>' + item[i].tr[2].value + '</text></td>' +
+					'<td><text>' + item[i].tr[3].value + '</text></td>' +
+					'<td><text>' + item[i].tr[4].value + '</text></td>' +
+					'<td><text>' + item[i].tr[5].value + '</text></td>' +
+					'<td><text>' + item[i].tr[6].value + '</text></td>' +
+					'<td><text>' + item[i].tr[7].value + '</text></td>' +
+					'<td><text>' + item[i].tr[8].value + '</text></td>' +
+					'<td><text>' + item[i].tr[9].value + '</text></td>' +
+					'<td><text>' + item[i].tr[10].value + '</text></td>' +
+					'<td><text>' + item[i].tr[11].value + '</text></td>' +
+					'<td><text>' + item[i].tr[12].value + '</text></td>' +
+					'<td><text>' + item[i].tr[13].value + '</text></td>' +
+					'<td><text>' + item[i].tr[14].value + '</text></td>' +
+					'<td><text>' + item[i].tr[15].value + '</text></td>' +
+					'<td><text>' + item[i].tr[16].value + '</text></td>' +
+					'<td><text>' + item[i].tr[17].value + '</text></td>' +
+					'<td><text>' + item[i].tr[18].value + '</text></td>' +
+					'<td><text>' + item[i].tr[19].value + '</text></td>' +
+					'<td><text>' + item[i].tr[20].value + '</text></td>' +
+					'<td><text>' + item[i].tr[21].value + '</text></td>' +
+					'<td><text>' + item[i].tr[22].value + '</text></td>' +
+					'<td><text>' + item[i].tr[23].value + '</text></td>' +
+					'<td><text>' + item[i].tr[24].value + '</text></td>' +
+					'<td><text>' + item[i].tr[25].value + '</text></td>' +
+					'<td><text>' + item[i].tr[27].value + '</text></td>' +
+					'</tr>'
+
+			}
+			$('#qcable_sz tbody').append(k);
+		}
+	}
+
+	function getQcThead_spsz(arr) {
+		var theadArr = [];
+		for(var j = 0; j < arr.length; j++) {
+			for(var i = 0; i < 27; i++) {
+				if(theadArr[i] == undefined || theadArr[i] == '') {
+					theadArr[i] = [];
+				}
+				if(theadArr[i].indexOf(arr[j].tr[i].value) == -1) {
+					theadArr[i].push(arr[j].tr[i].value);
+				}
+			}
+		}
+		for(var k = 0; k < 27; k++) {
+			for(var n = 0; n < theadArr[k].length; n++) {
+				$('.szqc' + k).append('<option value="' + theadArr[k][n] + '">' + theadArr[k][n] + '</option>');
+			}
+		}
+	}
+	for(var qci = 0, qcfilArr = []; qci < 27; qci++) {
+		qcfilArr[qci] = "";
+	}
+
+	function cgQcData(_index) {
+		qcfilArr[_index] = $('.szqc' + _index).val();
+		var changeQcArr_sz = _qcData_sz;
+		for(var i = 0; i < 27; i++) {
+			changeQcArr_sz = qcfilter_sz(changeQcArr_sz, qcfilArr[i], i);
+		}
+		initQc_sz(changeQcArr_sz, _qcChecked_sz);
+	}
+
+	function qcfilter_sz(arr, str, index) {
+		if(str == '') {
+			return arr;
+		}
+		return $.map(arr, function(value) {
+			return value.tr[index].value == str ? value : null;
+		});
+	}
+
+	function index_yxcxsz() { //有效数据add
+		fdmspszmx_flag = false;
+		$("#index_yxspsz").css({ "border": "2px solid #add2db" });
+		$("#index_wxspsz").css({ "border": "0px solid #add2db" });
+		$("#fdmspszmxTab").trigger("click");
+	}
+
+	function index_wxcxsz() { //无效数据
+		fdmspszmx_flag = true;
+		$("#index_wxspsz").css({ "border": "2px solid #add2db" });
+		$("#index_yxspsz").css({ "border": "0px solid #add2db" });
+		$("#fdmspszmxTab").trigger("click");
+	}
+
+	function onblur_sz(obj) {
+		$(obj).parent().css({
+			"border": "none",
+			"border-right": "1px solid #C0C0C0",
+			"border-bottom": "1px solid #c0c0c0",
+			"width": "80px"
+		});
+	}
+
+	function checkint_sz(obj) {
+		$(obj).val($(obj).val().replace(/[^\-\d]/g, ''));
+		if($(obj).parent().parent().find("td").eq(29).find("input").val() != "") {
+			$(obj).parent().parent().find("td").eq(31).find("input").val(($(obj).parent().parent().find("td").eq(29).find("input").val() * $(obj).parent().parent().find("td").eq(30).find("input").val()).toFixed(2));
+		} else {
+			$(obj).parent().parent().find("td").eq(31).find("input").val("0.00");
+		}
+	}
+
+	function edit_FDMSZMX(obj) {
+		obj.css({ "border": "2px solid #000", "width": "77px" });
+	};
+
+	//提交数据
+	function tj_fdmspszmx() {
+		get_dayspsz = getServiceTime_spsz();
+		for(var i = 0; i < 27; i++) {
+			if($($('.selsz_tr td')[i]).find("select").length != 0 && $($('.selsz_tr td')[i]).find("select").val() != "") {
+				alertMsg.warn("请先重置筛选");
+				return;
+			}
+		}
+		//获取提交数据
+		getdata_spsz = [];
+		k = 0;
+		for(var i = 0; i < Math.floor($(".tb_spsz tr").length); i++) {
+			if($(".tb_spsz tr").eq(i).find("td").eq(0).find("input").val() == get_dayspsz) {
+				for(var j = 0; j < 32; j++) {
+					if(j == 29) { //数量
+						getdata_spsz[k] = $(".tb_spsz tr").eq(i).find("td").eq(29).find("input").val();
+						if(getdata_spsz[k] == "") {
+							$(".tb_spsz tr").eq(i).find("td").eq(29).find("input").val("0");
+						}
+					} else if(j == 1) {
+						getdata_spsz[k] = $(".tb_spsz tr").eq(i).find("td").eq(1).find("select").val();
+					} else {
+						getdata_spsz[k] = $(".tb_spsz tr").eq(i).find("td").eq(j).find("input").val();
+					}
+
+					if($(".tb_spsz tr").eq(i).find("td").eq(1).find("select").val() == "" && $(".tb_spsz tr").eq(i).find("td").eq(2).find("input").val() == "" && $(".tb_spsz tr").eq(i).find("td").eq(4).find("input").val() == "") {
+						alertMsg.info("必填项未填写，保存失败！");
+
+						if(i == 0) {
+
+							$(".tb_spsz tr").eq(i).find("td").eq(1).find("select").css("width", "75px");
+							$(".tb_spsz tr").eq(i).find("td").eq(2).find("input").css("width", "75px");
+							$(".tb_spsz tr").eq(i).find("td").eq(4).find("input").css("width", "75px");
+							$(".tb_spsz tr").eq(i).find("td").eq(29).find("input").css("width", "75px");
+							$(".tb_spsz tr").eq(i).find("td").eq(1).css({ "border": "2px solid red", "width": "77px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(2).css({ "border": "2px solid red", "width": "77px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(4).css({ "border": "2px solid red", "width": "77px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(29).css({ "border": "2px solid red", "width": "77px" });
+						} else {
+							$(".tb_spsz tr").eq(i).find("td").eq(1).find("select").css("width", "76px");
+							$(".tb_spsz tr").eq(i).find("td").eq(2).find("input").css("width", "76px");
+							$(".tb_spsz tr").eq(i).find("td").eq(4).find("input").css("width", "76px");
+							$(".tb_spsz tr").eq(i).find("td").eq(29).find("input").css("width", "76px");
+							$(".tb_spsz tr").eq(i).find("td").eq(1).css({ "border": "2px solid red", "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(2).css({ "border": "2px solid red", "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(4).css({ "border": "2px solid red", "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(29).css({ "border": "2px solid red", "width": "76px" });
+						}
+
+						return;
+					} else if($(".tb_spsz tr").eq(i).find("td").eq(1).find("select").val() == "" && $(".tb_spsz tr").eq(i).find("td").eq(2).find("input").val() == "") {
+						alertMsg.info("收支类别和收支明细未填写，保存失败！");
+						if(i == 0) {
+							$(".tb_spsz tr").eq(i).find("td").eq(1).find("select").css({ "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(2).find("input").css({ "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(1).css({ "border": "2px solid red", "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(2).css({ "border": "2px solid red", "width": "76px" });
+
+						} else {
+							$(".tb_spsz tr").eq(i).find("td").eq(1).find("select").css({ "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(2).find("input").css({ "width": "76px" });
+
+							$(".tb_spsz tr").eq(i).find("td").eq(1).css({ "border": "2px solid red", "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(2).css({ "border": "2px solid red", "width": "76px" });
+
+						}
+
+						return;
+					} else if($(".tb_spsz tr").eq(i).find("td").eq(2).find("input").val() == "" && $(".tb_spsz tr").eq(i).find("td").eq(4).find("input").val() == "") {
+						alertMsg.info("收支明细和产品信息未填写，保存失败！");
+						if(i == 0) {
+							$(".tb_spsz tr").eq(i).find("td").eq(2).find("input").css({ "width": "75px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(4).find("input").css({ "width": "75px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(2).css({ "border": "2px solid red", "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(4).css({ "border": "2px solid red", "width": "76px" });
+						} else {
+							$(".tb_spsz tr").eq(i).find("td").eq(2).find("input").css({ "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(4).find("input").css({ "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(2).css({ "border": "2px solid red", "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(4).css({ "border": "2px solid red", "width": "76px" });
+
+						}
+
+						return;
+					} else if($(".tb_spsz tr").eq(i).find("td").eq(1).find("select").val() == "" && $(".tb_spsz tr").eq(i).find("td").eq(4).find("input").val() == "") {
+						alertMsg.info("收支类别和产品信息未填写，保存失败！");
+						if(i == 0) {
+							$(".tb_spsz tr").eq(i).find("td").eq(1).find("select").css({ "width": "77px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(4).find("input").css({ "width": "77px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(1).css({ "border": "2px solid red", "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(4).css({ "border": "2px solid red", "width": "76px" });
+						} else {
+							$(".tb_spsz tr").eq(i).find("td").eq(1).find("select").css({ "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(4).find("input").css({ "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(1).css({ "border": "2px solid red", "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(4).css({ "border": "2px solid red", "width": "76px" });
+						}
+
+						return;
+					} else if($(".tb_spsz tr").eq(i).find("td").eq(1).find("select").val() == "") {
+
+						alertMsg.info("收支类别未填写，保存失败！");
+						if(i == 0) {
+							$(".tb_spsz tr").eq(i).find("td").eq(1).find("select").css({ "width": "75x" });
+							$(".tb_spsz tr").eq(i).find("td").eq(1).css({ "border": "2px solid red", "width": "76px" });
+						} else {
+							$(".tb_spsz tr").eq(i).find("td").eq(1).find("select").css({ "width": "76px" });
+							$(".tb_spsz tr").eq(i).find("td").eq(1).css({ "border": "2px solid red", "width": "76px" });
+						}
+
+						return;
+					} else if($(".tb_spsz tr").eq(i).find("td").eq(2).find("input").val() == "") {
+
+						alertMsg.info("收支明细未填写，保存失败！");
+						if(i == 0) {
+							$(".tb_spsz tr").eq(i).find("td").eq(2).find("input").css({ "width": "75px" });
+						$(".tb_spsz tr").eq(i).find("td").eq(2).css({ "border": "2px solid red", "width": "77px" });
+						}else{
+							$(".tb_spsz tr").eq(i).find("td").eq(2).find("input").css({ "width": "77px" });
+						$(".tb_spsz tr").eq(i).find("td").eq(2).css({ "border": "2px solid red", "width": "77px" });
+						}
+						
+						return;
+					} else if($(".tb_spsz tr").eq(i).find("td").eq(4).find("input").val() == "") {
+						alertMsg.info("产品信息未填写，保存失败！");
+						if(i == 0) {
+							$(".tb_spsz tr").eq(i).find("td").eq(4).find("input").css({ "width": "75px" });
+						$(".tb_spsz tr").eq(i).find("td").eq(4).css({ "border": "2px solid red", "width": "77px" });
+						}else{
+							$(".tb_spsz tr").eq(i).find("td").eq(4).find("input").css({ "width": "77px" });
+						$(".tb_spsz tr").eq(i).find("td").eq(4).css({ "border": "2px solid red", "width": "77px" });
+						}
+						
+						return;
+					} else {
+						$(".tb_spsz tr").eq(i).find("td").eq(1).find("select").css("width", "76px");
+						$(".tb_spsz tr").eq(i).find("td").eq(2).find("input").css("width", "76px");
+						$(".tb_spsz tr").eq(i).find("td").eq(4).find("input").css("width", "76px");
+						$(".tb_spsz tr").eq(i).find("td").eq(1).css({
+							"border-right": "1px solid #C0C0C0",
+							"border-bottom": "1px solid #c0c0c0",
+							"width": "76px"
+						});
+						$(".tb_spsz tr").eq(i).find("td").eq(2).css({
+							"border-right": "1px solid #C0C0C0",
+							"border-bottom": "1px solid #c0c0c0",
+							"width": "76px"
+						});
+						$(".tb_spsz tr").eq(i).find("td").eq(4).css({
+							"border-right": "1px solid #C0C0C0",
+							"border-bottom": "1px solid #c0c0c0",
+							"width": "76px"
+						});
+					}
+					k++;
+				}
+			}
+		}
+		//处理提交数据
+		var array_datasz = [];
+		for(var i = 0; i < (getdata_spsz.length / 32); i++) {
+			array_datasz[i] = {
+				"date": getdata_spsz[i * 32 + 0],
+				"shouzhilb": getdata_spsz[i * 32 + 1],
+				"shouzhimx": getdata_spsz[i * 32 + 2],
+				"shangpinjc": getdata_spsz[i * 32 + 3],
+				"zhizaobm": getdata_spsz[i * 32 + 4],
+				"dingdanlb": getdata_spsz[i * 32 + 5],
+				"dangci": getdata_spsz[i * 32 + 6],
+				"menkuang": getdata_spsz[i * 32 + 7],
+				"kuanghou": getdata_spsz[i * 32 + 8],
+				"qianbanhou": getdata_spsz[i * 32 + 9],
+				"houbanhou": getdata_spsz[i * 32 + 10],
+				"dikuangcl": getdata_spsz[i * 32 + 11],
+				"menshan": getdata_spsz[i * 32 + 12],
+				"guige": getdata_spsz[i * 32 + 13],
+				"kaixiang": getdata_spsz[i * 32 + 14],
+				"jiaolian": getdata_spsz[i * 32 + 15],
+				"huase": getdata_spsz[i * 32 + 16],
+				"biaomianfs": getdata_spsz[i * 32 + 17],
+				"biaomianyq": getdata_spsz[i * 32 + 18],
+				"chuanghua": getdata_spsz[i * 32 + 19],
+				"maoyan": getdata_spsz[i * 32 + 20],
+				"biaopai": getdata_spsz[i * 32 + 21],
+				"zhusuo": getdata_spsz[i * 32 + 22],
+				"fusuo": getdata_spsz[i * 32 + 23],
+				"suoba": getdata_spsz[i * 32 + 24],
+				"biaojian": getdata_spsz[i * 32 + 25],
+				"baozhuangpp": getdata_spsz[i * 32 + 26],
+				"baozhuangfs": getdata_spsz[i * 32 + 27],
+				"qita": getdata_spsz[i * 32 + 28],
+				"shuliang": getdata_spsz[i * 32 + 29],
+				"danjia": getdata_spsz[i * 32 + 30],
+				"jine": getdata_spsz[i * 32 + 31],
+			}
+		}
+
+		var tj_spszurl = URL1 + "SZMX/submit/type/";
+		var tj_spszurl = tj_spszurl.replace('home', 'NewSPZ')
+		if(fdmspszmx_flag) {
+			if($("tbody.tb_spsz tr").length == 0) {
+				tj_spszurl += "0/delete/1/token/" + token;
+			} else {
+				tj_spszurl += "0/token/" + token;
+			}
+		} else {
+			if($("tbody.tb_spsz tr").length == 0) {
+				tj_spszurl += "1/delete/1/token/" + token;
+			} else {
+				tj_spszurl += "1/token/" + token;
+			}
+		}
+		$.ajax({
+			type: "post",
+			url: tj_spszurl,
+			async: false,
+			dataType: 'json',
+			data: JSON.stringify({ "data": array_datasz }),
+			success: function(data) {
+				if(data.resultcode == 0) {
+					alertMsg.correct("保存成功");
+					localStorage.setItem("checked_spsz", 0);
+					navTab._reload(navTab._getTab("new_fdmspszmx1"), true);
+				} else if(data.resultcode == -2) {
+					alertMsg.info("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				} else {
+					alertMsg.info(data.resultmsg);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.error("XMLHttpRequest:" + XMLHttpRequest + ",textStatus:" + textStatus + ",errorThrown:" + errorThrown);
+			}
+		});
+	}
+</script>

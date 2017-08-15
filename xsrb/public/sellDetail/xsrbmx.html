@@ -1,0 +1,310 @@
+<style type="text/css">
+	/*分页*/
+	
+	.pagination_XSRBMX {
+		float: right;
+		margin-top: 0px;
+	}
+	
+	.pagination_XSRBMX a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_XSRBMX a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_XSRBMX span.current,
+	.pagination_XSRBMX span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_XSRBMX span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_XSRBMX span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_XSRBMX .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_XSRBMX.go {
+		margin-left: 2%;
+		height: 20px;
+		line-height: 20px;
+		font-size: 10px;
+		width: 35px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: none;
+		background-color: #ddd;
+	}
+	
+	.pagination_XSRBMX.go:hover {
+		background-color: #cfebee;
+	}
+	/*分页结束*/
+	
+	.pageContent_xsrbmx table thead {
+		background: rgb(153, 204, 255);
+	}
+	
+	.pageContent_xsrbmx table thead tr th,
+	.pageContent_xsrbmx table tbody tr td {
+		text-align: center;
+	}
+	
+	.table_xsrbmx thead tr th {
+		background: rgb(153, 204, 255);
+		width: auto !important;
+	}
+	
+	.table_xsrbmx tbody tr td {
+		background: #fff;
+		border: 1px solid darkgray;
+	}
+	
+	.pageContent_xsrbmx th,
+	.pageContent_xsrbmx td {
+		border: 1px solid darkgray;
+		width: auto !important;
+	}
+	
+	.headbutton_xsrbmx {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headbutton_xsrbmx span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton_xsrbmx:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton_xsrbmx:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.headbutton_xsrbmx i {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+	}
+	
+	.nav1_xsrbmx {
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.borde_xsrbmx {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.date_label {
+		display: inline-block;
+		padding-left: 15px;
+	}
+	
+	.green {
+		background-color: rgb(204, 255, 255)!important;
+	}
+</style>
+<div class="pageHeader">
+	<div class="borde_xsrbmx"></div>
+	<a class="headbutton_xsrbmx" href="javascript:download_xsrbmx();"><span><i class="nav1_xsrbmx" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出</i></span></a>
+	<div class="borde_xsrbmx"></div>
+	<div class="serchbox_digital_store2" style="float: left;">
+		<label class="date_label">日期</label>
+		<input id="date_xsrbmx" class="date" dateFmt="yyyy-MM-dd" readonly="readonly" />
+		<button class="find_date_xsrbmx"> 查询</button>
+	</div>
+
+</div>
+
+<div class="pageContent pageContent_xsrbmx" layoutH="60">
+</div>
+<div class="panelBar">
+	<div class="pagination_XSRBMX"></div>
+</div>
+<script type="text/x-jsrender" class="tableContent_XSRBMX">
+	<table class="table table_xsrbmx" width="100%" layoutH="95">
+		<thead>
+			{{for data[0]}}
+			<tr>
+				{{for tr}}
+				<th rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</th>
+				{{/for}}
+			</tr>
+			{{/for}}
+		</thead>
+		<tbody>
+			{{for data}}
+			<tr class="tr_xsrbmx">
+				{{for tr}} {{if !product}}
+				<td rowspan="{{:rowspan}}" colspan="{{:colspan}}" class="green">{{:value}}</td>
+				{{else}}
+				<td rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{/if}} {{/for}}
+			</tr>
+			{{/for}}
+		</tbody>
+	</table>
+</script>
+<script type="text/javascript">
+	$(function() {
+		authorize_export(); //common.js中的显示是片区 or经营部 
+		setDateSearch("_xsrbmx"); //common.js中的默认查询时间为今天
+		get_XSRBMX();
+	})
+	//输出
+	function download_xsrbmx() {
+		var url_downl = URL_Z + "XSRBMX/toexcel/token/" + token;
+		var date_xsrbmx = $("#date_xsrbmx").val();
+		if(date_xsrbmx) {
+			date_xsrbmx = $("#date_xsrbmx").val().replace(/\-/g, "");
+			url_downl = url_downl + "/date/" + date_xsrbmx;
+		}
+		//要修改！！！！！token,date等都需要处理
+		$.ajax({
+			type: "get",
+			url: url_downl,
+			async: false,
+			success: function(data) {
+				if(JSON.parse(data).excel_url !== "") {
+					window.open(JSON.parse(data).excel_url);
+				} else if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else {
+					alertMsg.info("暂无数据可以下载！");
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("下载失败，重试或者检查网络设置！");
+			}
+		});
+	}
+
+	//默认获取明细表数据
+	function get_XSRBMX(date_xsrbmx) {
+		if(!date_xsrbmx) {
+			var url_XSRBMX = URL_Z + "XSRBMX/search/token/" + token;
+		} else {
+			var url_XSRBMX = URL_Z + "XSRBMX/search/token/" + token + "/date/" + date_xsrbmx;
+		}
+		$.ajax({
+			type: "get",
+			url: url_XSRBMX,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else if(data.total == 'null' || data.total == null || data.total == undefined) {
+					alertMsg.info("暂无数据！");
+				} else {
+					$(".pageContent_xsrbmx").html("");
+					var tableContent_XSRBMX = $(".tableContent_XSRBMX").render(data);
+					$(".pageContent_xsrbmx").append(tableContent_XSRBMX);
+					$("table tbody tr:first-child").remove();
+					navTab.getCurrentPanel().initUI();
+					navTab.getCurrentPanel().find("[layoutH]").layoutH();
+					$(".pagination_XSRBMX").createPage({
+						pageCount: data.total, //总页数
+						current: data.page, //初始页号
+						backFn: function(obj) {
+							get_XSRBMX_page(url_XSRBMX, obj);
+						}
+					});
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+	//分页
+	function get_XSRBMX_page(url_page, page) {
+		$.ajax({
+			type: "get",
+			url: url_page + "/page/" + page,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else if(data.total == 'null' || data.total == null || data.total == undefined) {
+					alertMsg.info("暂无数据！");
+				} else {
+					var tableContent_XSRBMX = $(".tableContent_XSRBMX").render(data);
+					$(".pageContent_xsrbmx").empty();
+					$(".pageContent_xsrbmx").append(tableContent_XSRBMX);
+					$("table tbody tr:first-child").remove();
+					navTab.getCurrentPanel().initUI();
+					navTab.getCurrentPanel().find("[layoutH]").layoutH();
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+	//查询
+	$(".find_date_xsrbmx").click(function() {
+		var date_xsrbmx = $("#date_xsrbmx").val().replace(/\-/g, "");
+		if(date_xsrbmx == "" || date_xsrbmx == null || date_xsrbmx == undefined) {
+			alertMsg.warn("查询日期不能为空");
+			return;
+		}
+		get_XSRBMX(date_xsrbmx);
+	})

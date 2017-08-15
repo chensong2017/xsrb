@@ -1,0 +1,236 @@
+<style>
+	#bmxx {
+		width: 90%;
+		margin-top: 3%;
+		margin-left: 5%;
+		border: 1px solid #c0c0c0;
+	}
+	
+	.headbutton_bmxx {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+		font-weight: bold;
+	}
+	
+	.headbutton_bmxx span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton_bmxx:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+		cursor: pointer;
+	}
+	
+	.headbutton_bmxx:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.nav1_bmxx {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.viewBox_bmxx {
+		display: inline-block;
+		margin-left: 20px;
+		margin-top: 15px;
+		margin-bottom: 10px;
+		font-weight: bold;
+	}
+	
+	.viewBox_bmxx label,
+	input {
+		line-height: 40px;
+		margin-left: 40px;
+	}
+	
+	.viewBox_bmxx input {
+		width: 140px;
+	}
+	
+	.viewBox_bmxx label {
+		display: inline-block;
+		width: 120px;
+		text-align: right;
+	}
+	
+	.viewBox_bmxx span {
+		margin-left: 20px;
+		color: red;
+	}
+	
+	.viewBox_bmxx select {
+		margin-left: 4px;
+	}
+	
+	.viewBox_bmxx a {
+		margin-left: 168px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	
+	.buleBtn {
+		padding: 3px 10px;
+		border-radius: 5px;
+		background: #299dce!important;
+		border: 1px solid #299dce;
+		font-family: "microsoft yahei";
+		text-align: center;
+		color: white;
+		display: inline-block;
+		text-decoration: none;
+		cursor: pointer;
+	}
+	
+	.border_bmxx {
+		border-bottom: 1px solid rgba(192, 192, 192, 0.62);
+		margin-top: 45px;
+	}
+</style>
+</div>
+<div class="pageContent" id="bmxx">
+	<div style="margin-top:10px;margin-bottom:10px;">
+		<a class="headbutton_bmxx" id="save_bmxx"><span><i class="nav1_bmxx" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px 4px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提交</i></span></a>
+	</div>
+
+	<div class="border_bmxx"></div>
+	<div class="viewBox_bmxx">
+		<label>所属片区：</label>
+		<input type="text" value="" class="dname" /></br>
+		<div id="city">
+			<label>省：</label>
+			<select class="prov"></select>
+			</br>
+			<label>市：</label>
+			<select class="city" disabled="disabled"></select>
+			</br>
+			<label>县：</label>
+			<select class="dist" disabled="disabled"></select>
+			</br>
+		</div>
+
+		<a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank" class="buleBtn">点击获取当前位置</a>
+		</br>
+		<label>当前位置：</label>
+		<input type="text" value="" class="location" />
+		<span>ps:必填项，请直接在百度坐标拾取系统中获取坐标点 例如： 103.955083,30.7768</span></br>
+		<label>办事处联系人：</label>
+		<input type="text" value="" class="linkman" />
+		<span>ps:必填项</span></br>
+		<label>办事处联系电话：</label>
+		<input type="text" value="" class="telephone" />
+		<span>ps:必填项</span></br>
+		<label>合作办事处：</label>
+		<input type="text" value="" class="office_name" /></br>
+	</div>
+</div>
+<script src="./js/publicjs/common.js"></script>
+<script type="text/javascript">
+	$(function() {
+		get_bmxx();
+		$("#save_bmxx").click(function() {
+			save_bmxx();
+		});
+	})
+	//获取默认数据
+	function get_bmxx() {
+		var get_bmxxurl = URL + "department/getdept/token/" + token;
+		$.ajax({
+			type: "get",
+			url: get_bmxxurl,
+			async: false,
+			dataType: 'json',
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					} else {
+						set_bmxx(data.data);
+						$("#city").citySelect({
+							required: true,
+							prov: data.data.province,
+							city: data.data.city,
+							dist: data.data.county
+						});
+					}
+				} else {}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.error("加载失败，刷新或者检查网络设置！");
+			}
+		});
+
+	}
+	//设置默认数据
+	function set_bmxx(data) {
+		$(".dname").val(data.dname);
+		if(isDataValid(data.longitude) && isDataValid(data.latitude)) {
+			$(".location").val(data.longitude + "," + data.latitude);
+		}
+		$(".linkman").val(data.linkman);
+		$(".telephone").val(data.telephone);
+		$(".office_name").val(data.office_name);
+	}
+	//保存
+	function save_bmxx() {
+		var dname = $(".dname").val();
+		var province = $(".prov").val();
+		var city = $(".city").val();
+		var county = $(".dist").val();
+		var location = $(".location").val().split(",");
+		var longitude = location[0];
+		var latitude = location[1];
+		var linkman = $(".linkman").val();
+		var telephone = $(".telephone").val();
+		var office_name = $(".office_name").val();
+		save_data = {
+			dname: dname,
+			province: province,
+			city: city,
+			county: county,
+			longitude: longitude,
+			latitude: latitude,
+			linkman: linkman,
+			telephone: telephone,
+			office_name: office_name
+		}
+		var pot_bmxxurl = URL + "department/updateDept/token/" + token;
+		if(isDataValid(longitude) && isDataValid(latitude) && isDataValid(linkman) && isDataValid(telephone)) {
+			$.ajax({
+				type: "post",
+				url: pot_bmxxurl,
+				data: JSON.stringify(save_data),
+				async: true,
+				dataType: 'json',
+				success: function(data) {
+					if(data.hasOwnProperty("resultcode")) {
+						if(data.resultcode == -2) {
+							alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+							window.location.href = "index.html";
+						} else {
+							alertMsg.info(data.resultmsg);
+						}
+					} else {}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alertMsg.error("加载失败，刷新或者检查网络设置！");
+				}
+			});
+		} else {
+			alertMsg.warn("请检查必填项是否已填写！");
+		}
+	}
+</script>

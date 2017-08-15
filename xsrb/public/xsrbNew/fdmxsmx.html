@@ -1,0 +1,1460 @@
+<script type="text/javascript">
+	$(function() {
+		document.body.onselectstart = function() {
+			return false;
+		} //关闭IE中的文字选中，使其支持拖拽选中
+		var flag_enter_FDMKC = false,
+			type_FDMKC = 111,
+			down_fdmkc = 0, //光标下移
+			up_fdmkc = 1, //光标上移
+			right_fdmkc = 2, //光标右移
+			left_fdmkc = 3, //光标左移
+			xstr = 0,
+			itemlength;
+		cp_mag = [];
+		cp_magdata = {};
+		nowTime = new Date().getHours();
+		$("#sdate_FDMXSMX").val(getServiceTime_xs());
+		$("#edate_FDMXSMX").val(getServiceTime_xs());
+		get_addindexxs();
+
+		$("#savexs").click(function() {
+			tj_xs();
+		})
+
+	});
+	var postUrl_xs;
+	postUrl_xs = URL + "FDMXSMX/loadingExcelXsmx/type/1/token/" + token;
+	$("#index_yxbtxs").css({ "border": "2px solid #add2db" });
+
+	function edit1_FDMXSMX(obj) {
+		obj.css("border", "2px solid #000");
+		$(obj).children().select();
+	};
+
+	function xs_onblur(obj) {
+		$(obj).parent().css({
+			"border": "none",
+			"border-left": "1px solid #C0C0C0",
+			"border-bottom": "1px solid #c0c0c0"
+		});
+		$(obj).css("border", "0px solid #000");
+	}
+
+	function index_yxsjxs() {
+		xsmx_flag = false;
+		$("#login_xsmx").trigger("click");
+		$("#index_yxbtxs").css({ "border": "2px solid #add2db" });
+	}
+
+	function checkFloat1(obj) {
+		$(obj).val($(obj).val().replace(/[^\-\d.]/g, ''));
+		countall_xs(obj);
+	}
+
+	function checkFloat(obj) {
+		$(obj).val($(obj).val().replace(/[^\d.]/g, ''));
+		countall_xs(obj);
+	}
+
+	function checkInt_xs(obj) {
+		$(obj).val($(obj).val().replace(/[^\-\d]/g, ''));
+		countall_xs(obj);
+	}
+
+	function countall_xs(obj) {
+		if($(obj).parent().parent().find("td").eq(14).find("input").val() != "" && $(obj).parent().parent().find("td").eq(15).find("input").val() != "") {
+			$(obj).parent().parent().find("td").eq(17).find("input").val($(obj).parent().parent().find("td").eq(14).find("input").val() * $(obj).parent().parent().find("td").eq(15).find("input").val());
+		} else {
+			$(obj).parent().parent().find("td").eq(17).find("input").val("0");
+			$(obj).parent().parent().find("td").eq(20).find("input").val("0");
+		}
+		if($(obj).parent().parent().find("td").eq(14).find("input").val() != "" && $(obj).parent().parent().find("td").eq(16).find("input").val() != "") {
+			$(obj).parent().parent().find("td").eq(18).find("input").val($(obj).parent().parent().find("td").eq(14).find("input").val() * $(obj).parent().parent().find("td").eq(16).find("input").val());
+		} else {
+			$(obj).parent().parent().find("td").eq(18).find("input").val("0");
+		}
+		if($(obj).parent().parent().find("td").eq(17).find("input").val() != "" && $(obj).parent().parent().find("td").eq(18).find("input").val() != "") {
+			$(obj).parent().parent().find("td").eq(19).find("input").val($(obj).parent().parent().find("td").eq(17).find("input").val() - $(obj).parent().parent().find("td").eq(18).find("input").val());
+		} else {
+			$(obj).parent().parent().find("td").eq(19).find("input").val("0");
+		}
+		if($(obj).parent().parent().find("td").eq(19).find("input").val() != 0 && $(obj).parent().parent().find("td").eq(17).find("input").val() != 0) {
+			$(obj).parent().parent().find("td").eq(20).find("input").val(($(obj).parent().parent().find("td").eq(19).find("input").val() / $(obj).parent().parent().find("td").eq(17).find("input").val()).toFixed(7));
+		} else {
+			$(obj).parent().parent().find("td").eq(20).find("input").val("0");
+		}
+	}
+	//初始数据查询
+	function get_addindexxs() {
+		var sdate = $("#sdate_FDMXSMX").val().replace(/\-/g, "");
+		var edate = $("#edate_FDMXSMX").val().replace(/\-/g, "");
+		fdm_xsurl = URL + "FDMXSMX/search/type/1/" + "sdate/" + sdate + "/edate/" + edate + "/token/" + token
+		$.ajax({
+			type: "get",
+			url: fdm_xsurl,
+			async: true,
+			cache: false,
+			dataType: "json",
+			success: function(data) {
+				if(data.resultcode == -1) {
+					alertMsg.warn(data.resultmsg);
+					return;
+				}
+				if(data.resultcode == -2) {
+					alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				$("#rendrTable_addxsmx").html("");
+				var tableContent = $("#tableContent_addxsmx").render(data);
+				$("#rendrTable_addxsmx").append(tableContent);
+				XSRBXSMX_test = data;
+				show(data);
+				itemlength = data.data.info.length;
+				localStorage.setItem("checked_optionxs", 0);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.warn(errorThrown);
+			}
+		});
+	};
+	$(".btncx_xs").click(function() {
+		get_addindexxs();
+	});
+
+	function show(data) {
+		xstr = $(".addtbxs tr").length - 1;
+		if(data.data.info.length > 500) {
+			initBody_xs(data.data.info.slice(0, 500)); //渲染body
+			loadmore_xs(data.data.info.slice(500));
+		} else {
+			initBody_xs(data.data.info); //渲染body
+		}
+		$($('.sel_trxs td')[0]).append('<select class="selekehuxm" onchange="changeData_xs(\'kehuxm\',0)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[1]).append('<select class="selezhizaobm" onchange="changeData_xs(\'zhizaobm\',1)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[2]).append('<select class="seledalei" onchange="changeData_xs(\'dalei\',2)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[3]).append('<select class="selefeibiao" onchange="changeData_xs(\'feibiao\',3)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[4]).append('<select class="selebanhou" onchange="changeData_xs(\'banhou\',4)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[5]).append('<select class="seleguige" onchange="changeData_xs(\'guige\',5)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[6]).append('<select class="selebiaomianyq" onchange="changeData_xs(\'biaomianyq\',6)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[7]).append('<select class="selemenkuang" onchange="changeData_xs(\'menkuang\',7)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[8]).append('<select class="selehuase" onchange="changeData_xs(\'huase\',8)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[9]).append('<select class="selesuoju" onchange="changeData_xs(\'suoju\',9)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[10]).append('<select class="selekaixiang" onchange="changeData_xs(\'kaixiang\',10)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[11]).append('<select class="seleqita" onchange="changeData_xs(\'qita\',11)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[12]).append('<select class="selexiaoshoums" onchange="changeData_xs(\'xiaoshoums\',12)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[13]).append('<select class="selexiaoliang" onchange="changeData_xs(\'xiaoliang\',13)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[14]).append('<select class="selexiaoshoudj" onchange="changeData_xs(\'xiaoshoudj\',14)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[15]).append('<select class="selechengbendj" onchange="changeData_xs(\'chengbendj\',15)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[16]).append('<select class="selexiaoshousr" onchange="changeData_xs(\'xiaoshousr\',16)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[17]).append('<select class="selexiaoshoucb" onchange="changeData_xs(\'xiaoshoucb\',17)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[18]).append('<select class="selemaoli" onchange="changeData_xs(\'maoli\',18)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[19]).append('<select class="selemaolil" onchange="changeData_xs(\'maolil\',19)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[20]).append('<select class="selediaobofy" onchange="changeData_xs(\'diaobofy\',20)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[21]).append('<select class="seleqiankuane" onchange="changeData_xs(\'qiankuane\',21)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[22]).append('<select class="seletihuofs" onchange="changeData_xs(\'tihuofs\',22)"><option value="">全部</option></select>');
+		$($('.sel_trxs td')[23]).append('<select class="selejingshou" onchange="changeData_xs(\'jingshou\',23)"><option value="">全部</option></select>');
+
+		getThead_xs(data.data.info);
+		if(isDataValid(data.data.error)) {
+			$(".xuanze_xsbg").css({ "display": "block" });
+			$("#uploader_failxs").css("display", "block");
+			$(".xsrbxs_close1").append('<span class="xsrbxs_closeicon"  onclick="closetkqc_xs()" />');
+			$(".xsrbxs_close1").css("left", "92%");
+			show_Faildataqcxs(data.data);
+			localStorage.setItem("faildqc_dataxs", JSON.stringify(data.data.error));
+		} else {
+			// alertMsg.warn(response.resultmsg);
+		}
+	}
+
+	//渲染列表
+	function initBody_xs(item) {
+		console.log("init");
+		var k = "";
+		var item = item;
+		$("tbody.addtbxs").empty();
+		if(item.length != 0) {
+			for(var i = 0; i < item.length; i++) {
+				k += '<tr class="xstr' + i + ' oldData">' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].date + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;"><span class="datai">' + i + '</span><input readonly="readonly" type="text" value="' + item[i].kehuxm + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].zhizaobm + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].dalei + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].feibiao + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].banhou + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].guige + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].biaomianyq + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input  readonly="readonly" type="text" value="' + item[i].menkuang + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].huase + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].suoju + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].kaixiang + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].qita + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;width:104px;" ><select class="select_xs"> <option readonly="readonly" value="' + item[i].xiaoshoums + '">' + item[i].xiaoshoums + '</option> </select></td>' +
+					'<td class="add_tdxs" style="background-color: rgb(204, 255, 255);"  onclick="edit1_FDMXSMX($(this))"><input type="text" class="disablexs textInput" onblur="xs_onblur(this)" onkeyup="checkInt_xs(this)" value="' + item[i].xiaoliang + '"></td>' +
+					'<td class="add_tdxs" style="background-color: rgb(204, 255, 255);"  onclick="edit1_FDMXSMX($(this))"><input type="text" class="disablexs textInput" onblur="xs_onblur(this)" onkeyup="checkFloat1(this)" value="' + item[i].xiaoshoudj + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input type="text" class="disablexs textInput" readonly="readonly" value="' + item[i].chengbendj + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input type="text"  class="disablexs textInput" readonly="readonly" value="' + item[i].xiaoshousr + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input type="text"class="disablexs textInput" readonly="readonly" value="' + item[i].xiaoshoucb + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input type="text" class="disablexs textInput" readonly="readonly" value="' + item[i].maoli + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input type="text" class="disablexs textInput" readonly="readonly" value="' + item[i].maolil + '"></td>' +
+					'<td class="add_tdxs" style="background-color: rgb(204, 255, 255);" onclick="edit1_FDMXSMX($(this))" ><input type="text" class="disablexs textInput" onblur="xs_onblur(this)" onkeyup="checkFloat1($(this))" value="' + item[i].diaobofy + '"></td>' +
+					'<td class="add_tdxs" style="background-color: rgb(204, 255, 255);" onclick="edit1_FDMXSMX($(this))"><input type="text" class="disablexs textInput" onblur="xs_onblur(this)" onkeyup="checkFloat($(this))" value="' + item[i].qiankuane + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;width:104px;" ><select class="select_xs"> <option value="' + item[i].tihuofs + '">' + item[i].tihuofs + '</option> </select></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;    width: 103px;"><input type="text" class="disablexs textInput" value="' + item[i].jingshou + '"></td>' +
+					'<td class="add_tdxs">' +
+					'<a class="fdmxsmx_sc" style="text-decoration: none;" class="headbutton" onclick="appDeleteOne_xs(this)" style="float: none;"><span style="line-height: 26px;width: 102px;display:inline-block">删除</span></a>' +
+					'</td>' +
+					'</tr>';
+			}
+			$(".addtbxs").append(k);
+			var serviceTime_xs = getServiceTime_xs();
+			//遍历每一行数据，当日期不是当日则隐藏删除按钮（当日前的数据不可改）
+			for(s = 0; s < Math.floor($(".addtbxs tr").length); s++) {
+				$(".addtbxs tr").eq(s).find("td").eq(13).find("select option").css("visibility", "visible");
+				$(".addtbxs tr").eq(s).find("td").eq(23).find("select option").css("visibility", "visible");
+				if($(".addtbxs tr").eq(s).find("td").eq(0).find("input").val() && $(".addtbxs tr").eq(s).find("td").eq(0).find("input").val() != serviceTime_xs) {
+					$(".addtbxs tr").eq(s).find("td").eq(25).find("a").css("opacity", "0");
+				}
+			}
+		} else {
+			index_addtrxs(0);
+		}
+	}
+	//加载更多
+	function loadmore_xs(item) {
+		var k = "";
+		if(item.length != 0) {
+			for(var i = 0; i < item.length; i++) {
+				k += '<tr class="xstr' + i + ' oldData">' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].date + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;"><span class="datai">' + i + '</span><input readonly="readonly" type="text" value="' + item[i].kehuxm + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].zhizaobm + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].dalei + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].feibiao + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].banhou + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].guige + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].biaomianyq + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input  readonly="readonly" type="text" value="' + item[i].menkuang + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].huase + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].suoju + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].kaixiang + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input readonly="readonly" type="text" value="' + item[i].qita + '"></input></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;width:104px;" ><select class="select_xs"> <option readonly="readonly" value="' + item[i].xiaoshoums + '">' + item[i].xiaoshoums + '</option> </select></td>' +
+					'<td class="add_tdxs" style="background-color: rgb(204, 255, 255);"  onclick="edit1_FDMXSMX($(this))"><input type="text" class="disablexs textInput" onblur="xs_onblur(this)" onkeyup="checkInt_xs(this)" value="' + item[i].xiaoliang + '"></td>' +
+					'<td class="add_tdxs" style="background-color: rgb(204, 255, 255);"  onclick="edit1_FDMXSMX($(this))"><input type="text" class="disablexs textInput" onblur="xs_onblur(this)" onkeyup="checkFloat(this)" value="' + item[i].xiaoshoudj + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input type="text" class="disablexs textInput" readonly="readonly" value="' + item[i].chengbendj + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input type="text"  class="disablexs textInput" readonly="readonly" value="' + item[i].xiaoshousr + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input type="text"class="disablexs textInput" readonly="readonly" value="' + item[i].xiaoshoucb + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input type="text" class="disablexs textInput" readonly="readonly" value="' + item[i].maoli + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;" ><input type="text" class="disablexs textInput" readonly="readonly" value="' + item[i].maolil + '"></td>' +
+					'<td class="add_tdxs" style="background-color: rgb(204, 255, 255);" onclick="edit1_FDMXSMX($(this))" ><input type="text" class="disablexs textInput" onblur="xs_onblur(this)" onkeyup="checkFloat($(this))" value="' + item[i].diaobofy + '"></td>' +
+					'<td class="add_tdxs" style="background-color: rgb(204, 255, 255);" onclick="edit1_FDMXSMX($(this))"><input type="text" class="disablexs textInput" onblur="xs_onblur(this)" onkeyup="checkFloat($(this))" value="' + item[i].qiankuane + '"></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;width:104px;" ><select class="select_xs"> <option value="' + item[i].tihuofs + '">' + item[i].tihuofs + '</option> </select></td>' +
+					'<td class="add_tdxs" style="background-color:#FFFFFF;    width: 103px;"><input type="text" class="disablexs textInput" value="' + item[i].jingshou + '"></td>' +
+					'<td class="add_tdxs">' +
+					'<a class="fdmxsmx_sc" style="text-decoration: none;" class="headbutton" onclick="appDeleteOne_xs(this)" style="float: none;"><span style="line-height: 26px;width: 102px;display:inline-block">删除</span></a>' +
+					'</td>' +
+					'</tr>';
+			}
+			$(".addtbxs").append(k);
+			var serviceTime_xs = getServiceTime_xs();
+			//遍历每一行数据，当日期不是当日则隐藏删除按钮（当日前的数据不可改）
+			for(s = 0; s < Math.floor($(".addtbxs tr").length); s++) {
+				$(".addtbxs tr").eq(s).find("td").eq(13).find("select option").css("visibility", "visible");
+				$(".addtbxs tr").eq(s).find("td").eq(23).find("select option").css("visibility", "visible");
+				if($(".addtbxs tr").eq(s).find("td").eq(0).find("input").val() && $(".addtbxs tr").eq(s).find("td").eq(0).find("input").val() != serviceTime_xs) {
+					$(".addtbxs tr").eq(s).find("td").eq(25).find("a").css("opacity", "0");
+				}
+			}
+		} else {
+			index_addtrxs(0);
+		}
+	}
+	//产品信息筛选
+	var filArr = {};
+
+	function changeData_xs(sele, _index) {
+		var data = XSRBXSMX_test.data.info;
+		filArr[sele] = $('.sele' + sele).val();
+		for(var k in filArr) {
+			data = filter_xs(data, filArr[k], k);
+		}
+		if(data.length > 500) {
+			initBody_xs(data.slice(0, 500)); //渲染body
+			loadmore_xs(data.slice(500));
+		} else {
+			initBody_xs(data); //渲染body
+		}
+	}
+
+	function filter_xs(arr, str, index) {
+		if(str == '') {
+			return arr;
+		}
+		return $.map(arr, function(value) {
+			return value[index] == str ? value : null;
+		});
+	}
+
+	function getThead_xs(arr) {
+		var theadObj_xs = {};
+		for(var j = 0; j < arr.length; j++) {
+			for(var k in arr[j]) {
+				if(theadObj_xs[k] == undefined || theadObj_xs[k] == '') {
+					theadObj_xs[k] = [];
+				}
+				if(theadObj_xs[k].indexOf(arr[j][k]) == -1) {
+					if(arr[j][k] != "") {
+						theadObj_xs[k].push(arr[j][k]);
+					}
+				}
+			}
+		}
+		for(var k in theadObj_xs) {
+			for(var n = 0; n < theadObj_xs[k].length; n++) {
+				$('.sele' + k).append('<option>' + theadObj_xs[k][n] + '</option>');
+			}
+		}
+	}
+	//错误期初数据显示
+	function show_Faildataqcxs(data) {
+		var item = data.error;
+		var k = "";
+		k += '<table class="" id="" border="0" cellspacing="0" cellpadding="0" width:100%;color:#555;font-size: small;">' +
+			'<thead>' +
+			'<tr>' +
+			'<td class="entryinid_thxs1" rowspan="1" colspan="23" style="width: 80px;text-align: center;">错误期初数据显示</td>' +
+			'</tr>' +
+			'<tr>' +
+			'<td class="entryinid_thxs1"  style="">行数</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">日期</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">制造部门</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">大类</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">非标</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">板厚</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">规格</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">表面要求</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">门框</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">花色</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">锁具</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">开向</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">其他</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">备注</td>' +
+			'</tr>' +
+			'</thead>' +
+			'<tbody>'
+		for(var s = 0; s < item.length; s++) {
+			k += '<tr>'
+			for(var j = 0; j < item[s].length; j++) {
+				if(item[s][j].type == 0) {
+					k += '<td class="failtable_xstd" style="color: red;" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				} else {
+					k += '<td class="failtable_xstd" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				}
+
+			}
+			k += '</tr>'
+		}
+		k += '</tbody></table>'
+		$("#uploader_failxs").append(k);
+	}
+	//关闭弹框
+	function closetkqc_xs() {
+		var error = JSON.parse(localStorage.getItem("faildqc_dataxs"));
+		$(".xsrbxs_close1").html("");
+		$("#uploader_failxs").html("");
+		$("#uploader_failxs").css("display", "none");
+		$(".xuanze_xsbg").css({ "display": "none" });
+		for(var i = 0; i < $(".addtbxs tr").length; i++) {
+			for(var j = 0; j < error.length; j++) {
+				$(".addtbxs").find("tr").eq(error[j][0].value - 1).find("td").find("input").css("color", "red");
+			}
+		}
+	}
+	//重置筛选
+	function resetxsChoose() {
+		for(var i = 0; i < 24; i++) {
+			$($('.sel_trxs td')[i]).find("select option[value='']").attr("selected", true);
+		}
+		filArr = {};
+		if(XSRBXSMX_test.data.info.length > 500) {
+			initBody_xs(XSRBXSMX_test.data.info.slice(0, 500)); //渲染body
+			loadmore_xs(XSRBXSMX_test.data.info.slice(500));
+		} else {
+			initBody_xs(XSRBXSMX_test.data.info); //渲染body
+		}
+	}
+	//添加选项
+	function option_addxs(test) {
+		arrayXiao = XSRBXSMX_test.data.list[11].option;
+		arrayTi = XSRBXSMX_test.data.list[12].option;
+		var options0 = [];
+		var options1 = [];
+		for(var i = 0; i < arrayXiao.length; i++) {
+			options0.push("<option value='" + arrayXiao[i] + "'> " + arrayXiao[i] + " </option>");
+		};
+		for(var i = 0; i < arrayTi.length; i++) {
+			options1.push("<option value='" + arrayTi[i] + "'> " + arrayTi[i] + " </option>");
+		};
+		$(".addtbxs").find(".xstr" + test).find("select").eq(0).append(options0.join(''));
+		$(".addtbxs").find(".xstr" + test).find("select").eq(1).append(options1.join(''));
+
+		$(".addtbxs").find(".xstr" + test).find("input").eq(15).attr("readonly", "readonly");
+		$(".addtbxs").find(".xstr" + test).find("input").eq(16).attr("readonly", "readonly");
+		$(".addtbxs").find(".xstr" + test).find("input").eq(17).attr("readonly", "readonly");
+		$(".addtbxs").find(".xstr" + test).find("input").eq(18).attr("readonly", "readonly");
+		$(".addtbxs").find(".xstr" + test).find("input").eq(19).attr("readonly", "readonly");
+		$("option").css("visibility", "visible");
+
+	}
+
+	//添加数据渲染
+	function index_addtrxs(itemlength) {
+		var itemlength = itemlength;
+		if($(".addtbxs tr").length == 0) {
+			test = 0
+		} else {
+			test = $(".addtbxs tr").length + 1;
+		}
+
+		$longtd = "<td  class='add_tdxs'  style='background-color: rgb(204, 255, 255);' onclick='edit1_FDMXSMX($(this))' ><input onblur='xs_onblur(this)' class='disablexs textInput'  onkeyup='checkInt_xs(this)'  type='text' value='0'></td>"
+		$longtd1 = "<td  class='add_tdxs'  style='background-color: rgb(204, 255, 255);' onclick='edit1_FDMXSMX($(this))'><input class='disablexs textInput' onblur='xs_onblur(this)' onkeyup='checkFloat(this)'  type='text' value='0'></td> "
+		$longtd11 = "<td  class='add_tdxs'  style='background-color: rgb(204, 255, 255);' onclick='edit1_FDMXSMX($(this))'><input class='disablexs textInput' onblur='xs_onblur(this)' onkeyup='checkFloat1(this)'  type='text' value='0'></td> "
+		$longtd2 = "<td  class='add_tdxs'  style='background-color: #fff;'><input class='disablexs textInput'  type='text' value='0'></td>"
+		$longtd4 = "<td class='add_tdxs' onclick='select_optionxs(this," + test + ")'> <input readonly='readonly' type='text'/></td>"
+		$longtd5 = "<td  class='add_tdxs'  style='background-color: #fff;'><input class='disablexs textInput' type='text' value='0.00' readonly='readonly' ></td>"
+		$longtd6 = '<a class="fdmxsmx_sc" style="text-decoration: none;" class="headbutton" onclick="appDeleteOne_xs(this)" style="float: none;"><span style="line-height: 26px;width: 102px;display:inline-block">取消</span></a>'
+		$newc1 = $("<tr style='height: 20px;' class='xstr" + test + "'><td class='add_tdxs'><input readonly='readonly'></td><td class='add_tdxs'><span class='datai'>" + test + "</span><input></td>" + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + "<td class='add_tdxs' onclick='select_optionxs(this," + test + ")'> <input style='readonly='readonly' type='text'/></td>" + $longtd4 + $longtd4 + $longtd4 + $longtd4 + "<td class='add_tdxs'><select class='select_xs'> <option></option></select>" + $longtd + $longtd11 + $longtd5 + $longtd2 + $longtd2 + $longtd2 + $longtd2 + $longtd11 + $longtd1 + "<td class='add_tdxs'><select class='select_xs'> <option></option></select></td><td class='add_tdxs'><input style='width: 103px;'></td><td class='add_tdxs'>" + $longtd6 + "</td> </tr>");
+		$(".addtbxs").prepend($newc1);
+		option_addxs(test);
+		$(".xstr" + test).find("td").eq(0).find("input").val(getServiceTime_xs());
+	}
+	//获取服务器时间
+	function getServiceTime_xs() {
+		var getServiceTime_url = URL + "Schedule/SERVER_TIME";
+		var getServiceTime = "";
+		$.ajax({
+			type: "get",
+			url: getServiceTime_url,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+				getServiceTime = data.server_time;
+				return;
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.warn(errorThrown);
+			}
+		});
+		return getServiceTime;
+	}
+	//产品信息弹出框
+	function select_optionxs(obj, xstrlh) {
+		$(".tboy_optionxs").html("");
+		//初始数据查询
+		addnew_qcurlxs = URL + "SPZQC/search/type/1/token/" + token;
+		$.ajax({
+			type: "get",
+			url: addnew_qcurlxs,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+				if(data.resultcode == -1) {
+					alertMsg.warn(data.resultmsg);
+					return;
+				}
+				if(data.resultcode == -2) {
+					alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				if(data.data.length <= 3) {
+					alertMsg.warn("未录入期初数据！");
+				} else {
+					$("#xuanze_xs").css({ "display": "block" });
+					$(".xuanze_xsbg").css({ "display": "block" });
+					_qcxsData = data.data.splice(3);
+					_qcxsChecked = xstrlh;
+					showcp_xs(_qcxsData, xstrlh);
+				}
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.warn(errorThrown);
+			}
+		});
+	}
+
+	function showcp_xs(data, trlength) {
+		$(".tboy_optionxs").empty();
+		$(".xsrbxs_close").empty();
+		var k = "";
+		k += '<table class="table table-hover tr_option" id="dialog_tablexs" cellspacing="0" cellpadding="0" color:#555;font-size: small;">' +
+			'<thead class>' +
+			'<tr>' +
+			'<td  class="entryinid_thxs1" style="width: 50px;text-align: center;padding-right: 0" rowspan="1" colspan="1">选择</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1">制造部门<select class="qcxs0" onchange="changeXSData(0)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1">大类<select class="qcxs1" onchange="changeXSData(1)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1">非标<select class="qcxs2" onchange="changeXSData(2)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1">板厚<select class="qcxs3" onchange="changeXSData(3)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1">规格<select class="qcxs4" onchange="changeXSData(4)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1">表面要求<select class="qcxs5" onchange="changeXSData(5)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1">门框<select class="qcxs6" onchange="changeXSData(6)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1">花色<select class="qcxs7" onchange="changeXSData(7)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1">锁具<select class="qcxs8" onchange="changeXSData(8)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1">开箱<select class="qcxs9" onchange="changeXSData(9)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1">其他<select class="qcxs10" onchange="changeXSData(10)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="display:none;" >其他<select class="qcxs11" onchange="changeXSData(11)"><option value="">全部</option></select></td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1">价格<select class="qcxs12" onchange="changeXSData(12)"><option value="">全部</option></select></td>' +
+			'</tr>' +
+			'</thead>' +
+			'<tbody>' +
+			'</tbody>' +
+			'</table>'
+		$(".tboy_optionxs").append(k);
+		$(".xsrbxs_close").append(' <div class="xsrbxs_close"><span class="xsmx_closeicon"  onclick="closeBg_xs(' + trlength + ')" /></div>');
+		initXs(data, trlength);
+		localStorage.setItem("checked_optionxs", 0);
+		var checked_optionxs = localStorage.getItem("checked_optionxs");
+		$("#payTypexs" + checked_optionxs).attr("checked", 'true');
+		getQcThead_xs(data);
+
+	}
+
+	function check_xs(obj, trlength) {
+		var type = document.getElementsByName("payTypexs");
+		for(i = 0; i < type.length; i++) { //遍历单选框
+			if(type[i].checked) {
+				localStorage.setItem("checked_optionxs", i);
+				cp_magsz = [];
+				cp_magdatasz = {};
+				closeBg_xs(trlength);
+				if($(".addtbxs").find("td").eq(14).find("input").val() != "" && $(".addtbxs").find("td").eq(16).find("input").val() != "") {
+					$(".addtbxs").find("td").eq(18).find("input").val($(".addtbxs").find("td").eq(14).find("input").val() * $(".addtbxs").find("td").eq(16).find("input").val());
+				} else {
+					$(".addtbxs").find("td").eq(18).find("input").val("0");
+				}
+				if($(".addtbxs").find("td").eq(17).find("input").val() != "" && $(".addtbxs").find("td").eq(18).find("input").val() != "") {
+					$(".addtbxs").find("td").eq(19).find("input").val($(".addtbxs").find("td").eq(17).find("input").val() - $(".addtbxs").find("td").eq(18).find("input").val());
+				}
+			}
+		}
+	}
+
+	function closeBg_xs(trlength) {
+		var trxs_index = parseInt(localStorage.getItem("checked_optionxs")) + 1;
+		var zhizaobm = $(".xuanze_xs").find("tr").eq(trxs_index).find("td").eq(1).find("text").text();
+		var dalei = $(".xuanze_xs").find("tr").eq(trxs_index).find("td").eq(2).find("text").text();
+		var feibiao = $(".xuanze_xs").find("tr").eq(trxs_index).find("td").eq(3).find("text").text();
+		var banhou = $(".xuanze_xs").find("tr").eq(trxs_index).find("td").eq(4).find("text").text();
+		var guige = $(".xuanze_xs").find("tr").eq(trxs_index).find("td").eq(5).find("text").text();
+		var biaomianyq = $(".xuanze_xs").find("tr").eq(trxs_index).find("td").eq(6).find("text").text();
+		var menkuang = $(".xuanze_xs").find("tr").eq(trxs_index).find("td").eq(7).find("text").text();
+		var huase = $(".xuanze_xs").find("tr").eq(trxs_index).find("td").eq(8).find("text").text();
+		var suoju = $(".xuanze_xs").find("tr").eq(trxs_index).find("td").eq(9).find("text").text();
+		var kaixiang = $(".xuanze_xs").find("tr").eq(trxs_index).find("td").eq(10).find("text").text();
+		var qita = $(".xuanze_xs").find("tr").eq(trxs_index).find("td").eq(11).find("text").text();
+		var price = $(".xuanze_xs").find("tr").eq(trxs_index).find("td").eq(13).find("text").text();
+		cp_magdata = { "zhizaobm": zhizaobm, "dalei": dalei, "feibiao": feibiao, "banhou": banhou, "guige": guige, "biaomianyq": biaomianyq, "menkuang": menkuang, "huase": huase, "suoju": suoju, "kaixiang": kaixiang, "qita": qita, "price": price };
+		cp_mag.push(cp_magdata);
+		if(cp_mag.length != 0) {
+			$(".addtbxs").find(".xstr" + trlength).find("td").eq(2).find("input").val(cp_mag[0].zhizaobm);
+			$(".addtbxs").find(".xstr" + trlength).find("td").eq(3).find("input").val(cp_mag[0].dalei);
+			$(".addtbxs").find(".xstr" + trlength).find("td").eq(4).find("input").val(cp_mag[0].feibiao);
+			$(".addtbxs").find(".xstr" + trlength).find("td").eq(5).find("input").val(cp_mag[0].banhou);
+			$(".addtbxs").find(".xstr" + trlength).find("td").eq(6).find("input").val(cp_mag[0].guige);
+			$(".addtbxs").find(".xstr" + trlength).find("td").eq(7).find("input").val(cp_mag[0].biaomianyq);
+			$(".addtbxs").find(".xstr" + trlength).find("td").eq(8).find("input").val(cp_mag[0].menkuang);
+			$(".addtbxs").find(".xstr" + trlength).find("td").eq(9).find("input").val(cp_mag[0].huase);
+			$(".addtbxs").find(".xstr" + trlength).find("td").eq(10).find("input").val(cp_mag[0].suoju);
+			$(".addtbxs").find(".xstr" + trlength).find("td").eq(11).find("input").val(cp_mag[0].kaixiang);
+			$(".addtbxs").find(".xstr" + trlength).find("td").eq(12).find("input").val(cp_mag[0].qita);
+			$(".addtbxs").find(".xstr" + trlength).find("td").eq(16).find("input").val(cp_mag[0].price);
+
+			cp_mag = [];
+		}
+		$(".tboy_optionxs").html("");
+		var xuanze_xs = document.getElementById('xuanze_xs');
+		xuanze_xs.style.display = "none";
+		$(".xuanze_xsbg").css({ "display": "none" });
+		$(".xsrbxs_close").html("");
+	}
+
+	//设置产品信息弹出框的筛选
+	var _qcxsData;
+	var _qcxsChecked;
+
+	function initXs(item, trlength) {
+		var k = '';
+		if(item != "" && item[0].tr.length != 0) {
+			$(".dialog_tablexs tbody").html("");
+			for(var i = 0; i < item.length; i++) {
+				var radio_value = i;
+				k += '<tr>' +
+					'<td class="entryinid_thxs1" style="width: 50px;background-color: #fff" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><input type="radio" name="payTypexs" id="payTypexs' + radio_value + '" onclick="check_xs(this,' + trlength + ')" value="' + radio_value + '"/></td>' +
+					'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[0].value + '</text></td>' +
+					'<td class="entryinid_thxs1" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[1].value + '</text></td>' +
+					'<td class="entryinid_thxs1" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[2].value + '</text></td>' +
+					'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[3].value + '</text></td>' +
+					'<td class="entryinid_thxs1" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[4].value + '</text></td>' +
+					'<td class="entryinid_thxs1" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[5].value + '</text></td>' +
+					'<td class="entryinid_thxs1" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[6].value + '</text></td>' +
+					'<td class="entryinid_thxs1" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[7].value + '</text></td>' +
+					'<td class="entryinid_thxs1" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[8].value + '</text></td>' +
+					'<td class="entryinid_thxs1" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[9].value + '</text></td>' +
+					'<td class="entryinid_thxs1" rowspan="1" colspan="1" style="background-color:#FFFFFF;WORD-WRAP: break-word;" ><text>' + item[i].tr[10].value + '</text></td>' +
+					'<td class="entryinid_thxs1" rowspan="1" colspan="1" style="background-color:#FFFFFF;WORD-WRAP: break-word;display:none;" ><text>' + item[i].tr[11].value + '</text></td>' +
+					'<td class="entryinid_thxs1" rowspan="1" colspan="1" style="background-color:#FFFFFF;WORD-WRAP: break-word;" ><text>' + item[i].tr[12].value + '</text></td>' +
+					'</tr>'
+			}
+			$("#dialog_tablexs tbody").html(k);
+		}
+	}
+
+	function getQcThead_xs(arr) {
+		var theadArr_xs = [];
+		for(var j = 0; j < arr.length; j++) {
+			for(var i = 0; i < 13; i++) {
+				if(theadArr_xs[i] == undefined || theadArr_xs[i] == '') {
+					theadArr_xs[i] = [];
+				}
+				if(theadArr_xs[i].indexOf(arr[j].tr[i].value) == -1) {
+					theadArr_xs[i].push(arr[j].tr[i].value);
+				}
+			}
+		}
+		for(var k = 0; k < 13; k++) {
+			for(var n = 0; n < theadArr_xs[k].length; n++) {
+				$('.qcxs' + k).append('<option value="' + theadArr_xs[k][n] + '">' + theadArr_xs[k][n] + '</option>');
+			}
+		}
+	}
+
+	for(var qcxsi = 0, qcxsfilArr = []; qcxsi < 13; qcxsi++) {
+		qcxsfilArr[qcxsi] = "";
+	}
+
+	function changeXSData(_index) {
+		qcxsfilArr[_index] = $('.qcxs' + _index).val();
+		var changeXsArr = _qcxsData;
+		for(var i = 0; i < 13; i++) {
+			changeXsArr = qcxsfilter(changeXsArr, qcxsfilArr[i], i);
+		}
+		initXs(changeXsArr, _qcxsChecked);
+	}
+
+	function qcxsfilter(arr, str, index) {
+		if(str == '') {
+			return arr;
+		}
+		return $.map(arr, function(value) {
+			return value.tr[index].value == str ? value : null;
+		});
+	}
+	//导入
+	uploader = WebUploader.create({
+		// 自动上传。
+		auto: true,
+		swf: 'js/Uploader.swf',
+		server: postUrl_xs,
+		pick: '#icon_selectxs',
+		accept: {
+			title: 'excel',
+			extensions: 'xls,xlsx',
+			mimeTypes: '.xls,.xlsx'
+		}
+	});
+	uploader.on('fileQueued', function(file) {
+		$("#iconxs").html("")
+		var $li = $(
+				'<div id="' + file.id + '" class="icon-imgxs">' +
+				file.name +
+				'</div>'
+			),
+			$img = $li.find('img');
+		$("#iconxs").append($li);
+		$(".icon-imgxs").show();
+		$("#mengce_xsmx").css("display", "block");
+		$("body").css("opacity", "0.5");
+	});
+
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	uploader.on('uploadSuccess', function(file, response) {
+		$(".icon-imgxs").hide();
+		$("#mengce_xsmx").css("display", "none");
+		$("body").css("opacity", "1");
+		if(response.resultcode == -2) {
+			alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+			window.location.href = "index.html";
+		} else {
+			if(isDataValid(response.error)) {
+				$(".xuanze_xsbg").css({ "display": "block" });
+				$("#uploader_failxs").css("display", "block");
+				$(".xsrbxs_close1").append('<span class="xsrbxs_closeicon"  onclick="closetk_xs()" />');
+				show_Faildataxs(response);
+			} else {
+				alertMsg.warn(response.resultmsg);
+				navTab._reload(navTab._getTab("fdmxsmx"), true);
+			}
+		}
+	});
+
+	function tj_xs() {
+		get_dayxs = getServiceTime_xs();
+		for(var i = 0; i < 24; i++) {
+			if($($('.sel_trxs td')[i]).find("select").val() != "") {
+				alertMsg.warn("请先重置筛选");
+				return;
+			}
+		}
+		//获取提交数据
+		getdata_xs = [];
+		k = 0;
+
+		//从当前日第一条数据开始循环到结束，保存当日的所有数据以便提交
+		for(var i = 0; i < Math.floor($(".addtbxs tr").length); i++) {
+			if($(".addtbxs tr").eq(i).find("td").eq(0).find("input").val() == get_dayxs) {
+				for(var j = 0; j < 25; j++) {
+					if(j == 13) {
+						getdata_xs[k] = $(".addtbxs tr").eq(i).find("td").eq(13).find("select").val();
+					} else if(j == 14) {
+						getdata_xs[k] = $(".addtbxs tr").eq(i).find("td").eq(14).find("input").val();
+						if(getdata_xs[k] == "") {
+							$(".addtbxssz tr").eq(i).find("td").eq(14).find("input").val("0");
+						}
+					} else if(j == 15) {
+						getdata_xs[k] = $(".addtbxs tr").eq(i).find("td").eq(15).find("input").val();
+						if(getdata_xs[k] == "") {
+							$(".addtbxssz tr").eq(i).find("td").eq(15).find("input").val("0");
+						}
+					} else if(j == 23) {
+						getdata_xs[k] = $(".addtbxs tr").eq(i).find("td").eq(23).find("select").val();
+					} else {
+						getdata_xs[k] = $(".addtbxs tr").eq(i).find("td").eq(j).find("input").val();
+					}
+					if($(".addtbxs tr").eq(i).find("td").eq(2).find("input").val() == "" && $(".addtbxs tr").eq(i).find("td").eq(13).find("select").val() == "" && $(".addtbxs tr").eq(i).find("td").eq(23).find("select").val() == "") {
+						$(".addtbxs tr").eq(i).find("td").eq(2).css({ "border": "2px solid red" });
+						$(".addtbxs tr").eq(i).find("td").eq(13).css({ "border": "2px solid red" })
+						$(".addtbxs tr").eq(i).find("td").eq(23).css({ "border": "2px solid red" })
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else if($(".addtbxs tr").eq(i).find("td").eq(2).find("input").val() == "" && $(".addtbxs tr").eq(i).find("td").eq(13).find("select").val() == "") {
+						$(".addtbxs tr").eq(i).find("td").eq(2).css({ "border": "2px solid red" });
+						$(".addtbxs tr").eq(i).find("td").eq(13).css({ "border": "2px solid red" });
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else if($(".addtbxs tr").eq(i).find("td").eq(2).find("input").val() == "" && $(".addtbxs tr").eq(i).find("td").eq(23).find("select").val() == "") {
+						$(".addtbxs tr").eq(i).find("td").eq(2).css({ "border": "2px solid red" });
+						$(".addtbxs tr").eq(i).find("td").eq(23).css({ "border": "2px solid red" });
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else if($(".addtbxs tr").eq(i).find("td").eq(13).find("select").val() == "" && $(".addtbxs tr").eq(i).find("td").eq(23).find("select").val() == "") {
+						$(".addtbxs tr").eq(i).find("td").eq(13).css({ "border": "2px solid red" });
+						$(".addtbxs tr").eq(i).find("td").eq(23).css({ "border": "2px solid red" });
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else if($(".addtbxs tr").eq(i).find("td").eq(2).find("input").val() == "") {
+						$(".addtbxs tr").eq(i).find("td").eq(2).css({ "border": "2px solid red" });;
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else if($(".addtbxs tr").eq(i).find("td").eq(13).find("select").val() == "") {
+						$(".addtbxs tr").eq(i).find("td").eq(13).css({ "border": "2px solid red" });
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else if($(".addtbxs tr").eq(i).find("td").eq(23).find("select").val() == "") {
+						$(".addtbxs tr").eq(i).find("td").eq(23).css({ "border": "2px solid red" });
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else {
+						$(".addtbxs tr").eq(i).find("td").eq(2).css({ "border": "1px solid #c0c0c0" });
+						$(".addtbxs tr").eq(i).find("td").eq(13).css({ "border": "1px solid #c0c0c0" });
+						$(".addtbxs tr").eq(i).find("td").eq(23).css({ "border": "1px solid #c0c0c0" });
+					}
+					k++;
+				}
+			}
+		}
+
+		//处理提交数据
+		var array_data = [];
+		for(var i = 0; i < (getdata_xs.length / 25); i++) {
+			array_data[i] = {
+				"date": getdata_xs[i * 25 + 0],
+				"kehuxm": getdata_xs[i * 25 + 1],
+				"zhizaobm": getdata_xs[i * 25 + 2],
+				"dalei": getdata_xs[i * 25 + 3],
+				"feibiao": getdata_xs[i * 25 + 4],
+				"banhou": getdata_xs[i * 25 + 5],
+				"guige": getdata_xs[i * 25 + 6],
+				"biaomianyq": getdata_xs[i * 25 + 7],
+				"menkuang": getdata_xs[i * 25 + 8],
+				"huase": getdata_xs[i * 25 + 9],
+				"suoju": getdata_xs[i * 25 + 10],
+				"kaixiang": getdata_xs[i * 25 + 11],
+				"qita": getdata_xs[i * 25 + 12],
+				"xiaoshoums": getdata_xs[i * 25 + 13],
+				"xiaoliang": getdata_xs[i * 25 + 14],
+				"xiaoshoudj": getdata_xs[i * 25 + 15],
+				"chengbendj": getdata_xs[i * 25 + 16],
+				"xiaoshousr": getdata_xs[i * 25 + 17],
+				"xiaoshoucb": getdata_xs[i * 25 + 18],
+				"maoli": getdata_xs[i * 25 + 19],
+				"maolil": getdata_xs[i * 25 + 20],
+				"diaobofy": getdata_xs[i * 25 + 21],
+				"qiankuane": getdata_xs[i * 25 + 22],
+				"tihuofs": getdata_xs[i * 25 + 23],
+				"jingshou": getdata_xs[i * 25 + 24]
+			}
+		}
+		var addnewtj_xsurl = URL + "FDMXSMX/submit/type/";
+		if(xsmx_flag) {
+			if($("tbody.addtb tr").length == 0) {
+				addnewtj_xsurl += "0/delete/1/token/" + token;
+			} else {
+				addnewtj_xsurl += "0/token/" + token;
+			}
+		} else {
+			if($("tbody.addtb tr").length == 0) {
+				addnewtj_xsurl += "1/delete/1/token/" + token;
+			} else {
+				addnewtj_xsurl += "1/token/" + token;
+			}
+		}
+
+		$.ajax({
+			type: "post",
+			url: addnewtj_xsurl,
+			async: false,
+			dataType: 'json',
+			data: JSON.stringify({
+				"info": array_data
+			}),
+			success: function(data) {
+				if(data.resultcode == 0) {
+					alertMsg.correct("保存成功");
+					localStorage.setItem("checked_optionxs", 0);
+					navTab._reload(navTab._getTab("fdmxsmx"), true);
+				} else if(data.resultcode == -2) {
+					alertMsg.info("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				} else {
+					alertMsg.info(data.resultmsg);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("XMLHttpRequest:" + XMLHttpRequest + ",textStatus:" + textStatus + ",errorThrown:" + errorThrown);
+			}
+		});
+	}
+
+	//前台删除
+	function appDeleteOne_xs(obj) {
+		$(obj).parent().parent().remove()
+	}
+
+	function closetk_xs() {
+		$(".xsrbxs_close1").html("");
+		$("#uploader_failxs").css("display", "none");
+		navTab._reload(navTab._getTab("fdmxsmx"), true);
+	}
+
+	function show_Faildataxs(response) {
+
+		var item = response.error;
+		var k = "";
+		k += '<table class="" id="" border="0" cellspacing="0" cellpadding="0" width:100%;color:#555;font-size: small;">' +
+			'<thead>' +
+			'<tr>' +
+			'<td class="entryinid_thxs1" rowspan="1" colspan="23" style="width: 80px;text-align: center;">错误数据显示</td>' +
+			'</tr>' +
+			'<tr>' +
+			'<td class="entryinid_thxs1"  style="">行数</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">日期</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">客户姓名</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">制造部门</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">大类</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">非标</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">板厚</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">规格</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">表面要求</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">门框</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">花色</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">锁具</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">开向</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">其他</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">销售模式</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">销量</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">销售单价</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">成本单价</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">调拨费用</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">欠费额</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">提货方式</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">经手人</td>' +
+			'<td  class="entryinid_thxs1" rowspan="1" colspan="1" style="text-align: center;">备注</td>' +
+			'</tr>' +
+			'</thead>' +
+			'<tbody>'
+		for(var s = 0; s < item.length; s++) {
+			k += '<tr>'
+			for(var j = 0; j < item[s].length; j++) {
+				if(item[s][j].type == 0) {
+					k += '<td class="failtable_xstd" style="color: red;" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				} else {
+					k += '<td class="failtable_xstd" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				}
+
+			}
+			k += '</tr>'
+		}
+		k += '</tbody></table>'
+		$("#uploader_failxs").append(k);
+	}
+
+	//输出
+	function xsmx_shuchu() {
+		var xsmx_shuchuURL = URL + "FDMXSMX/printExcel/token/" + token;
+		if(isDataValid($("#edate_FDMXSMX").val())) {
+			xsmx_shuchuURL += "/date/" + $("#edate_FDMXSMX").val();
+		}
+		window.open(xsmx_shuchuURL);
+	}
+	$("#rendrTable_addxsmx").scroll(function() {
+		$("#rendrTable_addxsmx thead").css("top", $(this).scrollTop() + "px");
+
+	})
+</script>
+<style>
+	select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+	}
+	
+	#rendrTable_addxsmx {
+		position: relative;
+	}
+	
+	.addindexthead_xs {
+		position: absolute;
+		z-index: 99;
+		width: 2691px;
+	}
+	
+	.addtbxs {
+		position: absolute;
+		top: 73px;
+	}
+	
+	#rendrTable_addxsmx table tbody tr td input {
+		-moz-user-select: none;
+		-webkit-user-select: none height: 16px;
+		padding: 5px 0;
+	}
+	
+	.add_tdxs {
+		border-left: 1px solid #c0c0c0;
+		border-bottom: 1px solid #c0c0c0;
+		text-align: center;
+		padding: 0px;
+		margin: 0px;
+		text-align: center;
+		width: 104px;
+	}
+	
+	.disablexs {
+		width: 100%;
+		cursor: pointer;
+		margin-left: -3px !important;
+		border: none !important;
+		background: none !important;
+		text-align: center;
+		height: 100%;
+	}
+	
+	.textInput {
+		border-color: #fff !important;
+		width: 104px;
+		text-align: center;
+		padding: 0;
+	}
+	
+	input.readonly {
+		background: none;
+		text-align: center;
+	}
+	
+	.disablexsView {
+		cursor: pointer;
+		border: none;
+		background: none;
+		width: 120px;
+		color: red;
+	}
+	
+	.select_xs {
+		width: 102px;
+		border: none;
+		padding: 0 26px;
+	}
+	
+	.select_xs option {
+		text-align: center;
+	}
+	
+	.bordexs {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.headbuttonxs {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+		cursor: pointer;
+	}
+	
+	.entryinid_thxs {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #99ccff;
+		border-left: 1px solid #c0c0c0!important;
+		border-bottom: 1px solid #c0c0c0!important;
+	}
+	
+	.entryinid_thxs td:nth-child(5) {
+		/*width: 120px;*/
+	}
+	
+	.headbuttonxs span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	tr {
+		padding: 0px;
+		margin: 0px;
+	}
+	
+	.addtbxs td input {
+		width: 102px;
+		font-size: 12px;
+		border: none;
+		text-align: center;
+		cursor: pointer;
+	}
+	
+	.addindexthead_xs td input {
+		width: 102px;
+		font-size: 12px;
+		border: none;
+		text-align: center;
+	}
+	
+	.headbuttonxs:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbuttonxs:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.nav1xs {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.addtbxs tr td select option {
+		visibility: hidden;
+	}
+	
+	.addtbxs tr td:nth-child(n+15) input {
+		width: 106px;
+	}
+	
+	.addtbxs tr td:nth-child(n+24) select {
+		width: 103px !important;
+	}
+	
+	.addtbxs tr td:nth-child(n+25) {
+		width: 104px;
+	}
+	
+	#index_yxbtxs {
+		float: right;
+		width: 90px;
+		line-height: 22px;
+		height: 26px;
+		text-align: center;
+		cursor: pointer;
+		border-bottom-left-radius: 22px;
+		border-top-right-radius: 22px;
+		font-size: 12px;
+		background-color: #FFFFFF;
+	}
+	
+	.webuploader-pick {
+		background: none;
+		border: none;
+	}
+	
+	.icon-imgxs {
+		position: absolute;
+		top: 10px;
+		left: 408px;
+	}
+	
+	.btn_handle {
+		margin-left: 3px;
+	}
+	/*产品信息弹出框*/
+	
+	.xuanze_xs {
+		position: absolute;
+		top: 2%;
+		right: 0;
+		bottom: 0;
+		left: 5%;
+		width: 90%;
+		height: 90%;
+		background-color: #fff;
+		z-index: 999;
+		text-align: center;
+		display: none;
+		overflow: auto;
+	}
+	
+	.xuanze_xsbg {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 888;
+		background-color: rgba(0, 0, 0, .3);
+		display: none;
+	}
+	
+	.entryinid_thxs1 {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #99ccff;
+		border-left: 1px solid #c0c0c0!important;
+		border-bottom: 1px solid #c0c0c0!important;
+		width: 140px;
+	}
+	
+	.tboy_optionxs {
+		width: 100%;
+	}
+	
+	.xsps_style {
+		margin: 5px 10px;
+		background: #FFFFFF;
+	}
+	
+	.xsrbxs_close {
+		position: absolute;
+		top: 0%;
+		z-index: 999;
+		right: 4.5%;
+	}
+	
+	.xsmx_closeicon {
+		background: url(public/initialStage/images/alllicon.png) no-repeat 0px -574px;
+		display: inline-block;
+		width: 16px;
+		height: 18px;
+		cursor: pointer;
+	}
+	
+	.datai {
+		display: none;
+	}
+	
+	#longtd6:hover {
+		cursor: pointer;
+		background: #FFFFFF;
+	}
+	
+	#mengce_xsmx {
+		z-index: 999999999;
+		position: absolute;
+		top: 200px;
+		left: 50%;
+		background: url(public/initialStage/images/loading.gif) no-repeat;
+		width: 100px;
+		height: 50px;
+		display: none;
+	}
+	
+	.addindexthead_xs tr td:nth-child(8) {
+		width: 104px;
+	}
+	
+	.fdmxsmx_sc:hover {
+		cursor: pointer;
+	}
+	
+	select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+	}
+	
+	select::-ms-expand {
+		display: none;
+	}
+	
+	.webuploader-pick {
+		border: none;
+		background: none;
+	}
+	
+	.sdate_label_xs {
+		display: inline-block;
+		padding-left: 130px;
+	}
+	
+	.sel_trxs td {
+		position: relative;
+	}
+	
+	.sel_trxs select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 0;
+		padding: 2px 39px;
+		border-radius: 3px;
+		background: url(img/select.png) no-repeat 98% 5px;
+		cursor: pointer;
+		position: absolute;
+		border: none;
+		top: 0;
+		left: 0;
+	}
+	
+	#dialog_tablexs thead td {
+		width: 53px;
+		padding-right: 10px;
+		position: relative;
+	}
+	
+	#dialog_tablexs select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 0;
+		padding: 2px 35px;
+		border-radius: 3px;
+		background: url(img/select.png) no-repeat 98% 5px;
+		cursor: pointer;
+		position: absolute;
+		border: none;
+		top: 0;
+		right: 0;
+	}
+	
+	.update_selxs {
+		float: right;
+		margin-right: 10px;
+	}
+	
+	#uploader_failxs {
+		position: absolute;
+		top: 5%;
+		left: 8%;
+		width: 85%;
+		background-color: #fff;
+		z-index: 999999;
+		text-align: center;
+		display: none;
+		height: 90%;
+		overflow-y: scroll;
+	}
+	
+	.xsrbxs_close1 {
+		position: absolute;
+		top: 3.5%;
+		bottom: 0;
+		left: 87%;
+		z-index: 99999999;
+		color: red;
+	}
+	
+	.xsrbxs_closeicon {
+		background: url(public/initialStage/images/alllicon.png) no-repeat 0px -574px;
+		display: inline-block;
+		width: 40px;
+		height: 20px;
+		cursor: pointer;
+	}
+	
+	.trxs_total td {
+		background-color: #fff;
+	}
+	
+	.resetselect_btn {
+		float: right;
+		cursor: pointer;
+		border: 2px solid #99ccff;
+		border-radius: 3px;
+		background-color: transparent;
+		color: #555;
+	}
+	
+	.xs_notice {
+		float: left;
+		color: red;
+		margin-top: 7px
+	}
+	
+	.failtable_xstd {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #fff;
+		border-right: 1px solid #c0c0c0!important;
+		border-bottom: 1px solid #c0c0c0!important;
+		width: 50px;
+		height: 15px;
+	}
+	
+	.btncx_xs {
+		cursor: pointer;
+	}
+	
+	.entryinid_thxs select {
+		padding: 4px;
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 100%;
+		background: url(img/select.png) no-repeat 100% 7px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		cursor: pointer;
+	}
+	
+	#rendrTable_addxsmx thead tr td select {
+		width: 0;
+		height: 0;
+		padding: 11px !important;
+		position: absolute;
+		z-index: 9999;
+		margin-left: 70px;
+	}
+	
+	input.readonly {
+		padding: 0;
+	}
+</style>
+<!-----header  start------>
+<div class="pageHeader" style="overflow: hidden;">
+	<div class="bordexs"></div>
+	<a class="headbuttonxs" href="javascript:xsmx_shuchu();"><span><i class="nav1xs" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出</i></span></a>
+	<div class="bordexs"></div>
+	<a class="headbuttonxs" id="savexs"><span><i class="nav1xs" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px 4px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保存刷新</i></span></a>
+	<div class="bordexs"></div>
+	<a class="headbuttonxs" onclick="index_addtrxs(itemlength)"><span><i class="nav1xs" style="height:16px;line-height: 20px;padding: 2px 4px;background: url(public/initialStage/images/alllicon.png) no-repeat 0px -554px;text-align:right;width: 40px;font-style:normal;">&nbsp;&nbsp;&nbsp;&nbsp;新增</i></span></a>
+	<div class="bordexs" style="margin-right: 10px;"></div>
+	<button id="index_yxbtxs" onclick="index_yxsjxs()">有效数据</button>
+	<span style="text-align: center;line-height: 20px; position: absolute;top: 6px;left: 350px;background: url(public/initialStage/images/alllicon.png)  no-repeat 0px -756px; width: 60px;height: 18px;">导入</span>
+	<div class="img-div">
+		<div class="left-div" style="float:left">
+			<span id="icon_selectxs" class="choose">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<input type="text" id="shop_icon" style="display: none;">
+		</div>
+		<div class="right-div" id="iconxs"></div>
+	</div>
+	<div style="float:left;margin-left:150px;margin-top:2px;">
+		<label class="sdate_label_xs">日期:</label>
+		<input style="width:85px" id="sdate_FDMXSMX" class="date" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" readonly="readonly" /> — <input style="width:80px" id="edate_FDMXSMX" class="date" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" readonly="readonly" />
+		<button class="btncx_xs"> 查询</button>
+	</div>
+	<div style="clear:both"></div>
+</div>
+<!-----header  end------>
+
+<!-----content start------>
+<div class="xsps_style">
+	<div class="xs_notice">ps:产品信息、销售模式、提货方式为必填项！</div>
+	<button class="resetselect_btn" onclick="resetxsChoose()">重置筛选</button>
+	<div style="clear: both"></div>
+</div>
+<div id="mengce_xsmx"></div>
+<div class="pageContent" id="rendrTable_addxsmx" layoutH="100" cellspacing="0" cellpadding="0" style="color:#555;font-size: small;"></div>
+<!-----content end------>
+
+<script type="text/x-jsrender" id="tableContent_addxsmx">
+	<table id="table_addnewxs">
+		<thead class="addindexthead_xs">
+			<tr>
+				{{for data.title[0].tr}}
+				<td class="entryinid_thxs" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style="width:104px;">{{:value}}</td>
+				{{/for}}
+				<td class="entryinid_thxs" style="width:104px;" rowspan="2" colspan="1">操作</td>
+			</tr>
+			<tr class="sel_trxs">
+				{{for data.title[1].tr}}
+				<td class="entryinid_thxs" style="width:104px;" rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{/for}}
+			</tr>
+			<tr class="trxs_total">
+				{{for data.title[2].tr}}
+				<td class="entryinid_thxs" style="width:104px;" rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{/for}}
+				<td class="entryinid_thxs" style="width:104px;" rowspan="1" colspan="1"><input style="color:#fff;" value="删除"></input>
+				</td>
+			</tr>
+
+		</thead>
+		<tbody class="addtbxs">
+		</tbody>
+
+	</table>
+</script>
+<div class="xuanze_xsbg"> </div>
+<div id="xuanze_xs" class="xuanze_xs">
+	<div class="tboy_optionxs"></div>
+</div>
+</div>
+<div class="xsrbxs_close"> </div>
+
+<div class="xuanze_xsbg"> </div>
+<div class="xsrbxs_close1"> </div>
+<div id="uploader_failxs">
+</div>

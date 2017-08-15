@@ -1,0 +1,548 @@
+<style>
+	.selected_oi {
+		background-color: #E6EEEF!important;
+	}
+	
+	#rendrTable_digitprod table tbody tr td input {
+		-moz-user-select: none;
+		-webkit-user-select: none
+	}
+	
+	.disable {
+		width: 100%;
+		cursor: pointer;
+		border: none !important;
+		background: none !important;
+		height: 100%;
+		text-align: center;
+		margin-left: -2px !important;
+	}
+	
+	.disableView {
+		cursor: pointer;
+		border: none;
+		background: none;
+		width: 120px;
+		color: red;
+	}
+	
+	.viewBox {
+		display: inline-block;
+		height: 22px;
+		margin-left: 20px;
+		margin-top: 0px;
+	}
+	
+	.viewBox label {
+		line-height: 26px;
+	}
+	
+	.borde {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.headbutton {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headbutton span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.nav1 {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.digitprod_th {
+		width: 90px;
+		color: #333;
+		/*	font-weight: bold;*/
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #fff;
+		border: 1px solid #888!important;
+	}
+	
+	.th_bottom {
+		border-bottom: 2px solid #C0C0C0!important;
+	}
+	
+	.digitprod_td {
+		font-size: 12px;
+		color: #555;
+		text-align: center;
+		border: 1px solid #888;
+	}
+	
+	#rendrTable_digitprod table {
+		border-left: 1px solid #888;
+	}
+	
+	.editable {
+		background-color: #ffffff;
+	}
+	
+	.uneditable {
+		background-color: #99ccff;
+	}
+	
+	.uneditable_left {
+		background-color: #99ccff;
+		text-align: left;
+	}
+	
+	.violet {
+		background-color: #cc99ff!important;
+	}
+	
+	.getsum {
+		color: red!important;
+	}
+	
+	.uneditable_sum {
+		color: red;
+		background-color: #ccffcc;
+	}
+	
+	.tianxian {
+		background-color: #ccffff;
+	}
+	
+	.gaopintou {
+		background-color: #808000;
+	}
+</style>
+<div class="pageHeader" style="overflow: hidden;">
+	<a class="headbutton" id="save5"><span><i class="nav1" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px 4px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保存刷新</i></span></a>
+	<div class="borde"></div>
+	<div class="viewBox"><label>选中项内容：</label><input type="text" disabled="disabled" value="" id="tdView_digitprod" class="disableView" /></div>
+</div>
+<div class="pageContent" id="rendrTable_digitprod" style="margin-top:1%;margin-left: 5%;  width: 90%;">
+	<!--onresize="resize_table()"-->
+</div>
+<script type="text/x-jsrender" id="tableContent_digitprod">
+	<table class="table" id="removtable" layoutH="140">
+		<thead class="fixhead">
+			<tr>
+				{{for data[0].tr}}
+				<td class="digitprod_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style="">{{:value}}</td>
+				{{/for}}
+			</tr>
+			<tr>
+				{{for data[1].tr}}
+				<td class="digitprod_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style="color: blue;font-weight:bold; font-size: 14px;">{{:value}}</td>
+				{{/for}}
+			</tr>
+			<tr>
+				{{for data[2].tr}}
+				<td class="digitprod_th th_bottom" rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{/for}}
+
+			</tr>
+		</thead>
+		<tbody>
+			{{for data}} {{if #getIndex()==5}}
+			<tr name="{{:#getIndex()}}">
+				{{for tr}} {{if dataType==1}}
+				<td name="{{:#getIndex()}}" class="digitprod_td editable" colspan="{{:colspan}}" rowspan="{{:rowspan}}" onmousemove="deal_mousemove($(this),'rendrTable_digitprod')" onclick="edit1_SMCPKC($(this))" ondblclick="selected_line('rendrTable_digitprod',$(this))">
+					<input type="text" class="disable" value="{{:value}}" onblur="blurset_digitalpro($(this))" style="width: :10px;" onkeyup="checkFloat($(this))" onpaste="pasteV($(this),'rendrTable_digitprod')" onmouseup="deal_mouseup($(this))" onmousedown="deal_mousedown(event,$(this),'rendrTable_digitprod')" />
+				</td>
+				{{else}}
+				<!--不可编辑-->
+				<td class="digitprod_td" colspan="{{:colspan}}" name="{{:#getIndex()}}" rowspan="{{:rowspan}}" onclick="canntEdit_digtal($(this))">{{:value}}</td>
+				{{/if}} {{/for}}
+			</tr>
+			{{/if}} {{if (#getIndex()>2)&&(#getIndex()!=5)}}
+			<tr name="{{:#getIndex()}}">
+				{{for tr}} {{if dataType==1}}
+				<td name="{{:#getIndex()}}" class="digitprod_td editable" colspan="{{:colspan}}" rowspan="{{:rowspan}}" onmousemove="deal_mousemove($(this),'rendrTable_digitprod')" onclick="edit1_SMCPKC($(this))">
+					<input type="text" class="disable" value="{{:value}}" onblur="blurset_digitalpro($(this))" style="width: :10px;" onkeyup="checkFloat($(this))" onpaste="pasteV($(this),'rendrTable_digitprod')" onmouseup="deal_mouseup($(this))" onmousedown="deal_mousedown(event,$(this),'rendrTable_digitprod')" />
+				</td>
+				{{else}}
+				<!--不可编辑-->
+				<td class="digitprod_td" colspan="{{:colspan}}" name="{{:#getIndex()}}" rowspan="{{:rowspan}}" onclick="canntEdit_digtal($(this))">{{:value}}</td>
+				{{/if}} {{/for}}
+			</tr>
+			{{/if}} {{/for}}
+		</tbody>
+	</table>
+</script>
+<script src="./js/publicjs/common.js"></script>
+<script type="text/javascript">
+	flag_enter_SMCPKC = false;
+	type_SMCPKC = 111;
+	down_SMCPKC = 0; //光标下移
+	up_SMCPKC = 1; //光标上移
+	right_SMCPKC = 2; //光标右移
+	left_SMCPKC = 3; //光标左移
+	$(function() {
+		document.body.onselectstart = function() {
+			return false;
+		}
+		authorize_export();
+		get_digitalpro();
+
+		$("#save5").click(function() {
+			if($(".errorData5").length) {
+				alertMsg.warn("请检查红框数据后再提交");
+				return;
+			}
+			post_digitalpro();
+		}); //click
+		$("#taskbar").css("display", "none");
+	}) //获取默认数据
+	function get_digitalpro() {
+		$.ajax({
+			type: "get",
+			url: URL + "SMCPKC/search/token/" + token,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else {
+					SMCPKC_test = data;
+					var tableContent_digitprod = $("#tableContent_digitprod").render(SMCPKC_test);
+					$("#rendrTable_digitprod").append(tableContent_digitprod);
+					style_classify(SMCPKC_test);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	};
+	//保存
+	function post_digitalpro() {
+		$.ajax({
+			type: "post",
+			url: URL + "SMCPKC/submit/token/" + token,
+			async: false,
+			dataType: 'json',
+			data: JSON.stringify(SMCPKC_test),
+			success: function(data) {
+
+				alertMsg.warn(data.resultmsg);
+				navTab._reload(navTab._getTab("w_table5"), true);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn(errorThrown);
+			}
+		});
+	}
+	//输入框blur事件
+	function blurset_digitalpro(obj) {
+		var min_col;
+		var min_row;
+		obj.parent().css({
+			"border": "1px solid #888"
+		});
+		if(!obj.val()) {
+			obj.val(0);
+			return false;
+		}
+		var int_replace_res = obj.val().replace(/^-?[1-9]\d*|0$/, "");
+		if(int_replace_res) {
+			var float_replace_res = obj.val().replace(/^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$/, "");
+			if(float_replace_res) {
+				obj.addClass("errorData5");
+				obj.parent().css({
+					"border": "2px solid red"
+				});
+				return;
+			}
+		}
+		obj.removeClass("errorData5");
+		var rowcode = parseInt(obj.parent().parent().attr("name"));
+		var colcode = parseInt(obj.parent().attr("name"));
+		SMCPKC_test.data[rowcode].tr[colcode].value = parseFloat(obj.val());
+		min_row_SMCPKC = 5;
+		///查找下一行开始的第一个可编辑单元格
+		var flag = 0;
+		var now_col = colcode;
+		obj.removeClass("selectedIput_SMCPKC");
+		if(flag_enter_SMCPKC) {
+			if(type_SMCPKC == down_SMCPKC) {
+				flag_enter_SMCPKC = false;
+				for(var findin = rowcode + 1; findin < SMCPKC_test.data.length; findin++) { //查找下一行开始的第一个可编辑单元格
+					var chayi = SMCPKC_test.data[findin].tr.length - SMCPKC_test.data[findin - 1].tr.length;
+					now_col = now_col + chayi;
+					if($("#rendrTable_digitprod table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_digitprod table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").trigger("click");
+						return true;
+					}
+				} //for findin
+				if(!flag) { //不存在可编辑的下一行了,就去可编辑的第一行（下面简称第一行）下一列
+					//一直第一行查找下一列，直到存在可编辑
+					var flagcol = 0;
+					for(var findcol = colcode; findcol < SMCPKC_test.data[min_row_SMCPKC].tr.length; findcol++) {
+						var temp = findcol + 1;
+						if($("#rendrTable_digitprod table tbody").children("tr[name=" + min_row_SMCPKC + "]").children("td[name=" + temp + "]").children("input").length > 0) {
+							flagcol = 1;
+							$("#rendrTable_digitprod table tbody").children("tr[name=" + min_row_SMCPKC + "]").children("td[name=" + temp + "]").trigger("click");
+							return true;
+						}
+					}
+					if(!flagcol) { //没有找到从现在开始的下一列，就去第一行第一列
+						for(var findcol = 0; findcol < SMCPKC_test.data[min_row_SMCPKC].tr.length; findcol++) {
+							if($("#rendrTable_digitprod table tbody").children("tr[name=" + min_row_SMCPKC + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								$("#rendrTable_digitprod table tbody").children("tr[name=" + min_row_SMCPKC + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} //if flag
+
+			} //if down
+			else if(type_SMCPKC == up_SMCPKC) {
+				flag_enter_SMCPKC = false;
+				for(var findin = rowcode - 1; findin >= min_row_SMCPKC; findin--) { //从下往上查找上一行开始的第一个可编辑单元格
+					var chayi = SMCPKC_test.data[findin].tr.length - SMCPKC_test.data[findin + 1].tr.length;
+					now_col = now_col + chayi;
+					if($("#rendrTable_digitprod table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_digitprod table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //不存在可编辑的上一行了,就去上一列的可编辑的最后一行（下面简称第一行）
+					var flagcol = 0;
+					var max_row_FDMKC;
+					//查找最大可编辑行
+					for(var i = SMCPKC_test.data.length - 1; i >= min_row_SMCPKC; i--) { //从下往上查找
+						for(var j = 0; j < SMCPKC_test.data[i].tr.length; j++) { //从左往右查找
+							if($("#rendrTable_digitprod table tbody").children("tr[name=" + i + "]").children("td[name=" + j + "]").children("input").length > 0) {
+								//该行存在可编辑
+								max_row_FDMKC = i;
+								break;
+							}
+						}
+						if(max_row_FDMKC) {
+							break;
+						}
+					}
+					//在最后一个行查找可编辑的上一列，直到存在可编辑
+					for(var findcol = colcode - 1; findcol > 0; findcol--) {
+						if($("#rendrTable_digitprod table tbody").children("tr[name=" + max_row_FDMKC + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+							flagcol = 1;
+							$("#rendrTable_digitprod table tbody").children("tr[name=" + max_row_FDMKC + "]").children("td[name=" + findcol + "]").trigger("click");
+							return true;
+						}
+					}
+					if(!flagcol) { //没有找到从现在开始的下一列，就去第最后行第最后一列
+						for(var findcol = SMCPKC_test.data[max_row_FDMKC].tr.length - 1; findcol > 0; findcol--) {
+							if($("#rendrTable_digitprod table tbody").children("tr[name=" + max_row_FDMKC + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								$("#rendrTable_digitprod table tbody").children("tr[name=" + max_row_FDMKC + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} //if flag
+			} //if up
+			else if(type_SMCPKC == right_SMCPKC) { //右移键
+				flag_enter_SMCPKC = false;
+				for(var findcol = parseInt(colcode) + 1; findcol <= SMCPKC_test.data[rowcode].tr.length; findcol++) {
+					//从左往右查找下一列开始的第一个可编辑单元格
+
+					if($("#rendrTable_digitprod table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_digitprod table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + findcol + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //在本行未找到，从下一行的第一列开始查找
+					var flagcol = 0;
+					for(var findin = rowcode + 1; findin < SMCPKC_test.data.length; findin++) {
+						//从上往下查找
+						for(var findcol = 0; findcol < SMCPKC_test.data[findin].tr.length; findcol++) {
+							var temp = findcol + 1;
+							if($("#rendrTable_digitprod table tbody").children("tr[name=" + findin + "]").children("td[name=" + temp + "]").children("input").length > 0) {
+								flagcol = 1;
+								$("#rendrTable_digitprod table tbody").children("tr[name=" + findin + "]").children("td[name=" + temp + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+					if(!flagcol) { //在下面的数据行里已经没有可编辑，跳到左上角的第一个可编辑框
+						for(var find = 0; find < SMCPKC_test.data[min_row_SMCPKC].tr.length; find++) {
+							if($("#rendrTable_digitprod table tbody").children("tr[name=" + min_row_SMCPKC + "]").children("td[name=" + find + "]").children("input").length > 0) {
+								$("#rendrTable_digitprod table tbody").children("tr[name=" + min_row_SMCPKC + "]").children("td[name=" + find + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} // flag
+			} //right
+			else if(type_SMCPKC == left_SMCPKC) { //左移键
+				flag_enter_SMCPKC = false;
+				for(var leftcol = colcode - 1; leftcol >= 0; leftcol--) {
+					//从右往左查找下一列开始的第一个可编辑单元格
+					if($("#rendrTable_digitprod table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + leftcol + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_digitprod table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + leftcol + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //在本行未找到，从上一行的最后列开始查找
+					var flagcol = 0;
+					for(var findin = rowcode - 1; findin >= min_row_SMCPKC; findin--) {
+						//从下往上查找
+						for(var findcol = SMCPKC_test.data[findin].tr.length - 1; findcol > 0; findcol--) {
+							if($("#rendrTable_digitprod table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								flagcol = 1;
+								$("#rendrTable_digitprod table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+					if(!flagcol) { //在上面的数据行里已经没有可编辑，跳到右下角的最后可编辑框
+						var max_row_FDMKC;
+						//查找最大可编辑行
+						for(var i = SMCPKC_test.data.length - 1; i >= min_row_SMCPKC; i--) { //从下往上查找
+							for(var j = 0; j < SMCPKC_test.data[i].tr.length; j++) { //从左往右查找
+								if($("#rendrTable_digitprod table tbody").children("tr[name=" + i + "]").children("td[name=" + j + "]").children("input").length > 0) {
+									//该行存在可编辑
+									max_row_FDMKC = i;
+									break;
+								}
+							}
+							if(max_row_FDMKC) {
+								break;
+							}
+						}
+						for(var findleft = SMCPKC_test.data[max_row_FDMKC].tr.length - 1; findleft > 0; findleft--) {
+							if($("#rendrTable_digitprod table tbody").children("tr[name=" + max_row_FDMKC + "]").children("td[name=" + findleft + "]").children("input").length > 0) {
+								$("#rendrTable_digitprod table tbody").children("tr[name=" + max_row_FDMKC + "]").children("td[name=" + findleft + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} // flag
+			} //left
+			else {
+				flag_enter_SMCPKC = false;
+			}
+		}
+
+	};
+	//去空
+	function canntEdit_digtal(obj) {
+		$("#tdView_digitprod").val(obj.text().replace(/\s*/, ""));
+	};
+
+	//对输入框的值进行编辑时的UI效果显示
+	function edit1_SMCPKC(obj) {
+		$("#tdView_digitprod").val(obj.children().val());
+		obj.children().select();
+		if(obj.children().val() == 0) {
+			obj.children().val("");
+		}
+		obj.children().addClass("selectedIput_SMCPKC");
+		if($(".selectedIput_SMCPKC").length > 1) {
+			$(".selectedIput_SMCPKC").each(function() {
+				$(this).removeClass("selectedIput_SMCPKC");
+			})
+			obj.children().addClass("selectedIput_SMCPKC");
+		}
+		obj.css("border", "2px solid #000");
+	};
+	//给获取的td添加相对的class名
+	function style_classify(SMCPKC_test) {
+		data = eval(SMCPKC_test.data);
+		for(var i = 3; i < data.length; i++) {
+			for(var j = 0; j < data[i].tr.length; j++) {
+				if(data[i].tr[j].colspan > 10)
+					$("#rendrTable_digitprod table tbody").children("tr[name=" + i + "]").children("td").addClass("uneditable_left");
+				else if(data[i].tr[j].colspan == '3') {
+					$("#rendrTable_digitprod table tbody").children("tr[name=" + i + "]").children("td").addClass("uneditable_sum");
+					if(find_word(String(data[i].tr[j].value), '合计'))
+						$("#rendrTable_digitprod table tbody").children("tr[name=" + i + "]").children("td").addClass("violet");
+				} else if(data[i].tr[j].type_detail == "有效结存 " || data[i].tr[j].type_detail == "无效结存")
+					$("#rendrTable_digitprod table tbody").children("tr[name=" + i + "]").children("td[name=" + j + "]").addClass("getsum");
+				else if(find_word(String(data[i].tr[j].value), 'DVB') || find_word(String(data[i].tr[j].value), '充电器'))
+					$("#rendrTable_digitprod table tbody").children("tr[name=" + i + "]").children("td[name=" + j + "]").addClass("violet");
+				else if(find_word(String(data[i].tr[j].value), '天线'))
+					$("#rendrTable_digitprod table tbody").children("tr[name=" + i + "]").children("td[name=" + j + "]").addClass("tianxian");
+				else if(find_word(String(data[i].tr[j].value), '高频头'))
+					$("#rendrTable_digitprod table tbody table").children("tr[name=" + i + "]").children("td[name=" + j + "]").addClass("gaopintou");
+				else if(data[i].tr[j].dataType == '0')
+					$("#rendrTable_digitprod table tbody").children("tr[name=" + i + "]").children("td[name=" + j + "]").addClass("uneditable");
+				else {}
+			}
+		}
+	}
+	$("#rendrTable_digitprod").keydown(function() {
+		var e = arguments.callee.caller.arguments[0] || event;
+		var code = e.which || e.keyCode;
+		if(code == "13") { //enter键
+			if($(".selectedIput_SMCPKC").length > 0) {
+				flag_enter_SMCPKC = true;
+				type_SMCPKC = down_SMCPKC;
+				$(".selectedIput_SMCPKC").blur();
+			}
+		} else if(code == "40") //down键
+		{
+			if($(".selectedIput_SMCPKC").length > 0) {
+				flag_enter_SMCPKC = true;
+				type_SMCPKC = down_SMCPKC;
+				$(".selectedIput_SMCPKC").blur();
+			}
+		} else if(code == "38") //up键
+		{
+			if($(".selectedIput_SMCPKC").length > 0) {
+				flag_enter_SMCPKC = true;
+				type_SMCPKC = up_SMCPKC;
+				$(".selectedIput_SMCPKC").blur();
+			}
+		} else if(code == "39") //right键
+		{
+
+			if($(".selectedIput_SMCPKC").length > 0) {
+				flag_enter_SMCPKC = true;
+				type_SMCPKC = right_SMCPKC;
+				$(".selectedIput_SMCPKC").blur();
+			}
+		} else if(code == "37") //left键
+		{
+
+			if($(".selectedIput_SMCPKC").length > 0) {
+				flag_enter_SMCPKC = true;
+				type_SMCPKC = left_SMCPKC;
+				$(".selectedIput_SMCPKC").blur();
+			}
+		} else {
+			flag_enter_SMCPKC = false;
+		}
+	});
+</script>

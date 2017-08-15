@@ -1,0 +1,486 @@
+<style>
+	.selected_oi {
+		background-color: #E6EEEF!important;
+	}
+	
+	#rendrTable_entryinid table tbody tr td input {
+		-moz-user-select: none;
+		-webkit-user-select: none
+	}
+	
+	.entryinid_th {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #99ccff;
+		border: 1px solid #c0c0c0!important;
+	}
+	
+	.entryinid_td {
+		border: 1px solid #C0C0C0;
+		text-align: center;
+	}
+	
+	.disable {
+		width: 100%;
+		cursor: pointer;
+		border: none !important;
+		background: none !important;
+		margin-left: -3px!important;
+		text-align: center;
+		height: 100%;
+	}
+	
+	.disableView {
+		cursor: pointer;
+		border: none;
+		background: none;
+		width: 120px;
+		color: red;
+	}
+	
+	.viewBox {
+		display: inline-block;
+		height: 22px;
+		margin-left: 20px;
+		margin-top: 0px;
+	}
+	
+	.viewBox label {
+		line-height: 26px;
+	}
+	
+	.borde {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.headbutton {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headbutton span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.nav1 {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+		display: inline-block;
+		padding-right: 5px;
+	}
+</style>
+<div class="pageHeader" style="overflow: hidden;">
+	<a class="headbutton" id="save_entryinid"><span><i class="nav1" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px 4px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提交</i></span></a>
+	<div class="borde"></div>
+	<div class="viewBox"><label>选中项内容：</label><input type="text" disabled="disabled" value="" id="tdView_entryinid" class="disableView" /></div>
+</div>
+</div>
+<div class="pageContent" id="rendrTable_entryinid" style="width:90%;  margin-top:1%;margin-left: 5%; "></div>
+<script type="text/x-jsrender" id="tableContent_entryinid">
+	<table class="table" id="table_entryinid" width="100%" layoutH="65">
+		<thead class="fixhead">
+			<tr>
+				{{for data[0].tr}}
+				<td class="entryinid_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{/for}}
+			</tr>
+		</thead>
+		<tbody>
+			{{for data}} {{if #getIndex()}}
+			<tr name="{{:#getIndex()}}">
+				{{for tr}} {{if dataType==0}}
+				<td class="entryinid_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color:#ccffff;" onclick="canntEdit_entry($(this))">{{:value}}</td>
+				{{else dataType==6}}
+				<td name="{{:#getIndex()}}" class="entryinid_td costsum" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color: #ffffff;">
+					<input type="text" class="disable" value="{{:value}}" disabled="disabled" onpaste="pasteVqc($(this),'rendrTable_entryinid')" style="color: red;;" />
+				</td>
+				{{else}}
+				<td name="{{:#getIndex()}}" class="entryinid_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color: #ffffff;" onclick="edit1_XSRBQC($(this))" onmousemove="deal_mousemove($(this),'rendrTable_entryinid')">
+					<input type="text" class="disable" value="{{:value}}" onblur="blurset_entryinid($(this))" onkeyup="xsrbqcKeyup($(this))" onpaste="pasteVqc($(this),'rendrTable_entryinid')" onmouseup="deal_mouseup($(this))" onmousedown="deal_mousedown(event,$(this),'rendrTable_entryinid')" />
+				</td>
+				{{/if}} {{/for}}
+			</tr>
+			{{/if}} {{/for}}
+		</tbody>
+	</table>
+</script>
+<script src="./js/publicjs/common.js"></script>
+<script type="text/javascript">
+	flag_enter_XSRBQC = false;
+	type_XSRBQC = 111;
+	down_XSRBQC = 0; //光标下移
+	up_XSRBQC = 1; //光标上移
+	right_XSRBQC = 2; //光标右移
+	left_XSRBQC = 3; //光标左移
+	var XSRBQC_test = "";
+	$(function() {
+		get_entryinid();
+		$("table tbody tr td:nth-child(4)").css("color", "red"); //防盗门（第四列）默认红色显示
+		//保存时若有错误数据出现则警告
+		$("#save_entryinid").click(function() {
+			if($(".errorDataEntryinid").length) {
+				alertMsg.error("请检查红框数据后再提交");
+				return;
+			}
+			save_entryinid();
+
+		});
+	}); //对输入框的值进行编辑时的UI效果显示
+	function edit1_XSRBQC(obj) {
+		$("#tdView_entryinid").val(obj.children().val());
+		obj.children().select();
+		if(obj.children().val() == 0) {
+			obj.children().val("");
+		}
+		obj.children().addClass("selectedIput_XSRBQC");
+		if($(".selectedIput_XSRBQC").length > 1) {
+			$(".selectedIput_XSRBQC").each(function() {
+				$(this).removeClass("selectedIput_XSRBQC");
+			})
+			obj.children().addClass("selectedIput_XSRBQC");
+		}
+		obj.css("border", "2px solid #000");
+	};
+	//去空
+	function canntEdit_entry(obj) {
+		$("#tdView_entryinid").val(obj.text().replace(/\s*/, ""));
+	};
+	//默认显示查询
+	function get_entryinid() {
+		$.ajax({
+			type: "get",
+			url: URL + "XSRBQC/search/token/" + token,
+			async: false,
+			dataType: 'json',
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else {
+					XSRBQC_test = data;
+					var tableContent = $("#tableContent_entryinid").render(XSRBQC_test);
+					$("#rendrTable_entryinid").append(tableContent);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.error("加载失败，刷新或者检查网络设置！");
+			}
+		}); //ajax
+	}
+
+	function xsrbqcKeyup(obj) {
+		setTimeout(function() {
+			var td4 = $(obj).parent().parent().find("td").eq(4).find("input").val() * 1;
+			var td5 = $(obj).parent().parent().find("td").eq(5).find("input").val() * 1;
+			var rowcode = parseInt(obj.parent().parent().attr("name"));
+			var colcode = parseInt(obj.parent().attr("name"));
+			if(isNaN(td4) || isNaN(td5)) {
+				$(obj).parent().parent().find("td").eq(3).text(0);
+			} else {
+				$(obj).parent().parent().find("td").eq(3).text((td4 + td5).toFixed(2));
+				XSRBQC_test.data[rowcode].tr[3].value = td4 + td5;
+
+			}
+		}, 100)
+	}
+	//paste事件
+	function pasteVqc(obj, tableName) {
+		pasteV(obj, tableName);
+		setTimeout(function() {
+			$('#rendrTable_entryinid').find("input").blur();
+		}, 100)
+	}
+	//保存
+	function save_entryinid() {
+
+		$.ajax({
+			type: "post",
+			url: URL + "XSRBQC/submit/token/" + token,
+			async: true,
+			dataType: 'json',
+			data: JSON.stringify(XSRBQC_test),
+			success: function(data) {
+				alertMsg.correct(data.resultmsg);
+				navTab._reload(navTab._getTab("w_table2"), true);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.error(errorThrown);
+			}
+		});
+	};
+	//（其中:直发）和（其中:库房）的输入框失去焦点后直接计算到防盗门的总计里
+	function blurset_entryinid(obj) {
+
+		if(!obj.val()) {
+			obj.val(0);
+		}
+		var min_col;
+		var min_row;
+		var rowcode = parseInt(obj.parent().parent().attr("name"));
+		var colcode = parseInt(obj.parent().attr("name"));
+		var td4 = $(obj).parent().parent().find("td").eq(4).find("input").val() * 1;
+		var td5 = $(obj).parent().parent().find("td").eq(5).find("input").val() * 1;
+		if(isNaN(td4) || isNaN(td5)) {
+			$(obj).parent().parent().find("td").eq(3).text(0);
+		} else if(td4 == 0 && td5 == 0) {
+			$(obj).parent().parent().find("td").eq(3).text(0);
+		} else {
+			$(obj).parent().parent().find("td").eq(3).text((td4 + td5).toFixed(2));
+		}
+		XSRBQC_test.data[rowcode].tr[3].value = td4 + td5;
+		obj.parent().css({
+			"border": "none",
+			"border-right": "1px solid #C0C0C0",
+			"border-bottom": "1px solid #c0c0c0"
+		});
+
+		var int_replace_res = obj.val().replace(/^-?[1-9]\d*|0$/, "");
+		if(int_replace_res) {
+			var float_replace_res = obj.val().replace(/^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$/, "");
+			if(float_replace_res) {
+				obj.addClass("errorDataEntryinid");
+				obj.parent().css({
+					"border": "2px solid red"
+				});
+				return;
+			}
+		}
+		obj.removeClass("errorDataEntryinid");
+		XSRBQC_test.data[rowcode].tr[colcode].value = parseFloat(obj.val());
+		min_row_XSRBQC = 1;
+		///查找下一行开始的第一个可编辑单元格
+		var flag = 0;
+		var now_col = colcode;
+		obj.removeClass("selectedIput_XSRBQC");
+		if(flag_enter_XSRBQC) {
+			if(type_XSRBQC == down_XSRBQC) {
+				flag_enter_XSRBQC = false;
+				for(var findin = rowcode + 1; findin < XSRBQC_test.data.length; findin++) { //查找下一行开始的第一个可编辑单元格
+					var chayi = XSRBQC_test.data[findin].tr.length - XSRBQC_test.data[findin - 1].tr.length;
+					now_col = now_col + chayi;
+					if($("#rendrTable_entryinid table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_entryinid table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").trigger("click");
+						return true;
+					}
+				} //for findin
+				if(!flag) { //不存在可编辑的下一行了,就去可编辑的第一行（下面简称第一行）下一列
+					//一直第一行查找下一列，直到存在可编辑
+					var flagcol = 0;
+					for(var findcol = colcode; findcol < XSRBQC_test.data[min_row_XSRBQC].tr.length; findcol++) {
+						var temp = findcol + 1;
+						if($("#rendrTable_entryinid table tbody").children("tr[name=" + min_row_XSRBQC + "]").children("td[name=" + temp + "]").children("input").length > 0) {
+							flagcol = 1;
+							$("#rendrTable_entryinid table tbody").children("tr[name=" + min_row_XSRBQC + "]").children("td[name=" + temp + "]").trigger("click");
+							return true;
+						}
+					}
+					if(!flagcol) { //没有找到从现在开始的下一列，就去第一行第一列
+						for(var findcol = 0; findcol < XSRBQC_test.data[min_row_XSRBQC].tr.length; findcol++) {
+							if($("#rendrTable_entryinid table tbody").children("tr[name=" + min_row_XSRBQC + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								$("#rendrTable_entryinid table tbody").children("tr[name=" + min_row_XSRBQC + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} //if flag
+
+			} //if down
+			else if(type_XSRBQC == up_XSRBQC) {
+				flag_enter_XSRBQC = false;
+				for(var findin = rowcode - 1; findin >= min_row_XSRBQC; findin--) { //从下往上查找上一行开始的第一个可编辑单元格
+					var chayi = XSRBQC_test.data[findin].tr.length - XSRBQC_test.data[findin + 1].tr.length;
+					now_col = now_col + chayi;
+					if($("#rendrTable_entryinid table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_entryinid table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //不存在可编辑的上一行了,就去上一列的可编辑的最后一行（下面简称第一行）
+					var flagcol = 0;
+					var max_row_XSRBQC;
+					//查找最大可编辑行
+					for(var i = XSRBQC_test.data.length - 1; i >= min_row_XSRBQC; i--) { //从下往上查找
+						for(var j = 0; j < XSRBQC_test.data[i].tr.length; j++) { //从左往右查找
+							if($("#rendrTable_entryinid table tbody").children("tr[name=" + i + "]").children("td[name=" + j + "]").children("input").length > 0) {
+								//该行存在可编辑
+								max_row_XSRBQC = i;
+								break;
+							}
+						}
+						if(max_row_XSRBQC) {
+							break;
+						}
+					}
+					//在最后一个行查找可编辑的上一列，直到存在可编辑
+					for(var findcol = colcode - 1; findcol > 0; findcol--) {
+						if($("#rendrTable_entryinid table tbody").children("tr[name=" + max_row_XSRBQC + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+							flagcol = 1;
+							$("#rendrTable_entryinid table tbody").children("tr[name=" + max_row_XSRBQC + "]").children("td[name=" + findcol + "]").trigger("click");
+							return true;
+						}
+					}
+					if(!flagcol) { //没有找到从现在开始的下一列，就去第最后行第最后一列
+						for(var findcol = XSRBQC_test.data[max_row_XSRBQC].tr.length - 1; findcol > 0; findcol--) {
+							if($("#rendrTable_entryinid table tbody").children("tr[name=" + max_row_XSRBQC + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								$("#rendrTable_entryinid table tbody").children("tr[name=" + max_row_XSRBQC + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} //if flag
+			} //if up
+			else if(type_XSRBQC == right_XSRBQC) { //右移键
+				flag_enter_XSRBQC = false;
+				for(var findcol = colcode + 1; findcol <= XSRBQC_test.data[rowcode].tr.length; findcol++) {
+					//从左往右查找下一列开始的第一个可编辑单元格
+					if($("#rendrTable_entryinid table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_entryinid table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + findcol + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //在本行未找到，从下一行的第一列开始查找
+					var flagcol = 0;
+					for(var findin = rowcode + 1; findin < XSRBQC_test.data.length; findin++) {
+						//从上往下查找
+						for(var findcol = 0; findcol < XSRBQC_test.data[findin].tr.length; findcol++) {
+							if($("#rendrTable_entryinid table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								flagcol = 1;
+								$("#rendrTable_entryinid table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+					if(!flagcol) { //在下面的数据行里已经没有可编辑，跳到左上角的第一个可编辑框
+						for(var find = 0; find < XSRBQC_test.data[min_row_XSRBQC].tr.length; find++) {
+							if($("#rendrTable_entryinid table tbody").children("tr[name=" + min_row_XSRBQC + "]").children("td[name=" + find + "]").children("input").length > 0) {
+								$("#rendrTable_entryinid table tbody").children("tr[name=" + min_row_XSRBQC + "]").children("td[name=" + find + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} // flag
+			} //right
+			else if(type_XSRBQC == left_XSRBQC) { //左移键
+				flag_enter_XSRBQC = false;
+				for(var leftcol = colcode - 1; leftcol >= 0; leftcol--) {
+					//从右往左查找下一列开始的第一个可编辑单元格
+					if($("#rendrTable_entryinid table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + leftcol + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_entryinid table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + leftcol + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //在本行未找到，从上一行的最后列开始查找
+					var flagcol = 0;
+					for(var findin = rowcode - 1; findin >= min_row_XSRBQC; findin--) {
+						//从下往上查找
+						for(var findcol = XSRBQC_test.data[findin].tr.length - 1; findcol > 0; findcol--) {
+							if($("#rendrTable_entryinid table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								flagcol = 1;
+								$("#rendrTable_entryinid table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+					if(!flagcol) { //在上面的数据行里已经没有可编辑，跳到右下角的最后可编辑框
+						var max_row_XSRBQC;
+						//查找最大可编辑行
+						for(var i = XSRBQC_test.data.length - 1; i >= min_row_XSRBQC; i--) { //从下往上查找
+							for(var j = 0; j < XSRBQC_test.data[i].tr.length; j++) { //从左往右查找
+								if($("#rendrTable_entryinid table tbody").children("tr[name=" + i + "]").children("td[name=" + j + "]").children("input").length > 0) {
+									//该行存在可编辑
+									max_row_XSRBQC = i;
+									break;
+								}
+							}
+							if(max_row_XSRBQC) {
+								break;
+							}
+						}
+						for(var findleft = XSRBQC_test.data[max_row_XSRBQC].tr.length - 1; findleft > 0; findleft--) {
+							if($("#rendrTable_entryinid table tbody").children("tr[name=" + max_row_XSRBQC + "]").children("td[name=" + findleft + "]").children("input").length > 0) {
+								$("#rendrTable_entryinid table tbody").children("tr[name=" + max_row_XSRBQC + "]").children("td[name=" + findleft + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} // flag
+			} //left
+			else {
+				flag_enter_XSRBQC = false;
+			}
+		}
+
+	}; //blur
+	$("#rendrTable_entryinid").keydown(function() {
+		var e = arguments.callee.caller.arguments[0] || event;
+		var code = e.which || e.keyCode;;
+		if(code == "13") { //enter键
+			if($(".selectedIput_XSRBQC").length > 0) {
+				flag_enter_XSRBQC = true;
+				type_XSRBQC = down_XSRBQC;
+				$(".selectedIput_XSRBQC").blur();
+			}
+		} else if(code == "40") //down键
+		{
+			if($(".selectedIput_XSRBQC").length > 0) {
+				flag_enter_XSRBQC = true;
+				type_XSRBQC = down_XSRBQC;
+				$(".selectedIput_XSRBQC").blur();
+			}
+		} else if(code == "38") //up键
+		{
+			if($(".selectedIput_XSRBQC").length > 0) {
+				flag_enter_XSRBQC = true;
+				type_XSRBQC = up_XSRBQC;
+				$(".selectedIput_XSRBQC").blur();
+			}
+		} else if(code == "39") //right键
+		{
+			if($(".selectedIput_XSRBQC").length > 0) {
+				flag_enter_XSRBQC = true;
+				type_XSRBQC = right_XSRBQC;
+				$(".selectedIput_XSRBQC").blur();
+			}
+		} else if(code == "37") //left键
+		{
+			if($(".selectedIput_XSRBQC").length > 0) {
+				flag_enter_XSRBQC = true;
+				type_XSRBQC = left_XSRBQC;
+				$(".selectedIput_XSRBQC").blur();
+			}
+		} else {
+			flag_enter_XSRBQC = false;
+		}
+	});
+</script>

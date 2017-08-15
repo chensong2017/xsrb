@@ -1,0 +1,706 @@
+<style>
+	.detailtable_otherin {
+		border: 0.5px solid #b8d0d6;
+		margin-_top_min: 5px;
+	}
+	
+	.detailtable_otherin input {
+		-moz-user-select: none;
+		-webkit-user-select: none
+	}
+	
+	.detailtable_otherin td {
+		width: 80px!important;
+		height: 30px;
+		border: 1px solid #888;
+		text-align: center;
+	}
+	
+	.disable {
+		width: 100%;
+		cursor: pointer;
+		border: none !important;
+		background: none !important;
+		margin-left: -3px!important;
+		text-align: center;
+		height: 100%;
+	}
+	
+	.caution {
+		color: red;
+		margin-top: 15px;
+	}
+	
+	.selected_oi {
+		background-color: #E6EEEF;
+	}
+</style>
+<script src="js/publicjs/common.js"></script>
+<script type="application/javascript">
+	flag_enter_otherin = false;
+	type_otherin = 111;
+	down_otherin = 0; //光标下移
+	up_otherin = 1; //光标上移
+	right_otherin = 2;
+	left_otherin = 3; //光标左移
+
+	$(function() {
+		document.body.onselectstart = function() {
+			return false;
+		}
+		table_flag = false;
+		check_justfloat();
+		var tableContent_oi = get_detail(detaili, detailj);
+		$(".detailtable_otherin").append(tableContent_oi);
+		if(title == "资金调成总" || title == "资金调经营部") {
+			var palert = '<p class="caution">注：若是【资金调成总】，请在对方部门栏填“成总合计”</p>';
+			$("#printset").append(palert);
+		}
+		$("#detailsub").click(function() {
+
+			save_detail(detaili, detailj);
+		});
+		$(".detailtable_otherin td").mouseup(function() {
+			$(".detailtable_otherin td").unbind("mousemove");
+		});
+		if(title == "经营费用" || title == "车辆费用")
+			$(".detailtable_otherin").css("margin-left", (700 - 80 * col) / 2 + "px");
+		else
+			$(".detailtable_otherin,.caution").css("margin-left", (539 - 80 * col) / 2 + "px");
+		$(".justfloat").each(function() {
+			$(this).keyup(function() {}); //keyup
+		}); //each
+	}) //ready
+	//前端删除
+	$("#deleterow").click(function() {
+		var temp = row - 1;
+		if(temp) {
+			$(".detailtable_otherin tbody").children('tr[name=' + '\"' + temp + '\"]').remove();
+			row--;
+		}
+	})
+
+	function moveCurser(e) {
+		var e = arguments.callee.caller.arguments[0] || event;
+		var code = e.which || e.keyCode;
+		if(code == "13") { //enter键
+			if($(".selectedIput_otherin").length > 0) {
+				flag_enter_otherin = true;
+				type_otherin = down_otherin;
+				$(".selectedIput_otherin").blur();
+			}
+		} else if(code == "40") //down键
+		{
+			if($(".selectedIput_otherin").length > 0) {
+				flag_enter_otherin = true;
+				type_otherin = down_otherin;
+				$(".selectedIput_otherin").blur();
+			}
+		} else if(code == "38") //up键
+		{
+			if($(".selectedIput_otherin").length > 0) {
+				flag_enter_otherin = true;
+				type_otherin = up_otherin;
+				$(".selectedIput_otherin").blur();
+			}
+		} else if(code == "39") //right键
+		{
+
+			if($(".selectedIput_otherin").length > 0) {
+				flag_enter_otherin = true;
+				type_otherin = right_otherin;
+				$(".selectedIput_otherin").blur();
+			}
+		} else if(code == "37") //left键
+		{
+
+			if($(".selectedIput_otherin").length > 0) {
+				flag_enter_otherin = true;
+				type_otherin = left_otherin;
+				$(".selectedIput_otherin").blur();
+			}
+		} else {
+			flag_enter_otherin = false;
+		}
+	}
+	//前端新增行
+	$("#addrow").click(function() {
+		var value = add_tvalue(col, row);
+		$(".detailtable_otherin").append(value);
+		row++;
+	});
+
+	function finset(obj, j) {
+		obj.parent("td").css("border", "1px solid #888");
+		var i = parseInt(obj.parent().attr("name"));
+		obj.removeClass("errorDataEntryinid");
+
+		var row_num = parseInt($("#printset table tbody tr").last().attr("name")) + 1;
+		//当前表格的行数
+		var first_row = eval(data_inputds.data[detaili].tr[detailj].child.child_data[0]);
+		var col_num = 0;
+		//当前明细表格的列数（固定的）
+		for(var o in first_row) {
+			col_num++;
+		}
+
+		var rowcode = parseInt(obj.parent().parent().attr("name"));
+		var colcode = parseInt(obj.parent().attr("name"));
+		min_row_otherin = 1;
+		//查找下一行开始的第一个可编辑单元格
+		var flag = 0;
+		var now_col = colcode;
+		if(now_col == 3 || now_col == 4) {
+			var int_replace_res = obj.val().replace(/^-?[1-9]\d*|0$/, "");
+			if(int_replace_res) {
+				var float_replace_res = obj.val().replace(/^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$/, "");
+				if(float_replace_res) {
+					obj.addClass("errorDataEntryinid");
+					obj.parent().css({
+						"border": "2px solid red"
+					});
+					return;
+				}
+			}
+			if(!obj.val()) {
+				obj.val(0);
+				return false; //如果为空设置为0，然后可能有问题
+			}
+		}
+
+		obj.removeClass("selectedIput_otherin");
+		if(flag_enter_otherin) {
+			if(type_otherin == down_otherin) {
+				flag_enter_otherin = false;
+				for(var findin = rowcode + 1; findin < row_num; findin++) { //查找下一行开始的第一个可编辑单元格
+					if($("#printset table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").length > 0) {
+						flag = 1;
+						$("#printset table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").trigger("click");
+						return true;
+					}
+				} //for findin
+				if(!flag) { //不存在可编辑的下一行了,就去可编辑的第一行（下面简称第一行）下一列
+					//一直第一行查找下一列，直到存在可编辑
+					var flagcol = 0;
+					for(var findcol = colcode; findcol < col_num; findcol++) {
+						var temp = findcol + 1;
+						if($("#printset table tbody").children("tr[name=" + min_row_otherin + "]").children("td[name=" + temp + "]").children("input").length > 0) {
+							flagcol = 1;
+							$("#printset table tbody").children("tr[name=" + min_row_otherin + "]").children("td[name=" + temp + "]").children("input").trigger("click");
+							return true;
+						}
+					}
+					if(!flagcol) { //没有找到从现在开始的下一列，就去第一行第一列
+						for(var findcol = 0; findcol < col_num; findcol++) {
+							if($("#printset table tbody").children("tr[name=" + min_row_otherin + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								$("#printset table tbody").children("tr[name=" + min_row_otherin + "]").children("td[name=" + findcol + "]").children("input").trigger("click");
+								return true;
+							}
+						}
+					}
+				} //if flag
+
+			} //if down
+			else if(type_otherin == up_otherin) {
+				flag_enter_otherin = false;
+				for(var findin = rowcode - 1; findin >= min_row_otherin; findin--) { //从下往上查找上一行开始的第一个可编辑单元格
+					if($("#printset table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").length > 0) {
+						flag = 1;
+						$("#printset table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //不存在可编辑的上一行了,就去上一列的可编辑的最后一行（下面简称第一行）
+					var flagcol = 0;
+					var max_row_otherin;
+					//查找最大可编辑行
+					for(var i = row_num - 1; i >= min_row_otherin; i--) { //从下往上查找
+						for(var j = 0; j < col_num; j++) { //从右往左查找
+							if($("#printset table tbody").children("tr[name=" + i + "]").children("td[name=" + j + "]").children("input").length > 0) {
+								//该行存在可编辑
+								max_row_otherin = i;
+								break;
+							}
+						}
+						if(max_row_otherin) {
+							break;
+						}
+					}
+					//在最后一个行查找可编辑的上一列，直到存在可编辑
+					for(var findcol = colcode - 1; findcol >= 0; findcol--) {
+						if($("#printset table tbody").children("tr[name=" + max_row_otherin + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+							flagcol = 1;
+							$("#printset table tbody").children("tr[name=" + max_row_otherin + "]").children("td[name=" + findcol + "]").children("input").trigger("click");
+							return true;
+						}
+					}
+					if(!flagcol) { //没有找到从现在开始的下一列，就去第最后行第最后一列
+						for(var findcol = col_num - 1; findcol >= 0; findcol--) {
+							if($("#printset table tbody").children("tr[name=" + max_row_otherin + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								$("#printset table tbody").children("tr[name=" + max_row_otherin + "]").children("td[name=" + findcol + "]").children("input").trigger("click");
+								return true;
+							}
+						}
+					}
+				} //if flag
+			} //if up
+			else if(type_otherin == right_otherin) { //右移键
+				flag_enter_otherin = false;
+				for(var findcol = parseInt(colcode) + 1; findcol <= col_num; findcol++) {
+					//从左往右查找下一列开始的第一个可编辑单元格
+
+					if($("#printset table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+						flag = 1;
+						$("#printset table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + findcol + "]").children("input").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //在本行未找到，从下一行的第一列开始查找
+					var flagcol = 0;
+					for(var findin = rowcode + 1; findin < row_num; findin++) {
+						//						//从上往下查找\n
+						for(var findcol = 0; findcol < col_num; findcol++) {
+							var temp = findcol;
+							if($("#printset table tbody").children("tr[name=" + findin + "]").children("td[name=" + temp + "]").children("input").length > 0) {
+								flagcol = 1;
+								$("#printset table tbody").children("tr[name=" + findin + "]").children("td[name=" + temp + "]").children("input").trigger("click");
+								return true;
+							}
+						}
+					}
+					if(!flagcol) { //在下面的数据行里已经没有可编辑，跳到左上角的第一个可编辑框
+						for(var find = 0; find < col_num; find++) {
+							if($("#printset table tbody").children("tr[name=" + min_row_otherin + "]").children("td[name=" + find + "]").children("input").length > 0) {
+								$("#printset table tbody").children("tr[name=" + min_row_otherin + "]").children("td[name=" + find + "]").children("input").trigger("click");
+								return true;
+							}
+						}
+					}
+				} // flag
+			} //right
+			else if(type_otherin == left_otherin) { //左移键
+				flag_enter_otherin = false;
+				for(var leftcol = colcode - 1; leftcol >= 0; leftcol--) {
+					//从右往左查找下一列开始的第一个可编辑单元格
+					if($("#printset table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + leftcol + "]").children("input").length > 0) {
+						flag = 1;
+						$("#printset table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + leftcol + "]").children("input").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //在本行未找到，从上一行的最后列开始查找
+					var flagcol = 0;
+					for(var findin = rowcode - 1; findin >= min_row_otherin; findin--) {
+						//从下往上查找
+						for(var findcol = col_num - 1; findcol > 0; findcol--) {
+							if($("#printset table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								flagcol = 1;
+								$("#printset table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").children("input").trigger("click");
+								return true;
+							}
+						}
+					}
+					if(!flagcol) { //在上面的数据行里已经没有可编辑，跳到右下角的最后可编辑框
+						var max_row_otherin;
+						//查找最大可编辑行
+						for(var i = row_num - 1; i >= min_row_otherin; i--) { //从下往上查找
+							for(var j = 0; j < col_num; j++) { //从左往右查找
+								if($("#printset table tbody").children("tr[name=" + i + "]").children("td[name=" + j + "]").children("input").length > 0) {
+									//该行存在可编辑
+									max_row_otherin = i;
+									break;
+								}
+							}
+							if(max_row_otherin) {
+								break;
+							}
+						}
+						for(var findleft = col_num - 1; findleft > 0; findleft--) {
+							if($("#printset table tbody").children("tr[name=" + max_row_otherin + "]").children("td[name=" + findleft + "]").children("input").length > 0) {
+								$("#printset table tbody").children("tr[name=" + max_row_otherin + "]").children("td[name=" + findleft + "]").children("input").trigger("click");
+								return true;
+							}
+						}
+					}
+				} // flag
+			} //left
+			else {
+				flag_enter_otherin = false;
+			}
+		}
+	}
+
+	function add_tvalue(colspan, time) { //明细表生成colspan列的新增行
+		if(time > 0)
+			var addvalue = '<tr  name=' + '\"' + time + '\">';
+		var child_datax = eval(data_inputds.data[detaili].tr[detailj].child.child_data[0]);
+		var class_flag = false;
+		$.each(child_datax, function(m) {
+			if(m == "class") class_flag = true;
+		})
+		for(var i = 0; i < colspan; i++) {
+			if(class_flag && i == 1) {
+				addvalue = addvalue + '<td style="border:1px solid gray" name=\"' + i;
+				addvalue = addvalue + '\" ><select onblur="finset($(this),i)" style="width:100px"   class="disable"  value=" "><option value=""></option><option value="1">其中：直发</option><option value="2">其中：库房</option><option value="3">数码产品</option><option value="4">门配产品</option></select></td>';
+			} else {
+				if(i >= justfloat_index && i < justfloat_index + num) {
+					addvalue = addvalue + '<td style="border:1px solid gray" name=\"' + i;
+					addvalue = addvalue + '\"  onmousemove="deal_mousemove($(this),\'detailtable_otherin\')"><input type="tel" class="disable" onpaste="pasteV($(this),\'detailtable_otherin\')" onblur="finset($(this),i)" onmousedown="deal_mousedown(event,$(this),\'detailtable_otherin\')" onmouseup="deal_mouseup($(this))" value="" onclick="click_se($(this))"\/></td>';
+
+				} else {
+					addvalue = addvalue + '<td  style="border:1px solid gray" name=\"' + i;
+					addvalue = addvalue + '\"  onmousemove="deal_mousemove($(this),\'detailtable_otherin\')"><input type="text" class="disable" onblur="finset($(this),i)" onpaste="pasteV($(this),\'detailtable_otherin\')"   onmousedown="deal_mousedown(event,$(this),\'detailtable_otherin\')"  onmouseup="deal_mouseup($(this))" value="" onclick="click_se($(this))"\/></td>';
+				}
+
+			}
+		}
+		addvalue = addvalue + '</tr>';
+		return addvalue;
+	};
+
+	function click_se(obj) {
+		obj.select();
+		if(obj.val() == 0) {
+			obj.val("");
+		}
+		obj.addClass("selectedIput_otherin");
+		if($(".selectedIput_otherin").length > 1) {
+			$(".selectedIput_otherin").each(function() {
+				$(this).removeClass("selectedIput_otherin");
+			})
+			obj.addClass("selectedIput_otherin");
+		}
+		obj.parent("td").css("border", "1px solid #000");
+	}
+
+	function save_detail(i, j) {
+		//mark：i是行，j是列，从项目类别0开始
+		if($(".errorDataEntryinid").length) {
+			alertMsg.info("请检查红框数据后再提交");
+			return;
+
+		} else {
+			var detail = eval(data_inputds.data[i].tr[j].child.child_data);
+			//child的数据保存开始
+			sum = [0, 0, 0, 0, 0];
+			if(title == "新增" || title == "收回欠款" || title == "车辆费用" || title == "经营费用" || title == "资金调成总" || title == "资金调经营部" || title == "增加预收款" || title == "减少预收款") {
+				var arrears;
+				var sum_takeb = [0, 0, 0, 0, 0];
+			}
+			for(var m = 0; m < row; m++) { //遍历明细表格一行
+				if(m == 0) { //遍历第一行
+					var detaildata = new Object();
+					detail.length = 0;
+					for(var n = 0; n < col; n++) {
+						var temp_n = n + 1;
+						var val_temp = $('.detailtable_otherin tr[name=' + m + '] td:nth-child(' + temp_n + ')').text();
+
+						val_temp = val_temp.replace(/\s*/g, '');
+						if(!val_temp || val_temp == NaN) {
+							val_temp = 0;
+						} //如果该项为空就赋值为0
+						detaildata[detail_label[n]] = val_temp;
+					}
+					detail.push(detaildata);
+				} else {
+					var detaildata = new Object();
+					if($('.detailtable_otherin tr[name=' + m + '] td:nth-child(1)').children(".disable").val() == "")
+						continue;
+					for(var n = 0; n < col; n++) { //遍历明细表格一列
+						var attr_temp = detail_label[n]; //取出属性名
+						var temp_n = n + 1;
+						var val_temp = $.trim($('.detailtable_otherin tr[name=' + m + '] td:nth-child(' + temp_n + ')').children(".disable").val());
+						detaildata[attr_temp] = val_temp
+						//开始获得和的数组
+						if(title == "资金调成总" || title == "资金调经营部") {
+							val_temp = parseFloat($('.detailtable_otherin tr[name=' + m + '] td:nth-child(4)').children(".disable").val());
+							if(!val_temp || val_temp == NaN) {
+								val_temp = 0;
+							} //如果该项为空就赋值为0
+							if($('.detailtable_otherin tr[name=' + m + '] td:nth-child(1)').children(".disable").val() == "成总合计" && n > 2) {
+
+								sum_takeb[0] = sum_takeb[0] + val_temp;
+							} else {
+								if(n > 2) {
+									sum[4] = sum[4] + val_temp;
+								}
+							}
+						} else if((title == "经营部资金调入" || title == "代支采购货款" || title == "代支其他部门" || title == "代收款")) {
+
+							if(n > 0) {
+								val_temp = parseFloat($('.detailtable_otherin tr[name=' + m + '] td:nth-child(2)').children(".disable").val());
+								if(!val_temp || val_temp == NaN) {
+									val_temp = 0;
+								} //如果该项为空就赋值为0
+								var temp_col = get_location();
+								sum[temp_col] = sum[temp_col] + val_temp;
+							}
+						} else if((title == "新增" || title == "收回欠款")) {
+							if(n && n > 0) {
+								val_temp = parseFloat(val_temp);
+								if(!val_temp || val_temp == NaN) {
+									val_temp = 0;
+								} //如果该项为空就赋值为0
+								if(n == 1) {
+									arrears = val_temp;
+								}
+								if(n == 3) {
+									sum_takeb[arrears] = sum_takeb[arrears] + val_temp;
+								}
+								if(n == 2) {
+									sum[arrears] = sum[arrears] + val_temp;
+								}
+							}
+
+						} else if((title == "增加预收款" || title == "减少预收款")) {
+							if(n > 0) {
+								val_temp = parseFloat(val_temp);
+								if(!val_temp || val_temp == NaN) {
+									val_temp = 0;
+								} //如果该项为空就赋值为0
+								if(n == 1) {
+									arrears = val_temp;
+								}
+								if(n == 3) {
+
+									sum_takeb[arrears] = sum_takeb[arrears] + val_temp;
+								}
+								if(n == 4) {
+
+									sum[arrears] = sum[arrears] + val_temp;
+								}
+							}
+
+						} else if(title == "车辆费用" || title == "经营费用") {
+							var pro_clas = $('.detailtable_otherin tr[name=' + m + '] td:nth-child(1)').children(".disable").val();
+							pro_clas = pro_clas.replace(/\s*/g, '');
+							arrears = n - 1;
+							val_temp = parseFloat(val_temp);
+							if(!val_temp || val_temp == NaN) {
+								val_temp = 0;
+							} //如果该项为空就赋值为0
+
+							if(pro_clas == "经营费") {
+								if(arrears >= 0)
+									sum_takeb[arrears] = sum_takeb[arrears] + val_temp;
+							} else {
+								sum[arrears] = sum[arrears] + val_temp;
+							}
+
+						} else { //获取和值
+							val_temp = parseFloat(val_temp);
+							if(!val_temp || val_temp == NaN) { val_temp = 0; } //如果该项为空就赋值为0
+							sum[n] = sum[n] + val_temp;
+						}
+
+					} //for n
+					detail.push(detaildata);
+
+				} //else
+
+			} //for m
+			//循环结束，开始保存外表的data和text值
+			if(title == "新增" || title == "收回欠款" || title == "资金调成总" || title == "资金调经营部" || title == "增加预收款" || title == "减少预收款") {
+				findin_data_inputds();
+				//data_takeb，data_add保存数据用
+				var data_takeb = eval(data_inputds.data[i].tr);
+				var data_add = eval(data_inputds.data[addi].tr);
+
+				//sum为3，即防盗门3／数码产品4／门配产品5 三种类型，相当于依次遍历3，4，5列，将那一行的总数据设置进去
+				for(var outi = 0; outi < sum.length; outi++) {
+					var temp_tdname = parseInt(j) + outi + 1;
+					var temp_tdnameadd = parseInt(addj) + outi + 1;
+					//增加预收款总数（存的时候就做取小数点后两位操作）
+					data_takeb[temp_tdname].value = Math.round(sum_takeb[outi] * 100) / 100;
+					//减少预收款数据
+					data_add[temp_tdnameadd].value = Math.round(sum[outi] * 100) / 100;
+					//界面上是从1开始数，所以这里从4开始渲染哦
+					var temp_num = 4 + parseInt(outi);
+					//设置界面显示
+					$('#rendrTable_inputds table  tr[name=' + addi + '] td:nth-child(' + temp_num + ')').text(Math.round(sum[outi] * 100) / 100);
+					$('#rendrTable_inputds table  tr[name=' + i + '] td:nth-child(' + temp_num + ')').text(Math.round(sum_takeb[outi] * 100) / 100);
+				} //for sum and sum_takeb
+
+				if(title != "资金调成总" && title != "资金调经营部") {
+					var cheliang = sum[1] + sum[2];
+					var jingying = sum_takeb[1] + sum_takeb[2];
+					$('#rendrTable_inputds table  tr[name=' + addi + '] td:nth-child(4)').text(cheliang);
+					$('#rendrTable_inputds table  tr[name=' + i + '] td:nth-child(4)').text(jingying);
+					data_takeb[3].value = jingying;
+					//减少预收款数据
+					data_add[3].value = cheliang;
+				}
+
+			} //else if
+			else if(title == "车辆费用" || title == "经营费用") {
+				findin_data_inputds();
+				//data_takeb，data_add保存数据用
+				var data_takeb = eval(data_inputds.data[i].tr);
+				var data_add = eval(data_inputds.data[addi].tr);
+
+				//sum为3，即防盗门3／数码产品4／门配产品5 三种类型，相当于依次遍历3，4，5列，将那一行的总数据设置进去
+				for(var outi = 1; outi < sum.length; outi++) {
+					var temp_tdname = parseInt(j) + outi + 1;
+					var temp_tdnameadd = parseInt(addj) + outi + 1;
+					//增加预收款总数（存的时候就做取小数点后两位操作）
+					data_takeb[temp_tdname].value = Math.round(sum_takeb[outi] * 100) / 100;
+					//减少预收款数据
+					data_add[temp_tdnameadd].value = Math.round(sum[outi] * 100) / 100;
+					//界面上是从1开始数，所以这里从4开始渲染哦
+					var temp_num = 4 + parseInt(outi);
+					//设置界面显示
+
+					var jinying = Math.round(sum_takeb[outi] * 100) / 100;
+					var cheliang = Math.round(sum[outi] * 100) / 100;
+					$('#rendrTable_inputds table  tr[name=' + addi + '] td:nth-child(' + temp_num + ')').text(cheliang)
+					$('#rendrTable_inputds table  tr[name=' + i + '] td:nth-child(' + temp_num + ')').text(jinying);
+					data_takeb[3].value = jingying;
+					data_add[3].value = cheliang;
+				}
+				var cheliang = sum[1] + sum[2];
+				var jingying = sum_takeb[1] + sum_takeb[2];
+				$('#rendrTable_inputds table  tr[name=' + addi + '] td:nth-child(4)').text(cheliang);
+				$('#rendrTable_inputds table  tr[name=' + i + '] td:nth-child(4)').text(jingying);
+				data_takeb[3].value = jingying;
+				data_add[3].value = cheliang;
+
+			} else if(title == "其他收入" || title == "调拨支出" || title == "调拨收入" || title == "外购入库") {
+
+				var dataxrow = eval(data_inputds.data[i].tr);
+				for(var outi = 0; outi < sum.length; outi++) {
+					var temp_tdname = parseInt(j) + outi + 1;
+					dataxrow[temp_tdname].value = sum[outi];
+					var temp_num = 4 + parseInt(outi);
+					$('#rendrTable_inputds table  tr[name=' + i + '] td:nth-child(' + temp_num + ')').text(sum[outi]);
+				}
+				$('#rendrTable_inputds table  tr[name=' + i + '] td:nth-child(4)').text(sum[1] + sum[2]);
+				dataxrow[3].value = sum[1] + sum[2];
+			} else {
+				var dataxrow = eval(data_inputds.data[i].tr);
+				for(var outi = 0; outi < sum.length; outi++) {
+					var temp_tdname = parseInt(j) + outi + 1;
+					dataxrow[temp_tdname].value = sum[outi];
+					var temp_num = 4 + parseInt(outi);
+					$('#rendrTable_inputds table  tr[name=' + i + '] td:nth-child(' + temp_num + ')').text(sum[outi]);
+				}
+			}
+			$.pdialog.closeCurrent();
+		}
+	};
+	//默认获取数据
+	function get_detail(i, j) {
+		var tbody = '';
+		detail_label = new Array();
+		var detail = eval(data_inputds.data[i].tr[j].child.child_data);
+		for(row = 0; row < detail.length; row++) {
+			tbody = tbody + '<tr name=' + '\"' + row + '\">';
+			col = 0;
+			$.each(detail[row], function(m) {
+				if(row == 0) {
+					detail_label[col] = m;
+					tbody = tbody + '<td name=\"' + col + '\">' + detail[row][m] + '</td>';
+				} else {
+					detail_label[col] = m;
+					if(m == "class") {
+						tbody = tbody + '<td name=\"' + col + '\" ><select onblur="finset($(this),' + col + ')" style="width:100px" class="disable" value=\"' + detail[row][m] + '\"   >';
+						if(detail[row][m] == 1) { tbody = tbody + '<option value="1" selected="selected">其中：直发</option><option value="2">其中：库房</option><option value="3">数码产品</option><option value="4">门配产品</option>'; } else
+						if(detail[row][m] == 2) { tbody = tbody + '<option value="1" >其中：直发</option><option value="2" selected="selected">其中：库房</option><option value="3">数码产品</option><option value="4">门配产品</option>'; } else
+						if(detail[row][m] == 3) { tbody = tbody + '<option value="1" >其中：直发</option><option value="2">其中：库房</option><option value="3" selected="selected">数码产品</option><option value="4">门配产品</option>'; } else
+						if(detail[row][m] == 4) { tbody = tbody + '<option value="1" >其中：直发</option><option value="2">其中：库房</option><option value="3" ">数码产品</option><option value="4" selected="selected">门配产品</option>'; } else { tbody = tbody + '<option value="0" selected="selected"></option><option value="1" >其中：直发</option><option value="2">其中：库房</option><option value="3" ">数码产品</option><option value="4">门配产品</option>'; }
+						tbody = tbody + '</select></td>';
+					} else {
+
+						//在明细框显示的时候保留小数点后两位
+						if(m == "addyushoukuan" || m == "cutyushoukuan") {
+							detail[row][m] = Math.round(detail[row][m] * 100) / 100;
+						}
+						tbody = tbody + '<td name=\"' + col + '\" onmousemove="deal_mousemove($(this),\'detailtable_otherin\')"><input type="text" onblur="finset($(this),' + col + ')" onpaste="pasteV($(this),\'detailtable_otherin\')"   onmousedown="deal_mousedown(event,$(this),\'detailtable_otherin\')"  onmouseup="deal_mouseup($(this))" onclick="click_se($(this))"  class="disable" value=\"' + detail[row][m] + '\" \/></td>';
+					}
+				}
+				col = col + 1;
+			});
+			tbody = tbody + '</tr>';
+
+			var num = 0;
+			for(var i in detail[0]) {
+				num = num + 1;
+			} //获取对象属性的个数
+			if(detail.length == 1) { //没有数据就添加一个空行
+				tbody += add_tvalue(num, 1);
+				row++;
+			}
+		}
+		return tbody;
+	}
+
+	function findin_data_inputds() {
+		if(title == "新增" || title == "收回欠款")
+			var str = "新增";
+		else if(title == "车辆费用" || title == "经营费用")
+			var str = "车辆费用";
+		else if(title == "增加预收款" || title == "减少预收款")
+			var str = "减少预收款";
+		else
+			var str = "资金调经营部";
+		for(var findi = 0; findi < data_inputds.data.length; findi++) {
+			for(var findj = 0; findj < data_inputds.data[findi].tr.length; findj++) {
+				if(data_inputds.data[findi].tr[findj].value == str) {
+					addi = findi;
+					addj = findj;
+				}
+			}
+		};
+	}
+
+	function get_location() {
+		if(title == "经营部资金调入" || title == "代支采购货款") return a = 0;
+		if(title == "代支其他部门" || title == "代收款") return a = 4;
+		if(title == "其它收入") return a = 2;
+	}
+
+	function check_justfloat() { //给所有输入数字的input框加上class="justfloat",startnum是遍历明细表的起始位置，time是遍历的行数
+		if(title == "收回欠款" || title == "新增" || title == "车辆费用" || title == "经营费用") {
+			justfloat_index = 2;
+			num = 2;
+		} else if(title == "代收款" || title == "代支其他部门" || title == "代支采购货款" || title == "经营部资金调入") {
+			justfloat_index = 1;
+			num = 1;
+		} else if(title == "资金调成总" || title == "资金调经营部") {
+			justfloat_index = 3;
+			num = 1;
+		} else {
+			justfloat_index = 1;
+			num = 2
+		}
+	}
+</script>
+<div class="pageContent" id="printset" layoutH=30 onkeydown="moveCurser()">
+	<!--<input id="posted_val" type="text" />-->
+
+	<table class="detailtable_otherin" border="1">
+	</table>
+</div>
+<div class="formBar">
+	<ul>
+		<li>
+			<div class="button" style="margin-right:5px ;" id="addrow">
+				<div class="buttonContent"><button type="button">增加记录</button></div>
+			</div>
+		</li>
+		<li>
+			<div class="button" style="margin-right:30px">
+				<div class="buttonContent" id="deleterow"><button type="button">删除列行</button></div>
+			</div>
+		</li>
+		<li>
+			<div class="button" id="detailsub">
+				<div class="buttonContent"><button type="button">提交</button></div>
+			</div>
+		</li>
+		<li>
+			<div class="button">
+				<div class="buttonContent"><button type="button" class="close">取消</button></div>
+			</div>
+		</li>
+	</ul>
+</div>

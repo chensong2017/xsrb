@@ -1,0 +1,1039 @@
+<style type="text/css">
+	/*分页*/
+	
+	.pagination_fdmkcb {
+		margin-left: 40%;
+		margin-top: 0px;
+	}
+	
+	.pagination_fdmkcb a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_fdmkcb a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_fdmkcb span.current,
+	.pagination_fdmkcb span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_fdmkcb span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_fdmkcb span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_fdmkcb .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_fdmkcb.go {
+		margin-left: 2%;
+		height: 20px;
+		line-height: 20px;
+		font-size: 10px;
+		width: 35px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: none;
+		background-color: #ddd;
+	}
+	
+	.pagination_fdmkcb.go:hover {
+		background-color: #cfebee;
+	}
+	/*分页结束*/
+	
+	.pageContent_MXCX table {
+		border: none;
+	}
+	
+	.tableLeftmxcx th,
+	.tableLeftmxcx td {
+		background-color: rgb(153, 204, 255);
+		text-align: center;
+		/*padding: 3px 5px;*/
+	}
+	/*保存按钮*/
+	
+	.headbutton {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headbutton span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.headbutton i {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+	}
+	
+	.navmingxicx {
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.bordemxcx {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+	}
+	
+	.sdate_label {
+		display: inline-block;
+		padding-left: 15px;
+	}
+	
+	.pageContent_MXCX {
+		position: relative;
+	}
+	
+	#tbody_mxcx td input {
+		width: 50px;
+	}
+	
+	#tbody_mxcx tr td span {
+		line-height: 16px;
+		padding: 2px;
+	}
+	
+	#tbody_mxcx td {
+		border-right: 1px solid #C0C0C0;
+		border-bottom: 1px solid #C0C0C0;
+		border-right: 1px solid #c0c0c0 !important;
+		border-bottom: 1px solid #c0c0c0;
+	}
+	
+	#tbody_mxcx tr:nth-child(1) td span {
+		height: 20px;
+	}
+	
+	#tbody_mxcx tr td:nth-child(1) span,
+	#tbody_mxcx tr td:nth-child(2) span {
+		width: 100px;
+		display: inline-block;
+		line-height: 24px;
+	}
+	
+	#tableLeftmxcx_mingxiCX {
+		margin: 0px;
+	}
+	
+	#mxcxtile {
+		float: left;
+		z-index: 9999;
+		position: absolute;
+		height: auto;
+		left: 0px;
+		width: 200px;
+	}
+	
+	#tbody_mxcx1 td {
+		width: 200px;
+		/*height: 24px;*/
+		border-right: 1px solid #C0C0C0;
+		border-bottom: 1px solid #C0C0C0;
+		border-collapse: collapse;
+	}
+	
+	.mingxicx_input {
+		background: none;
+		border: none;
+		text-align: center;
+	}
+	
+	#thead_mxcx1 td,
+	#thead_mxcx td {
+		border-right: 1px solid #C0C0C0;
+		border-bottom: 1px solid #C0C0C0;
+	}
+	
+	#mingxicx_yxbt,
+	#mingxicx_wxbt {
+		float: right;
+		width: 90px;
+		line-height: 22px;
+		height: 26px;
+		text-align: center;
+		cursor: pointer;
+		border-bottom-left-radius: 22px;
+		border-top-right-radius: 22px;
+		font-size: 12px;
+		background-color: #FFFFFF;
+	}
+	
+	.mxcx_th {
+		font-weight: bold;
+	}
+	
+	#pageContainer_MXCX1 {
+		margin-left: -33px;
+	}
+	
+	#tableLeftmxcx_mingxiCX thead tr td:nth-child(1),
+	#tableLeftmxcx_mingxiCX thead tr td:nth-child(2) {
+		width: 105px;
+	}
+	
+	.pageContent_MXCX {
+		width: 100%;
+		position: relative !important;
+	}
+	
+	#tableLeftmxcx_MXCX1,
+	#tableLeftmxcx_mingxiCX {
+		width: 400px;
+	}
+	
+	#thead_mxcx1 {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 200px;
+		z-index: 99999;
+	}
+	
+	#thead_mxcx tr td span {
+		padding: 2px;
+	}
+	
+	#thead_mxcx1 tr:nth-child(1) td {
+		width: 200px;
+		height: 27px;
+	}
+	
+	#thead_mxcx1 tr:nth-child(2) td:nth-child(1) select {
+		margin-left: 15px;
+	}
+	
+	#thead_mxcx1 tr:nth-child(2) td:nth-child(2) select {
+		margin-left: 5px;
+	}
+	
+	#thead_mxcx1 tr:nth-child(2) td {
+		width: 200px;
+		height: 48px;
+	}
+	
+	#tbody_mxcx1 {
+		width: 200px;
+		position: absolute;
+		top: 102px;
+	}
+	
+	#tbody_mxcx {
+		position: absolute;
+		left: -10px;
+		top: 102px;
+		width: 400px;
+		z-index: 2;
+	}
+	
+	#thead_mxcx {
+		position: absolute;
+		left: 167px;
+		top: 0;
+		width: 400px;
+		z-index: 999;
+		border-left: 1px solid #C0C0C0;
+		border-right: 1px solid #C0C0C0;
+	}
+	
+	#thead_mxcx tr:nth-child(1) td span {
+		line-height: 27px;
+	}
+	/*1行高*/
+	
+	#tbody_mxcx1 tr:nth-child(1) td {
+		height: 20px;
+	}
+	
+	#tbody_mxcx1 tr td:nth-child(1) {
+		width: 101px
+	}
+	
+	#tbody_mxcx1 tr td:nth-child(2) {
+		width: 100px
+	}
+	/*3*/
+	
+	#thead_mxcx tr td:nth-child(3) select {
+		margin-left: -2px;
+	}
+	
+	#thead_mxcx tr td:nth-child(4) select,
+	#thead_mxcx tr td:nth-child(5) select {
+		margin-left: 48px;
+	}
+	
+	#thead_mxcx tr td:nth-child(6) select {
+		margin-left: 30px;
+	}
+	
+	#thead_mxcx tr td:nth-child(7) select,
+	#thead_mxcx tr td:nth-child(8) select,
+	#thead_mxcx tr td:nth-child(9) select,
+	#thead_mxcx tr td:nth-child(10) select,
+	#thead_mxcx tr td:nth-child(11) select {
+		margin-left: 20px;
+	}
+	
+	#tbody_mxcx tr td:nth-child(3) span {
+		width: 78px;
+		display: inline-block;
+	}
+	
+	#thead_mxcx tr:nth-child(2) td:nth-child(3) span {
+		width: 80px;
+		display: inline-block;
+	}
+	
+	#tbody_mxcx1 tr td:nth-child(3) {
+		width: 80px;
+	}
+	
+	#tbody_mxcx tr td:nth-child(4) span {
+		width: 180px;
+		display: inline-block;
+	}
+	
+	#thead_mxcx tr:nth-child(2) td:nth-child(4) span {
+		width: 180px;
+		display: inline-block;
+	}
+	
+	#tbody_mxcx1 tr td:nth-child(4) {
+		width: 180px;
+	}
+	
+	#tbody_mxcx tr td:nth-child(5) span {
+		width: 180px;
+		display: inline-block;
+	}
+	
+	#thead_mxcx tr:nth-child(2) td:nth-child(5) span {
+		width: 180px;
+		display: inline-block;
+	}
+	
+	#tbody_mxcx1 tr td:nth-child(5) {
+		width: 180px;
+	}
+	
+	#tbody_mxcx tr td:nth-child(6) span,
+	#tbody_mxcx tr td:nth-child(7) span,
+	#tbody_mxcx tr td:nth-child(8) span,
+	#tbody_mxcx tr td:nth-child(9) span,
+	#tbody_mxcx tr td:nth-child(10) span,
+	#tbody_mxcx tr td:nth-child(11) span,
+	#tbody_mxcx tr td:nth-child(12) span,
+	#tbody_mxcx tr td:nth-child(13) span,
+	#tbody_mxcx tr td:nth-child(14) span {
+		width: 120px;
+		display: inline-block;
+	}
+	
+	#thead_mxcx tr:nth-child(2) td:nth-child(6) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(7) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(8) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(9) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(10) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(11) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(12) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(13) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(14) span {
+		width: 120px;
+		display: inline-block;
+	}
+	
+	#tbody_mxcx1 tr td:nth-child(6),
+	#tbody_mxcx1 tr td:nth-child(7),
+	#tbody_mxcx1 tr td:nth-child(8),
+	#tbody_mxcx1 tr td:nth-child(9),
+	#tbody_mxcx1 tr td:nth-child(10),
+	#tbody_mxcx1 tr td:nth-child(11),
+	#tbody_mxcx1 tr td:nth-child(12),
+	#tbody_mxcx1 tr td:nth-child(13),
+	#tbody_mxcx1 tr td:nth-child(14) {
+		width: 120px;
+	}
+	/*14以后*/
+	
+	#tbody_mxcx tr td:nth-child(15) span,
+	#tbody_mxcx tr td:nth-child(16) span,
+	#tbody_mxcx tr td:nth-child(17) span,
+	#tbody_mxcx tr td:nth-child(18) span,
+	#tbody_mxcx tr td:nth-child(19) span,
+	#tbody_mxcx tr td:nth-child(20) span,
+	#tbody_mxcx tr td:nth-child(21) span,
+	#tbody_mxcx tr td:nth-child(22) span,
+	#tbody_mxcx tr td:nth-child(23) span,
+	#tbody_mxcx tr td:nth-child(24) span,
+	#tbody_mxcx tr td:nth-child(25) span,
+	#tbody_mxcx tr td:nth-child(26) span,
+	#tbody_mxcx tr td:nth-child(27) span,
+	#tbody_mxcx tr td:nth-child(28) span,
+	#tbody_mxcx tr td:nth-child(29) span,
+	#tbody_mxcx tr td:nth-child(30) span,
+	#tbody_mxcx tr td:nth-child(31) span,
+	#tbody_mxcx tr td:nth-child(32) span,
+	#tbody_mxcx tr td:nth-child(33) span,
+	#tbody_mxcx tr td:nth-child(34) span,
+	#tbody_mxcx tr td:nth-child(35) span,
+	#tbody_mxcx tr td:nth-child(36) span,
+	#tbody_mxcx tr td:nth-child(37) span,
+	#tbody_mxcx tr td:nth-child(38) span,
+	#tbody_mxcx tr td:nth-child(39) span,
+	#tbody_mxcx tr td:nth-child(40) span {
+		width: 120px;
+		display: inline-block;
+	}
+	
+	#thead_mxcx tr:nth-child(3) td span {
+		width: 120px !important;
+		display: inline-block !important;
+	}
+	
+	#thead_mxcx tr:nth-child(2) td:nth-child(28) span {
+		width: 120px !important;
+		display: inline-block !important;
+	}
+	
+	#thead_mxcx tr:nth-child(2) td:nth-child(27) span {
+		width: 120px !important;
+		display: inline-block !important;
+	}
+	
+	.kcbsel_tr td,
+	.kcbsel_tr1 td {
+		position: relative;
+	}
+	
+	.kcbsel_tr select,
+	.kcbsel_tr1 select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 0;
+		padding: 2px 39px;
+		border-radius: 3px;
+		background: url(img/select.png) no-repeat 98% 5px;
+		cursor: pointer;
+		position: absolute;
+		border: none;
+		top: 0;
+		left: 0;
+		margin-left: 10px;
+		margin-top: 15px;
+	}
+	
+	.reset_kcb {
+		float: right;
+		cursor: pointer;
+		border: 2px solid #99ccff;
+		border-radius: 3px;
+		background-color: transparent;
+		color: #555;
+		margin-right: 10px;
+	}
+	
+	#mengce_kcb {
+		z-index: 999999999;
+		position: absolute;
+		top: 40%;
+		left: 45%;
+		background: url(public/initialStage/images/loading.gif) no-repeat;
+		width: 100px;
+		height: 50px;
+		display: none;
+	}
+	
+	.countkcb_sel,
+	.countkcb_sel1 {
+		display: none;
+	}
+</style>
+</head>
+
+<body>
+	<div class="pageHeader" style="overflow: hidden;">
+
+		<div class="bordemxcx"></div>
+		<div class="borde"></div>
+		<a class="headbutton" href="javascript:mingxi_shuchu();"><span><i class="navmingxicx" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出</i></span></a>
+		<div class="borde"></div>
+
+		<button id="mingxicx_wxbt" onclick="mingxicx_wxsj()">无效数据</button>
+		<button id="mingxicx_yxbt" onclick="mingxicx_yxsj()">有效数据</button>
+		<div class="bordemxcx" style="margin-left:50px ;"></div>
+
+		<label class="edate_label">选择日期:</label>
+		<input id="mxenddate" class="date" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" readonly="readonly" />
+		<button id="search_date_mxcx" style="cursor: pointer;"> 查询</button>
+		<button class="reset_kcb" onclick="resetChoose_kcb()">重置筛选</button>
+	</div>
+
+	<div class="pageContent_MXCX" layoutH="60">
+		<div id="mxcxtile"></div>
+		<div id="pageContainer_MXCX1"></div>
+	</div>
+	<div class="panelBar">
+		<div class="pagination_fdmkcb"></div>
+	</div>
+	<script type="text/x-jsrender" id="mingxicx_render1">
+		<table id="tableLeftmxcx_MXCX1" class="tableLeftmxcx">
+			<thead id="thead_mxcx1">
+				<tr>
+					{{for data[0].tr[0]}}
+					<td class="mxcx_th" rowspan="1" colspan="2"></td>
+					{{/for}}
+				</tr>
+				<tr class="kcbsel_tr1">
+					<td class="mxcx_th" rowspan="1" colspan="1">制造部门</td>
+					<td class="mxcx_th" rowspan="1" colspan="1">大类</td>
+				</tr>
+				<tr style="height:25px;">
+					<td class="mxcx_th" rowspan="1" colspan="1"></td>
+					<td class="mxcx_th" rowspan="1" colspan="1"></td>
+				</tr>
+				<tr style="height:25px;" class="countkcb_sel1">
+					<td class="mxcx_th" rowspan="1" colspan="1">筛选合计</td>
+					<td class="mxcx_th" rowspan="1" colspan="1"></td>
+				</tr>
+			</thead>
+			<tbody id="tbody_mxcx1">
+
+			</tbody>
+		</table>
+	</script>
+	<script type="text/x-jsrender" id="mingxicx_render1_tbody">
+		<tr>
+			{{for tr}} {{if (#getIndex()
+			<2)}} {{if dataType==0}} <td class="mxcxadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color: rgb(204,255,255);">{{:value}}</td>
+				{{else}}
+				<td onclick="pdclick(this);" onblur="pdblur(this);" name="{{:#getIndex()}}" class="mxcxadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color:#CCFFFF;">{{:value}}
+				</td>
+				{{/if}} {{/if}} {{/for}}
+		</tr>
+	</script>
+
+	<script type="text/x-jsrender" id="mingxicx_render">
+		<div id="containerLeft_mingxiCX">
+			<table id="tableLeftmxcx_mingxiCX" class="tableLeftmxcx" width="100%">
+				<thead id="thead_mxcx">
+					<tr>
+						{{for data[0].tr}}
+						<td class="mxcx_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/for}}
+					</tr>
+					<tr class="kcbsel_tr">
+						{{for data[1].tr}} {{if dataType==-1}}
+						<td class="mxcx_th mingxihide" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{else}}
+						<td class="mxcx_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/if}} {{/for}}
+					</tr>
+					<tr>
+						{{for data[2].tr}} {{if dataType==-1}}
+						<td class="mxcx_th mingxihide" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{else}}
+						<td class="mxcx_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/if}} {{/for}}
+					</tr>
+					<tr style="height:25px;">
+						{{for data[3].tr}} {{if dataType==-1}}
+						<td class="mxcx_th mingxihide" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{else}}
+						<td class="mxcx_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/if}} {{/for}}
+					</tr>
+					<tr style="height:25px;" class="countkcb_sel1">
+						{{for data[3].tr}} {{if dataType==-1}}
+						<td class="mxcx_th mingxihide" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{else}}
+						<td class="mxcx_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/if}} {{/for}}
+					</tr>
+				</thead>
+				<tbody id="tbody_mxcx">
+
+				</tbody>
+			</table>
+		</div>
+	</script>
+	<script type="text/x-jsrender" id="mingxicx_render_tbody">
+		<tr>
+			{{for tr}} {{if dataType==0}}
+			<td class="mxcxadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color:#FFFFFF;"><span>{{:value}}</span></td>
+			{{else}}
+			<td class="mingxihide" name="{{:#getIndex()}}" class="mxcxadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color:#FFFFFF;"><span>{{:value}}</span>
+			</td>
+			{{/if}} {{/for}}
+		</tr>
+	</script>
+</body>
+<div id="mengce_kcb"></div>
+<script src="js/publicjs/common.js"></script>
+<script type="text/javascript">
+	$(function() {
+
+		var edate1 = $("#mxenddate").val(getToday2());
+		if(mingcx_flag) {
+			cx = "SPZMX/search/type/0/date/" + getToday2();
+			$("#mingxicx_wxbt").css({ "border": "2px solid #add2db" });
+			$("#mingxicx_yxbt").css({ "border": "1px solid #b8d0d6", "background-color": "#ecf0f6", "color": "#888" });
+		} else {
+			cx = "SPZMX/search/type/1/date/" + getToday2();
+			$("#mingxicx_yxbt").css({ "border": "2px solid #add2db" });
+			$("#mingxicx_wxbt").css({ "border": "1px solid #b8d0d6", "background-color": "#ecf0f6", "color": "#888" });
+		}
+		$("#mxenddate").val()
+		get_init_mingxicx();
+
+		$("#search_date_mxcx").click(function() {
+			if(mingcx_flag) {
+				cx = "SPZMX/search/type/0" + "/date/" + $("#mxenddate").val();
+			} else {
+				cx = "SPZMX/search/type/1" + "/date/" + $("#mxenddate").val();
+			}
+			get_init_mingxicx();
+		})
+	});
+	setTimeout(
+		function() {
+
+			$("div").scroll(function(e) {
+				$("#mxcxtile").css("left", $(this).scrollLeft());
+				// if($(this).scrollTop()==4){
+
+				// }
+
+			})
+		}, 500
+	)
+	//加载更多
+	function loadmore() {
+		var html1 = $('#mingxicx_render1_tbody').render(tjmingxicxdata.data.slice(500));
+		$('#tableLeftmxcx_MXCX1 tbody').append(html1);
+		var html = $('#mingxicx_render_tbody').render(tjmingxicxdata.data.slice(500));
+		$('#tableLeftmxcx_mingxiCX tbody').append(html);
+		if(!mingcx_flag) {}
+		if(mingcx_flag) {
+			$(".mingxihide").css("display", "none");
+			$("#thead_mxcx tr td").eq(3).attr("colspan", "10");
+		}
+		$("#tbody_mxcx1 tr").each(function(i, v) {
+			var _this = $(this);
+			var max = $("#tbody_mxcx tr").eq(i).height() - 1;
+			_this.find("td").height(max);
+		})
+	}
+
+	function pdclick(obj) {
+		$(obj).parent().css("bordemxcxr", "2px solid #000");
+	}
+
+	function pdblur(obj) {
+		$(obj).parent().css("bordemxcxr", "1px solid #c0c0c0");
+	}
+	//获取默认数据
+	function get_init_mingxicx() {
+
+		$.ajax({
+			type: "get",
+			url: URL + cx + "/token/" + token,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+					if(data.resultcode == -1) {
+						alertMsg.warn(data.resultmsg);
+
+						return;
+					} else if(data.resultcode == 0) {
+						tjmingxicxdata = data;
+						$("#mxenddate").val(tjmingxicxdata.date);
+						var tableContent_MXCX = $("#mingxicx_render").render(data);
+						var tableContent_MXCX1 = $("#mingxicx_render1").render(data);
+						$("#pageContainer_MXCX1").html("").append(tableContent_MXCX).css("margin-left", "-33px");
+						$("#mxcxtile").html("").append(tableContent_MXCX1);
+						if(data.data.length > 500) {
+							initTbody_kcb(data.data.slice(4, 500));
+							loadmore();
+						} else {
+							initTbody_kcb(data.data.slice(4));
+						}
+
+						set_head(data.data);
+						//分页
+						$(".pagination_fdmkcb").createPage({
+							pageCount: data.cntperpage, //总页数
+							current: data.page, //初始页号
+							backFn: function(obj) {
+								get_fdmkcb_page(URL + cx + "/token/" + token, obj); //修改
+							}
+						});
+					} else {}
+				}
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.error("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+
+	function initTbody_kcb(data) {
+		var html1 = $('#mingxicx_render1_tbody').render(data);
+		$('#tableLeftmxcx_MXCX1 tbody').html(html1);
+		var html = $('#mingxicx_render_tbody').render(data);
+		$('#tableLeftmxcx_mingxiCX tbody').html(html);
+		if(!mingcx_flag) {}
+		if(mingcx_flag) {
+			$(".mingxihide").css("display", "none");
+			$("#thead_mxcx tr td").eq(3).attr("colspan", "10");
+		}
+		$("#tbody_mxcx1 tr").each(function(i, v) {
+			var _this = $(this);
+			var max = $("#tbody_mxcx tr").eq(i).height() - 1;
+			_this.find("td").height(max);
+		})
+		setTimeout(function() {
+			$("#mengce_kcb").css("display", "none");
+			$(".pageContent_MXCX").css("opacity", "1");
+		}, 500);
+	}
+	//分页
+	function get_fdmkcb_page(url_page, page) {
+		$.ajax({
+			type: "get",
+			url: url_page + "/page/" + page,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+					if(data.resultcode == -1) {
+						alertMsg.warn(data.resultmsg);
+
+						return;
+					}
+				}
+				tjmingxicxdata = data;
+				$("#mxenddate").val(tjmingxicxdata.date);
+				var tableContent_MXCX = $("#mingxicx_render").render(data);
+				var tableContent_MXCX1 = $("#mingxicx_render1").render(data);
+				$("#pageContainer_MXCX1").html("").append(tableContent_MXCX).css("margin-left", "-33px");
+				$("#mxcxtile").html("").append(tableContent_MXCX1);
+				if(data.data.length > 500) {
+					initTbody_kcb(data.data.slice(4, 500));
+					loadmore();
+				} else {
+					initTbody_kcb(data.data.slice(4));
+				}
+				set_head(data.data);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.error("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+
+	//给head设置下拉选项
+	function set_head(data) {
+
+		$($('.kcbsel_tr1 td')[0]).append('<select class="sel_0" onchange="changeData_kcb(\'zhizaobm\',0)"><option value="">全部</option></select>');
+		$($('.kcbsel_tr1 td')[1]).append('<select class="sel_1" onchange="changeData_kcb(\'dalei\',1)"><option value="">全部</option></select>');
+		$($('.kcbsel_tr td')[2]).append('<select class="sel_2" onchange="changeData_kcb(\'feibiao\',2)"><option value="">全部</option></select>');
+		$($('.kcbsel_tr td')[3]).append('<select class="sel_3" onchange="changeData_kcb(\'banhou\',3)"><option value="">全部</option></select>');
+		$($('.kcbsel_tr td')[4]).append('<select class="sel_4" onchange="changeData_kcb(\'guige\',4)"><option value="">全部</option></select>');
+		$($('.kcbsel_tr td')[5]).append('<select class="sel_5" onchange="changeData_kcb(\'biaomianyq\',5)"><option value="">全部</option></select>');
+		$($('.kcbsel_tr td')[6]).append('<select class="sel_6" onchange="changeData_kcb(\'menkuang\',6)"><option value="">全部</option></select>');
+		$($('.kcbsel_tr td')[7]).append('<select class="sel_7" onchange="changeData_kcb(\'huase\',7)"><option value="">全部</option></select>');
+		$($('.kcbsel_tr td')[8]).append('<select class="sel_8" onchange="changeData_kcb(\'suoju\',8)"><option value="">全部</option></select>');
+		$($('.kcbsel_tr td')[9]).append('<select class="sel_9" onchange="changeData_kcb(\'kaixiang\',9)"><option value="">全部</option></select>');
+		$($('.kcbsel_tr td')[10]).append('<select class="sel_10" onchange="changeData_kcb(\'qita\',10)"><option value="">全部</option></select>');
+		getThead_kcb(data);
+	}
+
+	//head下拉选项的一系列方法
+	var filObj_kcb = {};
+	var countkcb_11, countkcb_13, countkcb_14, countkcb_15, countkcb_16, countkcb_17, countkcb_18, countkcb_19, countkcb_20, countkcb_21, countkcb_22, countkcb_23, countkcb_24, countkcb_25, countkcb_26, countkcb_27, countkcb_28, countkcb_29, countkcb_30, countkcb_31, countkcb_32, countkcb_33, countkcb_34, countkcb_35, countkcb_36, countkcb_37, countkcb_38, countkcb_39;
+
+	function changeData_kcb(sel, _index) {
+		$("#mengce_kcb").css("display", "block");
+		$(".pageContent_MXCX").css("opacity", "0.5");
+		countkcb_11 = 0;
+		countkcb_13 = 0;
+		countkcb_14 = 0;
+		countkcb_15 = 0;
+		countkcb_16 = 0;
+		countkcb_17 = 0;
+		countkcb_18 = 0;
+		countkcb_19 = 0;
+		countkcb_20 = 0;
+		countkcb_21 = 0;
+		countkcb_22 = 0;
+		countkcb_23 = 0;
+		countkcb_24 = 0;
+		countkcb_25 = 0;
+		countkcb_26 = 0;
+		countkcb_27 = 0;
+		countkcb_28 = 0;
+		countkcb_29 = 0;
+		countkcb_30 = 0;
+		countkcb_31 = 0;
+		countkcb_32 = 0;
+		countkcb_33 = 0;
+		countkcb_34 = 0;
+		countkcb_35 = 0;
+		countkcb_36 = 0;
+		countkcb_37 = 0;
+		countkcb_38 = 0;
+		countkcb_39 = 0;
+		var data = tjmingxicxdata.data.slice(4);
+		filObj_kcb[_index] = $('.sel_' + _index).val();
+		for(var i in filObj_kcb) {
+			data = filter_kcb(data, filObj_kcb[i], i);
+		}
+		if(data.length > 500) {
+			initTbody_kcb(data.slice(0, 500));
+			loadmore();
+		} else {
+			initTbody_kcb(data);
+		}
+		countkcb_select();
+		if($('#tbody_mxcx tr:visible').length == tjmingxicxdata.data.length - 4) {
+			$("#tbody_mxcx").css("top", "102px");
+			$("#tbody_mxcx1").css("top", "102px");
+			$("#thead_mxcx").find("tr").eq(4).hide();
+			$("#thead_mxcx1").find("tr").eq(3).hide();
+		} else {
+			$("#thead_mxcx").find("tr").eq(4).show();
+			$("#thead_mxcx1").find("tr").eq(3).show();
+			$("#tbody_mxcx").css("top", "127px");
+			$("#tbody_mxcx1").css("top", "127px");
+		}
+		setcountkcb_select();
+	}
+
+	function setcountkcb_select() {
+
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(11).find("span").text(countkcb_11);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(13).find("span").text(countkcb_13);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(14).find("span").text(countkcb_14);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(15).find("span").text(countkcb_15);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(16).find("span").text(countkcb_16);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(17).find("span").text(countkcb_17);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(18).find("span").text(countkcb_18);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(19).find("span").text(countkcb_19);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(20).find("span").text(countkcb_20);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(21).find("span").text(countkcb_21);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(22).find("span").text(countkcb_22);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(23).find("span").text(countkcb_23);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(24).find("span").text(countkcb_24);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(25).find("span").text(countkcb_25);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(26).find("span").text(countkcb_26);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(27).find("span").text(countkcb_27);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(28).find("span").text(countkcb_28);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(29).find("span").text(countkcb_29);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(30).find("span").text(countkcb_30);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(31).find("span").text(countkcb_31);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(32).find("span").text(countkcb_32);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(33).find("span").text(countkcb_33);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(34).find("span").text(countkcb_34);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(35).find("span").text(countkcb_35);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(36).find("span").text(countkcb_36);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(37).find("span").text(countkcb_37);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(38).find("span").text(countkcb_38);
+		$("#thead_mxcx").find("tr").eq(4).find("td").eq(39).find("span").text(countkcb_39);
+	}
+
+	function filter_kcb(arr, str, index) {
+		if(str == '') {
+			return arr;
+		}
+		return $.map(arr, function(value) {
+			return value.tr[index].value == str ? value : null;
+		});
+	}
+
+	function getThead_kcb(arr) {
+		arr = arr.slice(4);
+		var my_arr = [];
+		for(var i = 0, len1 = arr.length; i < len1; i++) {
+			for(var j = 0, len2 = 11; j < len2; j++) {
+				if(my_arr[j] == undefined || my_arr[j] == '') {
+					my_arr[j] = [];
+				}
+				if(my_arr[j].indexOf(arr[i].tr[j].value) == -1 && arr[i].tr[j].value != "") {
+					my_arr[j].push(arr[i].tr[j].value);
+				}
+			}
+		}
+		for(var a = 0; a < my_arr.length; a++) {
+			for(var b = 0; b < my_arr[a].length; b++) {
+				$('.sel_' + a).append('<option style="background-color:#fff;">' + my_arr[a][b] + '</option>');
+			}
+		}
+	}
+	//计算（保留两位小数）
+	function countkcb_select() {
+		for(i = 0; i < $('#tbody_mxcx1 tr:visible').length; i++) {
+			countkcb_11 = (parseFloat(countkcb_11) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(11).find("span").text())).toFixed(2);
+			countkcb_13 = (parseFloat(countkcb_13) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(13).find("span").text())).toFixed(2);
+			countkcb_14 = (parseFloat(countkcb_14) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(14).find("span").text())).toFixed(2);
+			countkcb_15 = (parseFloat(countkcb_15) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(15).find("span").text())).toFixed(2);
+			countkcb_16 = (parseFloat(countkcb_16) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(16).find("span").text())).toFixed(2);
+			countkcb_17 = (parseFloat(countkcb_17) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(17).find("span").text())).toFixed(2);
+			countkcb_18 = (parseFloat(countkcb_18) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(18).find("span").text())).toFixed(2);
+			countkcb_19 = (parseFloat(countkcb_19) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(19).find("span").text())).toFixed(2);
+			countkcb_20 = (parseFloat(countkcb_20) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(20).find("span").text())).toFixed(2);
+			countkcb_21 = (parseFloat(countkcb_21) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(21).find("span").text())).toFixed(2);
+			countkcb_22 = (parseFloat(countkcb_22) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(22).find("span").text())).toFixed(2);
+			countkcb_23 = (parseFloat(countkcb_23) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(23).find("span").text())).toFixed(2);
+			countkcb_24 = (parseFloat(countkcb_24) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(24).find("span").text())).toFixed(2);
+			countkcb_25 = (parseFloat(countkcb_25) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(25).find("span").text())).toFixed(2);
+			countkcb_26 = (parseFloat(countkcb_26) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(26).find("span").text())).toFixed(2);
+			countkcb_27 = (parseFloat(countkcb_27) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(27).find("span").text())).toFixed(2);
+			countkcb_28 = (parseFloat(countkcb_28) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(28).find("span").text())).toFixed(2);
+			countkcb_29 = (parseFloat(countkcb_29) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(29).find("span").text())).toFixed(2);
+			countkcb_30 = (parseFloat(countkcb_30) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(30).find("span").text())).toFixed(2);
+			countkcb_31 = (parseFloat(countkcb_31) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(31).find("span").text())).toFixed(2);
+			countkcb_32 = (parseFloat(countkcb_32) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(32).find("span").text())).toFixed(2);
+			countkcb_33 = (parseFloat(countkcb_33) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(33).find("span").text())).toFixed(2);
+			countkcb_34 = (parseFloat(countkcb_34) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(34).find("span").text())).toFixed(2);
+			countkcb_35 = (parseFloat(countkcb_35) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(35).find("span").text())).toFixed(2);
+			countkcb_36 = (parseFloat(countkcb_36) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(36).find("span").text())).toFixed(2);
+			countkcb_37 = (parseFloat(countkcb_37) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(37).find("span").text())).toFixed(2);
+			countkcb_38 = (parseFloat(countkcb_38) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(38).find("span").text())).toFixed(2);
+			countkcb_39 = (parseFloat(countkcb_39) + parseFloat($($('#tbody_mxcx tr:visible')[i]).find("td").eq(39).find("span").text())).toFixed(2);
+
+		}
+
+	}
+	//重置
+	function resetChoose_kcb() {
+		$("#mengce_kcb").css("display", "block");
+		$(".pageContent_MXCX").css("opacity", "0.5");
+		for(var i = 0; i < 11; i++) {
+			$($('.mxcx_th')[i]).find("select").val("全部").attr("selected", true);
+		}
+		filObj_kcb = {};
+		if(tjmingxicxdata.data.length > 500) {
+			initTbody_kcb(tjmingxicxdata.data.slice(4, 500));
+			loadmore();
+		} else {
+			initTbody_kcb(tjmingxicxdata.data.slice(4));
+		}
+		$("#tbody_mxcx").css("top", "102px");
+		$("#tbody_mxcx1").css("top", "102px");
+		$("#thead_mxcx").find("tr").eq(4).hide();
+		$("#thead_mxcx1").find("tr").eq(3).hide();
+	}
+
+	function mingxicx_yxsj() {
+		mingcx_flag = false;
+		$("#login_mingxicx").trigger("click");
+
+	}
+
+	function mingxicx_wxsj() {
+		mingcx_flag = true;
+		$("#login_mingxicx").trigger("click");
+
+	}
+
+	function mingxi_shuchu() {
+		if(mingcx_flag) {
+			mingxishuchu_url = URL + "SPZMX/toexcel/type/0/token/" + token;
+		} else {
+			mingxishuchu_url = URL + "SPZMX/toexcel/type/1/token/" + token;
+		}
+		$.ajax({
+			type: "get",
+			url: mingxishuchu_url,
+			async: true,
+			dateType: 'json',
+			success: function(data) {
+
+				if(data.resultcode == -1) {
+					alertMsg.warn(data.resultmsg);
+
+					return;
+				}
+				if(data.resultcode == -2) {
+					alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				window.open(JSON.parse(data).excel_url);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.error(errorThrown);
+			}
+		});
+	}
+
+	$('.pageContent_MXCX').scroll(function(top) {
+		$('thead').css('top', $(this).scrollTop() + 'px');
+	});
+</script>
+
+</html>

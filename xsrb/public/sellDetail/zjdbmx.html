@@ -1,0 +1,324 @@
+<style type="text/css">
+	/*分页*/
+	
+	.pagination_ZJDBMX {
+		float: right;
+		margin-top: 0px;
+	}
+	
+	.pagination_ZJDBMX a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_ZJDBMX a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_ZJDBMX span.current,
+	.pagination_ZJDBMX span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_ZJDBMX span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_ZJDBMX span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_ZJDBMX .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_ZJDBMX.go {
+		margin-left: 2%;
+		height: 20px;
+		line-height: 20px;
+		font-size: 10px;
+		width: 35px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: none;
+		background-color: #ddd;
+	}
+	
+	.pagination_ZJDBMX.go:hover {
+		background-color: #cfebee;
+	}
+	/*分页结束*/
+	
+	.pageContent_ZJDBMX table thead {
+		background: rgb(153, 204, 255);
+	}
+	
+	.pageContent_ZJDBMX table thead tr th,
+	.pageContent_ZJDBMX table tbody tr td {
+		text-align: center;
+	}
+	
+	.table_ZJDBMX thead tr th {
+		background: rgb(153, 204, 255);
+	}
+	
+	.table_ZJDBMX thead tr th,
+	.table_ZJDBMX tbody tr td {
+		width: auto !important;
+	}
+	
+	.pageContent_ZJDBMX th,
+	.pageContent_ZJDBMX td {
+		border: 1px solid lightgrey;
+		width: auto !important;
+	}
+	
+	.headbutton_zjdb {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headbutton_zjdb span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton_zjdb:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton_zjdb:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.headbutton_zjdb i {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+	}
+	
+	.nav1_zjdb {
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.borde_zjdb {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.sdate_label {
+		display: inline-block;
+		padding-left: 15px;
+	}
+</style>
+<div class="pageHeader">
+	<div class="borde_zjdb"></div>
+	<a class="headbutton_zjdb" href="javascript:download_ZJDBMX();"><span><i class="nav1_zjdb" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出</i></span></a>
+	<div class="borde_zjdb"></div>
+	<div class="serchbox_digital_store2" style="float: left;">
+		<label class="sdate_label">起始日期</label>
+		<input id="sdate_ZJDBMX" class="date" dateFmt="yyyy-MM-dd" readonly="readonly" />
+		<label class="edate_label">结束日期</label>
+		<input id="edate_ZJDBMX" class="date" dateFmt="yyyy-MM-dd" readonly="readonly" />
+		<button class="find_date_ZJDBMX"> 查询</button>
+	</div>
+
+</div>
+
+<div class="pageContent pageContent_ZJDBMX" layoutH="60">
+</div>
+<div class="panelBar">
+	<div class="pagination_ZJDBMX"></div>
+</div>
+<script type="text/x-jsrender" class="tableContent_ZJDBMX">
+	<table class="table table_ZJDBMX" width="100%" layoutH="95">
+		<thead>
+			{{for data[0]}}
+			<tr>
+				{{for tr}}
+				<th rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</th>
+				{{/for}}
+			</tr>
+			{{/for}}
+		</thead>
+		<tbody>
+			{{for data}}
+			<tr class="tr_ZJDBMX">
+				{{for tr}} {{if type=="调出部门"}}
+				<td rowspan="{{:rowspan}}" colspan="{{:colspan}}" style="background-color:rgb(204,255,255)!important">{{:value}}</td>
+				{{else}}
+				<td rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{/if}} {{/for}}
+			</tr>
+			{{/for}}
+		</tbody>
+	</table>
+</script>
+<script type="text/javascript">
+	$(function() {
+		authorize_export(); //common.js中的显示是片区 or经营部 
+		setDateSearch("_ZJDBMX", "1"); //common.js中的默认查询时间为今天
+		get_ZJDBMX();
+		//查询
+		$(".find_date_ZJDBMX").click(function() {
+			get_ZJDBMX();
+		})
+	})
+	//输出
+	function download_ZJDBMX() {
+		var url_downl = URL_Z + "/ZJDBMX/toexcel/token/" + token;
+		var sdate = $("#sdate_ZJDBMX").val();
+		if(sdate) {
+			sdate = sdate.replace(/\-/g, "");
+			var edate = $("#edate_ZJDBMX").val();
+			if(edate) {
+				edate = edate.replace(/\-/g, "");
+				if(parseInt(edate) < parseInt(sdate)) {
+					alertMsg.warn("起始时间比结束时间大！！！");
+					return;
+				}
+			} else {
+				var mydate = new Date();
+				edate = String(mydate.getFullYear());
+				var mon = mydate.getMonth() + 1;
+				if(mon < 10) {
+					mon = "0" + mon;
+				}
+				var day = mydate.getDate();
+				if(day < 10) {
+					day = "0" + day;
+				}
+				edate = String(edate) + String(mon) + String(day);
+			}
+			url_downl = url_downl + "/sdate/" + sdate + "/edate/" + edate;
+
+		}
+		window.open(url_downl);
+	}
+
+	//默认获取明细表数据
+	function get_ZJDBMX() {
+		var url_ZJDBMX = URL_Z + "ZJDBMX/search/token/" + token;
+		var sdate = $("#sdate_ZJDBMX").val();
+		if(sdate) {
+			sdate = sdate.replace(/\-/g, "");
+			var edate = $("#edate_ZJDBMX").val();
+			if(edate) {
+				edate = edate.replace(/\-/g, "");
+				if(parseInt(edate) < parseInt(sdate)) {
+					alertMsg.warn("起始时间比结束时间大！！！");
+					return;
+				}
+			} else {
+				var mydate = new Date();
+				edate = String(mydate.getFullYear());
+				var mon = mydate.getMonth() + 1;
+				if(mon < 10) {
+					mon = "0" + mon;
+				}
+				var day = mydate.getDate();
+				if(day < 10) {
+					day = "0" + day;
+				}
+				edate = String(edate) + String(mon) + String(day);
+			}
+			var url_ZJDBMX = url_ZJDBMX + "/sdate/" + sdate + "/edate/" + edate;
+		}
+		$.ajax({
+			type: "get",
+			url: url_ZJDBMX,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else if(data.total == 'null' || data.total == null || data.total == undefined) {
+					alertMsg.info("暂无数据！");
+				} else {
+					var tableContent_ZJDBMX = $(".tableContent_ZJDBMX").render(data);
+					$(".pageContent_ZJDBMX").empty();
+					$(".pageContent_ZJDBMX").append(tableContent_ZJDBMX);
+					$("table tbody tr:first-child").remove();
+					navTab.getCurrentPanel().initUI();
+					navTab.getCurrentPanel().find("[layoutH]").layoutH();
+					$(".pagination_ZJDBMX").createPage({
+						pageCount: data.total, //总页数
+						current: data.page, //初始页号
+						backFn: function(obj) {
+							get_ZJDBMX_page(url_ZJDBMX, obj);
+						}
+					});
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+	//分页
+	function get_ZJDBMX_page(url_page, page) {
+		$.ajax({
+			type: "get",
+			url: url_page + "/page/" + page,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else if(data.total == 'null' || data.total == null || data.total == undefined) {
+					alertMsg.info("暂无数据！");
+				} else {
+					var tableContent_ZJDBMX = $(".tableContent_ZJDBMX").render(data);
+					$(".pageContent_ZJDBMX").empty();
+					$(".pageContent_ZJDBMX").append(tableContent_ZJDBMX);
+					$("table tbody tr:first-child").remove();
+					navTab.getCurrentPanel().initUI();
+					navTab.getCurrentPanel().find("[layoutH]").layoutH();
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}

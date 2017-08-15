@@ -1,0 +1,452 @@
+<style>
+	.selected_oi {
+		background-color: #E6EEEF!important;
+	}
+	
+	#rendrTable_inidp table tbody tr td input {
+		-moz-user-select: none;
+		-webkit-user-select: none
+	}
+	
+	.inidp_th {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #99ccff;
+		border: 1px solid #c0c0c0!important;
+		padding: 5px;
+	}
+	
+	.inidp_td {
+		padding: 5px;
+		border: 1px solid #c0c0c0;
+		text-align: center;
+	}
+	
+	.disable {
+		width: 100%;
+		cursor: pointer;
+		border: none !important;
+		background: none !important;
+		text-align: center;
+		margin-left: -3px !important;
+		height: 100%;
+	}
+	
+	.disableView {
+		cursor: pointer;
+		border: none;
+		background: none;
+		width: 120px;
+		color: red;
+	}
+	
+	.viewBox {
+		display: inline-block;
+		height: 22px;
+		margin-left: 20px;
+		margin-top: 0px;
+	}
+	
+	.viewBox label {
+		line-height: 26px;
+	}
+	
+	.borde {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.headbutton {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headbutton span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.nav1 {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+		display: inline-block;
+		padding-right: 5px;
+	}
+</style>
+<div class="pageHeader" style="overflow: hidden;">
+	<a class="headbutton" id="save3"><span><i class="nav1" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px 4px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提交</i></span></a>
+	<div class="borde"></div>
+	<div class="viewBox"><label>选中项内容：</label><input type="text" disabled="disabled" value="" id="tdView_SMCPKCQC" class="disableView" /></div>
+</div>
+</div>
+<div class="pageContent" id="rendrTable_inidp" style="width:90%; margin-top:1%;margin-left: 5%; "></div>
+<script type="text/x-jsrender" id="tableContent_inidp">
+	<table class="table" id="table_inidp" width="100%" layoutH="65">
+		<thead class="fixhead">
+			<tr>
+				{{for data[0].tr}}
+				<td class="inidp_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{/for}}
+			</tr>
+		</thead>
+		<tbody>
+			{{for data}} {{if #getIndex()}}
+			<tr name="{{:#getIndex()}}">
+				{{for tr}} {{if dataType==0}}
+				<td class="inidp_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color:#ccffff;" onclick="canntEdit_inidt($(this))">{{:value}}</td>
+				{{else}}
+				<td name="{{:#getIndex()}}" class="inidp_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color: #ffffff;" onclick="edit1_SMCPKUQC($(this))" onmousemove="deal_mousemove($(this),'rendrTable_inidp')">
+					<input type="text" class="disable" value="{{:value}}" onblur="blurset_inidigitaopro($(this))" onkeyup="checkFloat($(this))" onpaste="pasteV($(this),'rendrTable_inidp')" onmouseup="deal_mouseup($(this))" onmousedown="deal_mousedown(event,$(this),'rendrTable_inidp')" />
+				</td>
+				{{/if}} {{/for}}
+			</tr>
+			{{/if}} {{/for}}
+		</tbody>
+	</table>
+</script>
+<script src="./js/publicjs/common.js"></script>
+<script type="text/javascript">
+	flag_enter_SMCPKCQC = false;
+	type_SMCPKCQC = 111;
+	down_SMCPKCQC = 0; //光标下移
+	up_SMCPKCQC = 1; //光标上移
+	right_SMCPKCQC = 2; //光标右移
+	left_SMCPKCQC = 3; //光标左移
+	$(function() {
+		document.body.onselectstart = function() {
+			return false;
+		}
+		get_inidigitaopro()
+	}); //ready
+	$("#save3").click(function() {
+		if($(".errorData3").length) {
+			alertMsg.warn("请检查红框数据后再提交");
+			return;
+		}
+		save_inven();
+	});
+	//对输入框的值进行编辑时的UI效果显示
+	function edit1_SMCPKUQC(obj) {
+		$("#tdView_SMCPKCQC").val(obj.children().val());
+		obj.children().select();
+		if(obj.children().val() == 0) {
+			obj.children().val("");
+		}
+		obj.children().addClass("selectedIput_SMCPKCQC");
+		if($(".selectedIput_SMCPKCQC").length > 1) {
+			$(".selectedIput_SMCPKCQC").each(function() {
+				$(this).removeClass("selectedIput_SMCPKCQC");
+			})
+			obj.children().addClass("selectedIput_SMCPKCQC");
+		}
+		obj.css("border", "2px solid #000");
+	};
+	//去空
+	function canntEdit_inidt(obj) {
+		$("#tdView_SMCPKCQC").val(obj.text().replace(/\s*/, ""));
+	};
+	//获取默认数据
+	function get_inidigitaopro() {
+
+		$.ajax({
+			type: "get",
+			url: URL + "SMCPKCQC/search/token/" + token,
+			async: false,
+			dataType: 'json',
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else {
+					SMCPKCQC_test = data;
+					var tableContent = $("#tableContent_inidp").render(SMCPKCQC_test);
+					$("#rendrTable_inidp").append(tableContent);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		}); //ajax
+	}
+
+	function blurset_inidigitaopro(obj) {
+		var min_col;
+		var min_row;
+		obj.parent().css({
+			"border": "none",
+			"border-right": "1px solid #C0C0C0",
+			"border-bottom": "1px solid #c0c0c0"
+		});
+		if(!obj.val()) {
+			obj.val(0);
+			return false;
+		}
+		var int_replace_res = obj.val().replace(/^-?[1-9]\d*|0$/, "");
+		if(int_replace_res) {
+			var float_replace_res = obj.val().replace(/^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$/, "");
+			if(float_replace_res) {
+				obj.addClass("errorData3");
+				obj.parent().css({
+					"border": "2px solid red"
+				});
+				return;
+			}
+		}
+		obj.removeClass("errorData3");
+		var rowcode = parseInt(obj.parent().parent().attr("name"));
+		var colcode = parseInt(obj.parent().attr("name"));
+		SMCPKCQC_test.data[rowcode].tr[colcode].value = parseFloat(obj.val());
+		min_row_SMCPKCQC = 1;
+		///查找下一行开始的第一个可编辑单元格
+		var flag = 0;
+		var now_col = colcode;
+		obj.removeClass("selectedIput_SMCPKCQC");
+		if(flag_enter_SMCPKCQC) {
+			if(type_SMCPKCQC == down_SMCPKCQC) {
+				flag_enter_SMCPKCQC = false;
+				for(var findin = rowcode + 1; findin < SMCPKCQC_test.data.length; findin++) { //查找下一行开始的第一个可编辑单元格
+					var chayi = SMCPKCQC_test.data[findin].tr.length - SMCPKCQC_test.data[findin - 1].tr.length;
+					now_col = now_col + chayi;
+					if($("#rendrTable_inidp table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_inidp table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").trigger("click");
+						return true;
+					}
+				} //for findin
+				if(!flag) { //不存在可编辑的下一行了,就去可编辑的第一行（下面简称第一行）下一列
+					//一直第一行查找下一列，直到存在可编辑
+					var flagcol = 0;
+					for(var findcol = colcode; findcol < SMCPKCQC_test.data[min_row_SMCPKCQC].tr.length; findcol++) {
+						var temp = findcol + 1;
+						if($("#rendrTable_inidp table tbody").children("tr[name=" + min_row_SMCPKCQC + "]").children("td[name=" + temp + "]").children("input").length > 0) {
+							flagcol = 1;
+
+							$("#rendrTable_inidp table tbody").children("tr[name=" + min_row_SMCPKCQC + "]").children("td[name=" + temp + "]").trigger("click");
+							return true;
+						}
+					}
+					if(!flagcol) { //没有找到从现在开始的下一列，就去第一行第一列
+						for(var findcol = 0; findcol < SMCPKCQC_test.data[min_row_SMCPKCQC].tr.length; findcol++) {
+							if($("#rendrTable_inidp table tbody").children("tr[name=" + min_row_SMCPKCQC + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								$("#rendrTable_inidp table tbody").children("tr[name=" + min_row_SMCPKCQC + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} //if flag
+
+			} //if down
+			else if(type_SMCPKCQC == up_SMCPKCQC) {
+				flag_enter_SMCPKCQC = false;
+				for(var findin = rowcode - 1; findin >= min_row_SMCPKCQC; findin--) { //从下往上查找上一行开始的第一个可编辑单元格
+					var chayi = SMCPKCQC_test.data[findin].tr.length - SMCPKCQC_test.data[findin + 1].tr.length;
+					now_col = now_col + chayi;
+					if($("#rendrTable_inidp table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_inidp table tbody").children("tr[name=" + findin + "]").children("td[name=" + now_col + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //不存在可编辑的上一行了,就去上一列的可编辑的最后一行（下面简称第一行）
+					var flagcol = 0;
+					var max_row_SMCPKCQC;
+					//查找最大可编辑行
+					for(var i = SMCPKCQC_test.data.length - 1; i >= min_row_SMCPKCQC; i--) { //从下往上查找
+						for(var j = 0; j < SMCPKCQC_test.data[i].tr.length; j++) { //从左往右查找
+							if($("#rendrTable_inidp table tbody").children("tr[name=" + i + "]").children("td[name=" + j + "]").children("input").length > 0) {
+								//该行存在可编辑
+								max_row_SMCPKCQC = i;
+								break;
+							}
+						}
+						if(max_row_SMCPKCQC) {
+							break;
+						}
+					}
+					//在最后一个行查找可编辑的上一列，直到存在可编辑
+					for(var findcol = colcode - 1; findcol > 0; findcol--) {
+						if($("#rendrTable_inidp table tbody").children("tr[name=" + max_row_SMCPKCQC + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+							flagcol = 1;
+							$("#rendrTable_inidp table tbody").children("tr[name=" + max_row_SMCPKCQC + "]").children("td[name=" + findcol + "]").trigger("click");
+							return true;
+						}
+					}
+					if(!flagcol) { //没有找到从现在开始的下一列，就去第最后行第最后一列
+						for(var findcol = SMCPKCQC_test.data[max_row_SMCPKCQC].tr.length - 1; findcol > 0; findcol--) {
+							if($("#rendrTable_inidp table tbody").children("tr[name=" + max_row_SMCPKCQC + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								$("#rendrTable_inidp table tbody").children("tr[name=" + max_row_SMCPKCQC + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} //if flag
+			} //if up
+			else if(type_SMCPKCQC == right_SMCPKCQC) { //右移键
+				flag_enter_SMCPKCQC = false;
+				for(var findcol = colcode + 1; findcol <= SMCPKCQC_test.data[rowcode].tr.length; findcol++) {
+					//从左往右查找下一列开始的第一个可编辑单元格
+					if($("#rendrTable_inidp table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_inidp table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + findcol + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //在本行未找到，从下一行的第一列开始查找
+					var flagcol = 0;
+					for(var findin = rowcode + 1; findin < SMCPKCQC_test.data.length; findin++) {
+						//从上往下查找
+						for(var findcol = 0; findcol < SMCPKCQC_test.data[findin].tr.length; findcol++) {
+							if($("#rendrTable_inidp table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								flagcol = 1;
+								$("#rendrTable_inidp table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+					if(!flagcol) { //在下面的数据行里已经没有可编辑，跳到左上角的第一个可编辑框
+						for(var find = 0; find < SMCPKCQC_test.data[min_row_SMCPKCQC].tr.length; find++) {
+							if($("#rendrTable_inidp table tbody").children("tr[name=" + min_row_SMCPKCQC + "]").children("td[name=" + find + "]").children("input").length > 0) {
+								$("#rendrTable_inidp table tbody").children("tr[name=" + min_row_SMCPKCQC + "]").children("td[name=" + find + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} // flag
+			} //right
+			else if(type_SMCPKCQC == left_SMCPKCQC) { //左移键
+				flag_enter_SMCPKCQC = false;
+				for(var leftcol = colcode - 1; leftcol >= 0; leftcol--) {
+					//从右往左查找下一列开始的第一个可编辑单元格
+					if($("#rendrTable_inidp table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + leftcol + "]").children("input").length > 0) {
+						flag = 1;
+						$("#rendrTable_inidp table tbody").children("tr[name=" + rowcode + "]").children("td[name=" + leftcol + "]").trigger("click");
+						return true;
+					}
+				}
+				if(!flag) { //在本行未找到，从上一行的最后列开始查找
+					var flagcol = 0;
+					for(var findin = rowcode - 1; findin >= min_row_SMCPKCQC; findin--) {
+						//从下往上查找
+						for(var findcol = SMCPKCQC_test.data[findin].tr.length - 1; findcol > 0; findcol--) {
+							if($("#rendrTable_inidp table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").children("input").length > 0) {
+								flagcol = 1;
+								$("#rendrTable_inidp table tbody").children("tr[name=" + findin + "]").children("td[name=" + findcol + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+					if(!flagcol) { //在上面的数据行里已经没有可编辑，跳到右下角的最后可编辑框
+						var max_row_SMCPKCQC;
+						//查找最大可编辑行
+						for(var i = SMCPKCQC_test.data.length - 1; i >= min_row_SMCPKCQC; i--) { //从下往上查找
+							for(var j = 0; j < SMCPKCQC_test.data[i].tr.length; j++) { //从左往右查找
+								if($("#rendrTable_inidp table tbody").children("tr[name=" + i + "]").children("td[name=" + j + "]").children("input").length > 0) {
+									//该行存在可编辑
+									max_row_SMCPKCQC = i;
+									break;
+								}
+							}
+							if(max_row_SMCPKCQC) {
+								break;
+							}
+						}
+						for(var findleft = SMCPKCQC_test.data[max_row_SMCPKCQC].tr.length - 1; findleft > 0; findleft--) {
+							if($("#rendrTable_inidp table tbody").children("tr[name=" + max_row_SMCPKCQC + "]").children("td[name=" + findleft + "]").children("input").length > 0) {
+								$("#rendrTable_inidp table tbody").children("tr[name=" + max_row_SMCPKCQC + "]").children("td[name=" + findleft + "]").trigger("click");
+								return true;
+							}
+						}
+					}
+				} // flag
+			} //left
+			else {
+				flag_enter_SMCPKCQC = false;
+			}
+		}
+
+	};
+	//保存
+	function save_inven() {
+		$.ajax({
+			type: "post",
+			url: URL + "/SMCPKCQC/submit/token/" + token,
+			async: true,
+			dataType: 'json',
+			data: JSON.stringify(SMCPKCQC_test),
+			success: function(data) {
+				alertMsg.correct(data.resultmsg);
+				navTab._reload(navTab._getTab("w_table3"), true);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn(errorThrown);
+			}
+		});
+	}
+	$("#rendrTable_inidp").keydown(function() {
+		var e = arguments.callee.caller.arguments[0] || event;
+		var code = e.which || e.keyCode;
+
+		if(code == "13") { //enter键
+			if($(".selectedIput_SMCPKCQC").length > 0) {
+				flag_enter_SMCPKCQC = true;
+				type_SMCPKCQC = down_SMCPKCQC;
+				$(".selectedIput_SMCPKCQC").blur();
+			}
+		} else if(code == "40") //down键
+		{
+			if($(".selectedIput_SMCPKCQC").length > 0) {
+				flag_enter_SMCPKCQC = true;
+				type_SMCPKCQC = down_SMCPKCQC;
+				$(".selectedIput_SMCPKCQC").blur();
+			}
+		} else if(code == "38") //up键
+		{
+			if($(".selectedIput_SMCPKCQC").length > 0) {
+				flag_enter_SMCPKCQC = true;
+				type_SMCPKCQC = up_SMCPKCQC;
+				$(".selectedIput_SMCPKCQC").blur();
+			}
+		} else if(code == "39") //right键
+		{
+			if($(".selectedIput_SMCPKCQC").length > 0) {
+				flag_enter_SMCPKCQC = true;
+				type_SMCPKCQC = right_SMCPKCQC;
+				$(".selectedIput_SMCPKCQC").blur();
+			}
+		} else if(code == "37") //left键
+		{
+			if($(".selectedIput_SMCPKCQC").length > 0) {
+				flag_enter_SMCPKCQC = true;
+				type_SMCPKCQC = left_SMCPKCQC;
+				$(".selectedIput_SMCPKCQC").blur();
+			}
+		} else {
+			flag_enter_SMCPKCQC = false;
+		}
+	});
+</script>

@@ -1,0 +1,1118 @@
+<script type="text/javascript">
+	$(function() {
+		document.body.onselectstart = function() {
+			return false;
+		}
+		get_fdmspqc(); //获取列表数据
+	});
+	// 设置用来筛选的联动数组
+	var fdmspqcArr = new Array(26);
+	for(var i = 0; i < fdmspqcArr.length; i++) {
+		fdmspqcArr[i] = '';
+	}
+	var postUrl_spqc;
+	if(fdmspqc_flag) {
+		postUrl_spqc = fdmUrl1 + "SPZMXlist/loadingExcelQc/types/0/token/" + token;
+		$("#index_wxspqcbt").css({ "border": "2px solid #add2db" });
+		$("#index_yxspqcbt").css({ "border": "1px solid #b8d0d6", "background-color": "#ecf0f6", "color": "#888" });
+		$("#dryxbt").attr("disabled", "disabled");
+	} else {
+		postUrl_spqc = fdmUrl1 + "SPZMXlist/loadingExcelQc/types/1/token/" + token;
+		$("#index_yxspqcbt").css({ "border": "2px solid #add2db" });
+		$("#index_wxspqcbt").css({ "border": "1px solid #b8d0d6", "background-color": "#ecf0f6", "color": "#888" });
+		$("#drwxbt").attr("disabled", "disabled");
+
+	}
+
+	//初始数据查询
+	function get_fdmspqc() {
+		if(fdmspqc_flag) {
+			fdmspqc_url = fdmUrl1 + "SPZQC/search/type/0/token/" + token
+		} else {
+			fdmspqc_url = fdmUrl1 + "SPZQC/search/type/1/token/" + token
+		}
+
+		$.ajax({
+			type: "get",
+			url: fdmspqc_url,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+				if(data.resultcode == -1) {
+					alertMsg.warn(data.resultmsg);
+					return;
+				}
+				if(data.resultcode == -2) {
+					alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				data_Fdmspqc = data;
+				$("#rendrTable_fdmspqc").html("");
+				var tableContent = $("#tableContent_fdmspqc").render(data);
+				$("#rendrTable_fdmspqc").append(tableContent);
+				var new_DataArr = data.data.slice(2)
+				initSelect_spqc(new_DataArr);
+				initTbody_spqc(new_DataArr);
+				if(data["data"].length <= 3) {
+					setTimeout(function() { add_fdmspqc() }, 500);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.warn(errorThrown);
+			}
+		});
+		if(fdmspqc_flag) {
+			spqc_ywurl = fdmUrl1 + "SPZMXlist/search/type/0/token/" + token
+		} else {
+			spqc_ywurl = fdmUrl1 + "SPZMXlist/search/type/1/token/" + token
+		}
+		//录入条件查询
+		$.ajax({
+			type: "get",
+			url: spqc_ywurl,
+			async: false,
+			dataType: 'json',
+			success: function(data) {
+				if(data.resultcode == -1) {
+					alertMsg.info(data.resultmsg);
+					return;
+				}
+				if(data.resultcode == -2) {
+					alertMsg.info("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				XSRBSPQC_test = data;
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.info("加载失败，刷新或者检查网络设置！");
+			}
+		});
+		
+	};
+	// 初始化下拉框
+	function initSelect_spqc(data) {
+		if(data.length == 0) {
+			return;
+		}
+		var mainSelect_qc = [];
+		for(var i = 0, len1 = data.length; i < len1; i++) {
+			for(var j = 0, len2 = data[i].tr.length; j < len2; j++) {
+				if(mainSelect_qc[j] == undefined || mainSelect_qc[j] == '') {
+					mainSelect_qc[j] = [];
+				}
+				if(mainSelect_qc[j].indexOf(data[i].tr[j].value) == -1 && data[i].tr[j].value != "") {
+					mainSelect_qc[j].push(data[i].tr[j].value);
+				}
+			}
+		}
+		for(var m = 0; m < 26; m++) {
+			for(var n = 0; n < mainSelect_qc[m].length; n++) {
+				$('.fdmspqc-select' + m).append('<option style="background-color:#fff;">' + mainSelect_qc[m][n] + '</option>');
+			}
+		}
+	}
+	// 初始化tbody中的数据
+	function initTbody_spqc(dataArr) {
+		var html = $('#fdmspqc_tbody').render(dataArr);
+		$('#table_fdmspqc tbody').html(html);
+		//点击td，改变td所在tr背景色
+	$("#table_fdmspqc tbody tr td").click(function(){
+		
+		$(this).parent("tr").addClass("addColor");
+		$(this).parent("tr").siblings(".addColor").removeClass("addColor");
+		
+	});
+	}
+	// 响应下拉框对应的响应事件
+	function chooseChange_qc(_this, index) {
+		var dataArr = data_Fdmspqc.data;
+		dataArr = dataArr.slice(2);
+		fdmspqcArr[index] = _this.value;
+		for(var i = 0; i < 26; i++) {
+			dataArr = filterData_qc(dataArr, fdmspqcArr[i], i);
+		}
+		initTbody_spqc(dataArr);
+	}
+	// 过滤数据，与判断值相同时，返回相同值，否则返回空
+	function filterData_qc(arr, str, index) {
+		if(str == '') {
+			return arr;
+		}
+		return $.map(arr, function(value) {
+			return value.tr[index].value == str ? value : null;
+		});
+	}
+	//重置数据
+	function reset_fdmqc() {
+		for(var i = 0; i < 26; i++) {
+			$($('.fdmspqcthead tr td')[i]).find("select").val("全部").attr("selected", true);
+		}
+		for(var i = 0; i < fdmspqcArr.length; i++) {
+			fdmspqcArr[i] = '';
+		}
+		initTbody_spqc(data_Fdmspqc.data.slice(2));
+		if($(".fdmsp_qc tr").length <= 1) {
+			add_fdmspqc();
+		}
+	}
+	//验证数据合法性
+	function isDataValid(data) {
+		if(data != null && data != "" && data != "undefined" && data != "null" && data != null && data != "0.00" && data != "0") {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	//前台删除
+	function deleteOne_qc(obj) {
+		$(obj).parent().parent().remove()
+	}
+
+	//添加
+	function add_fdmspqc() {
+		$longtd1 = "<td  class='td_spqc'  style='background-color: rgb(204, 255, 255);' onclick='edit_FDMQC($(this))' ><input class='disable_spqc textInput'  onfocus='get_nbqc(this)' onblur='lose_countqc(this);' onkeyup='checkFloat_qc($(this));checkInt_qc(this)'  type='text' value='0'></td>  "
+		$longtd = "<td  class='td_spqc'  style='background-color: rgb(204, 255, 255);' onclick='edit_FDMQC($(this))' ><input class='disable_spqc textInput'  onfocus='get_nbqc(this)' onblur='lose_countqc(this);' onkeyup='checkFloat_qc($(this))'  type='text' value='0.00'></td>  ";
+		$longtd0 = "<td class='td_spqc'> <select> <option></option></select></td>";
+		$longtdinput = "<td class='td_spqc'><input></td>";
+		$newc1 = $("<tr>" + $longtdinput + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + "<td class='td_spqc'><input class='guigecheck' type='text'></td>" + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + $longtd0 + "<td class='td_spqc'><input  type='text'></td>" + $longtd1 + $longtd + $longtd + "<td class='td_spqc'>0.00</td><td class='td_spqc'><a class='deletebt' onclick='deleteOne_qc(this)' style='float:none;'><span style='line-height: 20px;'>取消</span></a></td> </tr>");
+		$(".fdmsp_qc tr:eq(0)").after($newc1) //添加到第二行
+		addselect_option();
+	}
+
+	// 渲染添加select
+	function addselect_option() {
+		arrayzhizaobm = XSRBSPQC_test.data.list[0].option;
+		arraydingdanlb = XSRBSPQC_test.data.list[1].option;
+		arraydangci = XSRBSPQC_test.data.list[2].option;
+		arraymenkuang = XSRBSPQC_test.data.list[3].option;
+		arraykuanghou = XSRBSPQC_test.data.list[4].option;
+		arrayqianbanhou = XSRBSPQC_test.data.list[5].option;
+		arrayhoubanhou = XSRBSPQC_test.data.list[6].option;
+		arraydikuangcl = XSRBSPQC_test.data.list[7].option;
+		arraymenshan = XSRBSPQC_test.data.list[8].option;
+		arraykaixiang = XSRBSPQC_test.data.list[10].option;
+		arrayjiaolian = XSRBSPQC_test.data.list[11].option;
+		arrayhuase = XSRBSPQC_test.data.list[12].option;
+		arraybiaomianfs = XSRBSPQC_test.data.list[13].option;
+		arraybiaomianyq = XSRBSPQC_test.data.list[14].option;
+		arraychuanghua = XSRBSPQC_test.data.list[15].option;
+		arraymaoyan = XSRBSPQC_test.data.list[16].option;
+		arraybiaopai = XSRBSPQC_test.data.list[17].option;
+		arrayzhusuo = XSRBSPQC_test.data.list[18].option;
+		arrayfusuo = XSRBSPQC_test.data.list[19].option;
+		arraysuoba = XSRBSPQC_test.data.list[20].option;
+		arraybiaojian = XSRBSPQC_test.data.list[21].option;
+		arraybaozhuangpp = XSRBSPQC_test.data.list[22].option;
+		arraybaozhuangfs = XSRBSPQC_test.data.list[23].option;
+		var optionszhizaobm = [];
+		var optionsdingdanlb = [];
+		var optionsdangci = [];
+		var optionsmenkuang = [];
+		var optionskuanghou = [];
+		var optionsqianbanhou = [];
+		var optionshoubanhou = [];
+		var optionsdikuangcl = [];
+		var optionsmenshan = [];
+		var optionskaixiang = [];
+		var optionsjiaolian = [];
+		var optionshuase = [];
+		var optionsbiaomianfs = [];
+		var optionsbiaomianyq = [];
+		var optionschuanghua = [];
+		var optionsmaoyan = [];
+		var optionsbiaopai = [];
+		var optionszhusuo = [];
+		var optionsfusuo = [];
+		var optionssuoba = [];
+		var optionsbiaojian = [];
+		var optionsbaozhuangpp = [];
+		var optionsbaozhuangfs = [];
+		for(var i = 0; i < arrayzhizaobm.length; i++) {
+			optionszhizaobm.push("<option value='" + arrayzhizaobm[i] + "'> " + arrayzhizaobm[i] + " </option>");
+		};
+		for(var i = 0; i < arraydingdanlb.length; i++) {
+			optionsdingdanlb.push("<option value='" + arraydingdanlb[i] + "'> " + arraydingdanlb[i] + " </option>");
+		};
+		for(var i = 0; i < arraydangci.length; i++) {
+			optionsdangci.push("<option value='" + arraydangci[i] + "'> " + arraydangci[i] + " </option>");
+		};
+		for(var i = 0; i < arraymenkuang.length; i++) {
+			optionsmenkuang.push("<option value='" + arraymenkuang[i] + "'> " + arraymenkuang[i] + " </option>");
+		};
+		for(var i = 0; i < arraykuanghou.length; i++) {
+			optionskuanghou.push("<option value='" + arraykuanghou[i] + "'> " + arraykuanghou[i] + " </option>");
+		};
+		for(var i = 0; i < arrayqianbanhou.length; i++) {
+			optionsqianbanhou.push("<option value='" + arrayqianbanhou[i] + "'> " + arrayqianbanhou[i] + " </option>");
+		};
+		for(var i = 0; i < arrayhoubanhou.length; i++) {
+			optionshoubanhou.push("<option value='" + arrayhoubanhou[i] + "'> " + arrayhoubanhou[i] + " </option>");
+		};
+		for(var i = 0; i < arraydikuangcl.length; i++) {
+			optionsdikuangcl.push("<option value='" + arraydikuangcl[i] + "'> " + arraydikuangcl[i] + " </option>");
+		};
+		for(var i = 0; i < arraymenshan.length; i++) {
+			optionsmenshan.push("<option value='" + arraymenshan[i] + "'> " + arraymenshan[i] + " </option>");
+		};
+		for(var i = 0; i < arraykaixiang.length; i++) {
+			optionskaixiang.push("<option value='" + arraykaixiang[i] + "'> " + arraykaixiang[i] + " </option>");
+		};
+		for(var i = 0; i < arrayjiaolian.length; i++) {
+			optionsjiaolian.push("<option value='" + arrayjiaolian[i] + "'> " + arrayjiaolian[i] + " </option>");
+		};
+		for(var i = 0; i < arrayhuase.length; i++) {
+			optionshuase.push("<option value='" + arrayhuase[i] + "'> " + arrayhuase[i] + " </option>");
+		};
+		for(var i = 0; i < arraybiaomianfs.length; i++) {
+			optionsbiaomianfs.push("<option value='" + arraybiaomianfs[i] + "'> " + arraybiaomianfs[i] + " </option>");
+		};
+		for(var i = 0; i < arraybiaomianyq.length; i++) {
+			optionsbiaomianyq.push("<option value='" + arraybiaomianyq[i] + "'> " + arraybiaomianyq[i] + " </option>");
+		};
+		for(var i = 0; i < arraychuanghua.length; i++) {
+			optionschuanghua.push("<option value='" + arraychuanghua[i] + "'> " + arraychuanghua[i] + " </option>");
+		};
+		for(var i = 0; i < arraymaoyan.length; i++) {
+			optionsmaoyan.push("<option value='" + arraymaoyan[i] + "'> " + arraymaoyan[i] + " </option>");
+		};
+		for(var i = 0; i < arraybiaopai.length; i++) {
+			optionsbiaopai.push("<option value='" + arraybiaopai[i] + "'> " + arraybiaopai[i] + " </option>");
+		};
+		for(var i = 0; i < arrayzhusuo.length; i++) {
+			optionszhusuo.push("<option value='" + arrayzhusuo[i] + "'> " + arrayzhusuo[i] + " </option>");
+		};
+		for(var i = 0; i < arrayfusuo.length; i++) {
+			optionsfusuo.push("<option value='" + arrayfusuo[i] + "'> " + arrayfusuo[i] + " </option>");
+		};
+		for(var i = 0; i < arraysuoba.length; i++) {
+			optionssuoba.push("<option value='" + arraysuoba[i] + "'> " + arraysuoba[i] + " </option>");
+		};
+		for(var i = 0; i < arraybiaojian.length; i++) {
+			optionsbiaojian.push("<option value='" + arraybiaojian[i] + "'> " + arraybiaojian[i] + " </option>");
+		};
+		for(var i = 0; i < arraybaozhuangpp.length; i++) {
+			optionsbaozhuangpp.push("<option value='" + arraybaozhuangpp[i] + "'> " + arraybaozhuangpp[i] + " </option>");
+		};
+		for(var i = 0; i < arraybaozhuangfs.length; i++) {
+			optionsbaozhuangfs.push("<option value='" + arraybaozhuangfs[i] + "'> " + arraybaozhuangfs[i] + " </option>");
+		};
+
+		$newc1.find("td select").eq(0).append(optionszhizaobm.join(''));
+		$newc1.find("td select").eq(1).append(optionsdingdanlb.join(''));
+		$newc1.find("td select").eq(2).append(optionsdangci.join(''));
+		$newc1.find("td select").eq(3).append(optionsmenkuang.join(''));
+		$newc1.find("td select").eq(4).append(optionskuanghou.join(''));
+		$newc1.find("td select").eq(5).append(optionsqianbanhou.join(''));
+		$newc1.find("td select").eq(6).append(optionshoubanhou.join(''));
+		$newc1.find("td select").eq(7).append(optionsdikuangcl.join(''));
+		$newc1.find("td select").eq(8).append(optionsmenshan.join(''));
+		$newc1.find("td select").eq(9).append(optionskaixiang.join(''));
+		$newc1.find("td select").eq(10).append(optionsjiaolian.join(''));
+		$newc1.find("td select").eq(11).append(optionshuase.join(''));
+		$newc1.find("td select").eq(12).append(optionsbiaomianfs.join(''));
+		$newc1.find("td select").eq(13).append(optionsbiaomianyq.join(''));
+		$newc1.find("td select").eq(14).append(optionschuanghua.join(''));
+		$newc1.find("td select").eq(15).append(optionsmaoyan.join(''));
+		$newc1.find("td select").eq(16).append(optionsbiaopai.join(''));
+		$newc1.find("td select").eq(17).append(optionszhusuo.join(''));
+		$newc1.find("td select").eq(18).append(optionsfusuo.join(''));
+		$newc1.find("td select").eq(19).append(optionssuoba.join(''));
+		$newc1.find("td select").eq(20).append(optionsbiaojian.join(''));
+		$newc1.find("td select").eq(21).append(optionsbaozhuangpp.join(''));
+		$newc1.find("td select").eq(22).append(optionsbaozhuangfs.join(''));
+
+		$("option").css("visibility", "visible");
+
+		$(".guigecheck").bind("blur", function(obj) {
+			var text = $(this).val();
+			var text1 = text.split("*")[0];
+			var text2 = text.split("*")[1];
+			if(text != "") {
+				if(text1 == "" || text2 == "") {
+					$(this).val("");
+					alertMsg.info("请输入(3位数或4位数)乘以(3位数或4位数)，如A*B或者为空");
+					return;
+				}
+			}
+			if(!(/^[1-9]\d{2,3}$/.test(text1))) {
+				$(this).val("");
+				alertMsg.info("请输入(3位数或4位数)乘以(3位数或4位数)，如A*B或者为空");
+				return;
+			}
+			if(!(/^[1-9]\d{2,3}$/.test(text2))) {
+				$(this).val("");
+				alertMsg.info("请输入(3位数或4位数)乘以(3位数或4位数)，如A*B或者为空");
+				return;
+			}
+		})
+	}
+
+	//上传插件初始化
+	uploader = WebUploader.create({
+		// 自动上传。
+		auto: true,
+		swf: 'js/Uploader.swf',
+		server: postUrl_spqc,
+		pick: '#icon_selectqc',
+		accept: {
+			title: 'excel',
+			extensions: 'xls,xlsx,csv',
+			mimeTypes: '.xls,.xlsx,.csv'
+		}
+
+	});
+	uploader.on('fileQueued', function(file) {
+		$("#icon").html("")
+		var $li = $(
+				'<div id="' + file.id + '" class="icon-imgqc">' +
+				file.name +
+				'</div>'
+			),
+			$img = $li.find('img');
+		$("#icon").append($li);
+		$(".icon-imgqc").show();
+		$("#mengce_fdmqc").css("display", "block");
+		$("body").css("opacity", "0.5");
+	});
+
+	// 文件上传成功
+	uploader.on('uploadSuccess', function(file, response) {
+		$(".icon-imgqc").hide();
+		$("#mengce_fdmqc").css("display", "none");
+		$("body").css("opacity", "1");
+		if(response.resultcode == -2) {
+			alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+			window.location.href = "index.html";
+		} else {
+			if(isDataValid(response.error)) {
+				$(".sel_qcbg").css("display", "block");
+				$("#uploader_failfdmqc").css("display", "block");
+				$(".fdmqc_close").append('<span class="fdmqc_closeicon"  onclick="closetk_spqc()" />');
+				showFaildata_qc(response);
+			} else {
+				alertMsg.warn(response.resultmsg);
+				navTab._reload(navTab._getTab("new_fdmspqc1"), true);
+			}
+		}
+	});
+
+	function closetk_spqc() {
+		$(".fdmqc_close").html("");
+		$("#uploader_failfdmqc").css("display", "none");
+		navTab._reload(navTab._getTab("new_fdmspqc1"), true);
+	}
+</script>
+<style>
+	#rendrTable_fdmspqc table tbody tr td input {
+		-moz-user-select: none;
+		-webkit-user-select: none
+	}
+	
+	.td_spqc {
+		border-bottom: 1px solid #c0c0c0;
+		border-left: 1px solid #C0C0C0;
+		border-top: none;
+		text-align: center;
+		height: 20px;
+		width: 100px;
+	}
+	.addColor{
+		background-color: #CCFFFF !important;
+	}
+	
+	.td_spqc button:hover {
+		cursor: pointer;
+	}
+	
+	.td_spqc select {
+		width: 100px
+	}
+	
+	.disable_spqc {
+		width: 100%;
+		cursor: pointer;
+		margin-left: -3px !important;
+		border: none !important;
+		background: none !important;
+		text-align: center;
+		height: 100%;
+	}
+	
+	.disable_spqcView {
+		cursor: pointer;
+		border: none;
+		background: none;
+		width: 120px;
+		color: red;
+	}
+	
+	select {
+		font-size: 12px;
+		border: none;
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+	}
+	
+	select::-ms-expand {
+		display: none;
+	}
+	
+	.borde_fdmspqc {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.headbutton_fdmspqc {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+		cursor: pointer;
+	}
+	
+	.fdmspqcthead tr td {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #99ccff;
+		position: relative;
+		width: 100px;
+		border-left: 1px solid #c0c0c0;
+		border-bottom: 1px solid #c0c0c0;
+	}
+	
+	.entryinid_thfdmspqc1 {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #99ccff;
+		position: relative;
+		border-right: 1px solid #c0c0c0!important;
+		border-bottom: 1px solid #c0c0c0!important;
+	}
+	
+	.failtable_tdqc {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #fff;
+		border-right: 1px solid #c0c0c0!important;
+		border-bottom: 1px solid #c0c0c0!important;
+		height: 15px;
+	}
+	
+	.fdmspqcthead tr td input {
+		width: 5px;
+	}
+	
+	.headbutton_fdmspqc span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	#table_fdmspqc tbody td input {
+		width: 60px;
+		font-size: 12px;
+		padding: 0;
+		border: none;
+	}
+	
+	.headbutton_fdmspqc:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton_fdmspqc:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.nav1_fdmspqc {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.fdmsp_qc tr td select option {
+		visibility: hidden;
+	}
+	
+	#index_yxspqcbt,
+	#index_wxspqcbt {
+		float: right;
+		width: 90px;
+		line-height: 22px;
+		height: 26px;
+		text-align: center;
+		cursor: pointer;
+		border-bottom-left-radius: 22px;
+		border-top-right-radius: 22px;
+		font-size: 12px;
+		background-color: #FFFFFF;
+	}
+	
+	.icon-imgqc {
+		position: absolute;
+		top: 11px;
+		left: 309px;
+	}
+	
+	.fdmspqcthead tr td select {
+		padding: 4px;
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 100%;
+		background: url(img/select.png) no-repeat 100% 7px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		cursor: pointer;
+	}
+	
+	.fdmspqcthead tr td select::-ms-expand {
+		display: none;
+	}
+	
+	#mengce_fdmqc {
+		z-index: 999999999;
+		position: absolute;
+		top: 200px;
+		left: 50%;
+		background: url(public/initialStage/images/loading.gif) no-repeat;
+		width: 100px;
+		height: 50px;
+		display: none;
+	}
+	
+	.deletebt {
+		cursor: pointer
+	}
+	/*表头固定*/
+	
+	#rendrTable_fdmspqc {
+		width: 500px;
+		overflow: auto;
+		position: relative;
+	}
+	
+	#table_fdmspqc {
+		width: 100%;
+		table-layout: fixed;
+	}
+	
+	.fdmspqcthead {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 3140px;
+		z-index: 99;
+	}
+	
+	.fdmsp_qc {
+		width: 3140px;
+		position: absolute;
+		top: 46px;
+	}
+	
+	.reset_qc {
+		float: right;
+		cursor: pointer;
+		border: 2px solid #99ccff;
+		border-radius: 3px;
+		background-color: transparent;
+		color: #555;
+	}
+	
+	.fdmqc_notice {
+		float: left;
+		color: red;
+		margin-top: 7px
+	}
+	
+	#uploader_failfdmqc {
+		position: absolute;
+		top: 5%;
+		left: 1%;
+		width: 98%;
+		background-color: #fff;
+		z-index: 999999;
+		text-align: center;
+		display: none;
+		height: 90%;
+		overflow-y: scroll;
+	}
+	
+	.fdmqc_close {
+		position: absolute;
+		top: 3.5%;
+		bottom: 0;
+		left: 98%;
+		z-index: 99999999;
+		color: red;
+	}
+	
+	.fdmqc_closeicon {
+		background: url(public/initialStage/images/alllicon.png) no-repeat 0px -574px;
+		display: inline-block;
+		width: 40px;
+		height: 20px;
+		cursor: pointer;
+	}
+	
+	.sel_qcbg {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 888;
+		background-color: rgba(0, 0, 0, .3);
+		display: none;
+	}
+	
+	#table_fdmspqc thead tr td select {
+		width: 0;
+		height: 0;
+		padding: 11px !important;
+		position: absolute;
+		z-index: 9999;
+		margin-left: 67px
+	}
+	
+	.webuploader-pick {
+		background: none;
+		border: none;
+	}
+	
+</style>
+<div class="pageHeader" style="overflow: hidden;">
+	<div class="borde_fdmspqc"></div>
+	<a class="headbutton_fdmspqc" onclick="tj_fdmspqc()"><span><i class="nav1_fdmspqc" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px 4px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保存刷新</i></span></a>
+	<div class="borde_fdmspqc"></div>
+	<a class="headbutton_fdmspqc" onclick="add_fdmspqc()"><span><i class="nav1_fdmspqc" style="height:16px;line-height: 20px;padding: 2px 4px;background: url(public/initialStage/images/alllicon.png) no-repeat 0px -554px;text-align:right;width: 40px;font-style:normal;">&nbsp;&nbsp;&nbsp;&nbsp;新增</i></span></a>
+
+	<div class="borde_fdmspqc" style="margin-right: 10px;"></div>
+	<button id="index_wxspqcbt" onclick="index_wxfdmspqc()">无效数据</button>
+	<button id="index_yxspqcbt" onclick="index_yxfdmspqc()">有效数据</button>
+
+	<span style="text-align: center;line-height: 20px; position: absolute;top: 6px;left: 250px;background: url(public/initialStage/images/alllicon.png)  no-repeat 0px -756px; width: 60px;height: 18px;">导入</span>
+	<div class="img-div">
+		<div class="left-div">
+			<span id="icon_selectqc" class="choose">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<input type="text" id="shop_icon" style="display: none;">
+		</div>
+		<div class="right-div" id="icon">
+		</div>
+	</div>
+</div>
+<div style="margin:5px 10px;">
+	<div class="fdmqc_notice">ps:产品信息必填项，否则不能保存哟！</div>
+	<button class="reset_qc" onclick="reset_fdmqc()">重置筛选</button>
+	<div style="clear: both"></div>
+</div>
+<div id="mengce_fdmqc"></div>
+<div class="sel_qcbg"> </div>
+<div class="fdmqc_close"> </div>
+<div id="uploader_failfdmqc">
+
+</div>
+<div class="pageContent" id="rendrTable_fdmspqc" style="width:100%; margin:0% 1% 1% 0%;" layoutH="70"></div>
+<script type="text/x-jsrender" id="tableContent_fdmspqc">
+	<table id="table_fdmspqc">
+		<thead class="fdmspqcthead">
+			<tr>
+				{{for data[0].tr}}
+				<td rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{/for}}
+				<td rowspan="2" colspan="1">操作</td>
+			</tr>
+			<tr>
+				{{for data[1].tr}} {{if (#getIndex()>=26)}}
+				<td rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+				{{else}}
+				<td rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}
+					<select class="fdmspqc-select{{:#getIndex()}}" onchange="chooseChange_qc(this,{{:#getIndex()}})">
+						<option style="background-color:#fff;" value="">全部</option>
+					</select>
+				</td>
+				{{/if}} {{/for}}
+			</tr>
+		</thead>
+		<tbody class="fdmsp_qc"></tbody>
+	</table>
+</script>
+<script type="text/x-jsrender" id="fdmspqc_tbody">
+	<tr>
+		{{for tr}} {{if dataType==0}}
+		<td class="td_spqc" colspan="{{:colspan}}" creattime="{{:create_time}}" rowspan="{{:rowspan}}" style="word-break:break-all;">{{:value}}</td>
+		{{else}}
+		<td name="{{:#getIndex()}}" class="td_spqc" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color: #ccffff; width:100px !important;" onclick="edit_FDMQC($(this))">
+			<input onblur="spjj_blurqc($(this))" onkeyup="spjj_keyupqc($(this))" type="text" style="width: 100% !important;" class="disable_spqc cannotbj" value="{{:value}}" />
+		</td>
+		{{/if}} {{/for}} {{if (#getIndex()==0)}}
+		<td class="td_spqc" style="width: 100px;">
+			<a style="float: none;"><span style="line-height: 20px;"></span></a>
+		</td>
+		{{else}}
+		<td class="td_spqc" style="width: 100px;">
+			<a class="deletebt" onclick="deleteOne_qc(this)" style="float: none;"><span style="line-height: 20px;">删除</span></a>
+		</td>
+		{{/if}}
+	</tr>
+</script>
+<script type="text/javascript" language="javascript">
+	
+	
+
+	//表头固定
+	$('#rendrTable_fdmspqc').scroll(function(top) {
+		$('#rendrTable_fdmspqc thead').css('top', $(this).scrollTop() + 'px');
+	});
+
+	function index_yxfdmspqc() {
+		fdmspqc_flag = false;
+		$("#fdmspszqcTab").trigger("click");
+	}
+
+	function index_wxfdmspqc() {
+		fdmspqc_flag = true;
+		$("#fdmspszqcTab").trigger("click");
+	}
+
+	//获取提交数据
+	function tj_fdmspqc() {
+		if($(".errorData4").length) {
+			alertMsg.warn("请检查红框数据后再提交");
+			return;
+		}
+		for(var i = 0; i < 26; i++) {
+			if($(".fdmspqc-select" + i).find("option:selected").text() != "全部") {
+				alertMsg.warn("需重置筛选后提交");
+				return;
+			}
+		}
+		getdata_qc = [];
+		k = 0;
+		addindex_creat = [];
+		for(var i = 0; i < Math.floor($(".fdmsp_qc tr").length); i++) {
+			for(var j = 0; j < 30; j++) {
+				if(j == 0) { //产品简称
+					if(getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(0).find("input").length) {
+						getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(0).find("input").val();
+					} else {
+						getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(0).text();
+					}
+				} else if(j == 10) { //规格
+					if(getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(10).find("input").length) {
+						getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(10).find("input").val();
+					} else {
+						getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(10).text();
+					}
+				} else if(j == 25) { //其它
+					if(getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(25).find("input").length) {
+						getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(25).find("input").val();
+					} else {
+						getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(25).text();
+					}
+				} else if(j == 26) { //期初数量
+					getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(26).find("input").val();
+				} else if(j == 27) { //本月单价
+					getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(27).find("input").val();
+				} else if(j == 28) { //下月单价
+					getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(28).find("input").val();
+				} else if(j == 29) { //金额
+					getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(29).text();
+				} else {
+					if($(".fdmsp_qc tr").eq(i).find("td").eq(j).find("select").length) {
+						getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(j).find("select").val();
+					} else {
+						getdata_qc[k] = $(".fdmsp_qc tr").eq(i).find("td").eq(j).text();
+					}
+				}
+				k++;
+			}
+			//create_time
+			addindex_creat[i] = $(".fdmsp_qc tr").eq(i).find("td").eq(1).attr("creattime");
+
+		}
+		//处理提交数据
+		var array_data = [];
+		for(var i = 0; i < (getdata_qc.length / 30); i++) {
+			array_data[i] = {
+				"shangpinjc": getdata_qc[i * 30 + 0],
+				"zhizaobm": getdata_qc[i * 30 + 1],
+				"dingdanlb": getdata_qc[i * 30 + 2],
+				"dangci": getdata_qc[i * 30 + 3],
+				"menkuang": getdata_qc[i * 30 + 4],
+				"kuanghou": getdata_qc[i * 30 + 5],
+				"qianbanhou": getdata_qc[i * 30 + 6],
+				"houbanhou": getdata_qc[i * 30 + 7],
+				"dikuangcl": getdata_qc[i * 30 + 8],
+				"menshan": getdata_qc[i * 30 + 9],
+				"guige": getdata_qc[i * 30 + 10],
+				"kaixiang": getdata_qc[i * 30 + 11],
+				"jiaolian": getdata_qc[i * 30 + 12],
+				"huase": getdata_qc[i * 30 + 13],
+				"biaomianfs": getdata_qc[i * 30 + 14],
+				"biaomianyq": getdata_qc[i * 30 + 15],
+				"chuanghua": getdata_qc[i * 30 + 16],
+				"maoyan": getdata_qc[i * 30 + 17],
+				"biaopai": getdata_qc[i * 30 + 18],
+				"zhusuo": getdata_qc[i * 30 + 19],
+				"fusuo": getdata_qc[i * 30 + 20],
+				"suoba": getdata_qc[i * 30 + 21],
+				"biaojian": getdata_qc[i * 30 + 22],
+				"baozhuangpp": getdata_qc[i * 30 + 23],
+				"baozhuangfs": getdata_qc[i * 30 + 24],
+				"qita": getdata_qc[i * 30 + 25],
+				"qichusl": getdata_qc[i * 30 + 26],
+				"benyuedj": getdata_qc[i * 30 + 27],
+				"xiayuedj": getdata_qc[i * 30 + 28],
+				"qichuje": getdata_qc[i * 30 + 29],
+				"create_time": addindex_creat[i]
+			}
+			if(getdata_qc[i * 30 + 1] == "") {
+				alertMsg.warn("保存失败，制造部门必填！如不填写请先删除！")
+				return;
+			}
+			if(getdata_qc[i * 30 + 27] == "") {
+				alertMsg.warn("保存失败，期初数量必填！");
+				return;
+			}
+			if(getdata_qc[i * 30 + 28] == "") {
+				alertMsg.warn("保存失败，本月单价必填！");
+				return;
+			}
+			if(getdata_qc[i * 30 + 29] == "") {
+				alertMsg.warn("保存失败，下月单价必填！")
+				return;
+			}
+		}
+		for(var i = 0; i < $(".fdmsp_qc select").length * 5; i++) {
+			var selectval = $(".fdmsp_qc select").eq(0).val();
+			$(".fdmsp_qc select").eq(0).parent().text(selectval);
+		}
+		var selectval = $(".fdmsp_qc select").eq(0).val();
+		$(".fdmsp_qc select").eq(0).parent().text(selectval);
+
+		for(var i = 0; i < $(".fdmsp_qc select").length * 5; i++) {
+			var selectval = $(".fdmsp_qc select").eq(0).val();
+			$(".fdmsp_qc select").eq(0).parent().text(selectval);
+
+		}
+		var selectval = $(".fdmsp_qc select").eq(0).val();
+		$(".fdmsp_qc select").eq(0).parent().text(selectval);
+		$(".fdmsp_qc tr td input").css({ "text-align": "center", "border": "none" });
+		var addnewtj_qcurl = fdmUrl1 + "SPZMXlist/submit/type/";
+
+		if(fdmspqc_flag) {
+			if($("tbody.fdmsp_qc tr").length == 1) {
+				addnewtj_qcurl += "0/delete/1/token/" + token;
+			} else {
+				addnewtj_qcurl += "0/token/" + token;
+			}
+		} else {
+			if($("tbody.fdmsp_qc tr").length == 1) {
+				addnewtj_qcurl += "1/delete/1/token/" + token;
+			} else {
+				addnewtj_qcurl += "1/token/" + token;
+			}
+		}
+		$.ajax({
+			type: "post",
+			url: addnewtj_qcurl,
+			async: false,
+			dataType: 'json',
+			data: JSON.stringify({ "data": array_data }),
+			success: function(data) {
+				if(isDataValid(data.error)) {
+					$(".sel_qcbg").css("display", "block");
+					$("#uploader_failfdmqc").css("display", "block");
+					$(".fdmqc_close").append('<span class="fdmqc_closeicon"  onclick="closetk_spqc()" />');
+					showFaildata_qc(data);
+				} else {
+					alertMsg.correct("保存成功");
+					navTab._reload(navTab._getTab("new_fdmspqc1"), true);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("XMLHttpRequest:" + XMLHttpRequest + ",textStatus:" + textStatus + ",errorThrown:" + errorThrown);
+			}
+		});
+	}
+
+	//获得焦点时
+	function get_nbqc(obj) {
+		$(obj).parent().parent().find("td").eq(29).text(($(obj).parent().parent().find("td").eq(27).find("input").val() * $(obj).parent().parent().find("td").eq(26).find("input").val()).toFixed(2));
+	}
+
+	//商品简称失去焦点
+	function spjj_blurqc(obj) {
+		$(obj).parent().css({
+			"border": "none",
+			"border-left": "1px solid #C0C0C0",
+			"border-bottom": "1px solid #c0c0c0"
+		});
+		
+	}
+	
+	
+	function spjj_keyupqc(obj){
+		$(obj).parent().parent().find("td").eq(29).text(($(obj).parent().parent().find("td").eq(27).find("input").val() * $(obj).parent().parent().find("td").eq(26).find("input").val()).toFixed(2));
+	}
+	//编辑input
+	function edit_FDMQC(obj) {
+		obj.css("border", "2px solid #000");
+	};
+
+	//失去焦点时判断
+	function lose_countqc(obj) {
+		$(obj).parent().css({
+			"border": "none",
+			"border-left": "1px solid #C0C0C0",
+			"border-bottom": "1px solid #c0c0c0"
+		});
+
+		var reg = new RegExp("^[0-9]+(\.[0-9]{2})?$");
+		var reg2 = new RegExp("^[0-9]+(\.[0-9]{1})?$");
+		var textn = $(obj).val();
+		var result = reg.test(textn);
+		var result2 = reg2.test(textn);
+
+		var shuliang = $(obj).parent().parent().find("td").eq(26).find("input").val(); //数量
+		var regshuliang = new RegExp("^[0-9]*$");
+		var text1 = $(obj).val();
+		var result3 = regshuliang.test(shuliang);
+		if(!result3) {
+			//alertMsg.info("数量请输入正整数");
+			$(obj).val(parseInt(shuliang));
+			return;
+		}
+		if(textn) {
+			if(!result && !result2) {
+				if($(obj).val() == $(obj).parent().parent().find("td").eq(26).find("input").val()) {
+					return;
+				}
+				alertMsg.info("请输入数字最多保留两位小数可以为空！");
+				$(obj).val("");
+				return;
+			}
+		}
+		$(obj).parent().parent().find("td").eq(29).text(($(obj).parent().parent().find("td").eq(26).find("input").val() * $(obj).parent().parent().find("td").eq(27).find("input").val()).toFixed(2));
+		if($(obj).val() == "") {
+			$(obj).val(0);
+		}
+	}
+	//键盘输入时判断
+	function checkFloat_qc(obj) {
+		var reg = new RegExp("^[0-9]+(\.[0-9]{2})?$");
+		var reg2 = new RegExp("^[0-9]+(\.[0-9]{1})?$");
+		var reg3 = new RegExp("^[0-9]+(\.[0-9]{0})?$");
+		var textn = $(obj).val();
+		var result = reg.test(textn);
+		var result2 = reg2.test(textn);
+		var result3 = reg3.test(textn);
+		if(textn) {
+			if(!result && !result2 && !result3) {
+				if($(obj).val() == $(obj).parent().parent().find("td").eq(26).find("input").val()) {
+					return;
+				}
+				alertMsg.info("请输入数字最多保留两位小数可以为空！");
+				$(obj).val("0");
+				return;
+			}
+		}
+		obj.parent().parent().find("td").eq(29).text(($(obj).parent().parent().find("td").eq(26).find("input").val() * parseInt((obj).parent().parent().find("td").eq(27).find("input").val())).toFixed(2));
+		if(obj.parent().parent().find("td").eq(29).text() == "NaN") {
+			obj.parent().parent().find("td").eq(29).text("0.00");
+		}
+	}
+
+	function checkInt_qc(obj) {
+		$(obj).val($(obj).val().replace(/[^\d.]/g, ''));
+	}
+
+	//导入后错误信息列表显示
+	function showFaildata_qc(response) {
+		var item = response.error;
+		var k = "";
+		k += '<table class="" id="" border="0" cellspacing="0" cellpadding="0" style="width:2000px;color:#555;font-size: small;">' +
+			'<thead>' +
+			'<tr>' +
+			'<td class="entryinid_thfdmspqc1" rowspan="1" colspan="31" style="width: 80px;text-align: center;">错误数据显示</td>' +
+			'</tr>' +
+			'<tr>' +
+			'<td class="entryinid_thfdmspqc1"  style="width: 25px;">行数</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">产品简称</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">制造部门</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">订单类别</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">档次</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">门框</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">框厚</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">前板厚</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">后板厚</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">底框材料</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">门扇</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">规格</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">开向</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">铰链</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">花色</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">表面方式</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">表面要求</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">窗花</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">猫眼</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">标牌</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">主锁</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">副锁</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">锁把</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">标件</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">包装品牌</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">包装方式</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 80px;text-align: center;">其它</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 30px;text-align: center;">期初数量</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 30px;text-align: center;">本月单价</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 30px;text-align: center;">下月单价</td>' +
+			'<td class="entryinid_thfdmspqc1" style="width: 200px;text-align: center;">备注</td>' +
+			'</tr>' +
+			'</thead>' +
+			'<tbody>'
+		for(var s = 0; s < item.length; s++) {
+
+			k += '<tr>'
+			for(var j = 0; j < item[s].length; j++) {
+				if(item[s][j].type == 0) {
+					k += '<td class="failtable_tdqc" style="color: red;" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				} else {
+					k += '<td class="failtable_tdqc" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				}
+
+			}
+			k += '</tr>'
+		}
+		k += '</tbody></table>'
+		$("#uploader_failfdmqc").append(k);
+	}
+</script>

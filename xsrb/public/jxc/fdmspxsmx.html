@@ -1,0 +1,2100 @@
+<script type="text/javascript">
+	$(function() {
+		document.body.onselectstart = function() {
+			return false;
+		} //关闭IE中的文字选中，使其支持拖拽选中
+		var flag_enter_FDMKC = false,
+			type_FDMKC = 111,
+			down_fdmkc = 0, //光标下移
+			up_fdmkc = 1, //光标上移
+			right_fdmkc = 2, //光标右移
+			left_fdmkc = 3, //光标左移
+			fdm_xstr = 0,
+			fdm_itemlength, serviceTime_fdmxs;
+		//默认查询服务器时间
+		$("#sdate_FDMSPXSMX").val(getServiceTime_fdmxs());
+		$("#edate_FDMSPXSMX").val(getServiceTime_fdmxs());
+
+		get_fdmxsData();
+		//提交
+		$("#save_fdmxs").click(function() {
+			tj_fdmxs();
+		})
+
+	});
+	var postUrl_fdmxs;
+	postUrl_fdmxs = fdmUrl1 + "FDMXSMX/loadingExcelXsmx/type/1/token/" + token;
+	$("#yx_fdmxs").css({ "border": "2px solid #add2db" });
+	//对输入框的值进行编辑时的UI效果显示
+	function edit_FDMXS(obj) {
+		obj.css("border", "2px solid #000");
+		$(obj).children().select();
+	};
+	//失去焦点
+	function onblur_fdmxs(obj) {
+		$(obj).parent().css({
+			"border": "none",
+			"border-right": "1px solid #C0C0C0",
+			"border-bottom": "1px solid #c0c0c0"
+		});
+		$(obj).css("border", "0px solid #000");
+	}
+	//显示有效数据
+	function yxcx_fdmxs() {
+		spxsmx_flag = false;
+		$("#login_spxsmx").trigger("click");
+		$("#yx_fdmxs").css({ "border": "2px solid #add2db" });
+	}
+
+	function checkfloat1(obj) {
+		$(obj).val($(obj).val().replace(/[^\-\d.]/g, ''));
+		countall_fdmxs(obj);
+	}
+
+	function checkfloat(obj) {
+		$(obj).val($(obj).val().replace(/[^\d.]/g, ''));
+		countall_fdmxs(obj);
+	}
+
+	function checkint_xs(obj) {
+		$(obj).val($(obj).val().replace(/[^\-\d]/g, ''));
+		countall_fdmxs(obj);
+	}
+	//计算
+	function countall_fdmxs(obj) {
+		if($(obj).parent().parent().find("td").eq(35).find("input").val() != "" && $(obj).parent().parent().find("td").eq(36).find("input").val() != "") {
+			$(obj).parent().parent().find("td").eq(38).find("input").val($(obj).parent().parent().find("td").eq(35).find("input").val() * $(obj).parent().parent().find("td").eq(36).find("input").val());
+		} else {
+			$(obj).parent().parent().find("td").eq(38).find("input").val("0");
+			$(obj).parent().parent().find("td").eq(41).find("input").val("0");
+		}
+		if($(obj).parent().parent().find("td").eq(35).find("input").val() != "" && $(obj).parent().parent().find("td").eq(37).find("input").val() != "") {
+			$(obj).parent().parent().find("td").eq(39).find("input").val($(obj).parent().parent().find("td").eq(35).find("input").val() * $(obj).parent().parent().find("td").eq(37).find("input").val());
+		} else {
+			$(obj).parent().parent().find("td").eq(39).find("input").val("0");
+		}
+		if($(obj).parent().parent().find("td").eq(38).find("input").val() != "" && $(obj).parent().parent().find("td").eq(39).find("input").val() != "") {
+			$(obj).parent().parent().find("td").eq(40).find("input").val($(obj).parent().parent().find("td").eq(38).find("input").val() - $(obj).parent().parent().find("td").eq(39).find("input").val());
+		} else {
+			$(obj).parent().parent().find("td").eq(40).find("input").val("0");
+		}
+		if($(obj).parent().parent().find("td").eq(40).find("input").val() != 0 && $(obj).parent().parent().find("td").eq(38).find("input").val() != 0) {
+			$(obj).parent().parent().find("td").eq(41).find("input").val(($(obj).parent().parent().find("td").eq(40).find("input").val() / $(obj).parent().parent().find("td").eq(38).find("input").val()).toFixed(7));
+		} else {
+			$(obj).parent().parent().find("td").eq(41).find("input").val("0");
+		}
+	}
+	//初始数据查询
+	function get_fdmxsData() {
+		var sdate = $("#sdate_FDMSPXSMX").val().replace(/\-/g, "");
+		var edate = $("#edate_FDMSPXSMX").val().replace(/\-/g, "");
+		serviceTime_fdmxs = getServiceTime_fdmxs();
+		fdmsp_xsurl = fdmUrl1 + "FDMXSMX/search/sdate/" + sdate + "/edate/" + edate + "/token/" + token;
+
+		$.ajax({
+			type: "get",
+			url: fdmsp_xsurl,
+			async: true,
+			cache: false,
+			dataType: "json",
+			success: function(data) {
+				if(data.resultcode == -1) {
+					alertMsg.warn(data.resultmsg);
+					return;
+				}
+				if(data.resultcode == -2) {
+					alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				$("#rendrTable_xsmx").html("");
+				var tableContent = $("#tableContent_xsmx").render(data);
+				$("#rendrTable_xsmx").append(tableContent);
+				FDMXSMX_data = data;
+				show_xsbody(data);
+				fdm_itemlength = data.data.info.length;
+				localStorage.setItem("checked_xscpxx", 0);
+				localStorage.setItem("checked_xskhxx", 0);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.warn(errorThrown);
+			}
+		});
+	};
+	//查询
+	$(".btncx_fdmxs").click(function() {
+		get_fdmxsData();
+	});
+	//弹框
+	function show_xsbody(data) {
+		fdm_xstr = $(".tbxs tr").length - 1;
+		if(data.data.info.length > 500) {
+			initBody_fdmxs(data.data.info.slice(0, 500)); //渲染body
+			loadmore_fdmxs(data.data.info.slice(500));
+		} else {
+			initBody_fdmxs(data.data.info); //渲染body
+		}
+		$($('.sel_head td')[8]).append('<select class="seleshangpinjc" onchange="cgData_xs(\'shangpinjc\',8)"><option value="">全部</option></select>');
+		$($('.sel_head td')[9]).append('<select class="selezhizaobm" onchange="cgData_xs(\'zhizaobm\',9)"><option value="">全部</option></select>');
+		$($('.sel_head td')[10]).append('<select class="seledingdanlb" onchange="cgData_xs(\'dingdanlb\',10)"><option value="">全部</option></select>');
+		$($('.sel_head td')[11]).append('<select class="seledangci" onchange="cgData_xs(\'dangci\',11)"><option value="">全部</option></select>');
+		$($('.sel_head td')[12]).append('<select class="selemenkuang" onchange="cgData_xs(\'menkuang\',12)"><option value="">全部</option></select>');
+		$($('.sel_head td')[13]).append('<select class="selekuanghou" onchange="cgData_xs(\'kuanghou\',13)"><option value="">全部</option></select>');
+		$($('.sel_head td')[14]).append('<select class="seleqianbanhou" onchange="cgData_xs(\'qianbanhou\',14)"><option value="">全部</option></select>');
+		$($('.sel_head td')[15]).append('<select class="selehoubanhou" onchange="cgData_xs(\'houbanhou\',1154)"><option value="">全部</option></select>');
+		$($('.sel_head td')[16]).append('<select class="seledikuangcl" onchange="cgData_xs(\'dikuangcl\',16)"><option value="">全部</option></select>');
+		$($('.sel_head td')[17]).append('<select class="selemenshan" onchange="cgData_xs(\'menshan\',17)"><option value="">全部</option></select>');
+		$($('.sel_head td')[18]).append('<select class="seleguige" onchange="cgData_xs(\'guige\',18)"><option value="">全部</option></select>');
+		$($('.sel_head td')[19]).append('<select class="selekaixiang" onchange="cgData_xs(\'kaixiang\',19)"><option value="">全部</option></select>');
+		$($('.sel_head td')[20]).append('<select class="selejiaolian" onchange="cgData_xs(\'jiaolian\',20)"><option value="">全部</option></select>');
+		$($('.sel_head td')[21]).append('<select class="selehuase" onchange="cgData_xs(\'huase\',21)"><option value="">全部</option></select>');
+		$($('.sel_head td')[22]).append('<select class="selebiaomianfs" onchange="cgData_xs(\'biaomianfs\',22)"><option value="">全部</option></select>');
+		$($('.sel_head td')[23]).append('<select class="selebiaomianyq" onchange="cgData_xs(\'biaomianyq\',23)"><option value="">全部</option></select>');
+		$($('.sel_head td')[24]).append('<select class="selechuanghua" onchange="cgData_xs(\'chuanghua\',24)"><option value="">全部</option></select>');
+		$($('.sel_head td')[25]).append('<select class="selemaoyan" onchange="cgData_xs(\'maoyan\',25)"><option value="">全部</option></select>');
+		$($('.sel_head td')[26]).append('<select class="selebiaopai" onchange="cgData_xs(\'biaopai\',26)"><option value="">全部</option></select>');
+		$($('.sel_head td')[27]).append('<select class="selezhusuo" onchange="cgData_xs(\'zhusuo\',27)"><option value="">全部</option></select>');
+		$($('.sel_head td')[28]).append('<select class="selefusuo" onchange="cgData_xs(\'fusuo\',28)"><option value="">全部</option></select>');
+		$($('.sel_head td')[29]).append('<select class="selesuoba" onchange="cgData_xs(\'suoba\',29)"><option value="">全部</option></select>');
+		$($('.sel_head td')[30]).append('<select class="selebiaojian" onchange="cgData_xs(\'biaojian\',30)"><option value="">全部</option></select>');
+		$($('.sel_head td')[31]).append('<select class="selebaozhuangpp" onchange="cgData_xs(\'baozhuangpp\',31)"><option value="">全部</option></select>');
+		$($('.sel_head td')[32]).append('<select class="selebaozhuangfs" onchange="cgData_xs(\'baozhuangfs\',32)"><option value="">全部</option></select>');
+		$($('.sel_head td')[33]).append('<select class="seleqita" onchange="cgData_xs(\'qita\',33)"><option value="">全部</option></select>');
+		$($('.sel_head td')[34]).append('<select class="selexiaoshoums" onchange="cgData_xs(\'xiaoshoums\',34)"><option value="">全部</option></select>');
+		$($('.sel_head td')[44]).append('<select class="seletihuofs" onchange="cgData_xs(\'tihuofs\',44)"><option value="">全部</option></select>');
+
+		getThead_fdmxs(data.data.info);
+		if(isDataValid(data.data.error)) {
+			$(".tk_xsbg").css({ "display": "block" });
+			$("#uploaderfail_xs").css("display", "block");
+			$(".fdmxs_close1").append('<span class="fdmxs_closeicon"  onclick="closeqc_xs()" />');
+			// $(".fdmxs_close1").css("left","92%");
+			showFaildataqc_xs(data.data);
+			localStorage.setItem("faildqc_xs", JSON.stringify(data.data.error));
+		} else {
+			// alertMsg.warn(response.resultmsg);
+		}
+	}
+
+	//渲染列表
+	function initBody_fdmxs(item) {
+		var k = "";
+		var item = item;
+		$("tbody.tbxs").empty();
+		if(item.length != 0) {
+			for(var i = 0; i < item.length; i++) {
+				k += '<tr class="fdm_xstr' + i + ' olddata">' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + item[i].date + '"><span class="khmsg">' + item[i].product_md5 + '</span></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].name == null ? "" : item[i].name) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].level == null ? "" : item[i].level) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].addr_province == null ? "" : item[i].addr_province) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].addr_city == null ? "" : item[i].addr_city) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].addr_country == null ? "" : item[i].addr_country) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].addr_detail == null ? "" : item[i].addr_detail) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].phone == null ? "" : item[i].phone) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + item[i].shangpinjc + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].zhizaobm + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].dingdanlb + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].dangci + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].menkuang + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].kuanghou + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].qianbanhou + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].houbanhou + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].dikuangcl + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].menshan + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].guige + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].kaixiang + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].jiaolian + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].huase + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].biaomianfs + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].biaomianyq + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].chuanghua + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].maoyan + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input  readonly="readonly" type="text" value="' + item[i].biaopai + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].zhusuo + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].fusuo + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].suoba + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].biaojian + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].baozhuangpp + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].baozhuangfs + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].qita + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><select class="select_xs"> <option readonly="readonly" value="' + item[i].xiaoshoums + '">' + item[i].xiaoshoums + '</option> </select></td>' +
+					'<td class="td_xs" style="background-color: rgb(204, 255, 255);width:104px;"  onclick="edit_FDMXS($(this))" colspan="1"><input type="text" class="disable_xs textInput_xs" onblur="onblur_fdmxs(this)" onkeyup="checkint_xs(this)" value="' + item[i].xiaoliang + '"></td>' +
+					'<td class="td_xs" style="background-color: rgb(204, 255, 255);width:104px;"  onclick="edit_FDMXS($(this))" colspan="1"><input type="text" class="disable_xs textInput_xs" onblur="onblur_fdmxs(this)" onkeyup="checkfloat1(this)" value="' + item[i].xiaoshoudj + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input type="text" class="disable_xs textInput_xs" readonly="readonly" value="' + item[i].chengbendj + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input type="text"  class="disable_xs textInput_xs" readonly="readonly" value="' + item[i].xiaoshousr + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input type="text"class="disable_xs textInput_xs" readonly="readonly" value="' + item[i].xiaoshoucb + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input type="text" class="disable_xs textInput_xs" readonly="readonly" value="' + item[i].maoli + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input type="text" class="disable_xs textInput_xs" readonly="readonly" value="' + item[i].maolil + '"></td>' +
+					'<td class="td_xs" style="background-color: rgb(204, 255, 255);width:104px;" onclick="edit_FDMXS($(this))" colspan="1"><input type="text" class="disable_xs textInput_xs" onblur="onblur_fdmxs(this)" onkeyup="checkfloat1($(this))" value="' + item[i].diaobofy + '"></td>' +
+					'<td class="td_xs" style="background-color: rgb(204, 255, 255);width:104px;" onclick="edit_FDMXS($(this))" colspan="1"><input type="text" class="disable_xs textInput_xs" onblur="onblur_fdmxs(this)" onkeyup="checkfloat($(this))" value="' + item[i].qiankuane + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><select class="select_xs"> <option value="' + item[i].tihuofs + '">' + item[i].tihuofs + '</option> </select></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input type="text" class="disable_xs textInput_xs" value="' + item[i].jingshour + '"></td>' +
+					'<td class="td_xs" style="width:118px;" colspan="1">' +
+					'<a class="fdmxs_sc" style="text-decoration: none;width:118px;" class="headbutton_fdmxs" onclick="deleteOne_xs(this)" style="float: none;">删除</a>' +
+					'</td>' +
+					'</tr>';
+			}
+			$(".tbxs").append(k);
+			//遍历每一行数据，当日期不是当日则隐藏删除按钮（当日前的数据不可改）
+			for(s = 0; s < Math.floor($(".tbxs tr").length); s++) {
+				$(".tbxs tr").eq(s).find("td").eq(34).find("select option").css("visibility", "visible");
+				$(".tbxs tr").eq(s).find("td").eq(44).find("select option").css("visibility", "visible");
+				if($(".tbxs tr").eq(s).find("td").eq(0).find("input").val() != serviceTime_fdmxs) {
+					$(".tbxs tr").eq(s).find("td").eq(46).find("a").css({ "color": "lightgrey", "cursor": 'not-allowed' });
+				}
+			}
+		} else {
+			addtr_xs(0);
+		}
+		$("tr.olddata .td_xs").click(function(){
+			$(this).parent("tr").addClass("addColor");
+			$(this).parent("tr").find("input").addClass("addColor");
+			$(this).parent("tr").siblings(".addColor").removeClass("addColor");
+			$(this).parent("tr").siblings().find("input").removeClass("addColor");
+		
+		});
+	}
+	//加载更多
+	function loadmore_fdmxs(item) {
+		var k = "";
+		if(item.length != 0) {
+			for(var i = 0; i < item.length; i++) {
+				k += '<tr class="fdm_xstr' + i + ' olddata">' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + item[i].date + '"><span class="khmsg">' + item[i].product_md5 + '</span></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].name == null ? "" : item[i].name) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].level == null ? "" : item[i].level) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].addr_province == null ? "" : item[i].addr_province) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].addr_city == null ? "" : item[i].addr_city) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].addr_country == null ? "" : item[i].addr_country) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].addr_detail == null ? "" : item[i].addr_detail) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + (item[i].phone == null ? "" : item[i].phone) + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input readonly="readonly" type="text" value="' + item[i].shangpinjc + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].zhizaobm + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].dingdanlb + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].dangci + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].menkuang + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].kuanghou + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].qianbanhou + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].houbanhou + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].dikuangcl + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].menshan + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].guige + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].kaixiang + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].jiaolian + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].huase + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].biaomianfs + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].biaomianyq + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].chuanghua + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].maoyan + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input  readonly="readonly" type="text" value="' + item[i].biaopai + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].fusuo + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].zhusuo + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].suoba + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].biaojian + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].baozhuangpp + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].baozhuangfs + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><input readonly="readonly" type="text" value="' + item[i].qita + '"></input></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1" ><select class="select_xs"> <option readonly="readonly" value="' + item[i].xiaoshoums + '">' + item[i].xiaoshoums + '</option> </select></td>' +
+					'<td class="td_xs" style="background-color: rgb(204, 255, 255);width:104px;"  onclick="edit_FDMXS($(this))" colspan="1"><input type="text" class="disable_xs textInput_xs" onblur="onblur_fdmxs(this)" onkeyup="checkint_xs(this)" value="' + item[i].xiaoliang + '"></td>' +
+					'<td class="td_xs" style="background-color: rgb(204, 255, 255);width:104px;"  onclick="edit_FDMXS($(this))" colspan="1"><input type="text" class="disable_xs textInput_xs" onblur="onblur_fdmxs(this)" onkeyup="checkfloat1(this)" value="' + item[i].xiaoshoudj + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input type="text" class="disable_xs textInput_xs" readonly="readonly" value="' + item[i].chengbendj + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input type="text"  class="disable_xs textInput_xs" readonly="readonly" value="' + item[i].xiaoshousr + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input type="text"class="disable_xs textInput_xs" readonly="readonly" value="' + item[i].xiaoshoucb + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input type="text" class="disable_xs textInput_xs" readonly="readonly" value="' + item[i].maoli + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input type="text" class="disable_xs textInput_xs" readonly="readonly" value="' + item[i].maolil + '"></td>' +
+					'<td class="td_xs" style="background-color: rgb(204, 255, 255);width:104px;" onclick="edit_FDMXS($(this))" colspan="1"><input type="text" class="disable_xs textInput_xs" onblur="onblur_fdmxs(this)" onkeyup="checkfloat1($(this))" value="' + item[i].diaobofy + '"></td>' +
+					'<td class="td_xs" style="background-color: rgb(204, 255, 255);width:104px;" onclick="edit_FDMXS($(this))" colspan="1"><input type="text" class="disable_xs textInput_xs" onblur="onblur_fdmxs(this)" onkeyup="checkfloat($(this))" value="' + item[i].qiankuane + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><select class="select_xs"> <option value="' + item[i].tihuofs + '">' + item[i].tihuofs + '</option> </select></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1"><input type="text" class="disable_xs textInput_xs" value="' + item[i].jingshour + '"></td>' +
+					'<td class="td_xs" style="width:104px;" colspan="1">' +
+					'<a class="fdmxs_sc" style="text-decoration: none;width:118px;" class="headbutton_fdmxs" onclick="deleteOne_xs(this)" style="float: none;"><span style="line-height: 26px;width: 104px;">删除</span></a>' +
+					'</td>' +
+					'</tr>';
+			}
+			$(".tbxs").append(k);
+			//遍历每一行数据，当日期不是当日则隐藏删除按钮（当日前的数据不可改）
+			for(s = 0; s < Math.floor($(".tbxs tr").length); s++) {
+				$(".tbxs tr").eq(s).find("td").eq(34).find("select option").css("visibility", "visible");
+				$(".tbxs tr").eq(s).find("td").eq(44).find("select option").css("visibility", "visible");
+				if($(".tbxs tr").eq(s).find("td").eq(0).find("input").val() != serviceTime_fdmxs) {
+					$(".tbxs tr").eq(s).find("td").eq(46).find("a").css({ "color": "lightgrey", "cursor": 'not-allowed' });
+				}
+			}
+		} else {
+			addtr_xs(0);
+		}
+	}
+	//产品信息重置筛选
+	var selArr = {};
+
+	function cgData_xs(sele, _index) {
+		var data = FDMXSMX_data.data.info;
+		selArr[sele] = $('.sele' + sele).val();
+		for(var k in selArr) {
+			data = filter_fdmxs(data, selArr[k], k);
+		}
+		if(data.length > 500) {
+			initBody_fdmxs(data.slice(0, 500)); //渲染body
+			loadmore_fdmxs(data.slice(500));
+		} else {
+			initBody_fdmxs(data); //渲染body
+		}
+	}
+	//数据去空
+	function filter_fdmxs(arr, str, index) {
+		if(str == '') {
+			return arr;
+		}
+		return $.map(arr, function(value) {
+			return value[index] == str ? value : null;
+		});
+	}
+	//获取表头数据
+	function getThead_fdmxs(arr) {
+		var theadObj_fdmxs = {};
+		for(var j = 0; j < arr.length; j++) {
+			for(var k in arr[j]) {
+				if(theadObj_fdmxs[k] == undefined || theadObj_fdmxs[k] == '') {
+					theadObj_fdmxs[k] = [];
+				}
+				if(theadObj_fdmxs[k].indexOf(arr[j][k]) == -1) {
+					if(arr[j][k] != "") {
+						theadObj_fdmxs[k].push(arr[j][k]);
+					}
+				}
+			}
+		}
+		for(var k in theadObj_fdmxs) {
+			for(var n = 0; n < theadObj_fdmxs[k].length; n++) {
+				$('.sele' + k).append('<option>' + theadObj_fdmxs[k][n] + '</option>');
+			}
+		}
+	}
+	//错误期初数据显示
+	function showFaildataqc_xs(data) {
+		var item = data.error;
+		var k = "";
+		k += '<table class="" id="" border="0" cellspacing="0" cellpadding="0" style="width:2400px;color:#555;font-size: small;">' +
+			'<thead>' +
+			'<tr>' +
+			'<td class="td_failqc" rowspan="1" colspan="29">错误期初数据显示</td>' +
+			'</tr>' +
+			'<tr>' +
+			'<td class="td_failqc w40">行数</td>' +
+			'<td  class="td_failqc w100" rowspan="1" colspan="1">日期</td>' +
+			'<td  class="td_failqc w90" rowspan="1" colspan="1">商品简称</td>' +
+			'<td  class="td_failqc w110" rowspan="1" colspan="1">制造部门</td>' +
+			'<td  class="td_failqc w110" rowspan="1" colspan="1">订单类别</td>' +
+			'<td  class="td_failqc w100" rowspan="1" colspan="1">档次</td>' +
+			'<td  class="td_failqc w100" rowspan="1" colspan="1">门框</td>' +
+			'<td  class="td_failqc w50" rowspan="1" colspan="1">框厚</td>' +
+			'<td  class="td_failqc w60" rowspan="1" colspan="1">前板厚</td>' +
+			'<td  class="td_failqc w60" rowspan="1" colspan="1">后板厚</td>' +
+			'<td  class="td_failqc w70" rowspan="1" colspan="1">底框材料</td>' +
+			'<td  class="td_failqc w90" rowspan="1" colspan="1">门扇</td>' +
+			'<td  class="td_failqc w80" rowspan="1" colspan="1">规格</td>' +
+			'<td  class="td_failqc w60" rowspan="1" colspan="1">开向</td>' +
+			'<td  class="td_failqc w100" rowspan="1" colspan="1">铰链</td>' +
+			'<td  class="td_failqc w90" rowspan="1" colspan="1">花色</td>' +
+			'<td  class="td_failqc w90" rowspan="1" colspan="1">表面方式</td>' +
+			'<td  class="td_failqc w90" rowspan="1" colspan="1">表面要求</td>' +
+			'<td  class="td_failqc w130" rowspan="1" colspan="1">窗花</td>' +
+			'<td  class="td_failqc w130" rowspan="1" colspan="1">猫眼</td>' +
+			'<td  class="td_failqc w80" rowspan="1" colspan="1">标牌</td>' +
+			'<td  class="td_failqc w100" rowspan="1" colspan="1">主锁</td>' +
+			'<td  class="td_failqc w100" rowspan="1" colspan="1">副锁</td>' +
+			'<td  class="td_failqc w100" rowspan="1" colspan="1">锁把</td>' +
+			'<td  class="td_failqc w90" rowspan="1" colspan="1">标件</td>' +
+			'<td  class="td_failqc w120" rowspan="1" colspan="1">包装品牌</td>' +
+			'<td  class="td_failqc w90" rowspan="1" colspan="1">包装方式</td>' +
+			'<td  class="td_failqc w90" rowspan="1" colspan="1">其他</td>' +
+			'<td  class="td_failqc w200" rowspan="1" colspan="1">备注</td>' +
+			'</tr>' +
+			'</thead>' +
+			'<tbody>'
+		for(var s = 0; s < item.length; s++) {
+			k += '<tr>'
+			for(var j = 0; j < item[s].length; j++) {
+				if(item[s][j].type == 0) {
+					k += '<td class="td_failqcxs" style="color: red;" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				} else {
+					k += '<td class="td_failqcxs" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				}
+			}
+			k += '</tr>'
+		}
+		k += '</tbody></table>'
+		$("#uploaderfail_xs").append(k);
+	}
+	//弹框关闭按钮
+	function closeqc_xs() {
+		var error = JSON.parse(localStorage.getItem("faildqc_xs"));
+		$(".fdmxs_close1").html("");
+		$("#uploaderfail_xs").html("");
+		$("#uploaderfail_xs").css("display", "none");
+		$(".tk_xsbg").css({ "display": "none" });
+		for(var i = 0; i < $(".tbxs tr").length; i++) {
+			for(var j = 0; j < error.length; j++) {
+				$(".tbxs").find("tr").eq(error[j][0].value - 1).find("td").find("input").css("color", "red");
+			}
+		}
+	}
+	//重置筛选
+	function resetxs() {
+		for(var i = 0; i < 28; i++) {
+			$($('.sel_head td')[i]).find("select option[value='']").attr("selected", true);
+		}
+		selArr = {};
+		if(FDMXSMX_data.data.info.length > 500) {
+			initBody_fdmxs(FDMXSMX_data.data.info.slice(0, 500)); //渲染body
+			loadmore_fdmxs(FDMXSMX_data.data.info.slice(500));
+		} else {
+			initBody_fdmxs(FDMXSMX_data.data.info); //渲染body
+		}
+	}
+	//添加选项
+	function sel_addxs(test) {
+		arrayXSMS = FDMXSMX_data.data.list[0].option;
+		arrayTHFS = FDMXSMX_data.data.list[1].option;
+		var options_x = [];
+		var options_t = [];
+		for(var i = 0; i < arrayXSMS.length; i++) {
+			options_x.push("<option value='" + arrayXSMS[i] + "'> " + arrayXSMS[i] + " </option>");
+		};
+		for(var i = 0; i < arrayTHFS.length; i++) {
+			options_t.push("<option value='" + arrayTHFS[i] + "'> " + arrayTHFS[i] + " </option>");
+		};
+		$(".tbxs").find(".fdm_xstr" + test).find("select").eq(0).append(options_x.join(''));
+		$(".tbxs").find(".fdm_xstr" + test).find("select").eq(1).append(options_t.join(''));
+
+		$(".tbxs").find(".fdm_xstr" + test).find("input").eq(36).attr("readonly", "readonly");
+		$(".tbxs").find(".fdm_xstr" + test).find("input").eq(37).attr("readonly", "readonly");
+		$(".tbxs").find(".fdm_xstr" + test).find("input").eq(38).attr("readonly", "readonly");
+		$(".tbxs").find(".fdm_xstr" + test).find("input").eq(39).attr("readonly", "readonly");
+		$(".tbxs").find(".fdm_xstr" + test).find("input").eq(40).attr("readonly", "readonly");
+		$("option").css("visibility", "visible");
+	}
+
+	//添加数据渲染
+	function addtr_xs(fdm_itemlength) {
+		var fdm_itemlength = fdm_itemlength;
+		if($(".tbxs tr").length == 0) {
+			test = 0
+		} else {
+			test = $(".tbxs tr").length + 1;
+		}
+
+		$longtd = "<td  class='td_xs'  style='background-color: rgb(204, 255, 255);width:104px;' onclick='edit_FDMXS($(this))' ><input onblur='onblur_fdmxs(this)' class='disable_xs textInput_xs'  onkeyup='checkint_xs(this)'  type='text' value='0'></td>"
+		$longtd1 = "<td  class='td_xs'  style='background-color: rgb(204, 255, 255);width:104px;' onclick='edit_FDMXS($(this))'><input class='disable_xs textInput_xs' onblur='onblur_fdmxs(this)' onkeyup='checkfloat(this)'  type='text' value='0'></td> "
+		$longtd11 = "<td  class='td_xs'  style='background-color: rgb(204, 255, 255);width:104px;' onclick='edit_FDMXS($(this))'><input class='disable_xs textInput_xs' onblur='onblur_fdmxs(this)' onkeyup='checkfloat1(this)'  type='text' value='0'></td> "
+		$longtd2 = "<td  class='td_xs'  style='background-color: #fff;width:104px;'><input class='disable_xs textInput_xs'  type='text' value='0'></td>"
+		$longtd4 = "<td class='td_xs' style='width:104px;'onclick='select_fdmxs(this," + test + ")'> <input readonly='readonly' type='text'/></td>"
+		$longtd4_1 = "<td class='td_xs'style='width:104px;' onclick='select_fdmxs(this," + test + ")'> <input readonly='readonly' placeholder='请选择产品信息' type='text'/></td>"
+		$longtd41 = "<td class='td_xs'style='width:104px;' onclick='select_khxxxs(this," + test + ")'> <input readonly='readonly' type='text'/></td>"
+		$longtd41_1 = "<td class='td_xs'style='width:104px;' onclick='select_khxxxs(this," + test + ")'> <input readonly='readonly' placeholder='请选择客户信息' type='text'/></td>"
+		$longtd5 = "<td  class='td_xs'  style='background-color: #fff;width:104px;'><input class='disable_xs textInput_xs' type='text' value='0.00' readonly='readonly' ></td>"
+		$longtd6 = '<a class="fdmxs_sc" style="text-decoration: none;width:104px;" class="headbutton_fdmxs" onclick="deleteOne_xs(this)"  style="float: none;"><span style="line-height: 26px;width:104px;">取消</span></a>'
+		$newc1 = $("<tr style='height: 20px;' class='fdm_xstr" + test + "'><td class='td_xs' style='width:104px;'><input readonly='readonly'><span class='khmsg'></span></td>" + $longtd41_1 + $longtd41 + $longtd41 + $longtd41 + $longtd41 + $longtd41 + $longtd41 + $longtd4_1 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + $longtd4 + "<td class='td_xs'><select class='select_xs'> <option></option></select>" + $longtd + $longtd11 + $longtd5 + $longtd2 + $longtd2 + $longtd2 + $longtd2 + $longtd11 + $longtd1 + "<td class='td_xs'><select class='select_xs'> <option></option></select></td><td class='td_xs'><input></td><td class='td_xs'>" + $longtd6 + "</td></tr>");
+		$(".tbxs").prepend($newc1);
+		sel_addxs(test);
+		$(".fdm_xstr" + test).find("td").eq(0).find("input").val(getServiceTime_fdmxs());
+	}
+	//获取服务器时间
+	function getServiceTime_fdmxs() {
+		var getSerTime_url = URL1 + "Schedule/SERVER_TIME";
+		var getSerTime = "";
+		$.ajax({
+			type: "get",
+			url: getSerTime_url,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+				getSerTime = data.server_time;
+				return;
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.warn(errorThrown);
+			}
+		});
+		return getSerTime;
+	}
+	//外部select框的点击
+	function select_fdmxs(obj, fdm_xstrlh) {
+		$(".tboyxs_cpxx").html("");
+		cpxxurl_xs = fdmUrl1 + "SPZQC/search/type/1/token/" + token;
+		$.ajax({
+			type: "get",
+			url: cpxxurl_xs,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+				if(data.resultcode == -1) {
+					alertMsg.warn(data.resultmsg);
+					return;
+				}
+				if(data.resultcode == -2) {
+					alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				if(data.data.length <= 3) {
+					alertMsg.warn("未录入期初数据！");
+				} else {
+					$("#tk_xs").css({ "display": "block","height":"300px","over-flow":"auto" });
+					$(".tk_xsbg").css({ "display": "block" });
+					_cpxsData = data.data.splice(3);
+					_cpxsChecked = fdm_xstrlh;
+					showCP_xs(_cpxsData, fdm_xstrlh);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.warn(errorThrown);
+			}
+		});
+	}
+	//打开弹框
+	function showCP_xs(data, trlength) {
+		$(".tboyxs_cpxx").empty();
+		$(".tkxs_close").empty();
+		var k = "";
+		k += '<table class="table table-hover" id="xstable_cp" cellspacing="0" cellpadding="0" style="width:2400px;color:#555;font-size: small;">' +
+			'<thead class>' +
+			'<tr>' +
+			'<td  class="td_cpxx w50" rowspan="1" colspan="1">选择</td>' +
+			'<td  class="td_cpxx w90" rowspan="1" colspan="1">商品简称<select class="qcxs0" onchange="cgcpxxXS(0)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w110" rowspan="1" colspan="1">制造部门<select class="qcxs1" onchange="cgcpxxXS(1)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w110" rowspan="1" colspan="1">订单类别<select class="qcxs2" onchange="cgcpxxXS(2)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w100" rowspan="1" colspan="1">档次<select class="qcxs3" onchange="cgcpxxXS(3)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w100" rowspan="1" colspan="1">门框<select class="qcxs4" onchange="cgcpxxXS(4)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w50" rowspan="1" colspan="1">框厚<select class="qcxs5" onchange="cgcpxxXS(5)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w60" rowspan="1" colspan="1">前板厚<select class="qcxs6" onchange="cgcpxxXS(6)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w60" rowspan="1" colspan="1">后板厚<select class="qcxs7" onchange="cgcpxxXS(7)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w70" rowspan="1" colspan="1">底框材料<select class="qcxs8" onchange="cgcpxxXS(8)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w90" rowspan="1" colspan="1">门扇<select class="qcxs9" onchange="cgcpxxXS(9)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w80" rowspan="1" colspan="1">规格<select class="qcxs10" onchange="cgcpxxXS(10)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w60" rowspan="1" colspan="1">开向<select class="qcxs11" onchange="cgcpxxXS(11)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w100" rowspan="1" colspan="1">铰链<select class="qcxs12" onchange="cgcpxxXS(12)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w90" rowspan="1" colspan="1">花色<select class="qcxs13" onchange="cgcpxxXS(13)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w90" rowspan="1" colspan="1">表面方式<select class="qcxs14" onchange="cgcpxxXS(14)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w90" rowspan="1" colspan="1">表面要求<select class="qcxs15" onchange="cgcpxxXS(15)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w130" rowspan="1" colspan="1">窗花<select class="qcxs16" onchange="cgcpxxXS(16)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w130" rowspan="1" colspan="1">猫眼<select class="qcxs17" onchange="cgcpxxXS(17)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w80" rowspan="1" colspan="1">标牌<select class="qcxs18" onchange="cgcpxxXS(18)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w100" rowspan="1" colspan="1">主锁<select class="qcxs19" onchange="cgcpxxXS(19)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w100" rowspan="1" colspan="1">副锁<select class="qcxs20" onchange="cgcpxxXS(20)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w100" rowspan="1" colspan="1">锁把<select class="qcxs21" onchange="cgcpxxXS(21)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w90" rowspan="1" colspan="1">标件<select class="qcxs22" onchange="cgcpxxXS(22)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w120" rowspan="1" colspan="1">包装品牌<select class="qcxs23" onchange="cgcpxxXS(23)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w90" rowspan="1" colspan="1">包装方式<select class="qcxs24" onchange="cgcpxxXS(24)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w90" rowspan="1" colspan="1">其他<select class="qcxs25" onchange="cgcpxxXS(25)"><option value="">全部</option></select></td>' +
+			'<td  class="td_cpxx w60" rowspan="1" colspan="1">单价</td>' +
+			'</tr>' +
+			'</thead>' +
+			'<tbody>' +
+			'</tbody>' +
+			'</table>'
+		$(".tboyxs_cpxx").append(k);
+		$(".tkxs_close").append(' <div class="tkxs_close"><span class="xsmx_closeicon"  onclick="closeTk_xs(' + trlength + ')" /></div>');
+		showCPbody_xs(data, trlength);
+		localStorage.setItem("checked_xscpxx", 0);
+		var checked_xscpxx = localStorage.getItem("checked_xscpxx");
+		$("#checkcp_xs" + checked_xscpxx).attr("checked", 'true');
+		getCpThead_xs(data);
+
+	}
+	//打开产品信息弹框
+	function showCPbody_xs(item, trlength) {
+		var k = '';
+		if(item != "" && item[0].tr.length != 0) {
+			$(".xstable_cp tbody").html("");
+			for(var i = 0; i < item.length; i++) {
+				var radio_value = i;
+				k += '<tr>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><input type="radio" name="checkcp_xs" id="checkcp_xs' + radio_value + '" onclick="checkcp_xs(this,' + trlength + ')" value="' + item[i].tr[1].product_md5 + '"/></td>' +
+					'<td  class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[0].value + '</text></td>' +
+					'<td  class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[1].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[2].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[3].value + '</text></td>' +
+					'<td  class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[4].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[5].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[6].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[7].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[8].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[9].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[10].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[11].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[12].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[13].value + '</text></td>' +
+					'<td  class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[14].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[15].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[16].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[17].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[18].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[19].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[20].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[21].value + '</text></td>' +
+					'<td  class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[22].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[23].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[24].value + '</text></td>' +
+					'<td  class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[25].value + '</text></td>' +
+					'<td class="td_cpxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].tr[27].value + '</text></td>' +
+					'</tr>'
+			}
+			$("#xstable_cp tbody").html(k);
+		}
+	}
+
+	//设置产品信息弹出框的重置筛选
+	var _cpxsData;
+	var _cpxsChecked;
+	//获取产品信息的表头
+	function getCpThead_xs(arr) {
+		var theadArr_xs = [];
+		for(var j = 0; j < arr.length; j++) {
+			for(var i = 0; i < 26; i++) {
+				if(theadArr_xs[i] == undefined || theadArr_xs[i] == '') {
+					theadArr_xs[i] = [];
+				}
+				if(theadArr_xs[i].indexOf(arr[j].tr[i].value) == -1) {
+					theadArr_xs[i].push(arr[j].tr[i].value);
+				}
+			}
+		}
+		for(var k = 0; k < 26; k++) {
+			for(var n = 0; n < theadArr_xs[k].length; n++) {
+				$('.qcxs' + k).append('<option value="' + theadArr_xs[k][n] + '">' + theadArr_xs[k][n] + '</option>');
+			}
+		}
+	}
+
+	for(var qcxsi = 0, qcxsselArr = []; qcxsi < 26; qcxsi++) {
+		qcxsselArr[qcxsi] = "";
+	}
+
+	function cgcpxxXS(_index) {
+		qcxsselArr[_index] = $('.qcxs' + _index).val();
+		var cpXsArr = _cpxsData;
+		for(var i = 0; i < 26; i++) {
+			cpXsArr = cpxsfilter(cpXsArr, qcxsselArr[i], i);
+		}
+		showCPbody_xs(cpXsArr, _cpxsChecked);
+	}
+
+	function cpxsfilter(arr, str, index) {
+		if(str == '') {
+			return arr;
+		}
+		return $.map(arr, function(value) {
+			return value.tr[index].value == str ? value : null;
+		});
+	}
+
+	function checkcp_xs(obj, trlength) {
+		var type = document.getElementsByName("checkcp_xs");
+		for(i = 0; i < type.length; i++) { //遍历单选框
+			if(type[i].checked) {
+				localStorage.setItem("checked_xscpxx", i);
+				closeTk_xs(trlength);
+				if($(".tbxs").find("td").eq(35).find("input").val() != "" && $(".tbxs").find("td").eq(37).find("input").val() != "") {
+					$(".tbxs").find("td").eq(39).find("input").val($(".tbxs").find("td").eq(35).find("input").val() * $(".tbxs").find("td").eq(37).find("input").val());
+				} else {
+					$(".tbxs").find("td").eq(39).find("input").val("0");
+				}
+				if($(".tbxs").find("td").eq(38).find("input").val() != "" && $(".tbxs").find("td").eq(39).find("input").val() != "") {
+					$(".tbxs").find("td").eq(40).find("input").val($(".tbxs").find("td").eq(38).find("input").val() - $(".tbxs").find("td").eq(39).find("input").val());
+				}
+			}
+		}
+	}
+	//关闭弹框
+	function closeTk_xs(trlength) {
+		var trxs_index = parseInt(localStorage.getItem("checked_xscpxx")) + 1;
+		var product_md5 = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(0).find("input:radio:checked").val();
+		var shangpinjc = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(1).find("text").text();
+		var zhizaobm = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(2).find("text").text();
+		var dingdanlb = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(3).find("text").text();
+		var dangci = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(4).find("text").text();
+		var menkuang = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(5).find("text").text();
+		var kuanghou = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(6).find("text").text();
+		var qianbanhou = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(7).find("text").text();
+		var houbanhou = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(8).find("text").text();
+		var dikuangcl = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(9).find("text").text();
+		var menshan = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(10).find("text").text();
+		var guige = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(11).find("text").text();
+		var kaixiang = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(12).find("text").text();
+		var jiaolian = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(13).find("text").text();
+		var huase = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(14).find("text").text();
+		var biaomianfs = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(15).find("text").text();
+		var biaomianyq = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(16).find("text").text();
+		var chuanghua = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(17).find("text").text();
+		var maoyan = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(18).find("text").text();
+		var biaopai = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(19).find("text").text();
+		var zhusuo = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(20).find("text").text();
+		var fusuo = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(21).find("text").text();
+		var suoba = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(22).find("text").text();
+		var biaojian = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(23).find("text").text();
+		var baozhuangpp = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(24).find("text").text();
+		var baozhuangfs = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(25).find("text").text();
+		var qita = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(26).find("text").text();
+		var price = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(27).find("text").text();
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(0).find("span").text(product_md5);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(8).find("input").val(shangpinjc);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(9).find("input").val(zhizaobm);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(10).find("input").val(dingdanlb);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(11).find("input").val(dangci);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(12).find("input").val(menkuang);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(13).find("input").val(kuanghou);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(14).find("input").val(qianbanhou);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(15).find("input").val(houbanhou);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(16).find("input").val(dikuangcl);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(17).find("input").val(menshan);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(18).find("input").val(guige);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(19).find("input").val(kaixiang);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(20).find("input").val(jiaolian);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(21).find("input").val(huase);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(22).find("input").val(biaomianfs);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(23).find("input").val(biaomianyq);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(24).find("input").val(chuanghua);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(25).find("input").val(maoyan);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(26).find("input").val(biaopai);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(27).find("input").val(zhusuo);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(28).find("input").val(fusuo);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(29).find("input").val(suoba);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(30).find("input").val(biaojian);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(31).find("input").val(baozhuangpp);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(32).find("input").val(baozhuangfs);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(33).find("input").val(qita);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(37).find("input").val(price);
+		$(".tboyxs_cpxx").html("");
+		var tk_xs = document.getElementById('tk_xs');
+		tk_xs.style.display = "none";
+		$(".tk_xsbg").css({ "display": "none" });
+		$(".tkxs_close").html("");
+	}
+
+	var flags = false;
+	var findV_PopNum = "",
+		findV_PopName = "";
+	var fuzhi_num = "",
+		fuzhi_name = "";
+
+	//客户信息弹出框
+	function select_khxxxs(obj, fdm_xstrlh, isFindVurl) {
+
+		$(".reset_btn").click(function() {
+			select_khxxxs(null, fdm_xstrlh, fdmUrl1 + "Managecustomer/customers/pagesize/10/token/" + token)
+			$("#customerNameID").val("");
+			$("#customerNumberID").val("");
+			fuzhi_name = "";
+			fuzhi_num = "";
+		})
+		//如果flags存在，则不再打开弹框
+		if(flags) {
+			khxx_urlxs = isFindVurl;
+			$.ajax({
+				type: "get",
+				url: khxx_urlxs,
+				async: false,
+				dataType: "json",
+				success: function(data) {
+					if(data.resultcode == -1) {
+						$("#tk_xs").css("height", "300px");
+						_khxsChecked = fdm_xstrlh;
+						showKH_xs(null, fdm_xstrlh, null, khxx_urlxs);
+
+						alertMsg.warn(data.resultmsg);
+						fuzhi_name = "";
+						fuzhi_num = "";
+						$(".reset_btn").trigger("click");
+						return;
+					}
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+						return;
+					}
+					if(data.data.subitem.length <= 0) {
+						alertMsg.warn("未录入客户信息！");
+					} else {
+						$("#tk_xs").css("height", "auto")
+						_khxsData = data.data.subitem;
+						_khxsChecked = fdm_xstrlh;
+						showKH_xs(_khxsData, fdm_xstrlh, data, khxx_urlxs);
+					}
+
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+					alertMsg.warn(errorThrown);
+				}
+			});
+		} else {
+			$(".tboyxs_khxx").html("");
+
+			khxx_urlxs = fdmUrl1 + "Managecustomer/customers/pagesize/10/token/" + token;
+			$.ajax({
+				type: "get",
+				url: khxx_urlxs,
+				async: false,
+				dataType: "json",
+				success: function(data) {
+					if(data.resultcode == -1) {
+						$("#tk_xs").css("height", "300px")
+
+						alertMsg.warn(data.resultmsg);
+						$(".reset_btn").trigger("click");
+						return;
+					}
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+						return;
+					}
+					if(data.data.subitem.length <= 0) {
+						alertMsg.warn("未录入客户信息！");
+					} else {
+
+						$("#tk_xs").css({ "display": "block" });
+						$(".tk_xsbg").css({ "display": "block" });
+						$("#tk_xs").css("height", "auto")
+						_khxsData = data.data.subitem;
+						_khxsChecked = fdm_xstrlh;
+						showKH_xs(_khxsData, fdm_xstrlh, data, khxx_urlxs);
+						flags = true;
+					}
+
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+					alertMsg.warn(errorThrown);
+				}
+			});
+
+		}
+
+	}
+
+	//打开客户信息弹框     默认获取select
+	function showKH_xs(datas, trlength, dataAll, urls) {
+		if(!flags) {
+			url_flag = urls;
+		}
+		$(".tboyxs_khxx").empty();
+		$(".tkxs_close").empty();
+
+		$(".tboyxs_khxx").append('<div style="margin: 10px 0;text-align: left;"><input type="text" id="customerNumberID" placeholder="客户电话" style="margin-left:2.5%;margin-right:10px;" /><input type="text" id="customerNameID" placeholder="客户姓名" style="margin-right:10px;"/><button class="btncx_fdmspxsmx" id="btncx_fdmspxsmx">查询</button><button class="reset_btn" >重置筛选</button></div>');
+		$(".reset_btn").click(function() {
+			select_khxxxs(null, trlength, url_flag)
+			$("#customerNameID").val("");
+			$("#customerNumberID").val("")
+			fuzhi_num = "";
+			fuzhi_name = "";
+		})
+
+		if(isDataValid(fuzhi_name)) {
+			$("#customerNameID").val("").val(fuzhi_name)
+		}
+		if(isDataValid(fuzhi_num)) {
+			$("#customerNumberID").val("").val(fuzhi_num)
+		}
+		var urls3 = url_flag;
+		$("#btncx_fdmspxsmx").click(function() {
+			var customerNumber = $("#customerNumberID").val().trim();
+			var customerName = $("#customerNameID").val().trim();
+			var findV_PopURL = "";
+			var urls2 = url_flag;
+			if(isDataValid(customerNumber)) {
+				urls2 += "/uid/" + customerNumber;
+				fuzhi_num = customerNumber;
+			} else {
+				fuzhi_num = "";
+			}
+			if(isDataValid(customerName)) {
+				urls2 += "/uname/" + customerName;
+				fuzhi_name = customerName;
+			} else {
+				fuzhi_name = "";
+			}
+
+			findV_PopNum = customerNumber,
+				findV_PopName = customerName,
+				findV_PopURL = urls2;
+
+			select_khxxxs(null, trlength, findV_PopURL)
+
+		});
+
+		var k = "";
+		k += '<table class="table table-hover"  id="xstable_kh" cellspacing="0" cellpadding="0" color:#555;font-size: small;">' +
+			'<thead class>' +
+			'<tr class="khxx_tr">' +
+			'<td  class="td_khxx" style="width: 50px;text-align: center;padding-right: 0" rowspan="1" colspan="1">选择</td>' +
+			'<td  class="td_khxx" rowspan="1" colspan="1">客户姓名<select class="khname" onchange="cgkhxxXS(\'name\',0)"><option value="">全部</option></select></td>' +
+			'<td  class="td_khxx" rowspan="1" colspan="1">客户级别<select class="khlevel" onchange="cgkhxxXS(\'level\',1)"><option value="">全部</option></select></td>' +
+			'<td  class="td_khxx" rowspan="1" colspan="1">省(直辖市)<select class="khaddr_province" onchange="cgkhxxXS(\'addr_province\',2)"><option value="">全部</option></select></td>' +
+			'<td  class="td_khxx" rowspan="1" colspan="1">地(市)<select class="khaddr_city" onchange="cgkhxxXS(\'addr_city\',3)"><option value="">全部</option></select></td>' +
+			'<td  class="td_khxx" rowspan="1" colspan="1">县(市)<select class="khaddr_country" onchange="cgkhxxXS(\'addr_country\',4)"><option value="">全部</option></select></td>' +
+			'<td  class="td_khxx" rowspan="1" colspan="1">乡镇<select class="khaddr_detail" onchange="cgkhxxXS(\'addr_detail\',5)"><option value="">全部</option></select></td>' +
+			'<td  class="td_khxx" rowspan="1" colspan="1">电话<select class="khphone" onchange="cgkhxxXS(\'phone\',6)"><option value="">全部</option></select></td>' +
+			'</tr>' +
+			'</thead>' +
+			'<tbody>' +
+			'</tbody>' +
+			'</table>'
+		$(".tboyxs_khxx").append(k);
+
+		$(".tkxs_close").append(' <div class="tkxs_close"><span class="xsmx_closeicon"  onclick="closeBg_khxs(' + trlength + ')" /></div>');
+		if(!isDataValid(datas) && !isDataValid(dataAll)) {
+			showKHbody_xs(null, trlength, null, urls);
+			getKhThead_xs(null);
+			localStorage.setItem("checked_xskhxx", 0);
+			var checked_xskhxx = localStorage.getItem("checked_xskhxx");
+			$("#khxx_xs" + checked_xskhxx).attr("checked", 'true');
+		} else {
+			showKHbody_xs(datas, trlength, dataAll, urls);
+			getKhThead_xs(datas);
+			localStorage.setItem("checked_xskhxx", 0);
+			var checked_xskhxx = localStorage.getItem("checked_xskhxx");
+			$("#khxx_xs" + checked_xskhxx).attr("checked", 'true');
+
+			$(".tboyxs_khxx").append('<div class="pagination_popxsmx"></div>')
+			if(isDataValid(dataAll)) {
+				$(".pagination_popxsmx").html("").createPage({
+					pageCount: parseInt(dataAll.data.pagecount), //总页数
+					current: parseInt(dataAll.data.page), //初始页号
+					backFn: function(obj) {
+						get_popxsmx_page(url_flag, obj, datas, trlength); //修改为product
+					}
+				});
+			}
+
+		}
+
+	}
+
+	var _khxsData;
+	var _khxsChecked;
+	////客户信息弹框 中的tbody内容
+	function showKHbody_xs(item, trlength, dataAll, urls) {
+
+		if(isDataValid(item)) {
+			var k = '';
+			for(var i = 0; i < item.length; i++) {
+				var radio_value = i;
+				k += '<tr>' +
+					'<td class="td_khxx" style="width: 50px;background-color: #fff" rowspan="1" colspan="1"><input type="radio" name="khxx_xs" id="khxx_xs' + radio_value + '" onclick="checkkh_xs(this,' + trlength + ')" value="' + item[i].product_md5 + '"/></td>' +
+					'<td  class="td_khxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].name + '</text></td>' +
+					'<td class="td_khxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].level + '</text></td>' +
+					'<td class="td_khxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].addr_province + '</text></td>' +
+					'<td  class="td_khxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].addr_city + '</text></td>' +
+					'<td class="td_khxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].addr_country + '</text></td>' +
+					'<td class="td_khxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].addr_detail + '</text></td>' +
+					'<td class="td_khxx" rowspan="1" colspan="1" style="background-color:#FFFFFF;" ><text>' + item[i].phone + '</text></td>' +
+					'</tr>'
+			}
+			$("#xstable_kh tbody").html("").html(k);
+
+		} else {
+			$("#xstable_kh tbody").html("");
+		}
+
+	}
+
+	function get_popxsmx_page(url_page, page, item, trlength) {
+		flags = true;
+		var urls = url_page + "/page/" + page;
+		if(isDataValid(fuzhi_name)) {
+			urls += "/uname/" + fuzhi_name;
+		}
+		if(isDataValid(fuzhi_num)) {
+			urls += "/uid/" + fuzhi_num;
+		}
+		$.ajax({
+			type: "get",
+			url: urls,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				$(".tboyxs_khxx").html("");
+				if(data.resultcode == -1) {
+					$("#tk_xs").css("height", "300px");
+					_khxsChecked = trlength;
+					showKH_xs(null, trlength, null, urls);
+
+					alertMsg.warn(data.resultmsg);
+					$(".reset_btn").trigger("click");
+					return;
+
+				}
+				if(data.resultcode == -2) {
+					alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				if(data.data.subitem.length <= 0) {
+					alertMsg.warn("未录入客户信息！");
+					return;
+				} else {
+
+					$(".tboyxs_khxx").append('<div style="margin: 10px 0;text-align: left;"><input type="text" id="customerNumberID" placeholder="客户电话" style="margin-left: 2.5%;margin-right:10px;" /><input type="text" id="customerNameID" placeholder="客户姓名" style="margin-right:10px;"/><button class="btncx_fdmspxsmx" id="btncx_fdmspxsmx">查询</button><button class="reset_btn" onclick="resetPop(null, trlength, findV_PopURL)</div>">重置筛选</button>');
+					if(isDataValid(fuzhi_name)) {
+						$("#customerNameID").val("").val(fuzhi_name)
+					}
+					if(isDataValid(fuzhi_num)) {
+						$("#customerNumberID").val("").val(fuzhi_num)
+					}
+
+					_khxsData = data.data.subitem;
+					_khxsChecked = trlength;
+					showKH_xs(_khxsData, trlength, data, fdmUrl1 + "Managecustomer/customers/pagesize/10/token/" + token);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+
+	function getKhThead_xs(arr) {
+		if(!isDataValid(arr)) {} else {
+			var theadObj_khxx = {};
+			for(var j = 0; j < arr.length; j++) {
+				for(var k in arr[j]) {
+					if(theadObj_khxx[k] == undefined || theadObj_khxx[k] == '') {
+						theadObj_khxx[k] = [];
+					}
+					if(theadObj_khxx[k].indexOf(arr[j][k]) == -1) {
+						if(arr[j][k] != "") {
+							theadObj_khxx[k].push(arr[j][k]);
+						}
+
+					}
+				}
+			}
+			for(var k in theadObj_khxx) {
+				for(var n = 0; n < theadObj_khxx[k].length; n++) {
+					$('.kh' + k).append('<option>' + theadObj_khxx[k][n] + '</option>');
+				}
+			}
+		}
+
+	}
+	var filObj = {};
+
+	function cgkhxxXS(flag, _index) {
+		var data = _khxsData;
+		filObj[flag] = $('.kh' + flag).val();
+		for(var k in filObj) {
+			data = khxsfilter(data, filObj[k], k);
+		}
+		showKHbody_xs(data, _khxsChecked);
+	}
+
+	function khxsfilter(arr, str, index) {
+		if(str == '') {
+			return arr;
+		}
+		return $.map(arr, function(value) {
+			return value[index] == str ? value : null;
+		});
+	}
+
+	function checkkh_xs(obj, trlength) {
+		var type = document.getElementsByName("khxx_xs");
+		for(i = 0; i < type.length; i++) { //遍历单选框
+			if(type[i].checked) {
+				localStorage.setItem("checked_xskhxx", i);
+				closeBg_khxs(trlength);
+			}
+		}
+	}
+	//关闭客户信息弹框
+	function closeBg_khxs(trlength) {
+		flags = false;
+		$("#customerNameID").val("");
+		$("#customerNumberID").val("");
+		fuzhi_num = "";
+		fuzhi_name = "";
+		var trxs_index = parseInt(localStorage.getItem("checked_xskhxx")) + 1;
+		var name = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(1).find("text").text();
+		var level = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(2).find("text").text();
+		var addr_province = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(3).find("text").text();
+		var addr_city = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(4).find("text").text();
+		var addr_country = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(5).find("text").text();
+		var addr_detail = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(6).find("text").text();
+		var phone = $(".tk_xs").find("tr").eq(trxs_index).find("td").eq(7).find("text").text();
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(1).find("input").val(name);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(2).find("input").val(level);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(3).find("input").val(addr_province);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(4).find("input").val(addr_city);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(5).find("input").val(addr_country);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(6).find("input").val(addr_detail);
+		$(".tbxs").find(".fdm_xstr" + trlength).find("td").eq(7).find("input").val(phone);
+
+		$(".tboyxs_khxx").html("");
+		var tk_xs = document.getElementById('tk_xs');
+		tk_xs.style.display = "none";
+		$(".tk_xsbg").css({ "display": "none" });
+		$(".tkxs_close").html("");
+	}
+
+	//导入
+	uploader = WebUploader.create({
+		// 自动上传。
+		auto: true,
+		swf: 'js/Uploader.swf',
+		server: postUrl_fdmxs,
+		pick: '#iconselect_xs',
+		accept: {
+			title: 'excel',
+			extensions: 'xls,xlsx,csv',
+			mimeTypes: '.xls,.xlsx,.csv'
+		}
+	});
+	uploader.on('fileQueued', function(file) {
+		$("#icon_xs").html("")
+		var $li = $(
+				'<div id="' + file.id + '" class="iconimg-xs">' +
+				file.name +
+				'</div>'
+			),
+			$img = $li.find('img');
+		$("#icon_xs").append($li);
+		$(".iconimg-xs").show();
+		$("#mengce_xs").css("display", "block");
+		$("body").css("opacity", "0.5");
+	});
+
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	uploader.on('uploadSuccess', function(file, response) {
+		$(".iconimg-xs").hide();
+		$("#mengce_xs").css("display", "none");
+		$("body").css("opacity", "1");
+		if(response.resultcode == -2) {
+			alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+			window.location.href = "index.html";
+		} else {
+			if(isDataValid(response.error)) {
+				$(".tk_xsbg").css({ "display": "block" });
+				$("#uploaderfail_xs").css("display", "block");
+				$(".fdmxs_close1").append('<span class="fdmxs_closeicon"  onclick="closetk_xs()" />');
+				showFaildata_xs(response);
+			} else {
+				alertMsg.warn(response.resultmsg);
+				navTab._reload(navTab._getTab("xfdmxsmx1"), true);
+			}
+		}
+	});
+	//显示导入的错误数据
+	function showFaildata_xs(response) {
+		var item = response.error;
+		var k = "";
+		k += '<table class="" id="" border="0" cellspacing="0" cellpadding="0" color:#555;font-size: small;" style="width:2400px;">' +
+			'<thead>' +
+			'<tr>' +
+			'<td class="td_import" rowspan="1" colspan="37" style="text-align: center;">错误数据显示</td>' +
+			'</tr>' +
+			'<tr>' +
+			'<td class="td_import w40"  style="width: 40px;">行数</td>' +
+			'<td  class="td_import w100" rowspan="1" colspan="1">日期</td>' +
+			'<td  class="td_import w90" rowspan="1" colspan="1">客户姓名</td>' +
+			'<td  class="td_import w110" rowspan="1" colspan="1">制造部门</td>' +
+			'<td  class="td_import w110" rowspan="1" colspan="1">订单类别</td>' +
+			'<td  class="td_import w100" rowspan="1" colspan="1">档次</td>' +
+			'<td  class="td_import w100" rowspan="1" colspan="1">门框</td>' +
+			'<td  class="td_import w50" rowspan="1" colspan="1">框厚</td>' +
+			'<td  class="td_import w60" rowspan="1" colspan="1">前板厚</td>' +
+			'<td  class="td_import w60" rowspan="1" colspan="1">后板厚</td>' +
+			'<td  class="td_import w70" rowspan="1" colspan="1">底框材料</td>' +
+			'<td  class="td_import w90" rowspan="1" colspan="1">门扇</td>' +
+			'<td  class="td_import w80" rowspan="1" colspan="1">规格</td>' +
+			'<td  class="td_import w60" rowspan="1" colspan="1">开向</td>' +
+			'<td  class="td_import w100" rowspan="1" colspan="1">铰链</td>' +
+			'<td  class="td_import w90" rowspan="1" colspan="1">花色</td>' +
+			'<td  class="td_import w90" rowspan="1" colspan="1">表面方式</td>' +
+			'<td  class="td_import w90" rowspan="1" colspan="1">表面要求</td>' +
+			'<td  class="td_import w130" rowspan="1" colspan="1">窗花</td>' +
+			'<td  class="td_import w130" rowspan="1" colspan="1">猫眼</td>' +
+			'<td  class="td_import w80" rowspan="1" colspan="1">标牌</td>' +
+			'<td  class="td_import w100" rowspan="1" colspan="1">主锁</td>' +
+			'<td  class="td_import w100" rowspan="1" colspan="1">副锁</td>' +
+			'<td  class="td_import w100" rowspan="1" colspan="1">锁把</td>' +
+			'<td  class="td_import w90" rowspan="1" colspan="1">标件</td>' +
+			'<td  class="td_import w120" rowspan="1" colspan="1">包装品牌</td>' +
+			'<td  class="td_import w90" rowspan="1" colspan="1">包装方式</td>' +
+			'<td  class="td_import w90" rowspan="1" colspan="1">其他</td>' +
+			'<td  class="td_import w80" rowspan="1" colspan="1">销售模式</td>' +
+			'<td  class="td_import w60" rowspan="1" colspan="1">销量</td>' +
+			'<td  class="td_import w70" rowspan="1" colspan="1">销售单价</td>' +
+			'<td  class="td_import w70" rowspan="1" colspan="1">成本单价</td>' +
+			'<td  class="td_import w70" rowspan="1" colspan="1">调拨费用</td>' +
+			'<td  class="td_import w70" rowspan="1" colspan="1">欠费额</td>' +
+			'<td  class="td_import w80" rowspan="1" colspan="1">提货方式</td>' +
+			'<td  class="td_import w70" rowspan="1" colspan="1">经手人</td>' +
+			'<td  class="td_import w200" rowspan="1" colspan="1">备注</td>' +
+			'</tr>' +
+			'</thead>' +
+			'<tbody>'
+		for(var s = 0; s < item.length; s++) {
+			k += '<tr>'
+			for(var j = 0; j < item[s].length; j++) {
+				if(item[s][j].type == 0) {
+					k += '<td class="td_failqcxs" style="color: red;" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				} else {
+					k += '<td class="td_failqcxs" rowspan="1" colspan="1" >' +
+						'<text>' + item[s][j].value + '</text>' +
+						'</td>'
+				}
+			}
+			k += '</tr>'
+		}
+		k += '</tbody></table>'
+		$("#uploaderfail_xs").append(k);
+	}
+
+	function closetk_xs() {
+		$(".fdmxs_close1").html("");
+		$("#uploaderfail_xs").css("display", "none");
+		navTab._reload(navTab._getTab("xfdmxsmx1"), true);
+	}
+	//提交
+	function tj_fdmxs() {
+		getday_xs = getServiceTime_fdmxs();
+		for(var i = 0; i < 47; i++) {
+			if($($('.sel_head td')[i]).find("select").length != 0 && $($('.sel_head td')[i]).find("select").val() != "") {
+				alertMsg.warn("请先重置筛选");
+				return;
+			}
+		}
+		//获取提交数据
+		postdata_xs = [];
+		k = 0;
+
+		//从当前日第一条数据开始循环到结束，保存当日的所有数据以便提交
+		for(var i = 0; i < Math.floor($(".tbxs tr").length); i++) {
+			if($(".tbxs tr").eq(i).find("td").eq(0).find("input").val() == getday_xs) {
+				for(var j = 0; j < 47; j++) {
+					if(j == 0) {
+						postdata_xs[k] = $(".tbxs tr").eq(i).find("td").eq(0).find("span").text();
+					} else if(j == 10) {
+						postdata_xs[k] = $(".tbxs tr").eq(i).find("td").eq(10).find("select").val();
+					} else if(j == 34) {
+						postdata_xs[k] = $(".tbxs tr").eq(i).find("td").eq(34).find("select").val();
+					} else if(j == 35) {
+						postdata_xs[k] = $(".tbxs tr").eq(i).find("td").eq(35).find("input").val();
+						if(postdata_xs[k] == "") {
+							$(".tbxssz tr").eq(i).find("td").eq(14).find("input").val("0");
+						}
+					} else if(j == 36) {
+						postdata_xs[k] = $(".tbxs tr").eq(i).find("td").eq(36).find("input").val();
+						if(postdata_xs[k] == "") {
+							$(".tbxssz tr").eq(i).find("td").eq(36).find("input").val("0");
+						}
+					} else if(j == 44) {
+						postdata_xs[k] = $(".tbxs tr").eq(i).find("td").eq(44).find("select").val();
+					} else {
+						postdata_xs[k] = $(".tbxs tr").eq(i).find("td").eq(j).find("input").val();
+					}
+					if($(".tbxs tr").eq(i).find("td").eq(9).find("input").val() == "" && $(".tbxs tr").eq(i).find("td").eq(34).find("select").val() == "" && $(".tbxs tr").eq(i).find("td").eq(44).find("select").val() == "") {
+						$(".tbxs tr").eq(i).find("td").eq(9).find("input").css({ "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(34).find("select").css({ "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(44).find("select").css({ "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(9).css({ "border": "2px solid red", "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(34).css({ "border": "2px solid red", "width": "100px" })
+						$(".tbxs tr").eq(i).find("td").eq(44).css({ "border": "2px solid red", "width": "100px" })
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else if($(".tbxs tr").eq(i).find("td").eq(9).find("input").val() == "" && $(".tbxs tr").eq(i).find("td").eq(34).find("select").val() == "") {
+						$(".tbxs tr").eq(i).find("td").eq(9).find("input").css({ "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(34).find("select").css({ "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(9).css({ "border": "2px solid red", "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(34).css({ "border": "2px solid red", "width": "100px" });
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else if($(".tbxs tr").eq(i).find("td").eq(9).find("input").val() == "" && $(".tbxs tr").eq(i).find("td").eq(44).find("select").val() == "") {
+						$(".tbxs tr").eq(i).find("td").eq(9).find("input").css({ "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(44).find("select").css({ "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(9).css({ "border": "2px solid red", "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(44).css({ "border": "2px solid red", "width": "100px" });
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else if($(".tbxs tr").eq(i).find("td").eq(34).find("select").val() == "" && $(".tbxs tr").eq(i).find("td").eq(44).find("select").val() == "") {
+						$(".tbxs tr").eq(i).find("td").eq(34).find("select").css({ "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(44).find("select").css({ "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(34).css({ "border": "2px solid red", "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(44).css({ "border": "2px solid red", "width": "100px" });
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else if($(".tbxs tr").eq(i).find("td").eq(9).find("input").val() == "") {
+						$(".tbxs tr").eq(i).find("td").eq(9).find("input").css({ "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(9).css({ "border": "2px solid red", "width": "100px" });;
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else if($(".tbxs tr").eq(i).find("td").eq(34).find("select").val() == "") {
+						$(".tbxs tr").eq(i).find("td").eq(34).find("select").css({ "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(34).css({ "border": "2px solid red", "width": "100px" });
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else if($(".tbxs tr").eq(i).find("td").eq(44).find("select").val() == "") {
+						$(".tbxs tr").eq(i).find("td").eq(44).find("select").css({ "width": "100px" });
+						$(".tbxs tr").eq(i).find("td").eq(44).css({ "border": "2px solid red", "width": "100px" });
+						alertMsg.warn("必填项未填写，保存失败！请检查红框内容");
+						return;
+					} else {
+						$(".tbxs tr").eq(i).find("td").eq(9).css({ "border": "1px solid #c0c0c0" });
+						$(".tbxs tr").eq(i).find("td").eq(34).css({ "border": "1px solid #c0c0c0" });
+						$(".tbxs tr").eq(i).find("td").eq(44).css({ "border": "1px solid #c0c0c0" });
+					}
+					k++;
+				}
+			}
+		}
+
+		//处理提交数据
+		var array_data = [];
+		for(var i = 0; i < (postdata_xs.length / 47); i++) {
+			array_data[i] = {
+				"product_md5": postdata_xs[i * 47 + 0],
+				"phone": postdata_xs[i * 47 + 7],
+				"shangpinjc": postdata_xs[i * 47 + 8],
+				"dingdanlb": postdata_xs[i * 47 + 10],
+				"xiaoshoums": postdata_xs[i * 47 + 34],
+				"xiaoliang": postdata_xs[i * 47 + 35],
+				"xiaoshoudj": postdata_xs[i * 47 + 36],
+				"chengbendj": postdata_xs[i * 47 + 37],
+				"diaobofy": postdata_xs[i * 47 + 42],
+				"qiankuane": postdata_xs[i * 47 + 43],
+				"tihuofs": postdata_xs[i * 47 + 44],
+				"jingshour": postdata_xs[i * 47 + 45]
+			}
+		}
+		var tj_fdmxsurl = fdmUrl1 + "FDMXSMX/submit/token/" + token;
+		if(spxsmx_flag) {
+			if($("tbody.addtb tr").length == 0) {
+				tj_fdmxsurl += "0/delete/1/token/" + token;
+			} else {
+				tj_fdmxsurl += "0/token/" + token;
+			}
+		} else {
+			if($("tbody.addtb tr").length == 0) {
+				tj_fdmxsurl += "1/delete/1/token/" + token;
+			} else {
+				tj_fdmxsurl += "1/token/" + token;
+			}
+		}
+
+		$.ajax({
+			type: "post",
+			url: tj_fdmxsurl,
+			async: false,
+			dataType: 'json',
+			data: JSON.stringify({
+				"info": array_data
+			}),
+			success: function(data) {
+				if(data.resultcode == 0) {
+					alertMsg.correct("保存成功");
+					localStorage.setItem("checked_xscpxx", 0);
+					localStorage.setItem("checked_xskhxx", 0);
+					navTab._reload(navTab._getTab("xfdmxsmx1"), true);
+				} else if(data.resultcode == -2) {
+					alertMsg.info("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				} else {
+					alertMsg.info(data.resultmsg);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("XMLHttpRequest:" + XMLHttpRequest + ",textStatus:" + textStatus + ",errorThrown:" + errorThrown);
+			}
+		});
+	}
+
+	//前台删除
+	function deleteOne_xs(obj) {
+
+		var lastDay = $(obj).parents("tr").find("td").eq(0).find("input").val().replace(/\-/g, "");
+		var currentDay = getServiceTime_fdmxs().replace(/\-/g, "");
+		if(parseInt(lastDay) == parseInt(currentDay)) {
+			$(obj).parent().parent().remove();
+		} else {
+			alertMsg.warn("以往数据不能被删除！");
+			return;
+		}
+
+	}
+	//输出
+	function xsmx_shuchu() {
+		var xsmxshuchu_url = fdmUrl1 + "FDMXSMX/printExcel/token/" + token;
+		if(isDataValid($("#edate_FDMSPXSMX").val())) {
+			xsmxshuchu_url += "/date/" + $("#edate_FDMSPXSMX").val();
+		}
+		window.open(xsmxshuchu_url);
+		navTab._reload(navTab._getTab("xfdmxsmx1"), true);
+	}
+	//固定表头
+	$("#rendrTable_xsmx").scroll(function() {
+		$("#rendrTable_xsmx thead").css("top", $(this).scrollTop() + "px");
+
+	})
+</script>
+<style>
+	.addColor{
+		background-color:#CCFFFF !important;
+			}
+	select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+	}
+	
+	select::-ms-expand {
+		display: none;
+	}
+	
+	tr {
+		padding: 0px;
+		margin: 0px;
+	}
+	
+	#rendrTable_xsmx {
+		position: relative;
+	}
+	
+	#rendrTable_xsmx thead tr td select {
+		width: 0;
+		height: 0;
+		padding: 11px !important;
+		position: absolute;
+		z-index: 9999;
+		margin-left: 70px;
+	}
+	
+	#rendrTable_xsmx table tbody tr td input {
+		-moz-user-select: none;
+		-webkit-user-select: none height: 16px;
+		padding: 5px 0;
+	}
+	
+	.thead_xsmx {
+		position: absolute;
+		z-index: 99;
+		width: 4950px;
+	}
+	
+	.thead_xsmx tr td:nth-child(8) {
+		width: 104px;
+	}
+	
+	.tbxs {
+		position: absolute;
+		top: 73px;
+		width: 4950px;
+	}
+	
+	.tbxs td input {
+		width: 102px;
+		font-size: 12px;
+		border: none;
+		text-align: center;
+		cursor: pointer;
+	}
+	
+	.td_xs {
+		border-right: 1px solid #c0c0c0;
+		border-bottom: 1px solid #c0c0c0;
+		text-align: center;
+		padding: 0px;
+		margin: 0px;
+		text-align: center;
+		width: 104px;
+		white-space: normal;
+		word-wrap: break-word;
+		word-break: break-all;
+	}
+	
+	.td_xsmx input {
+		width: 97px;
+		border: none;
+		text-align: center;
+	}
+	
+	.td_xsmx select {
+		padding: 4px;
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 100%;
+		background: url(img/select.png) no-repeat 100% 7px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		cursor: pointer;
+	}
+	
+	.select_xs {
+		width: 102px;
+		border: none;
+		padding: 0 26px;
+	}
+	
+	.select_xs option {
+		text-align: center;
+	}
+	
+	.sel_head td {
+		position: relative;
+	}
+	
+	.sel_head select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 0;
+		padding: 2px 39px;
+		border-radius: 3px;
+		background: url(img/select.png) no-repeat 98% 5px;
+		cursor: pointer;
+		position: absolute;
+		border: none;
+		top: 0;
+		left: 0;
+	}
+	
+	.fdmxs_sc:hover {
+		cursor: pointer;
+	}
+	
+	.td_failqcxs {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #fff;
+		border-right: 1px solid #c0c0c0!important;
+		border-bottom: 1px solid #c0c0c0!important;
+		width: 50px;
+		height: 15px;
+	}
+	
+	.trtotal_xs td {
+		background-color: #fff;
+	}
+	
+	.khmsg {
+		display: none;
+	}
+	
+	.sdate_xs {
+		display: inline-block;
+		padding-left: 130px;
+	}
+	
+	.disable_xs {
+		width: 100%;
+		cursor: pointer;
+		margin-left: -3px !important;
+		border: none !important;
+		background: none !important;
+		text-align: center;
+		height: 100%;
+	}
+	
+	.textInput_xs {
+		border-color: #fff !important;
+		width: 104px;
+		text-align: center;
+		padding: 0;
+	}
+	
+	input.readonly {
+		background: none;
+		text-align: center;
+		padding: 0;
+	}
+	
+	.borde_xs {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.headbutton_fdmxs {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+		cursor: pointer;
+	}
+	
+	.headbutton_fdmxs span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton_fdmxs:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton_fdmxs:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.nav1_xs {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	#yx_fdmxs {
+		float: right;
+		width: 90px;
+		line-height: 22px;
+		height: 26px;
+		text-align: center;
+		cursor: pointer;
+		border-bottom-left-radius: 22px;
+		border-top-right-radius: 22px;
+		font-size: 12px;
+		background-color: #FFFFFF;
+	}
+	
+	.webuploader-pick {
+		background: none;
+		border: none;
+	}
+	
+	.iconimg-xs {
+		position: absolute;
+		top: 10px;
+		left: 408px;
+	}
+	
+	.resetsel_btn {
+		float: right;
+		cursor: pointer;
+		border: 2px solid #99ccff;
+		border-radius: 3px;
+		background-color: transparent;
+		color: #555;
+	}
+	
+	.reset_btn {
+		float: right;
+		margin-right: 2.5%;
+		cursor: pointer;
+		border: 2px solid #99ccff;
+		border-radius: 3px;
+		background-color: transparent;
+		color: #555;
+	}
+	
+	.xsps_style {
+		margin: 5px 10px;
+		background: #FFFFFF;
+	}
+	
+	.fdmxs_notice {
+		float: left;
+		color: red;
+		margin-top: 7px
+	}
+	
+	.btncx_fdmxs {
+		cursor: pointer;
+	}
+	
+	.tbxs td:nth-child(n+47) {
+		width: 118px !important;
+	}
+	/*产品信息弹出框*/
+	
+	.tk_xs {
+		position: absolute;
+		top: 2%;
+		right: 0;
+		left: 5%;
+		width: 80%;
+		background-color: #fff;
+		z-index: 999;
+		text-align: center;
+		display: none;
+		overflow: auto;
+		border-radius: 2px;
+		
+	}
+	
+	.tboyxs_cpxx {
+		width: 2400px;
+	}
+	
+	.tk_xsbg {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 888;
+		background-color: rgba(0, 0, 0, .3);
+		display: none;
+	}
+	
+	.tkxs_close {
+		position: absolute;
+		top: 1%;
+		z-index: 999;
+		right: 14.5%;
+	}
+	
+	.td_khxx text {
+		line-height: 16px;
+	}
+	
+	.xsmx_closeicon {
+		background: url(public/initialStage/images/alllicon.png) no-repeat 0px -574px;
+		display: inline-block;
+		width: 16px;
+		height: 18px;
+		cursor: pointer;
+	}
+	
+	#mengce_xs {
+		z-index: 999999999;
+		position: absolute;
+		top: 200px;
+		left: 50%;
+		background: url(public/initialStage/images/loading.gif) no-repeat;
+		width: 100px;
+		height: 50px;
+		display: none;
+	}
+	
+	#xstable_cp thead td {
+		padding-right: 10px;
+		position: relative;
+	}
+	
+	#xstable_cp select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 0;
+		padding: 2px 6px;
+		border-radius: 3px;
+		background: url(img/select.png) no-repeat 98% 5px;
+		cursor: pointer;
+		position: absolute;
+		border: none;
+		top: 0;
+		right: 0;
+	}
+	
+	.fdmxs_close1 {
+		position: absolute;
+		top: 3.5%;
+		bottom: 0;
+		left: 92%;
+		z-index: 99999999;
+		color: red;
+	}
+	
+	.fdmxs_closeicon {
+		background: url(public/initialStage/images/alllicon.png) no-repeat 0px -574px;
+		display: inline-block;
+		width: 40px;
+		height: 20px;
+		cursor: pointer;
+	}
+	
+	.td_xsmx,
+	.td_failqc,
+	.td_cpxx,
+	.td_khxx,
+	.td_import {
+		color: #000;
+		font-weight: bold;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		text-align: center;
+		background-color: #99ccff;
+		border-right: 1px solid #c0c0c0!important;
+		border-bottom: 1px solid #c0c0c0!important;
+		word-wrap: break-word;
+	}
+	
+	.td_khxx:nth-child(1) {
+		border-left: 1px solid #c0c0c0!important;
+	}
+	
+	.td_cpxx text {
+		line-height: 1.4;
+		padding: 2px;
+	}
+	/*客户信息*/
+	
+	.td_khxx {
+		width: 120px;
+	}
+	
+	#selkhxx_xs {
+		position: absolute;
+		top: 5%;
+		left: 8%;
+		width: 85%;
+		background-color: #fff;
+		z-index: 999999;
+		text-align: center;
+		display: none;
+		height: 90%;
+		overflow-y: scroll;
+	}
+	
+	.khxx_tr select {
+		margin-left: -53px;
+		margin-top: 43px;
+		width: 0;
+		padding: 2px 39px;
+		border-radius: 3px;
+		background: url(img/select.png) no-repeat 98% 5px;
+		cursor: pointer;
+		position: absolute;
+		border: none;
+		top: 0;
+	}
+	/*导入数据*/
+	
+	#uploaderfail_xs {
+		position: absolute;
+		top: 5%;
+		left: 8%;
+		width: 85%;
+		background-color: #fff;
+		z-index: 999999;
+		text-align: center;
+		display: none;
+		height: 90%;
+		overflow-y: scroll;
+	}
+	
+	.td_failqcxs text {
+		line-height: 1.4;
+		padding: 2px;
+	}
+	
+	.w40 {
+		width: 40px;
+	}
+	
+	.w50 {
+		width: 50px;
+	}
+	
+	.w60 {
+		width: 60px;
+	}
+	
+	.w70 {
+		width: 70px;
+	}
+	
+	.w80 {
+		width: 80px;
+	}
+	
+	.w90 {
+		width: 90px;
+	}
+	
+	.w100 {
+		width: 100px;
+	}
+	
+	.w110 {
+		width: 110px;
+	}
+	
+	.w120 {
+		width: 120px;
+	}
+	
+	.w130 {
+		width: 130px;
+	}
+	
+	.w200 {
+		width: 200px;
+	}
+	/*弹框内的分页*/
+	
+	.pagination_popxsmx {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-right: 2.5%;
+		text-align: right;
+	}
+	
+	.pagination_popxsmx a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_popxsmx a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_popxsmx span.current,
+	.pagination_popxsmx span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_popxsmx span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_popxsmx span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_popxsmx .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_popxsmx.go {
+		margin-left: 2%;
+		height: 20px;
+		line-height: 20px;
+		font-size: 10px;
+		width: 35px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: none;
+		background-color: #ddd;
+	}
+	
+	.pagination_popxsmx.go:hover {
+		background-color: #cfebee;
+	}
+	
+	#xstable_kh {
+		width: 95% !important;
+		margin-left: 2.5%;
+	}
+</style>
+<!---header  start-->
+<div class="pageHeader" style="overflow: hidden;">
+	<div class="borde_xs"></div>
+	<a class="headbutton_fdmxs" href="javascript:xsmx_shuchu();"><span><i class="nav1_xs" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出</i></span></a>
+	<div class="borde_xs"></div>
+	<a class="headbutton_fdmxs" id="save_fdmxs"><span><i class="nav1_xs" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px 4px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保存刷新</i></span></a>
+	<div class="borde_xs"></div>
+	<a class="headbutton_fdmxs" onclick="addtr_xs(fdm_itemlength)"><span><i class="nav1_xs" style="height:16px;line-height: 20px;padding: 2px 4px;background: url(public/initialStage/images/alllicon.png) no-repeat 0px -554px;text-align:right;width: 40px;font-style:normal;">&nbsp;&nbsp;&nbsp;&nbsp;新增</i></span></a>
+	<div class="borde_xs" style="margin-right: 10px;"></div>
+	<button id="yx_fdmxs" onclick="yxcx_fdmxs()">有效数据</button>
+	<span style="text-align: center;line-height: 20px; position: absolute;top: 6px;left: 350px;background: url(public/initialStage/images/alllicon.png)  no-repeat 0px -756px; width: 60px;height: 18px;">导入</span>
+	<div class="img-div">
+		<div class="left-div" style="float:left">
+			<span id="iconselect_xs" class="choose">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<input type="text" id="shop_icon" style="display: none;">
+		</div>
+		<div class="right-div" id="icon_xs"></div>
+	</div>
+	<div style="float:left;margin-left:150px;margin-top:2px;">
+		<label class="sdate_xs">日期:</label>
+		<input style="width:85px" id="sdate_FDMSPXSMX" class="date" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" readonly="readonly" /> — <input style="width:80px" id="edate_FDMSPXSMX" class="date" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" readonly="readonly" />
+		<button class="btncx_fdmxs"> 查询</button>
+	</div>
+	<div style="clear:both"></div>
+</div>
+<!-----header  end------>
+
+<!-----content start------>
+<div class="xsps_style">
+	<div class="fdmxs_notice">ps:产品信息、销售模式、提货方式为必填项！</div>
+	<button class="resetsel_btn" onclick="resetxs()">重置筛选</button>
+	<div style="clear: both"></div>
+</div>
+<div id="mengce_xs"></div>
+<div class="pageContent" id="rendrTable_xsmx" layoutH="100" cellspacing="0" cellpadding="0" style="color:#555;font-size: small;"></div>
+<!-----content end------>
+
+<script type="text/x-jsrender" id="tableContent_xsmx">
+	<table style="width:4950px;table-layout:fixed;word-wrap: break-word; word-break: break-all;">
+		<thead class="thead_xsmx">
+			<tr>
+				{{for data.title[0].tr}}
+				<td class="td_xsmx" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style="width:104px;">{{:value}}</td>
+				{{/for}}
+				<td class="td_xsmx" style="width:104px;" rowspan="2" colspan="1">操作</td>
+			</tr>
+
+			<tr class="sel_head">
+				{{for data.title[1].tr}}
+				<td class="td_xsmx" style="width:104px;" rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}
+				</td>
+				{{/for}}
+			</tr>
+
+			<tr class="trtotal_xs">
+				{{for data.title[2].tr}}
+				<td class="td_xsmx" style="width:104px;" rowspan="{{:rowspan}}" colspan="{{:colspan}}"><input value="{{:value}}" readonly="readonly"></td>
+				{{/for}}
+				<td class="td_xsmx" style="width:118px;color:#fff;line-height:17px;" colspan="1">
+					<a></a>
+				</td>
+			</tr>
+		</thead>
+		<tbody class="tbxs">
+		</tbody>
+
+	</table>
+</script>
+<div class="tk_xsbg"> </div>
+<div id="tk_xs" class="tk_xs">
+	<div class="tboyxs_cpxx"></div>
+	<div class="tboyxs_khxx"></div>
+</div>
+</div>
+<div class="tkxs_close"> </div>
+
+<div class="tk_xsbg"> </div>
+<div class="fdmxs_close1"> </div>
+<div id="uploaderfail_xs"></div>

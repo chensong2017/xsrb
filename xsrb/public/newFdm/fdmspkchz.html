@@ -1,0 +1,464 @@
+<style type="text/css">
+    .pageContent_summaryhz {
+        overflow: hidden !important;
+    }
+    /*分页*/
+
+    .pagination_FDMSPKCSUMB {
+        margin-left: 49%;
+        margin-top: 0px;
+    }
+
+    .pagination_FDMSPKCSUMB a {
+        display: inline-block;
+        color: #555;
+        height: 18px;
+        line-height: 18px;
+        padding: 0 10px;
+        borde_digital_storer: 1px solid #edf3f4;
+        margin: 0px 2px;
+        borde_digital_storer-radius: 4px;
+        vertical-align: middle;
+    }
+
+    .pagination_FDMSPKCSUMB a :hover {
+        text-decoration: none;
+        borde_digital_storer: 1px solid darkolivegreen;
+    }
+
+    .pagination_FDMSPKCSUMB span.current,
+    .pagination_FDMSPKCSUMB span.disabled {
+        display: inline-block;
+        height: 18px;
+        line-height: 18px;
+        padding: 0 10px;
+        margin: 0 2px;
+        borde_digital_storer-radius: 4px;
+        vertical-align: middle;
+    }
+
+    .pagination_FDMSPKCSUMB span.current {
+        color: #fff;
+        background-color: #cfebee;
+        borde_digital_storer: 1px solid #b8d0d6;
+    }
+
+    .pagination_FDMSPKCSUMB span.disabled {
+        color: #bfbfbf;
+        background: #f2f2f2;
+        borde_digital_storer: 1px solid #bfbfbf;
+    }
+
+    .pagination_FDMSPKCSUMB .input_page {
+        width: 50px;
+        height: 12px;
+        padding: 2px;
+        borde_digital_storer-radius: 3px;
+        borde_digital_storer: 1px solid #555;
+    }
+
+    .pagination_FDMSPKCSUMB.go {
+        margin-left: 2%;
+        height: 20px;
+        line-height: 20px;
+        font-size: 10px;
+        width: 35px;
+        borde_digital_storer-radius: 3px;
+        borde_digital_storer: none;
+        background-color: #ddd;
+    }
+
+    .go:hover {
+        background-color: #cfebee;
+    }
+    /*分页结束*/
+
+    .summaryds_thhz {
+        color: #000;
+        font-weight: bold;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        text-align: center;
+        background-color: #99ccff;
+        border-bottom: 1px solid #c0c0c0!important;
+        border-right: 1px solid #C0C0C0!important;
+    }
+
+    .disableView_hz {
+        cursor: pointer;
+        border: none;
+        background: none;
+        width: 120px;
+        color: red;
+    }
+
+    .borde_hz {
+        float: left;
+        height: 8px;
+        display: inline-block;
+        margin: 7px auto auto 10px;
+        border: 0.1px solid #D8D8D8;
+    }
+
+    .viewBox_sphz {
+        display: inline-block;
+        height: 22px;
+        margin-left: 20px;
+        margin-top: 0px;
+    }
+
+    .viewBox_sphz label {
+        line-height: 26px;
+    }
+
+    #serchsub_FDMSPKCSUMB:hover {
+        background-color: #99ccff;
+        cursor: pointer;
+    }
+
+    #serchsub_FDMSPKCSUMB {
+        line-height: 23px;
+        padding: 0px 15px;
+        border: none;
+        color: #555;
+        margin-left: 20px;
+        border-radius: 2px;
+    }
+
+    .datalebel_sphz {
+        font-size: bold;
+    }
+
+    #date_FDMSPKCSUMB {
+        background: url('themes/default/images/button/calendar.png') no-repeat 125px -8px;
+        height: 16px;
+        width: 150px;
+        border-radius: 2px;
+    }
+
+    .pageContent_summaryhz table {
+        /*border-left: 1px solid #c0c0c0;*/
+    }
+
+    .headbutton_sphz {
+        float: left;
+        background: none;
+        display: inline-block;
+        margin: auto 15px auto 15px;
+        height: 26px;
+        overflow: hidden;
+    }
+
+    .headbutton_sphz span {
+        background: none;
+        height: 26px;
+        display: inline-block;
+        margin-left: 5px;
+    }
+
+    .headbutton_sphz:hover {
+        background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+    }
+
+    .headbutton_sphz:hover span {
+        background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+        ;
+    }
+
+    .headbutton_sphz i {
+        display: inline-block;
+        height: 21px;
+        line-height: 26px;
+        font-style: normal;
+    }
+
+    .nav1_sphz {
+        display: inline-block;
+        padding-right: 5px;
+    }
+
+    .outputnav_sphz {
+        background-color: #f9fafb;
+        border: 1px solid #b8d0d6;
+        width: 160px;
+        position: absolute;
+        z-index: 150;
+        top: -3px;
+        padding: 0;
+        left: 142px;
+        margin: 0;
+        border-radius: 3px;
+        display: none;
+        box-shadow: 1px 1px 20px #081629;
+    }
+
+    .outputnav_sphz a:hover {
+        text-decoration: none;
+    }
+
+    .pageContent_summaryhz li a {
+        display: inline-block;
+        height: 19px;
+        line-height: 19px;
+    }
+
+    #rendrTable_FDMSPKCHZ {
+        margin-bottom: 5px;
+        border-left: 1px solid lightgray;
+    }
+</style>
+</head>
+
+<body>
+    <div class="pageHeader">
+        <div class="borde_hz"></div>
+        <a class="headbutton_sphz" href="javascript:download_hz();"><span><i class="nav1_sphz" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库存输出</i></span></a>
+        <div class="borde_hz"></div>
+        <a class="headbutton_sphz" href="javascript:download_spkchz();"><span><i class="nav1_sphz" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期初输出</i></span></a>
+        <div class="viewBox_sphz"><label>选中项内容：</label><input type="text" disabled="disabled" value="" id="tdView_FDMKCSUMB" class="disableView_hz" /></div>
+        <label class="datalebel_sphz">日期查询：</label>
+        <input id="date_FDMSPKCSUMB" class="date" dateFmt="yyyy-MM-dd" readonly="readonly" />
+        <button id="serchsub_FDMSPKCSUMB"> 查询</button>
+    </div>
+
+    <div class="pageContent pageContent_summaryhz" layoutH="58" style="overflow: auto;">
+
+        <div id="rendrTable_FDMSPKCHZ" ></div>
+    </div>
+    <div class="panelBar">
+        <div class="pagination_FDMSPKCSUMB"></div>
+    </div>
+</body>
+<script type="text/javascript">
+    $(function() {
+        table_flag = 0;
+        setDateSearch("_FDMSPKCSUMB");  //common中设置默认时间
+        get_fdmspkchzdata();
+        tableW_summaryds =navTab._panelBox.width();
+        tableH_summaryds = navTab._panelBox.height()*0.86;
+
+        FixTable("MyTable_FDMSPKCHZ", 0, tableW_summaryds, tableH_summaryds);
+        //查询指定日期的日报
+        $("#serchsub_FDMSPKCSUMB").click(function() {
+            if($("#date_FDMSPKCSUMB").val()) {
+                get_fdmspkchzdata();
+                    FixTable("MyTable_FDMSPKCHZ", 2, tableW_summaryds, tableH_summaryds);
+            } else
+                alertMsg.warn("请选择查询日期");
+        });
+    })
+
+    function FixTable(TableID, FixColumnNumber, width, height) {
+        if($("#" + TableID + "_tableLayout").length != 0) {
+            $("#" + TableID + "_tableLayout").before($("#" + TableID));
+            $("#" + TableID + "_tableLayout").empty();
+        } else {
+            $("#" + TableID).after("<div id='" + TableID + "_tableLayout' style='overflow:hidden;height:" + height + "px; width:" + width + "px;'></div>");
+        }
+        $('<div id="' + TableID + '_tableFix"></div>' +
+            '<div id="' + TableID + '_tableHead"></div>' +
+            '<div id="' + TableID + '_tableColumn"></div>' +
+            '<div id="' + TableID + '_tableData"></div>').appendTo("#" + TableID + "_tableLayout");
+        var oldtable = $("#" + TableID);
+        var tableFixClone = oldtable.clone(true);
+        tableFixClone.attr("id", TableID + "_tableFixClone");
+        $("#" + TableID + "_tableFix").append(tableFixClone);
+        var tableHeadClone = oldtable.clone(true);
+        tableHeadClone.attr("id", TableID + "_tableHeadClone");
+        $("#" + TableID + "_tableHead").append(tableHeadClone);
+        var tableColumnClone = oldtable.clone(true);
+        tableColumnClone.attr("id", TableID + "_tableColumnClone");
+        $("#" + TableID + "_tableColumn").append(tableColumnClone);
+        $("#" + TableID + "_tableData").append(oldtable);
+        $("#" + TableID + "_tableLayout table").each(function() {
+            $(this).css("margin", "0");
+        });
+        var HeadHeight = $("#" + TableID + "_tableHead thead").height();
+        HeadHeight += 2;
+        $("#" + TableID + "_tableHead").css("height", HeadHeight);
+        $("#" + TableID + "_tableFix").css("height", HeadHeight);
+        var ColumnsWidth = 0;
+        var ColumnsNumber = 0;
+        $("#" + TableID + "_tableColumn tr:last td:lt(" + FixColumnNumber + ")").each(function() {
+            ColumnsWidth += $(this).outerWidth(true);
+            ColumnsNumber++;
+        });
+        ColumnsWidth += 2;
+        if($.browser.msie) {
+            switch($.browser.version) {
+                case "7.0":
+                    if(ColumnsNumber >= 3) ColumnsWidth--;
+                    break;
+                case "8.0":
+                    if(ColumnsNumber >= 2) ColumnsWidth--;
+                    break;
+            }
+        }
+        $("#" + TableID + "_tableColumn").css("width", ColumnsWidth);
+        $("#" + TableID + "_tableFix").css("width", ColumnsWidth);
+        $("#" + TableID + "_tableData").scroll(function() {
+            $("#" + TableID + "_tableHead").scrollLeft($("#" + TableID + "_tableData").scrollLeft());
+            $("#" + TableID + "_tableColumn").scrollTop($("#" + TableID + "_tableData").scrollTop());
+        });
+        $("#" + TableID + "_tableFix").css({ "overflow": "hidden", "position": "relative", "z-index": "50", "background-color": "Silver" });
+        $("#" + TableID + "_tableHead").css({ "overflow": "hidden", "width": width - 17, "position": "relative", "z-index": "45", "background-color": "Silver" });
+        $("#" + TableID + "_tableColumn").css({ "overflow": "hidden", "height": height - 17, "position": "relative", "z-index": "40", "background-color": "Silver" });
+        $("#" + TableID + "_tableData").css({ "overflow": "scroll", "width": width, "height": height, "position": "relative", "z-index": "35" });
+        if($("#" + TableID + "_tableHead").width() > $("#" + TableID + "_tableFix table").width()) {
+            $("#" + TableID + "_tableHead").css("width", $("#" + TableID + "_tableFix table").width());
+            $("#" + TableID + "_tableData").css("width", $("#" + TableID + "_tableFix table").width() + 17);
+        }
+        if($("#" + TableID + "_tableColumn").height() > $("#" + TableID + "_tableColumn table").height()) {
+            $("#" + TableID + "_tableColumn").css("height", $("#" + TableID + "_tableColumn table").height());
+            $("#" + TableID + "_tableData").css("height", $("#" + TableID + "_tableColumn table").height() + 17);
+        }
+        $("#" + TableID + "_tableFix").offset($("#" + TableID + "_tableLayout").offset());
+        $("#" + TableID + "_tableHead").offset($("#" + TableID + "_tableLayout").offset());
+        $("#" + TableID + "_tableColumn").offset($("#" + TableID + "_tableLayout").offset());
+        $("#" + TableID + "_tableData").offset($("#" + TableID + "_tableLayout").offset());
+    }
+	//去空
+    function canntEdit_fdmspkchz(obj) {
+        $("#tdView_FDMKCSUMB").val(obj.text().replace(/\s*/, ""));
+    };
+    $('body').click(function() {
+        if($(".outputnav_sphz").css("display") == "block")
+            $(".outputnav_sphz").css("display", "none");
+    });
+    //获取默认数据
+    function get_fdmspkchzdata() {
+        var url_searchhz = fdmUrl + "FDMKCHZ/search/token/" + token;
+        var url_searchhz = url_searchhz.replace('home', 'NewSPZ');
+        var date_hz = $("#date_FDMSPKCSUMB").val().replace(/\-/g, "");
+        url_searchhz = url_searchhz + "/startDate/" + date_hz + "/endDate/" + date_hz;
+        $.ajax({
+            type: "get",
+            url: url_searchhz,
+            async: false,
+            dataType: "json",
+            success: function(data) {
+                if(data.hasOwnProperty("resultcode")) {
+                    showData_hz(data, url_searchhz);
+                    $(".pagination_FDMSPKCSUMB").createPage({
+                        pageCount: data.data.totalPage, //总页数
+                        current: data.data.page, //初始页号
+                        backFn: function(obj) {
+                            get_pagenation_data_FDMSPKCSUMB(url_searchhz, obj);
+                            tableW_summaryds =navTab._panelBox.width();
+                            tableH_summaryds = navTab._panelBox.height()*0.86;
+                            FixTable("MyTable_FDMSPKCHZ", 2, tableW_summaryds, tableH_summaryds);
+                        }
+                    });
+                    if(data.resultcode == -2) {
+                        alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+                        window.location.href = "index.html";
+                    }
+                }
+            },
+            error: function() {
+                alertMsg.warn("加载失败，刷新或者检查网络设置！");
+}
+});
+};
+
+function showData_hz(data, url_searchhz) {
+	var wid = $(".pageContent_summaryhz").width()-15;
+        var k = '<table style="width:'+wid+'px;color:#555;font-size: small;" id="MyTable_FDMSPKCHZ" cellspacing="0" cellpadding="0">'
+        if(data.data.content.length != 0) {
+            $(".panelBar").css("display", "block");
+            var item = data.data.content[0].head;
+            k += '<thead>'
+            for(var i = 0; i < item.length; i++) {
+                k += '<tr>'
+                for(var j = 0; j < item[i].length; j++) {
+                    k += '<th class="summaryds_thhz" rowspan="' + item[i][j].rowspan + '" colspan="' + item[i][j].colspan + '">' +
+                        item[i][j].value +
+                        '</th>'
+                }
+                k += '</tr>'
+            }
+
+            k += '</thead>'
+            if(data.data.content[0].data.length != "") {
+                var item_data = data.data.content[0].data;
+                k += '<tbody>'
+                for(var m = 0; m < item_data.length; m++) {
+                    k += '<tr>'
+                    for(var n = 0; n < item_data[m].length; n++) {
+                        k += '<td class="summaryds_thhz" rowspan="' + item_data[m][n].rowspan + '" style="background-color: #fff;" onclick="canntEdit_fdmspkchz($(this))" colspan="' + item_data[m][n].colspan + '">' +
+                            item_data[m][n].value +
+                            '</td>'
+                    }
+                    k += '</tr>'
+                }
+                k += '</tbody>'
+            }
+        } else {
+            k = '</tr>' +
+                '暂无数据' +
+                '</tr>'
+        }
+        k += '</table>'
+        $("#rendrTable_FDMSPKCHZ").html(k);
+    }
+    //获取分页数据
+    function get_pagenation_data_FDMSPKCSUMB(url_searchhz, page) {
+        $.ajax({
+            type: "get",
+            url: url_searchhz + "/page/" + page,
+            dataType: "json",
+            async: false,
+            cache: false,
+            success: function(data) {
+                if(data.hasOwnProperty("resultcode")) {
+                    showData_hz(data, url_searchhz);
+                    if(data.resultcode == -2) {
+                        alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+                        window.location.href = "index.html";
+                    }
+                } else {
+                    tableW_summaryds =navTab._panelBox.width()-10;
+                    tableH_summaryds = navTab._panelBox.height()*0.86;
+                    FixTable("MyTable_FDMSPKCHZ", 0, tableW_summaryds, tableH_summaryds);
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alertMsg.warn("加载失败，刷新或者检查网络设置！");
+            }
+        });
+    }
+
+    // 库存导出
+    function download_hz() {
+        date_sc = $("#date_FDMSPKCSUMB").val().replace(/\-/g, "");
+        var excurl = fdmUrl + "FDMKCHZ/downloadExcel/startDate/" + date_sc + "/endDate/" + date_sc + "/token/" + token;
+        var excurl = excurl.replace("home", "NewSPZ");
+        $.ajax({
+            type: "get",
+            url: excurl,
+            dataType: "json",
+            success: function(data) {
+                window.open(data.data.downloadUrl);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alertMsg.warn("下载失败，重试或者检查网络设置！");
+            }
+        });
+    }
+    // 期初导出
+    function download_spkchz() {
+        var excspkchz_url = fdmUrl + "SPZQCTJ/toexcel/token/" + token;
+        var excspkchz_url = excspkchz_url.replace("home", "NewSPZ");
+        $.ajax({
+            type: "get",
+            url: excspkchz_url,
+            dataType: "json",
+            success: function(data) {
+                window.open(data.excel_url);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alertMsg.warn("下载失败，重试或者检查网络设置！");
+            }
+        });
+    }
+</script>

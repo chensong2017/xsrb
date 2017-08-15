@@ -1,0 +1,700 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>销售日报</title>
+		<link href="themes/default/style.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="themes/css/core.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="themes/css/print.css" rel="stylesheet" type="text/css" media="print" />
+		<link href="uploadify/css/uploadify.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="themes/css/webuploader.css" rel="stylesheet" type="text/css" media="screen" />
+
+		<!--[if IE]>
+<link href="themes/css/ieHack.css" rel="stylesheet" type="text/css" media="screen"/>
+<![endif]-->
+
+		<!--[if lte IE 9]>
+<script src="js/speedup.js" type="text/javascript"></script>
+<![endif]-->
+
+		<script src="js/jquery-1.7.2.js" type="text/javascript"></script>
+		<script src="js/jquery.cookie.js" type="text/javascript"></script>
+		<script src="js/jquery.validate.js" type="text/javascript"></script>
+		<script src="js/jquery.bgiframe.js" type="text/javascript"></script>
+		<script src="xheditor/xheditor-1.2.1.min.js" type="text/javascript"></script>
+		<script src="xheditor/xheditor_lang/zh-cn.js" type="text/javascript"></script>
+		<script src="uploadify/scripts/jquery.uploadify.js" type="text/javascript"></script>
+
+		<!-- svg图表  supports Firefox 3.0+, Safari 3.0+, Chrome 5.0+, Opera 9.5+ and Internet Explorer 6.0+ -->
+		<script type="text/javascript" src="chart/raphael.js"></script>
+		<script type="text/javascript" src="chart/g.raphael.js"></script>
+		<script type="text/javascript" src="chart/g.bar.js"></script>
+		<script type="text/javascript" src="chart/g.line.js"></script>
+		<script type="text/javascript" src="chart/g.pie.js"></script>
+		<script type="text/javascript" src="chart/g.dot.js"></script>
+
+		<script src="js/dwz.core.js" type="text/javascript"></script>
+		<script src="js/dwz.util.date.js" type="text/javascript"></script>
+		<script src="js/dwz.validate.method.js" type="text/javascript"></script>
+		<script src="js/dwz.regional.zh.js" type="text/javascript"></script>
+		<script src="js/dwz.barDrag.js" type="text/javascript"></script>
+		<script src="js/dwz.drag.js" type="text/javascript"></script>
+		<script src="js/dwz.tree.js" type="text/javascript"></script>
+		<script src="js/dwz.accordion.js" type="text/javascript"></script>
+		<script src="js/dwz.ui.js" type="text/javascript"></script>
+		<script src="js/dwz.theme.js" type="text/javascript"></script>
+		<script src="js/dwz.switchEnv.js" type="text/javascript"></script>
+		<script src="js/dwz.alertMsg.js" type="text/javascript"></script>
+		<script src="js/dwz.contextmenu.js" type="text/javascript"></script>
+		<script src="js/dwz.navTab.js" type="text/javascript"></script>
+		<script src="js/dwz.tab.js" type="text/javascript"></script>
+		<script src="js/dwz.resize.js" type="text/javascript"></script>
+		<script src="js/dwz.dialog.js" type="text/javascript"></script>
+		<script src="js/dwz.dialogDrag.js" type="text/javascript"></script>
+		<script src="js/dwz.sortDrag.js" type="text/javascript"></script>
+		<script src="js/dwz.cssTable.js" type="text/javascript"></script>
+		<script src="js/dwz.stable.js" type="text/javascript"></script>
+		<script src="js/dwz.taskBar.js" type="text/javascript"></script>
+		<script src="js/dwz.ajax.js" type="text/javascript"></script>
+		<script src="js/dwz.pagination.js" type="text/javascript"></script>
+		<script src="js/dwz.database.js" type="text/javascript"></script>
+		<script src="js/dwz.datepicker.js" type="text/javascript"></script>
+		<script src="js/dwz.effects.js" type="text/javascript"></script>
+		<script src="js/dwz.panel.js" type="text/javascript"></script>
+		<script src="js/dwz.checkbox.js" type="text/javascript"></script>
+		<script src="js/dwz.history.js" type="text/javascript"></script>
+		<script src="js/dwz.combox.js" type="text/javascript"></script>
+		<script src="js/dwz.print.js" type="text/javascript"></script>
+		<script src="js/dwz.regional.zh.js" type="text/javascript"></script>
+		<script src="js/publicjs/sortable_table.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/publicjs/fixed_table_rc.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jsrender.js"></script>
+		<script src="js/publicjs/common.js"></script>
+		<!--<script src="bin/dwz.min.js" type="text/javascript"></script>-->
+		<script src="js/publicjs/pagenation.js"></script>
+		<script src="js/publicjs/webuploader.min.js"></script>
+		<script src="js/publicjs/uploadImg.js"></script>
+		<script src="js/jquery.cityselect.js"></script>
+		<style type="text/css">
+			.question:hover {
+				color: red;
+				text-decoration: underline;
+			}
+			
+			.question,
+			.answer {
+				/*font-size: 14px;*/
+				margin-bottom: 20px;
+				margin-left: 20px;
+				/*color:steelblue;*/
+			}
+			
+			.question {
+				font-weight: bold;
+			}
+			
+			.answer {
+				display: none;
+				/*color: cadetblue;*/
+				color: #183152;
+				/*font-size:14px;*/
+			}
+			
+			.noticeMeg {
+				color: #183152;
+			}
+			
+			.noticeLink {
+				font-size: 14px;
+				color: red;
+				display: block;
+			}
+			
+			.download_box {
+				padding: 10px 20px;
+			}
+			
+			.download_box div {
+				margin-bottom: 10px;
+			}
+			
+			.download_box div a {
+				display: inline-block;
+				color: steelblue;
+				margin-left: 5px;
+				cursor: pointer;
+				float: left;
+			}
+			
+			.download_box div span {
+				display: inline-block;
+				color: rgb(24, 49, 82);
+				font-weight: bold;
+				float: left;
+			}
+			
+			.xsrb_notice {
+				margin: 20px;
+			}
+			
+			.xsrb_notice ul li {
+				list-style: none;
+				height: 25px;
+				line-height: 25px;
+				color: red;
+			}
+		</style>
+		<script type="text/javascript">
+			//登陆后的token参数
+			var token = "";
+			$(function() {
+				DWZ.init("dwz.frag.xml", {
+					loginUrl: "login_dialog.html",
+					loginTitle: "登录", // 弹出登录对话框
+					//      loginUrl:"login.html",  // 跳到登录页面
+					statusCode: {
+						ok: 200,
+						error: 300,
+						timeout: 301
+					}, //【可选】
+					pageInfo: {
+						pageNum: "pageNum",
+						numPerPage: "numPerPage",
+						orderField: "orderField",
+						orderDirection: "orderDirection"
+					}, //【可选】
+					debug: false, // 调试模式 【true|false】
+					callback: function() {
+						initEnv();
+						$("#themeList").theme({
+							themeBase: "themes"
+						}); // themeBase 相对于index页面的主题base路径
+					}
+				});
+				var browser = hovertreebrowser();
+				if("Chrome" != browser[0]) {
+					$("#notice1").html("");
+					$("#notice1").html("<p class='noticeMeg'>&nbsp;&nbsp;&nbsp;想要更好的使用体验？快来使用chrome浏览器吧！</p><br/><br /><a href='#' onclick='getChrome()' class='noticeLink'>现在就去下载谷歌浏览器>>><a>");
+					$("#noticeTitle2").css("color", "red");
+					$("#notice2").html('<ul><li><strong>销售日报调整如下：</strong></li><li>第一、调整了现有菜单，分为三大类：综合日报、防盗门、数码产品；</li><li>第二、销售日报中防盗门所有表格重新制作，请按照格式和通知录入新版防盗门表格；</li><li>第三、数码产品调整产品的变更，其他未做调整；</li><li>第四、综合日报新增产品项，原防盗门拆分为两列；</li><li>第五、若遇到更新之后显示依旧是旧版的情况，请退出系统重新进入；</li><li>第六、若有技术方面的疑问请联系开发人员（028-66315155），其他财务方面的问题请联系总部财务，谢谢大家！</li></ul>');
+					
+					
+					
+
+				}
+				//登陆的token
+				token = getRequestParam("token");
+				qt1 = getRequestParam("qt1");
+				authorize_export();
+				//未登陆则跳转登陆页面
+				if(!token) {
+					alert("请先登陆！");
+					window.location.href = "index.html";
+					var browser = hovertreebrowser();
+					if("Chrome" != browser[0]) {
+						alertMsg.info("为保证你的使用体验，请在<全部公告栏>中下载谷歌浏览器");
+					}
+				} else {
+					//获取用户信息
+					$.get(URL + "Member/getUserInfo/token/" + token, function(json) {
+
+						if(json.resultcode == -2) {
+							alert("token已失效，请重新登录！");
+							window.location.href = "index.html";
+						} else {
+							// 							alertMsg.warn('<p><strong>各位亲爱的同事：</strong></p><p style="text-indent: 1.5em;line-height: 19px;">本系统维护已结束！</p>')
+							setTimeout(function() {
+								if("Chrome" != browser[0]) {
+									alertMsg.info("为保证你的使用体验，请在公告栏下载谷歌浏览器");
+								}
+							}, 2000)
+
+							var testVersion = json.data.test;
+							if(testVersion == "0") {
+								$(".xsrb_new").remove();
+							}
+							if(testVersion == 1) {
+								$(".jxcCatalog").show();
+								$(".newFdm").show();
+							}
+							//总部
+							dept_Id = json.data.dept_id;
+							pId = json.data.pid;
+
+							user_name = json.data.user_name;
+
+							if(user_name) {
+								//添加欢迎欢迎信息
+								$("#welcome").text(user_name + ",您好！");
+							}
+							//分权限显示tree
+							authorize_export();
+						}
+					})
+				}
+
+			});
+
+			function hovertreebrowser() {
+				var ua = window.navigator.userAgent;
+				ret = "";
+				if(/Firefox/g.test(ua)) {
+					ua = ua.split(" ");
+					ret = "Firefox|" + ua[ua.length - 1].split("/")[1];
+				} else if(/MSIE/g.test(ua)) {
+					ua = ua.split(";");
+					ret = "IE|" + ua[1].split(" ")[2];
+				} else if(!!window.ActiveXObject || "ActiveXObject" in window) {
+					if(/rv:11.0/g.test(ua))
+						ret = "IE|11";
+					else if(/rv:10.0/g.test(ua))
+						ret = "IE|10";
+					else if(/rv:9.0/g.test(ua))
+						ret = "IE|9";
+					else {
+						ret = "HoverTree:IE|未知版本";
+					}
+				} else if(/Opera/g.test(ua)) {
+					ua = ua.split(" ");
+					ret = "Opera|" + ua[ua.length - 1].split("/")[1];
+				} else if(/Chrome/g.test(ua)) {
+					ua = ua.split(" ");
+					ret = "Chrome|" + ua[ua.length - 2].split("/")[1];
+				} else if(/^apple\s+/i.test(navigator.vendor)) {
+					ua = ua.split(" ");
+					ret = "Safair|" + ua[ua.length - 2].split("/")[1];
+				} else {
+					ret = "HoverTree:未知浏览器";
+				}
+				return ret.split("|");
+			}
+
+			function getChrome() {
+				window.open("http://rj.baidu.com/soft/detail/14744.html", "_blank");
+			}
+
+			function getAnswer(answer) {
+				if($("." + answer).css("display") == "none") {
+					$(".answer").css("display", "none");
+					$("." + answer).css("display", "block");
+				} else {
+					$(".answer").css("display", "none");
+				}
+
+				stopEvent();
+			}
+			
+		</script>
+	</head>
+
+	<body scroll="no" onresize="resize_table()" onclick="body_click_unselect()">
+		<div id="layout">
+			<div id="header">
+				<div class="headerNav">
+					<a class="logo"></a>
+					<ul class="nav">
+						<li>
+							<a id="welcome" href="#"></a>
+						</li>
+						<li>
+							<a href="index.html">退出</a>
+						</li>
+					</ul>
+					<ul class="themeList" id="themeList">
+						<li theme="default">
+							<div class="selected">蓝色</div>
+						</li>
+						<li theme="green">
+							<div>绿色</div>
+						</li>
+						<!--<li theme="red"><div>红色</div></li>-->
+						<li theme="purple">
+							<div>紫色</div>
+						</li>
+						<li theme="silver">
+							<div>银色</div>
+						</li>
+						<li theme="azure">
+							<div>天蓝</div>
+						</li>
+					</ul>
+				</div>
+				<!-- navMenu -->
+
+			</div>
+
+			<div id="leftside">
+				<div id="sidebar_s">
+					<div class="collapse">
+						<div class="toggleCollapse">
+							<div></div>
+						</div>
+					</div>
+				</div>
+				<div id="sidebar">
+					<div class="toggleCollapse">
+						<h2>主菜单</h2>
+						<div>收缩</div>
+					</div>
+
+					<div class="accordion" fillSpace="sidebar">
+						<div class="accordionHeader">
+							<h2><span>Folder</span>销售日报</h2>
+						</div>
+						<div class="accordionContent">
+							<ul class="tree treeFolder" id="_tree">
+								<li>
+									<a>综合日报</a>
+									<ul>
+										<li id="limit_xsrbqc">
+											<a href="public/initialStage/ini-entrydata.html" target="navTab" rel="w_table2">销售日报期初</a>
+										</li>
+										<li id="limit_xsrblr">
+											<a href="public/dailyInput/dailySale/input_dailysale.html" target="navTab" rel="w_table6">销售日报录入</a>
+										</li>
+										<li>
+											<a href="public/sellDetail/xsrbmx.html" target="navTab" rel="xsrbmx">销售日报明细</a>
+										</li>
+										<li>
+											<a href="public/sellDetail/fymx.html" target="navTab" rel="fymx">费用明细报表</a>
+										</li>
+										<li>
+											<a href="public/sellDetail/spmx.html" target="navTab" rel="spmx">商品明细</a>
+										</li>
+										<li>
+											<a href="public/sellDetail/qtsrmx.html" target="navTab" rel="qtsrmx">其他收入明细</a>
+										</li>
+										<li>
+											<a href="public/sellDetail/yszkmx.html" target="navTab" rel="yszkmx">应收账款明细</a>
+										</li>
+										<li>
+											<a href="public/sellDetail/zjdbmx.html" target="navTab" rel="zjdbmx">资金调拨明细</a>
+										</li>
+										<li>
+											<a href="public/sellDetail/yskmx.html" target="navTab" rel="yskmx">预收账款明细</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a>防盗门</a>
+									<ul>
+										<li id="limit_fdmspqc">
+											<a id="login_addindex" href="public/xsrbNew/fdmqc.html" target="navTab" rel="index">防盗门商品期初</a>
+										</li>
+										<li id="limit_fdmxsmx">
+											<a id="login_xsmx" href="public/xsrbNew/fdmxsmx.html" target="navTab" rel="fdmxsmx">防盗门商品销售明细</a>
+										</li>
+										<li id="limit_fdmszmx">
+											<a id="login_szmx" href="public/xsrbNew/fdmszmx.html" target="navTab" rel="fdmszmx">防盗门商品收支明细</a>
+										</li>
+										<li>
+											<a id="login_mingxicx" href="public/xsrbNew/fdmkcb.html" target="navTab" rel="mingxicx">防盗门商品库存表</a>
+										</li>
+										<li>
+											<a id="login_yxshangpin" href="public/xsrbNew/fdmdzd.html" target="navTab" rel="youxiao">防盗门商品对账单</a>
+										</li>
+										<li id="limit_fdmpd">
+											<a id="login_shangpinpd" href="public/xsrbNew/fdmpd.html" target="navTab" rel="pandian">防盗门商品盘点表</a>
+										</li>
+										<li id="fdmkchz">
+											<a href="public/xsrbNew/fdmkchz.html" target="navTab" rel="w_table8">防盗门商品库存汇总</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a>数码和门配产品</a>
+									<ul>
+										<li id="limit_smcpqc">
+											<a href="public/xsrbNew/smcpkcbbqc.html" target="navTab" rel="s_table1">数码和门配产品库存报表期初</a>
+										</li>
+										<li id="limit_smcpkc">
+											<a href="public/xsrbNew/smcpkcb.html" target="navTab" rel="s_table2">数码和门配产品库存表</a>
+										</li>
+										<li id="smcpkcbbtj">
+											<a href="public/xsrbNew/smcpkcbbtj.html" target="navTab" rel="s_table3">数码和门配产品库存报表统计表</a>
+										</li>
+										<li id="smcpqctj">
+											<a href="public/xsrbNew/smcpqctj.html" target="navTab" rel="s_table4">数码和门配产品期初统计表</a>
+										</li>
+										<li>
+											<a href="public/xsrbNew/smcpkcbmxcs.html" target="navTab" rel="s_table5">数码和门配产品库存表明细</a>
+										</li>
+										<!-- <li>
+											<a href="public/xsrbNew/gonghaoQuery.html" target="navTab" rel="s_table6">工号查询</a>
+										</li> -->
+										
+									</ul>
+								</li>
+								<li id="summary_tree">
+									<a>汇总统计报表</a>
+									<ul>
+										<li>
+											<a href="public/dataSummary/summary_daily.html" target="navTab" rel="w_table7">常规销售日报汇总</a>
+										</li>
+
+										<li>
+											<a href="public/dataSummary/qccxtj.html" target="navTab" rel="w_table10">期初查询报表</a>
+										</li>
+
+										<li>
+											<a href="public/dataSummary/tjyfymxbb.html" target="navTab" rel="tjyfymxbb">统计用费用明细报表</a>
+										</li>
+										<li>
+											<a href="public/dataSummary/hwdbmxbb.html" target="navTab" rel="hwdbmxbb">货物调拨明细报表</a>
+										</li>
+									</ul>
+								</li>
+								<li style="display: none">
+									<a>部门信息</a>
+									<ul>
+										<li id="limit_bmxx">
+											<a id="login_addindex1" href="public/bmxx/bmxx.html" target="navTab" rel="bmxx">部门信息</a>
+										</li>
+									</ul>
+								</li>
+								<li class="jxcCatalog" style="display: none">
+									<a>进销存</a>
+									<ul >
+										<li>
+											<a href="public/jxc/xsmx.html" target="navTab" rel="jxcxsmx">防盗门销售明细</a>
+										</li>
+										<li>
+											<a href="public/jxc/szmx.html" target="navTab" rel="jxcszmx">防盗门收支明细</a>
+										</li>
+										<li>
+											<a href="public/jxc/spkcb.html" target="navTab" rel="jxcspkcb">防盗门商品库存表</a>
+										</li>
+										<li>
+											<a href="public/jxc/smjlcx.html" target="navTab" rel="jxcspkcb">扫码记录查询</a>
+										</li>
+										
+										<li>
+											<a href="javascript:void(0);" target="navTab" >----分割线----</a>
+										</li>
+										<!--新版防盗门转移（测试）-->
+										<li>
+											<a id="fdmspszqcTab1" href="public/jxc/fdmspqc.html" target="navTab" rel="new_fdmspqc1">防盗门商品期初</a>
+										</li>
+										<li>
+											<a id="login_spxsmx1" href="public/jxc/fdmspxsmx.html" target="navTab" rel="xfdmxsmx1">防盗门商品销售明细</a>
+										</li>
+										<li>
+											<a id="fdmspszmxTab1" href="public/jxc/fdmspszmx.html" target="navTab" rel="new_fdmspszmx1">防盗门商品收支明细</a>
+										</li>
+										<li>
+											<a id="fdmsplkcb1" href="public/jxc/fdmspkcb.html" target="navTab" rel="new_fdmspkcb1">防盗门商品库存表</a>
+										</li>
+										<li>
+											<a id="login_shangpindzdx1" href="public/jxc/fdmspdzd.html" target="navTab" rel="xfdmdzd1">防盗门商品对账单</a>
+										</li>
+										<li>
+											<a id="login_shangpinpdx1" href="public/jxc/fdmsppdb.html" target="navTab" rel="xfdmpdb1">防盗门商品盘点表</a>
+										</li>
+										<li>
+											<a href="public/jxc/fdmspkchz.html" target="navTab" rel="new_fdmspkchz1">防盗门商品库存汇总</a>
+										</li>
+										<li>
+											<a href="public/jxc/fdmcustomer.html" target="navTab" rel="new_fdmcustomer1">客户信息管理</a>
+										</li>
+										
+										
+										
+									</ul>
+								</li>
+								<li class="newFdm" style="display: none;">
+									<a>新版防盗门</a>
+									<ul>
+										<li>
+											<a id="fdmspszqcTab" href="public/newFdm/fdmspqc.html" target="navTab" rel="new_fdmspqc">防盗门商品期初</a>
+										</li>
+										<li>
+											<a id="login_spxsmx" href="public/newFdm/fdmspxsmx.html" target="navTab" rel="xfdmxsmx">防盗门商品销售明细</a>
+										</li>
+										<li>
+											<a id="fdmspszmxTab" href="public/newFdm/fdmspszmx.html" target="navTab" rel="new_fdmspszmx">防盗门商品收支明细</a>
+										</li>
+										<li>
+											<a id="fdmsplkcb" href="public/newFdm/fdmspkcb.html" target="navTab" rel="new_fdmspkcb">防盗门商品库存表</a>
+										</li>
+										<li>
+											<a id="login_shangpindzdx" href="public/newFdm/fdmspdzd.html" target="navTab" rel="xfdmdzd">防盗门商品对账单</a>
+										</li>
+										<li>
+											<a id="login_shangpinpdx" href="public/newFdm/fdmsppdb.html" target="navTab" rel="xfdmpdb">防盗门商品盘点表</a>
+										</li>
+										<li>
+											<a href="public/newFdm/fdmspkchz.html" target="navTab" rel="new_fdmspkchz">防盗门商品库存汇总</a>
+										</li>
+										<li>
+											<a href="public/newFdm/fdmcustomer.html" target="navTab" rel="new_fdmcustomer">客户信息管理</a>
+										</li>
+									</ul>
+								</li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div id="container">
+				<div id="navTab" class="tabsPage">
+					<div class="tabsPageHeader">
+						<div class="tabsPageHeaderContent">
+							<!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
+							<ul class="navTab-tab" id="navMenuID">
+								<li tabid="main" class="main">
+									<a href="javascript:;"><span><span class="home_icon">我的主页</span></span>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="tabsLeft">left</div>
+						<!-- 禁用只需要添加一个样式 class="tabsLeft tabsLeftDisabled" -->
+						<div class="tabsRight">right</div>
+						<!-- 禁用只需要添加一个样式 class="tabsRight tabsRightDisabled" -->
+						<div class="tabsMore">more</div>
+					</div>
+					<ul class="tabsMoreList">
+						<li>
+							<a href="javascript:;">我的主页</a>
+						</li>
+					</ul>
+					<div class="navTab-panel tabsPageContent layoutBox">
+						<div class="page unitBox">
+							<div class="pageFormContent" layoutH="20" style="margin-right:100px; ">
+								<div class="pageContent">
+									<div class="tabs" currentIndex="1" eventType="click">
+										<div class="tabsHeader">
+											<div class="tabsHeaderContent">
+												<ul>
+													<li>
+														<a href="javascript:;"><span>全部公告</span></a>
+													</li>
+													<li>
+														<a><span id="noticeTitle2">特别公告</span></a>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="tabsContent" style="height:250px;">
+											<div>
+												<div style="color: #183152;" id="notice1">&nbsp;&nbsp;现在暂无公告！</div>
+											</div>
+											<div class="xsrb_notice" id="notice2">
+
+												<ul>
+													<li><strong>销售日报调整如下：</strong></li>
+													<li>第一、调整了现有菜单，分为三大类：综合日报、防盗门、数码产品；</li>
+													<li>第二、销售日报中防盗门所有表格重新制作，请按照格式和通知录入新版防盗门表格；</li>
+													<li>第三、数码产品调整产品的变更，其他未做调整；</li>
+													<li>第四、综合日报新增产品项，原防盗门拆分为两列；</li>
+													<li>第五、若遇到更新之后显示依旧是旧版的情况，请退出系统重新进入；</li>
+													<li>第六、若有技术方面的疑问请联系开发人员（028-66315155），其他财务方面的问题请联系总部财务，谢谢大家！</li>
+												</ul>
+											</div>
+										</div>
+										<div class="tabsFooter">
+											<div class="tabsFooterContent"></div>
+										</div>
+									</div>
+									<!--<div class="panel" defH="300" style="margin:10px 0 auto 0">
+                                        <h1>系统提醒</h1>
+                                        <div style="color: #183152;">
+                                            &nbsp;&nbsp;现在暂无提醒！
+                                        </div>
+                                    </div>-->
+									<div class="tabs" currentIndex="1" eventType="click" style="margin:10px 0 auto 0">
+										<div class="tabsHeader">
+											<div class="tabsHeaderContent">
+												<ul>
+													<li>
+														<a href="javascript:;"><span>系统提醒</span></a>
+													</li>
+													<li>
+														<a><span style="color: red;">模板下载</span></a>
+													</li>
+													<li>
+														<a><span>常见问题解答</span></a>
+													</li>
+
+												</ul>
+											</div>
+										</div>
+										<div class="tabsContent" style="height:280px;">
+											<div>
+												<div style="color: #183152;">&nbsp;&nbsp;现在暂无提醒！</div>
+											</div>
+
+											<div class="download_box">
+												<div>
+													<span>防盗门商品帐导入样表:</span>
+													<a class="download_btn" href="/files/%E9%99%84%E4%BB%B6.rar">点击下载</a>
+													<div style="clear: both"></div>
+												</div>
+											</div>
+
+											<div style="color: #183152;">
+												<div class="question Q1" style="margin-top: 10px;" onclick="getAnswer('A1')">问：表格偶尔会变形，怎么办？</div>
+												<div class="answer A1">答：由于框架原因，表格打开过多的时候会可能出现表格变形，请重新点击左侧对应表格重新打开，即可恢复。在使用过程中，也请及时关闭不用的表格</div>
+												<div class="question Q2" onclick="getAnswer('A2')">问：为什么点击输出按钮没有反应？</div>
+												<div class="answer A2">答:请检查您的弹出式窗口是否被拦截
+													<br /><br /> &nbsp;&nbsp;&nbsp;1.谷歌浏览器取消弹出式窗口拦截方法：设置－》隐私设置－》内容设置－》弹出式窗口，如果没有找到，请在设置页的搜索框中输入弹出式窗口进行搜索。
+													<br /><br /> &nbsp;&nbsp;&nbsp;2.火狐浏览器取消弹出式窗口拦截方法：首选项－》内容－》弹出式窗口
+												</div>
+												<div class="question Q3" onclick="getAnswer('A3')">问：结存计算错误，是系统算错了嘛？</div>
+												<div class="answer A3">答：请仔细检查录入数据是否正确，确定正确之后向管理员反应问题</div>
+												<div class="question Q4" onclick="getAnswer('A4')">问：需要填的数据太多，如何提高录入效率?</div>
+												<div class="answer A4">答:合理利用快捷键，会极大的提高效率<br />
+													<br /> &nbsp;&nbsp;&nbsp;1.移动光标的快捷键：←→↑↓键直接移动，不用再输入一次点击鼠标一次啦️️
+													<br />
+													<br /> &nbsp;&nbsp;&nbsp;2.excel里面已经有数据了？那就复制excel的数据，点击鼠标左键拖动选中对应区域，Ctr+V 进行粘贴。在防盗门库存表和数码产品库存表中，还可以双击第一行输入框选中整列数据进行粘贴录入哦
+												</div>
+												<div class="question Q5" onclick="getAnswer('A5')">问：为什么偶尔会出现保存失败的情况？如何解决无法保存的问题？</div>
+												<div class="answer A5">答：保存失败的原因可能为：
+													<br /><br /> &nbsp;&nbsp;&nbsp;1.保存的时候网络不好
+													<br /><br /> &nbsp;&nbsp;&nbsp;2.帐号在其他地方登陆了
+													<br /><br /> 建议在录入数据过程中，录入就保存，多次保存，避免录入失败丢失全部数据
+												</div>
+											</div>
+
+										</div>
+										<div class="tabsFooter">
+											<div class="tabsFooterContent"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script type="text/javascript">
+			//新版销售日报新增
+			addnew_flag = false;
+			shangpinpd_flag = false;
+			ysshangpin_flag = false;
+			mingcx_flag = false;
+			xsmx_flag = false;
+			szmx_flag = false;
+			fdmspqc_flag = false;
+			fdmspszmx_flag = false;
+			fdmspkcb_flag = false;
+			spxsmx_flag = false;
+			shangpinpdb_flag = false;
+			yssp_flag = false;
+			xfdmspkcb_flag = false;
+			
+			$(".accordionContent ul li ul li a").click(function(){
+				$('.navTab-tab').find('a.close').trigger("click");
+			
+		});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,385 @@
+<script src="./js/publicjs/common.js"></script>
+<style type="text/css">
+	.pageContent_SMJLCX .table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+	/*分页*/
+	
+	.pagination_smjlcx {
+		float: right;
+		margin-top: 0px;
+	}
+	
+	.pagination_smjlcx a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_smjlcx a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_smjlcx span.current,
+	.pagination_smjlcx span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_smjlcx span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_smjlcx span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_smjlcx .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_smjlcx.go {
+		margin-left: 2%;
+		height: 20px;
+		line-height: 20px;
+		font-size: 10px;
+		width: 35px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: none;
+		background-color: #ddd;
+	}
+	
+	.pagination_smjlcx.go:hover {
+		background-color: #cfebee;
+	}
+	
+	.smjlcxTab thead {
+		background-color: #99ccff;
+		width: 2580px;
+	}
+	
+	.smjlcxTab,
+	.smjlcxTab tbody {
+		width: 2580px;
+	}
+	
+	.smjlcxTab thead th {
+		border-right: 1px solid darkgray;
+		border-bottom: 1px solid darkgray;
+		text-align: center;
+		height: 30px;
+		font-weight: bold;
+	}
+	
+	.smjlcxTabthead th,
+	.smjlcxTab tbody td {
+		text-align: center;
+		height: 30px;
+		word-break: break-all;
+		line-height: 1.5;
+	}
+	
+	.smjlcxTab tbody td {
+		border-right: 1px solid darkgray;
+		border-bottom: 1px solid darkgray;
+	}
+	
+	.smjlcxTab tbody tr:hover {
+		background: #F0F0F0;
+	}
+	
+	#user_record {
+		width: 100px;
+		padding: 2px;
+		background: #F6F6F6;
+		vertical-align: bottom;
+		border: 1px solid #9eabb3;
+	}
+	
+	.border_smjkc {
+		float: left;
+		height: 10px;
+		display: inline-block;
+		margin: 7px 10px auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.w100{width: 100px}
+	.w50{width: 50px}
+	.w60{width: 60px}
+	.w80{width: 80px}
+	.w120{width: 120px}
+	.w150{width: 150px}
+	.w200{width: 200px}
+	.w300{width: 300px}
+</style>
+
+<div>
+	<div class="pageHeader" style="overflow: hidden;">
+		<div style="float:left;margin-top:2px;">
+			<input style="width:80px" id="user_record" placeholder="用户ID" />
+		</div>
+		<div class="border_smjkc"></div>
+		<div style="float:left;margin-top: 1px">
+			<input style="width:80px" id="sdate_smjlcx" class="date" placeholder="起始时间" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" readonly="readonly" /> — <input style="width:80px" id="edate_smjlcx" placeholder="结束时间" class="date" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" readonly="readonly" />
+			<input type="text" placeholder="部门名称" id="deptNameId_smjlcx" style="display: none;" />
+			<button onclick="init()"> 查询</button>
+		</div>
+		<div style="clear:both"></div>
+	</div>
+	<div class="pageContent_SMJLCX" layoutH="58">
+		<table class="smjlcxTab" >
+			<thead>
+				<tr class="deptNameClass_smjl" style="display: none;">
+					<th style="text-align: center;" colspan="33"></th>
+				</tr>
+				<tr>
+					<th class="w100">用户ID</th>
+					<th class="w120">产品编号</th>
+					<th class="w50">档次</th>
+					<th class="w100">门框</th>
+					<th class="w50">框厚</th>
+					<th class="w50">前板厚</th>
+					<th class="w50">后板厚</th>
+					<th class="w80">底框材料</th>
+					<th class="w80">门扇</th>
+					<th class="w80">规格</th>
+					<th class="w50">开向</th>
+					<th class="w80">铰链</th>
+					<th class="w50">花色</th>
+					<th class="w60">表面方式</th>
+					<th class="w50">表面要求</th>
+					<th class="w80">窗花</th>
+					<th class="w100">猫眼</th>
+					<th class="w80">标牌</th>
+					<th class="w120">主锁</th>
+					<th class="w100">副锁</th>
+					<th class="w80">锁把</th>
+					<th class="w80">标件</th>
+					<th class="w80">包装品牌</th>
+					<th class="w50">包装方式</th>
+					<th class="w300">其它</th>
+					<th class="w80">制造部</th>
+					<th class="w80">部门名称</th>
+					<th class="w80">操作方式</th>
+					<th class="w80">操作类型</th>
+					<th class="w50">总数</th>
+					<th class="w50">期初单价</th>
+					<th class="w50">销售单价</th>
+					<th class="w120">创建时间</th>
+				</tr>
+			</thead>
+			<tbody id="jxcSMJLTab">
+			</tbody>
+		</table>
+
+	</div>
+</div>
+<div class="panelBar">
+	<div class="pagination_smjlcx"></div>
+</div>
+<script type="text/jsrender" id="jsxRenderID">
+	{{for data}}
+	<tr>
+		<td>{{:user_id}}</td>
+		<td>{{:product_code}}</td>
+		<td>{{:dangci}}</td>
+		<td>{{:menkuang}}</td>
+		<td>{{:kuanghou}}</td>
+		<td>{{:qianbanhou}}</td>
+		<td>{{:houbanhou}}</td>
+		<td>{{:dikuangcl}}</td>
+		<td>{{:menshan}}</td>
+		<td>{{:guige}}</td>
+		<td>{{:kaixiang}}</td>
+		<td>{{:jiaolian}}</td>
+		<td>{{:huase}}</td>
+		<td>{{:biaomianfs}}</td>
+		<td>{{:biaomianyq}}</td>
+		<td>{{:chuanghua}}</td>
+		<td>{{:maoyan}}</td>
+		<td>{{:biaopai}}</td>
+		<td>{{:zhusuo}}</td>
+		<td>{{:fusuo}}</td>
+		<td>{{:suoba}}</td>
+		<td>{{:biaojian}}</td>
+		<td>{{:baozhuangpp}}</td>
+		<td>{{:baozhuangfs}}</td>
+		<td>{{:qita}}</td>
+		<td>{{:zhizaobm}}</td>
+		<td>{{:dept_name}}</td>
+		<td>{{:operate_type==0?"扫码录入":"手动录入"}}</td>
+		<td>{{:type_name}}</td>
+		<td>{{:amount}}</td>
+		<td>{{:qc_price}}</td>
+		<td>{{:sale_price}}</td>
+		<td>{{:create_time}}</td>
+	</tr>
+	{{/for}}
+
+</script>
+<script type="text/javascript">
+	$("#sdate_smjlcx").val(getServiceTime_spkc());
+	$("#edate_smjlcx").val(getServiceTime_spkc());
+	init();
+	function init() {
+		var urls = newUrl + "saleStockSystem/index.php/admin/JxcRecord/record/token/" + token;
+		//按总部和片区决定按部门名称查询的输入框是否显示
+		if(dept_Id == 1 || dept_Id == '1' || pId == 1 || pId == '1') {
+			$("#deptNameId_smjlcx").show();
+		} else {
+			$("#deptNameId_smjlcx").hide();
+		}
+		var deptnameVal = $("#deptNameId_smjlcx").val().trim();
+		var likes = $("#user_record").val().trim();
+		var sdate = $("#sdate_smjlcx").val().replace(/\-/g, "");
+		var edate = $("#edate_smjlcx").val().replace(/\-/g, "");
+		if(isDataValid(sdate) && isDataValid(edate)) {
+			if(Number(edate) < Number(sdate)) {
+				alertMsg.warn("起始时间不能大于结束时间！");
+				return false;
+			}
+		}
+		if(isDataValid(likes)) {
+			urls += "/like/" + likes;
+		}
+		if(isDataValid(sdate)) {
+			urls += "/sdate/" + sdate;
+		}
+		if(isDataValid(edate)) {
+			urls += "/edate/" + edate;
+		}
+		if(isDataValid(deptnameVal)) {
+			urls += "/department/" + deptnameVal;
+		}
+
+		$.ajax({
+			type: "get",
+			url: urls,
+			async: true,
+			cache: false,
+			dataType: "json",
+			success: function(data) {
+				if(data.resultcode == -1) {
+					alertMsg.info(data.resultmsg);
+					return;
+				}
+				if(data.resultcode == -2) {
+					alertMsg.info("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				if(data.resultcode == 0) {
+					//按总部和片区决定按表头的经营部是否显示
+					if(isDataValid(data.dept_name)) {
+						$(".deptNameClass_smjl").show().find("th").text(data.dept_name);
+					} else {
+						$(".deptNameClass_smjl").hide();
+					}
+					if(isDataValid(data.data)) {
+
+						var JxcRecord = $("#jsxRenderID").render(data);
+						$("#jxcSMJLTab").html("").append(JxcRecord);
+
+						$(".pagination_smjlcx").show().createPage({
+							pageCount: data.pagecount, //总页数
+							current: data.page, //初始页号
+							backFn: function(obj) {
+								get_smjlcx_page(urls, obj); //修改为product
+							}
+						});
+					} else {
+						$("#jxcSMJLTab").text("暂无数据！");
+						$(".pagination_smjlcx").hide();
+					}
+				} else {
+					$("#jxcSMJLTab").text("暂无数据！");
+					$(".pagination_smjlcx").hide();
+				}
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+
+	//获取服务器时间
+	function getServiceTime_spkc() {
+		var getServiceTime_url = URL + "Schedule/SERVER_TIME";
+		var getServiceTime = "";
+		$.ajax({
+			type: "get",
+			url: getServiceTime_url,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+				getServiceTime = data.server_time;
+				return;
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alert(errorThrown);
+			}
+		});
+		return getServiceTime;
+	}
+
+	function get_smjlcx_page(url_page, page) {
+		$.ajax({
+			type: "get",
+			url: url_page + "/page/" + page,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+					if(data.resultcode == 0) {
+						//按总部和片区决定按表头的经营部是否显示
+						if(isDataValid(data.dept_name)) {
+							$(".deptNameClass_smjl").show().find("th").text(data.dept_name);
+						} else {
+							$(".deptNameClass_smjl").hide();
+						}
+						if(data.data != null) {
+
+							var jsxRenderID = $("#jsxRenderID").render(data);
+							$("#jxcSMJLTab").html("").append(jsxRenderID);
+						}
+					}
+				} else if(data.total == 'null' || data.total == null || data.total == undefined) {
+					alertMsg.info("暂无数据！");
+				} else {
+
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+</script>

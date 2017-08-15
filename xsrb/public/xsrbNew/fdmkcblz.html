@@ -1,0 +1,826 @@
+<style type="text/css">
+	/*分页*/
+	
+	.pagination_fdmkcb {
+		margin-left: 40%;
+		margin-top: 0px;
+	}
+	
+	.pagination_fdmkcb a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_fdmkcb a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_fdmkcb span.current,
+	.pagination_fdmkcb span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_fdmkcb span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_fdmkcb span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_fdmkcb .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_fdmkcb.go {
+		margin-left: 2%;
+		height: 20px;
+		line-height: 20px;
+		font-size: 10px;
+		width: 35px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: none;
+		background-color: #ddd;
+	}
+	
+	.pagination_fdmkcb.go:hover {
+		background-color: #cfebee;
+	}
+	/*分页结束*/
+	
+	.pageContent_MXCX table {
+		border: none;
+	}
+	
+	.tableLeftmxcx th,
+	.tableLeftmxcx td {
+		background-color: rgb(153, 204, 255);
+		text-align: center;
+		/*padding: 3px 5px;*/
+	}
+	/*保存按钮*/
+	
+	.headbutton {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headbutton span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.headbutton i {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+	}
+	
+	.navmingxicx {
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.bordemxcx {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+	}
+	
+	.sdate_label {
+		display: inline-block;
+		padding-left: 15px;
+	}
+	
+	.pageContent_MXCX {
+		position: relative;
+	}
+	
+	#tbody_mxcx td input {
+		width: 50px;
+	}
+	
+	#tbody_mxcx td {
+		border-right: 1px solid #c0c0c0 !important;
+		border-bottom: 1px solid #c0c0c0;
+	}
+	
+	#tableLeftmxcx_mingxiCX {
+		margin: 0px;
+	}
+	
+	#mxcxtile {
+		float: left;
+		z-index: 9999;
+		position: absolute;
+		height: auto;
+		left: 0px;
+		width: 200px;
+	}
+	
+	#tbody_mxcx1 td {
+		width: 80px;
+		height: 48px;
+		border-right: 1px solid #C0C0C0;
+		border-bottom: 1px solid #C0C0C0;
+		border-collapse: collapse;
+	}
+	
+	#tbody_mxcx td {
+		height: 20px;
+		border-right: 1px solid #C0C0C0;
+		border-bottom: 1px solid #C0C0C0;
+	}
+	
+	.mingxicx_input {
+		background: none;
+		border: none;
+		text-align: center;
+	}
+	
+	#thead_mxcx1 td,
+	#thead_mxcx td {
+		border-right: 1px solid #C0C0C0;
+		border-bottom: 1px solid #C0C0C0;
+	}
+	
+	#mingxicx_yxbt,
+	#mingxicx_wxbt {
+		float: right;
+		width: 90px;
+		line-height: 22px;
+		height: 26px;
+		text-align: center;
+		cursor: pointer;
+		border-bottom-left-radius: 22px;
+		border-top-right-radius: 22px;
+		font-size: 12px;
+		background-color: #FFFFFF;
+	}
+	
+	.mxcx_th {
+		font-weight: bold;
+	}
+	
+	#pageContainer_MXCX1 {
+		margin-left: -33px;
+	}
+	
+	#tableLeftmxcx_mingxiCX thead tr td:nth-child(1),
+	#tableLeftmxcx_mingxiCX thead tr td:nth-child(2) {
+		width: 105px;
+	}
+	
+	.mxcxadd_td {
+		/*padding: 3px 5px;*/
+	}
+	/*-----------------------*/
+	
+	.pageContent_MXCX {
+		width: 100%;
+		/*		overflow: auto;*/
+		position: relative !important;
+	}
+	
+	#tableLeftmxcx_MXCX1,
+	#tableLeftmxcx_mingxiCX {
+		width: 400px;
+	}
+	
+	#thead_mxcx1 {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 162px;
+		z-index: 99999;
+	}
+	
+	#thead_mxcx1 tr:nth-child(1) td {
+		width: 200px;
+		height: 27px;
+	}
+	
+	#thead_mxcx1 tr:nth-child(2) td {
+		width: 200px;
+		height: 48px;
+	}
+	
+	#tbody_mxcx1 {
+		width: 162px;
+		position: absolute;
+		top: 75px;
+	}
+	
+	#tbody_mxcx {
+		position: absolute;
+		left: 134px;
+		top: 75px;
+		width: 400px;
+		z-index: 2;
+	}
+	
+	#thead_mxcx {
+		position: absolute;
+		left: 133px;
+		top: 0;
+		width: 400px;
+		z-index: 999;
+		border-left: 1px solid #C0C0C0;
+		border-right: 1px solid #C0C0C0;
+	}
+	/*==============*/
+	
+	#thead_mxcx tr:nth-child(1) td span {
+		line-height: 27px;
+	}
+	/*1行高*/
+	
+	#tbody_mxcx1 tr:nth-child(1) td {
+		height: 20px !important;
+	}
+	/*2行12列*/
+	/*#thead_mxcx tr:nth-child(2) td:nth-child(1),
+	#thead_mxcx tr:nth-child(2) td:nth-child(2) {
+		width: 93px !important;
+	}*/
+	/*3*/
+	
+	#tbody_mxcx tr td:nth-child(3) span {
+		width: 80px !important;
+		display: inline-block;
+	}
+	
+	#thead_mxcx tr:nth-child(2) td:nth-child(3) span {
+		width: 80px !important;
+		display: inline-block;
+	}
+	
+	#tbody_mxcx1 tr td:nth-child(3) {
+		width: 80px !important;
+	}
+	/*4*/
+	
+	#tbody_mxcx tr td:nth-child(4) span {
+		width: 180px !important;
+		display: inline-block;
+	}
+	
+	#thead_mxcx tr:nth-child(2) td:nth-child(4) span {
+		width: 180px !important;
+		display: inline-block;
+	}
+	
+	#tbody_mxcx1 tr td:nth-child(4) {
+		width: 180px !important;
+	}
+	/*5*/
+	
+	#tbody_mxcx tr td:nth-child(5) span {
+		width: 180px !important;
+		display: inline-block;
+	}
+	
+	#thead_mxcx tr:nth-child(2) td:nth-child(5) span {
+		width: 180px !important;
+		display: inline-block;
+	}
+	
+	#tbody_mxcx1 tr td:nth-child(5) {
+		width: 180px !important;
+	}
+	/*6-14*/
+	
+	#tbody_mxcx tr td:nth-child(6) span,
+	#tbody_mxcx tr td:nth-child(7) span,
+	#tbody_mxcx tr td:nth-child(8) span,
+	#tbody_mxcx tr td:nth-child(9) span,
+	#tbody_mxcx tr td:nth-child(10) span,
+	#tbody_mxcx tr td:nth-child(11) span,
+	#tbody_mxcx tr td:nth-child(12) span,
+	#tbody_mxcx tr td:nth-child(13) span,
+	#tbody_mxcx tr td:nth-child(14) span {
+		width: 120px !important;
+		display: inline-block;
+	}
+	
+	#thead_mxcx tr:nth-child(2) td:nth-child(6) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(7) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(8) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(9) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(10) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(11) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(12) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(13) span,
+	#thead_mxcx tr:nth-child(2) td:nth-child(14) span {
+		width: 120px !important;
+		display: inline-block !important;
+	}
+	
+	#tbody_mxcx1 tr td:nth-child(6),
+	#tbody_mxcx1 tr td:nth-child(7),
+	#tbody_mxcx1 tr td:nth-child(8),
+	#tbody_mxcx1 tr td:nth-child(9),
+	#tbody_mxcx1 tr td:nth-child(10),
+	#tbody_mxcx1 tr td:nth-child(11),
+	#tbody_mxcx1 tr td:nth-child(12),
+	#tbody_mxcx1 tr td:nth-child(13),
+	#tbody_mxcx1 tr td:nth-child(14) {
+		width: 120px !important;
+	}
+	/*14以后*/
+	
+	#tbody_mxcx tr:nth-child(2) td:nth-child(15) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(16) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(17) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(18) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(19) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(20) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(21) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(22) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(23) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(24) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(25) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(26) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(27) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(28) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(29) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(30) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(31) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(32) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(33) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(34) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(35) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(36) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(37) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(38) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(39) span,
+	#tbody_mxcx tr:nth-child(2) td:nth-child(40) span {
+		width: 120px !important;
+		display: inline-block;
+	}
+	
+	#thead_mxcx tr:nth-child(3) td span {
+		width: 120px !important;
+		display: inline-block !important;
+	}
+	
+	#thead_mxcx tr:nth-child(2) td:nth-child(28) span {
+		width: 120px !important;
+		display: inline-block !important;
+	}
+	
+	#thead_mxcx tr:nth-child(2) td:nth-child(27) span {
+		width: 120px !important;
+		display: inline-block !important;
+	}
+	
+	#tbody_mxcx1 tr td:nth-child(15),
+	#tbody_mxcx1 tr td:nth-child(16),
+	#tbody_mxcx1 tr td:nth-child(17),
+	#tbody_mxcx1 tr td:nth-child(18),
+	#tbody_mxcx1 tr td:nth-child(19),
+	#tbody_mxcx1 tr td:nth-child(20),
+	#tbody_mxcx1 tr td:nth-child(21),
+	#tbody_mxcx1 tr td:nth-child(22),
+	#tbody_mxcx1 tr td:nth-child(23),
+	#tbody_mxcx1 tr td:nth-child(24),
+	#tbody_mxcx1 tr td:nth-child(25),
+	#tbody_mxcx1 tr td:nth-child(26),
+	#tbody_mxcx1 tr td:nth-child(27),
+	#tbody_mxcx1 tr td:nth-child(28),
+	#tbody_mxcx1 tr td:nth-child(29),
+	#tbody_mxcx1 tr td:nth-child(30),
+	#tbody_mxcx1 tr td:nth-child(31),
+	#tbody_mxcx1 tr td:nth-child(32),
+	#tbody_mxcx1 tr td:nth-child(33),
+	#tbody_mxcx1 tr td:nth-child(34),
+	#tbody_mxcx1 tr td:nth-child(35),
+	#tbody_mxcx1 tr td:nth-child(36),
+	#tbody_mxcx1 tr td:nth-child(37),
+	#tbody_mxcx1 tr td:nth-child(38),
+	#tbody_mxcx1 tr td:nth-child(39),
+	#tbody_mxcx1 tr td:nth-child(40) {
+		width: 120px !important;
+	}
+	/*7
+	#thead_mxcx tr:nth-child(2) td:nth-child(7),
+	#tbody_mxcx1 tr td:nth-child(7),
+	#tbody_mxcx tr td:nth-child(7){
+		width: 120px !important;
+	}
+
+
+
+
+
+	#thead_mxcx tr:nth-child(2) td:nth-child(9),
+	#thead_mxcx tr:nth-child(2) td:nth-child(10),
+	#thead_mxcx tr:nth-child(2) td:nth-child(11),
+	#thead_mxcx tr:nth-child(2) td:nth-child(12),
+	#thead_mxcx tr:nth-child(2) td:nth-child(13),
+	#thead_mxcx tr:nth-child(2) td:nth-child(14) {
+		width: 120px !important;
+	}
+
+
+
+	#tbody_mxcx1 tr td:nth-child(9),
+	#tbody_mxcx1 tr td:nth-child(10),
+	#tbody_mxcx1 tr td:nth-child(11),
+	#tbody_mxcx1 tr td:nth-child(12),
+	#tbody_mxcx1 tr td:nth-child(13),
+	#tbody_mxcx1 tr td:nth-child(14) {
+		width: 120px !important;
+	}
+
+
+
+
+	#tbody_mxcx tr td:nth-child(9),
+	#tbody_mxcx tr td:nth-child(10),
+	#tbody_mxcx tr td:nth-child(11),
+	#tbody_mxcx tr td:nth-child(12),
+	#tbody_mxcx tr td:nth-child(13),
+	#tbody_mxcx tr td:nth-child(14) {
+		width: 80px !important;
+	}
+
+
+	#thead_mxcx tr:nth-child(2) td:nth-child(8),
+	#tbody_mxcx1 tr td:nth-child(8) {
+		width: 120px !important;
+	}
+
+
+	#tbody_mxcx tr td:nth-child(8) {
+		width: 120px !important;
+	}*/
+	/*.tableLeftmxcx th,
+	.tableLeftmxcx td {
+		padding: 2px 0;
+	}*/
+	/*#tbody_mxcx tr td:nth-child(15),
+	#tbody_mxcx tr td:nth-child(16),
+	#tbody_mxcx tr td:nth-child(17),
+	#tbody_mxcx tr td:nth-child(18),
+	#tbody_mxcx tr td:nth-child(19),
+	#tbody_mxcx tr td:nth-child(20),
+	#tbody_mxcx tr td:nth-child(21),
+	#tbody_mxcx tr td:nth-child(22),
+	#tbody_mxcx tr td:nth-child(23),
+	#tbody_mxcx tr td:nth-child(24),
+	#tbody_mxcx tr td:nth-child(25),
+	#tbody_mxcx tr td:nth-child(26),
+	#tbody_mxcx tr td:nth-child(27),
+	#tbody_mxcx tr td:nth-child(28),
+	#tbody_mxcx tr td:nth-child(29),
+	#tbody_mxcx tr td:nth-child(30),
+	#tbody_mxcx tr td:nth-child(31),
+	#tbody_mxcx tr td:nth-child(32),
+	#tbody_mxcx tr td:nth-child(33),
+	#tbody_mxcx tr td:nth-child(34),
+	#tbody_mxcx tr td:nth-child(35),
+	#tbody_mxcx tr td:nth-child(36),
+	#tbody_mxcx tr td:nth-child(37),
+	#tbody_mxcx tr td:nth-child(38),
+	#tbody_mxcx tr td:nth-child(39),
+	#tbody_mxcx tr td:nth-child(40) {
+		width: 50px !important;
+	}
+
+	#thead_mxcx tr:nth-child(3) td {
+		width: 50px !important;
+	}
+
+	#thead_mxcx tr:nth-child(1) td:nth-child(5) {
+		width: 100px !important;
+	}*/
+</style>
+</head>
+
+<body>
+	<div class="pageHeader" style="overflow: hidden;">
+
+		<div class="bordemxcx"></div>
+		<div class="borde"></div>
+		<a class="headbutton" href="javascript:mingxi_shuchu();"><span><i class="navmingxicx" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出</i></span></a>
+		<div class="borde"></div>
+
+		<button id="mingxicx_wxbt" onclick="mingxicx_wxsj()">无效数据</button>
+		<button id="mingxicx_yxbt" onclick="mingxicx_yxsj()">有效数据</button>
+		<div class="bordemxcx" style="margin-left:50px ;"></div>
+
+		<label class="edate_label">选择日期:</label>
+		<input id="mxenddate" class="date" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" readonly="readonly" />
+		<button id="search_date_mxcx" style="cursor: pointer;"> 查询</button>
+
+	</div>
+
+	<div class="pageContent_MXCX" layoutH="60">
+		<div id="mxcxtile"></div>
+		<div id="pageContainer_MXCX1"></div>
+	</div>
+	<div class="panelBar">
+		<div class="pagination_fdmkcb"></div>
+	</div>
+	<script type="text/x-jsrender" id="mingxicx_render1">
+		<table id="tableLeftmxcx_MXCX1" class="tableLeftmxcx">
+			<thead id="thead_mxcx1">
+				<tr>
+					{{for data[0].tr[0]}}
+					<td class="mxcx_th" rowspan="1" colspan="2"></td>
+					{{/for}}
+				</tr>
+				<tr>
+					<td class="mxcx_th" rowspan="2" colspan="1">制造部门</td>
+					<td class="mxcx_th" rowspan="2" colspan="1">大类</td>
+				</tr>
+
+			</thead>
+			<tbody id="tbody_mxcx1">
+				{{for data}} {{if (#getIndex()>2)}}
+				<tr>
+					{{for tr}} {{if (#getIndex()
+					<2)}} {{if dataType==0}} <td class="mxcxadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color: rgb(204,255,255);
+">{{:value}}</td>
+						{{else}}
+						<td onclick="pdclick(this);" onblur="pdblur(this);" name="{{:#getIndex()}}" class="mxcxadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color:#CCFFFF;">{{:value}}
+						</td>
+						{{/if}} {{/if}} {{/for}}
+				</tr>
+				{{/if}} {{/for}}
+			</tbody>
+		</table>
+	</script>
+
+	<script type="text/x-jsrender" id="mingxicx_render">
+		<div id="containerLeft_mingxiCX">
+			<table id="tableLeftmxcx_mingxiCX" class="tableLeftmxcx" width="100%">
+				<thead id="thead_mxcx">
+					<tr>
+						{{for data[0].tr}}
+						<td class="mxcx_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/for}}
+					</tr>
+					<tr>
+						{{for data[1].tr}} {{if dataType==-1}}
+						<td class="mxcx_th mingxihide" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{else}}
+						<td class="mxcx_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/if}} {{/for}}
+					</tr>
+					<tr>
+						{{for data[2].tr}} {{if dataType==-1}}
+						<td class="mxcx_th mingxihide" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{else}}
+						<td class="mxcx_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/if}} {{/for}}
+					</tr>
+				</thead>
+				<tbody id="tbody_mxcx">
+					{{for data}} {{if (#getIndex()>2)}}
+					<tr>
+						{{for tr}} {{if dataType==0}}
+						<td class="mxcxadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color:#FFFFFF;"><span>{{:value}}</span></td>
+						{{else}}
+						<td class="mingxihide" name="{{:#getIndex()}}" class="mxcxadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color:#FFFFFF;"><span>{{:value}}</span>
+						</td>
+						{{/if}} {{/for}}
+					</tr>
+					{{/if}} {{/for}}
+				</tbody>
+			</table>
+		</div>
+
+	</script>
+</body>
+<script src="js/publicjs/common.js"></script>
+<script type="text/javascript">
+	$(function() {
+
+		var edate1 = $("#mxenddate").val(getToday2());
+		if(mingcx_flag) {
+			cx = "SPZMX/search/type/0/date/" + getToday2();
+			$("#mingxicx_wxbt").css({ "border": "2px solid #add2db" });
+			$("#mingxicx_yxbt").css({ "border": "1px solid #b8d0d6", "background-color": "#ecf0f6", "color": "#888" });
+		} else {
+			cx = "SPZMX/search/type/1/date/" + getToday2();
+			$("#mingxicx_yxbt").css({ "border": "2px solid #add2db" });
+			$("#mingxicx_wxbt").css({ "border": "1px solid #b8d0d6", "background-color": "#ecf0f6", "color": "#888" });
+		}
+		$("#mxenddate").val()
+		get_init_mingxicx();
+		//判断页面显示类型
+		$("#search_date_mxcx").click(function() {
+			if(mingcx_flag) {
+				cx = "SPZMX/search/type/0" + "/date/" + $("#mxenddate").val();
+			} else {
+				cx = "SPZMX/search/type/1" + "/date/" + $("#mxenddate").val();
+			}
+			get_init_mingxicx();
+
+		})
+
+	});
+	setTimeout(
+		function() {
+			$("div").scroll(function(e) {
+				$("#mxcxtile").css("left", $(this).scrollLeft());
+
+			})
+		}, 500
+	)
+
+	function pdclick(obj) {
+		$(obj).parent().css("bordemxcxr", "2px solid #000");
+	}
+
+	function pdblur(obj) {
+		$(obj).parent().css("bordemxcxr", "1px solid #c0c0c0");
+	}
+	//获取默认数据
+	function get_init_mingxicx() {
+
+		$.ajax({
+			type: "get",
+			url: URL + cx + "/token/" + token,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+					if(data.resultcode == -1) {
+						alertMsg.warn(data.resultmsg);
+
+						return;
+					}
+				}
+				tjmingxicxdata = data;
+				$("#mxenddate").val(tjmingxicxdata.date);
+				$("#pageContainer_MXCX1").html("");
+				var tableContent_MXCX = $("#mingxicx_render").render(data);
+				$("#pageContainer_MXCX1").append(tableContent_MXCX);
+
+				$("#mxcxtile").html("");
+				var tableContent_MXCX1 = $("#mingxicx_render1").render(data);
+				$("#mxcxtile").append(tableContent_MXCX1);
+
+				if(!mingcx_flag) {
+					$("#pageContainer_MXCX1").css("margin-left", "-33px");
+				}
+				if(mingcx_flag) {
+					$(".mingxihide").css("display", "none");
+					$("#thead_mxcx tr td").eq(3).attr("colspan", "10");
+				}
+
+				//分页
+				$(".pagination_fdmkcb").createPage({
+					pageCount: data.cntperpage, //总页数
+					current: data.page, //初始页号
+					backFn: function(obj) {
+						get_fdmkcb_page(URL + cx + "/token/" + token, obj); //修改
+					}
+				});
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+
+	//分页
+	function get_fdmkcb_page(url_page, page) {
+		$.ajax({
+			type: "get",
+			url: url_page + "/page/" + page,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+					if(data.resultcode == -1) {
+						alertMsg.warn(data.resultmsg);
+
+						return;
+					}
+				}
+				tjmingxicxdata = data;
+				$("#mxenddate").val(tjmingxicxdata.date);
+				$("#pageContainer_MXCX1").html("");
+				var tableContent_MXCX = $("#mingxicx_render").render(data);
+				$("#pageContainer_MXCX1").append(tableContent_MXCX);
+
+				$("#mxcxtile").html("");
+				var tableContent_MXCX1 = $("#mingxicx_render1").render(data);
+				$("#mxcxtile").append(tableContent_MXCX1);
+				if(!mingcx_flag) {
+					$("#pageContainer_MXCX1").css("margin-left", "-33px");
+				}
+				if(mingcx_flag) {
+					$(".mingxihide").css("display", "none");
+					$("#thead_mxcx tr td").eq(3).attr("colspan", "10");
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+
+	function mingxicx_yxsj() {
+		mingcx_flag = false;
+		$("#login_mingxicx").trigger("click");
+
+	}
+
+	function mingxicx_wxsj() {
+		mingcx_flag = true;
+		$("#login_mingxicx").trigger("click");
+
+	}
+
+	function mingxi_shuchu() {
+		if(mingcx_flag) {
+			mingxishuchu_url = URL + "SPZMX/toexcel/type/0/token/" + token;
+		} else {
+			mingxishuchu_url = URL + "SPZMX/toexcel/type/1/token/" + token;
+		}
+		$.ajax({
+			type: "get",
+			url: mingxishuchu_url,
+			async: true,
+			dateType: 'json',
+			success: function(data) {
+
+				if(data.resultcode == -1) {
+					alertMsg.warn(data.resultmsg);
+
+					return;
+				}
+				if(data.resultcode == -2) {
+					alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				window.open(JSON.parse(data).excel_url);
+				console.log(JSON.parse(data).excel_url);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.warn(errorThrown);
+			}
+		});
+	}
+
+	$('.pageContent_MXCX').scroll(function(top) {
+		$('thead').css('top', $(this).scrollTop() + 'px');
+	});
+</script>
+
+</html>

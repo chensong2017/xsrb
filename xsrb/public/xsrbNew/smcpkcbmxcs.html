@@ -1,0 +1,308 @@
+<style type="text/css">
+	/*分页*/
+	
+	.pagination_SMCPKCBMXCS {
+		float: right;
+		margin-top: 0px;
+	}
+	
+	.pagination_SMCPKCBMXCS a {
+		display: inline-block;
+		color: #555;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		borde_digital_storer: 1px solid #edf3f4;
+		margin: 0px 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_SMCPKCBMXCS a :hover {
+		text-decoration: none;
+		borde_digital_storer: 1px solid darkolivegreen;
+	}
+	
+	.pagination_SMCPKCBMXCS span.current,
+	.pagination_SMCPKCBMXCS span.disabled {
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 10px;
+		margin: 0 2px;
+		borde_digital_storer-radius: 4px;
+		vertical-align: middle;
+	}
+	
+	.pagination_SMCPKCBMXCS span.current {
+		color: #fff;
+		background-color: #cfebee;
+		borde_digital_storer: 1px solid #b8d0d6;
+	}
+	
+	.pagination_SMCPKCBMXCS span.disabled {
+		color: #bfbfbf;
+		background: #f2f2f2;
+		borde_digital_storer: 1px solid #bfbfbf;
+	}
+	
+	.pagination_SMCPKCBMXCS .input_page {
+		width: 50px;
+		height: 12px;
+		padding: 2px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: 1px solid #555;
+	}
+	
+	.pagination_SMCPKCBMXCS.go {
+		margin-left: 2%;
+		height: 20px;
+		line-height: 20px;
+		font-size: 10px;
+		width: 35px;
+		borde_digital_storer-radius: 3px;
+		borde_digital_storer: none;
+		background-color: #ddd;
+	}
+	
+	.pagination_SMCPKCBMXCS.go:hover {
+		background-color: #cfebee;
+	}
+	/*分页结束*/
+	
+	.pageContent_SMCPKCBMXCScs table thead {
+		background: rgb(153, 204, 255);
+	}
+	
+	.pageContent_SMCPKCBMXCScs table thead tr th,
+	.pageContent_SMCPKCBMXCScs table tbody tr td {
+		text-align: center;
+	}
+	
+	.table_SMCPKCBMXCS thead tr th {
+		background: rgb(153, 204, 255);
+	}
+	
+	.pageContent_SMCPKCBMXCScs th,
+	.pageContent_SMCPKCBMXCScs td {
+		border: 1px solid darkgray;
+		width: auto !important;
+	}
+	
+	.headbutton {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+	}
+	
+	.headbutton span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+		;
+	}
+	
+	.headbutton i {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+	}
+	
+	.nav1 {
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.borde {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.date_label {
+		display: inline-block;
+		padding-left: 15px;
+	}
+</style>
+<div class="pageHeader">
+	<div class="borde"></div>
+	<a class="headbutton" href="javascript:download_SMCPKCBMXCS();"><span><i class="nav1" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出</i></span></a>
+	<div class="borde"></div>
+	<div class="serchbox_digital_store2" style="float: left;">
+		<label class="date_label">日期</label>
+		<input id="date_SMCPKCBMXCS" class="date" dateFmt="yyyy-MM-dd" readonly="readonly" />
+		<button class="find_date_SMCPKCBMXCS"> 查询</button>
+	</div>
+
+</div>
+
+<div class="pageContent pageContent_SMCPKCBMXCScs" layoutH="60">
+</div>
+<div class="panelBar">
+	<div class="pagination_SMCPKCBMXCS"></div>
+</div>
+<script type="text/x-jsrender" class="tableContent_SMCPKCBMXCS">
+	<table class="table" width="100%" layoutH="115" border="1">
+		{{for dept}}
+		<thead>
+			{{for title}}
+			<tr>
+				{{for tds}}
+				<th rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</th>
+				{{/for}}
+			</tr>
+			{{/for}}
+		</thead>
+		<tbody>
+			{{for data}}
+			<tr>
+				{{for tds}} {{if #getIndex()
+				<3}} <td style="background-color: rgb(204,255,255)!important" rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+					{{else}}
+					<td rowspan="{{:rowspan}}" colspan="{{:colspan}}">{{:value}}</td>
+					{{/if}} {{/for}}
+			</tr>
+			{{/for}}
+		</tbody>
+		{{/for}}
+	</table>
+</script>
+<script type="text/javascript">
+	$(function() {
+		authorize_export(); //common.js中的显示是片区 or经营部 
+		setDateSearch("_SMCPKCBMXCS"); //common.js中的默认查询时间为今天
+		get_SMCPKCBMXCS();
+	})
+
+	//输出
+	function download_SMCPKCBMXCS() {
+		var url_downl = URL_C + "NewSMCPKCBMX/printExcel/token/" + token;
+		var date_SMCPKCBMXCS = $("#date_SMCPKCBMXCS").val();
+		if(!date_SMCPKCBMXCS) {
+			date_SMCPKCBMXCS = GetYesterday();
+		} else if(parseInt(date_SMCPKCBMXCS.replace(/\-/g, "")) > parseInt(getToday())) {
+			alertMsg.info("无数据可以导出！");
+			return;
+		} else {
+			date_SMCPKCBMXCS = date_SMCPKCBMXCS.replace(/\-/g, "");
+		}
+		url_downl = url_downl + "/date/" + date_SMCPKCBMXCS;
+		//要修改！！！！！token,date等都需要处理
+		//               window.open(url_downl);
+		$.ajax({
+			type: "get",
+			url: url_downl,
+			async: false,
+			dataType: "json",
+			success: function(data) {
+				if(data.resultcode == -2) {
+					window.open("index.html", "_self");
+				}
+			},
+			error: function() {
+				window.open(url_downl);
+			}
+		});
+	}
+	//默认获取数据
+	function get_SMCPKCBMXCS(date_SMCPKCBMXCS) {
+		if(!date_SMCPKCBMXCS) {
+			var today = new Date();
+			date_SMCPKCBMXCS = today.getFullYear();
+			var month_now = today.getMonth() + 1;
+			if(month_now < 10) month_now = "0" + month_now;
+			var day_now = today.getDate();
+			if(day_now < 10) day_now = "0" + day_now;
+			date_SMCPKCBMXCS = String(date_SMCPKCBMXCS) + String(month_now) + String(day_now);
+		}
+		var url_SMCPKCBMXCS = URL_C + "NewSMCPKCBMX/search/token/" + token + "/date/" + date_SMCPKCBMXCS;
+		$.ajax({
+			type: "get",
+			url: url_SMCPKCBMXCS,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else if(data.total == 'null' || data.total == null || data.total == undefined) {
+					alertMsg.info("暂无数据！");
+				} else {
+					var tableContent_SMCPKCBMXCS = $(".tableContent_SMCPKCBMXCS").render(data);
+					$(".pageContent_SMCPKCBMXCScs").html("");
+					$(".pageContent_SMCPKCBMXCScs").append(tableContent_SMCPKCBMXCS);
+					//					$("table tbody tr:first-child,table tbody tr:nth-child(2),table tbody tr:nth-child(3),table tbody tr:nth-child(4)").remove();
+
+					navTab.getCurrentPanel().initUI();
+					navTab.getCurrentPanel().find("[layoutH]").layoutH();
+					$(".pagination_SMCPKCBMXCS").createPage({
+						pageCount: data.total, //总页数
+						current: data.page, //初始页号
+						backFn: function(obj) {
+							get_SMCPKCBMXCS_page(url_SMCPKCBMXCS, obj);
+						}
+					});
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+	//分页
+	function get_SMCPKCBMXCS_page(url_page, page) {
+		$.ajax({
+			type: "get",
+			url: url_page + "/page/" + page,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+				} else if(data.total == 'null' || data.total == null || data.total == undefined) {
+					alertMsg.info("暂无数据！");
+				} else {
+					var tableContent_SMCPKCBMXCS = $(".tableContent_SMCPKCBMXCS").render(data);
+					$(".pageContent_SMCPKCBMXCScs").empty();
+					$(".pageContent_SMCPKCBMXCScs").append(tableContent_SMCPKCBMXCS);
+					//						$("table tbody tr:first-child,table tbody tr:nth-child(2),table tbody tr:nth-child(3),table tbody tr:nth-child(4)").remove();
+					navTab.getCurrentPanel().initUI();
+					navTab.getCurrentPanel().find("[layoutH]").layoutH();
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.warn("加载失败，刷新或者检查网络设置！");
+			}
+		});
+	}
+	//查询
+	$(".find_date_SMCPKCBMXCS").click(function() {
+		var date_SMCPKCBMXCS = $("#date_SMCPKCBMXCS").val().replace(/\-/g, "");
+		if(date_SMCPKCBMXCS == "" || date_SMCPKCBMXCS == null || date_SMCPKCBMXCS == undefined) {
+			alertMsg.warn("查询日期不能为空");
+			return;
+		}
+		get_SMCPKCBMXCS(date_SMCPKCBMXCS);
+	})

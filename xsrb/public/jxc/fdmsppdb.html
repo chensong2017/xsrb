@@ -1,0 +1,1085 @@
+<style type="text/css">
+	.selected_oi {
+		background-color: #E6EEEF!important;
+	}
+	
+	.pageContent_SPPDB table {
+		border: none;
+	}
+	
+	.tableLeftpd th,
+	.tableLeftpd td {
+		/*background-color: rgb(153, 204, 255);*/
+		text-align: center;
+	}
+	#thead_pdb{
+		background-color: rgb(153, 204, 255);
+	}
+	.pandian_th{
+		background-color: rgb(153, 204, 255);
+	}
+	.pdbsel_tr{
+		background-color: rgb(153, 204, 255);
+	}
+	/* .containe_Right {
+        position: relative;
+    }
+    .containe_Right table {
+        position: relative;
+    }
+    .containe_Right thead tr:nth-child(1) {
+        background: rgb(204, 153, 255)!important;
+    }
+    .containe_Right thead tr:nth-child(2),
+    .containe_Right thead tr:nth-child(3),
+    .containe_Right thead tr:nth-child(4) {
+        background: rgb(204, 255, 255)!important;
+    }
+    .containe_Right td,
+    .containe_Right td {
+        color: #000;
+        padding: 3px 5px;
+        text-align: center;
+    }*/
+	/*保存按钮*/
+	
+	.headbutton_pd {
+		float: left;
+		background: none;
+		display: inline-block;
+		margin: auto 15px auto 15px;
+		height: 26px;
+		overflow: hidden;
+		cursor: pointer;
+	}
+	
+	.headbutton_pd span {
+		background: none;
+		height: 26px;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	
+	.headbutton_pd:hover {
+		background: url(themes/default/images/button/button_s.png) no-repeat 0 -100px;
+	}
+	
+	.headbutton_pd:hover span {
+		background: url(themes/default/images/button/button_s.png) no-repeat 100% -150px;
+	}
+	
+	.headbutton_pd i {
+		display: inline-block;
+		height: 21px;
+		line-height: 26px;
+		font-style: normal;
+	}
+	
+	.nav1_pd {
+		display: inline-block;
+		padding-right: 5px;
+	}
+	
+	.borde_pd {
+		float: left;
+		height: 8px;
+		display: inline-block;
+		margin: 7px auto auto 10px;
+		border: 0.1px solid #D8D8D8;
+	}
+	
+	.sdate_pd {
+		display: inline-block;
+		padding-left: 15px;
+	}
+	
+	#tbody_pdb td input {
+		width: 50px;
+	}
+	
+	#containerLeft_SPPDB {
+		margin-left: -100px;
+	}
+	
+	#tableLeftpd_SPPDB {
+		margin: 0px;
+	}
+	
+	#pdtile {
+		float: left;
+		z-index: 9999;
+		position: absolute;
+		height: auto;
+		left: 0px;
+		width: 200px;
+	}
+	
+	#tbody_pdb1 {
+		width: 200px;
+		position: absolute;
+		top: 88px;
+	}
+	
+	#tbody_pdb1 td {
+		width: 200px;
+		border-right: 1px solid #C0C0C0;
+		border-bottom: 1px solid #C0C0C0;
+		border-collapse: collapse;
+	}
+	
+	#tbody_pdb td {
+		height: 20px;
+		border-left: 1px solid #C0C0C0;
+		border-bottom: 1px solid #C0C0C0;
+	}
+	
+	#tbody_pdb {
+		position: absolute;
+		left: -38px;
+		top: 88px;
+		width: 400px;
+		z-index: 2;
+	}
+	
+	#thead_pdb1 tr td {
+		border-right: 1px solid #C0C0C0;
+		border-bottom: 1px solid #C0C0C0;
+	}
+	
+	#thead_pdb1 {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 200px;
+		z-index: 99999;
+	}
+	
+	#thead_pdb1 tr:nth-child(1) td {
+		width: 200px;
+		height: 27px;
+	}
+	
+	#thead_pdb1 tr:nth-child(2) td:nth-child(1) select {
+		margin-left: 15px;
+	}
+	
+	#thead_pdb1 tr:nth-child(2) td:nth-child(2) select {
+		margin-left: 12px;
+	}
+	
+	#thead_pdb1 tr:nth-child(2) td {
+		width: 200px;
+		height: 39px;
+	}
+	
+	.pd_input {
+		background: none;
+		border: none;
+		text-align: center;
+	}
+	
+	#search_date_pd {
+		cursor: pointer;
+	}
+	
+	#thead_pdb tr td {
+		border-left: 1px solid #C0C0C0;
+		border-bottom: 1px solid #C0C0C0;
+	}
+	
+	#tbody_pdb tr td span {
+		padding: 2px;
+	}
+	
+	#thead_pdb tr td span {
+		padding: 0 2px;
+	}
+	
+	#pd_yxcx,
+	#pd_wxcx {
+		border-bottom-left-radius: 22px;
+		border-top-right-radius: 22px;
+		float: right;
+		width: 90px;
+		line-height: 22px;
+		height: 26px;
+		text-align: center;
+		cursor: pointer;
+		font-size: 12px;
+		background-color: #FFFFFF;
+	}
+	
+	#pageContainer_SPPDB1 {
+		position: absolute;
+		top: 0px;
+		left: 67px;
+	}
+	
+	.pandian_th {
+		font-weight: bold;
+	}
+	
+	#tableLeftpd_SPPDB thead tr td:nth-child(1),
+	#tableLeftpd_SPPDB thead tr td:nth-child(2) {
+		width: 105px;
+	}
+	
+	.pageContent_SPPDB {
+		position: relative;
+	}
+	
+	#tableLeftpd_SPPDB {
+		width: 100%;
+	}
+	
+	#thead_pdb {
+		position: absolute;
+		left: -79px;
+		top: 0;
+		width: 200px;
+		z-index: 999;
+		border-left: 1px solid #C0C0C0;
+		border-right: 1px solid #C0C0C0;
+	}
+	
+	#thead_pdb tr td span {
+		width: 100px;
+		display: inline-block;
+	}
+	
+	#tableLeftpd_SPPDB1,
+	#tableLeftpd_SPPDB {
+		width: 200px;
+	}
+	
+	#thead_pdb tr:nth-child(1) td {
+		width: 100px;
+	}
+	
+	#thead_pdb tr:nth-child(1) td span {
+		line-height: 27px;
+	}
+	/*1行高*/
+	
+	#tbody_pdb1 tr:nth-child(1) td {
+		height: 20px;
+	}
+	
+	#tbody_pdb1 tr td:nth-child(1) {
+		width: 101px;
+	}
+	
+	#tbody_pdb1 tr td:nth-child(2) {
+		width: 100px;
+	}
+	/*3*/
+	
+	#thead_pdb tr td:nth-child(3) select {
+		margin-left: 4px;
+	}
+	
+	#thead_pdb tr td:nth-child(4) select,
+	#thead_pdb tr td:nth-child(5) select {
+		margin-left: 48px;
+	}
+	
+	#thead_pdb tr td:nth-child(6) select {
+		margin-left: 19px;
+	}
+	
+	#thead_pdb tr td:nth-child(7) select,
+	#thead_pdb tr td:nth-child(8) select,
+	#thead_pdb tr td:nth-child(9) select,
+	#thead_pdb tr td:nth-child(10) select,
+	#thead_pdb tr td:nth-child(11) select {
+		margin-left: 8px;
+	}
+	
+	#tbody_pdb tr td:nth-child(1) span,
+	#tbody_pdb tr td:nth-child(2) span,
+	#tbody_pdb tr td:nth-child(3) span {
+		width: 80px;
+		display: inline-block;
+	}
+	
+	#thead_pdb tr:nth-child(2) td:nth-child(3) span {
+		width: 80px;
+		display: inline-block;
+		line-height: 39px;
+	}
+	
+	#thead_pdb tr:nth-child(4) td:nth-child(3) span {
+		width: 80px;
+		display: inline-block;
+		line-height: 39px;
+	}
+	
+	#thead_pdb tr:nth-child(5) td:nth-child(3) span {
+		width: 80px;
+		display: inline-block;
+		line-height: 39px;
+	}
+	
+	#tbody_pdb1 tr td:nth-child(3) {
+		width: 80px;
+	}
+	
+	#tbody_pdb tr td:nth-child(4) span {
+		width: 180px !important;
+		display: inline-block;
+	}
+	
+	#thead_pdb tr:nth-child(2) td:nth-child(4) span {
+		width: 180px !important;
+		display: inline-block;
+	}
+	
+	#tbody_pdb1 tr td:nth-child(4) {
+		width: 180px !important;
+	}
+	
+	#tbody_pdb tr td:nth-child(5) span {
+		width: 180px !important;
+		display: inline-block;
+	}
+	
+	#thead_pdb tr:nth-child(2) td:nth-child(5) span {
+		width: 180px !important;
+		display: inline-block;
+	}
+	
+	#tbody_pdb1 tr td:nth-child(5) {
+		width: 180px !important;
+	}
+	
+	#tbody_pdb tr td:nth-child(n+6) span {
+		width: 100px;
+		display: inline-block;
+	}
+	
+	#thead_pdb tr:nth-child(3) td span {
+		width: 100px;
+		display: inline-block;
+	}
+	
+	#thead_pdb tr:nth-child(2) td:nth-child(28) span {
+		width: 100px;
+		display: inline-block;
+	}
+	
+	#thead_pdb tr:nth-child(2) td:nth-child(27) span {
+		width: 100px;
+		display: inline-block;
+	}
+	
+	.pdbsel_tr td,
+	.pdbsel_tr1 td {
+		position: relative;
+	}
+	
+	.pdbsel_tr select,
+	.pdbsel_tr1 select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 0;
+		padding: 2px 39px;
+		border-radius: 3px;
+		background: url(img/select.png) no-repeat 98% 5px;
+		cursor: pointer;
+		position: absolute;
+		border: none;
+		top: -5px;
+		left: 0;
+		margin-left: 10px;
+		margin-top: 15px;
+	}
+	
+	.reset_pdb {
+		float: right;
+		cursor: pointer;
+		border: 2px solid #99ccff;
+		border-radius: 3px;
+		background-color: transparent;
+		color: #555;
+		margin-right: 10px;
+	}
+	
+	.countsel,
+	.countsel1 {
+		display: none;
+	}
+	
+	#mengce_pdb {
+		z-index: 999999999;
+		position: absolute;
+		top: 40%;
+		left: 45%;
+		background: url(public/initialStage/images/loading.gif) no-repeat;
+		width: 100px;
+		height: 50px;
+		display: none;
+	}
+	
+	.shuchu_pd {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 0;
+		padding: 2px 39px;
+		border-radius: 3px;
+		background: no-repeat 98% 5px;
+		cursor: pointer;
+		position: absolute;
+		border: none;
+		top: -6px;
+		left: 128px;
+		margin-left: 10px;
+		margin-top: 15px;
+	}
+	.addColor{
+		background-color: #CCFFFF !important;
+	}
+</style>
+</head>
+
+<body>
+	<div class="pageHeader" style="overflow: hidden;">
+		<div class="borde_pd"></div>
+		<a class="headbutton_pd" href="javascript:save_pdb();"><span><i class="nav1_pd" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px 4px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保存刷新</i></span></a>
+		<div class="borde_pd"></div>
+		<a class="headbutton_pd shuchu_pandian"><span><i class="nav1_pd" style="background: url(public/initialStage/images/alllicon.png) no-repeat 0px -392px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出</i></span></a>
+
+		<div class="borde_pd"></div>
+		<button id="pd_wxcx" onclick="pd_wxsj()">无效数据</button>
+		<button id="pd_yxcx" onclick="pd_yxsj()">有效数据</button>
+
+		<label class="sdate_pd">开始日期:</label>
+		<input id="startdate_pd" class="date" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" readonly="readonly" />
+		<label class="edate_label">结束日期:</label>
+		<input id="enddate_pd" class="date" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" readonly="readonly" />
+		<button id="search_date_pd"> 查询</button>
+		<button class="reset_pdb" onclick="reset_pd()">重置筛选</button>
+	</div>
+
+	<div class="pageContent_SPPDB" layoutH="60" style="width:100%;">
+		<div id="pdtile"></div>
+		<div id="pageContainer_SPPDB1"></div>
+
+	</div>
+	<script type="text/x-jsrender" id="pd_render1">
+		<table id="tableLeftpd_SPPDB1" class="tableLeftpd" border="0">
+			<thead id="thead_pdb1">
+				<tr>
+					{{for data[0].tr[0]}}
+					<td class="pandian_th" rowspan="1" colspan="2" style="">{{:value}}</td>
+					{{/for}}
+				</tr>
+				<tr class="pdbsel_tr1">
+					<td class="pandian_th" rowspan="1" colspan="1">商品简称</td>
+					<td class="pandian_th" rowspan="1" colspan="1">制造部门</td>
+				</tr>
+				<tr style="height:20px;">
+					<td class="pandian_th" style="background-color: rgb(204,255,255);" rowspan="1" colspan="1"></td>
+					<td class="pandian_th" style="background-color: rgb(204,255,255);" rowspan="1" colspan="1"></td>
+				</tr>
+				<tr style="height:20px;" class="countsel1">
+					<td class="pandian_th" style="background-color: rgb(204,255,255);" rowspan="1" colspan="1">筛选合计</td>
+					<td class="pandian_th" style="background-color: rgb(204,255,255);" rowspan="1" colspan="1"></td>
+				</tr>
+
+			</thead>
+			<tbody id="tbody_pdb1">
+			</tbody>
+		</table>
+
+	</script>
+	<script type="text/x-jsrender" id="pd_render1_tbody">
+		<tr name="{{:#getIndex()-3}}">
+			{{for tr}} {{if (#getIndex()
+			<2)}} {{if dataType==0}} <td class="pdadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color: rgb(204,255,255);">{{:value}}</td>
+				{{else}}
+				<td onclick="click_pd(this);" onblur="blur_pd(this);" name="{{:#getIndex()}}" class="pdadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color:#CCFFFF;" onclick="edit_FDMPD($(this))"><input class="pd_input" value="{{:value}}">
+				</td>
+				{{/if}} {{/if}} {{/for}}
+		</tr>
+	</script>
+	<script type="text/x-jsrender" id="pd_render">
+		<div id="containerLeft_SPPDB">
+			<table id="tableLeftpd_SPPDB" class="tableLeftpd" border="0">
+				<thead id="thead_pdb">
+					<tr>
+						{{for data[0].tr}}
+						<td class="pandian_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/for}}
+					</tr>
+					<tr class="pdbsel_tr">
+						{{for data[1].tr}} {{if dataType==-1}}
+						<td rowspan="{{:rowspan}}" colspan="{{:colspan}}" class="pdhide"><span>{{:value}}</span></td>
+
+						{{else}}
+						<td class="pandian_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/if}} {{/for}}
+					</tr>
+					<tr class="pdbsel_tr">
+						{{for data[2].tr}} {{if dataType==-1}}
+						<td rowspan="{{:rowspan}}" colspan="{{:colspan}}" class="pdhide"><span>{{:value}}</span></td>
+						{{else}}
+						<td class="pandian_th" rowspan="{{:rowspan}}" colspan="{{:colspan}}" style=""><span>{{:value}}</span></td>
+						{{/if}} {{/for}}
+					</tr>
+					<tr style="height:20px;">
+						{{for data[3].tr}} {{if dataType==-1}}
+						<td colspan="{{:colspan}}" rowspan="{{:rowspan}}" class="pdhide" style=""><span>{{:value}}</span></td>
+						{{/if}}{{if dataType==0}}
+						<td class="pdadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style=""><span>{{:value}}</span></td>
+						{{/if}}{{if dataType==1}}
+						<td name="{{:#getIndex()}}" class="pdadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" style="background-color:#CCFFFF;">
+							<span>{{:value}}</span>
+						</td>
+						{{/if}} {{/for}}
+					</tr>
+					<tr style="height:20px;" class="countsel">
+						{{for data[3].tr}} {{if dataType==-1}}
+						<td colspan="{{:colspan}}" rowspan="{{:rowspan}}" class="pdhide" ><span>{{:value}}</span></td>
+						{{else}}
+						<td colspan="{{:colspan}}" rowspan="{{:rowspan}}" class="pdadd_td" ><span>{{:value}}</span></td>
+						{{/if}} {{/for}}
+					</tr>
+				</thead>
+				<tbody id="tbody_pdb">
+				</tbody>
+			</table>
+		</div>
+	</script>
+	<script type="text/x-jsrender" id="pd_render_tbody">
+		<tr name="{{:#getIndex()-3}}">
+			{{for tr}} {{if dataType==-1}}
+			<td onclick="changeColor(this)" colspan="{{:colspan}}" rowspan="{{:rowspan}}" class="pdhide" ><span>{{:value}}</span></td>
+			{{/if}} {{if dataType==0}}
+			<td onclick="changeColor(this)"  class="pdadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" ><span>{{:value}}</span></td>
+			{{/if}} {{if dataType==1}}
+			<td name="{{:#getIndex()}}" class="pdadd_td" colspan="{{:colspan}}" rowspan="{{:rowspan}}" onclick="edit_FDMPD($(this))">
+				<input onblur="onlynum_pd(this)" class="pd_input" value="{{:value}}">
+				<span></span>
+			</td>
+			{{/if}} {{/for}}
+		</tr>
+	</script>
+</body>
+<div id="mengce_pdb"></div>
+<script src="js/publicjs/common.js"></script>
+<script type="text/javascript">
+	$(function() {
+		if(shangpinpdb_flag) {
+			cx = "SPZPD/search/type/0";
+		} else {
+			cx = "SPZPD/search/type/1";
+		}
+		$('.shuchu_pandian').append('<select  class="shuchu_pd" onchange="changeShuchu_pd()"><option value="">请选择</option></select>');
+		get_pandianData();
+		shuchu_pdb();
+		$("#search_date_pd").trigger("click");
+		$("#search_date_pd").click(function() {
+			if($("#startdate_pd").val() == "" || $("#enddate_pd").val() == "") {
+				alertMsg.info("请设置开始日期和结束日期！");
+				return;
+			}
+			if(shangpinpdb_flag) {
+
+				cx = "SPZPD/search/type/0/sdate/" + $("#startdate_pd").val() + "/edate/" + $("#enddate_pd").val();
+			} else {
+				cx = "SPZPD/search/type/1/sdate/" + $("#startdate_pd").val() + "/edate/" + $("#enddate_pd").val();
+			}
+			get_pandianData();
+		})
+	});
+	if(shangpinpdb_flag) {
+		$("#pd_wxcx").css({ "border": "2px solid #add2db" });
+
+		$("#pd_yxcx").css({ "border": "1px solid #b8d0d6", "background-color": "#ecf0f6", "color": "#888" });
+	} else {
+		$("#pd_yxcx").css({ "border": "2px solid #add2db" });
+		$("#pd_wxcx").css({ "border": "1px solid #b8d0d6", "background-color": "#ecf0f6", "color": "#888" });
+	}
+
+	function changeColor(events){
+		console.log($(event));
+		$(events).parent("tr").addClass("addColor");
+		$(events).parent("tr").siblings(".addColor").removeClass("addColor");
+	}
+	
+	setTimeout(
+		function() {
+			$("div").scroll(function(e) {
+				$("#pdtile").css("left", $(this).scrollLeft());
+
+			})
+		}, 500
+	)
+
+	function changeShuchu_pd() {
+		if($('.shuchu_pandian').find('option:selected').val() != "") {
+			window.open($('.shuchu_pandian').find('option:selected').val());
+		}
+	}
+	//输出
+	function shuchu_pdb() {
+
+		if(shangpinpdb_flag) {
+			shuchupd_url = fdmUrl1 + "SPZPD/downloadList/biao/SPZPD/type/0/token/" + token;
+		} else {
+			shuchupd_url = fdmUrl1 + "SPZPD/downloadList/biao/SPZPD/type/1/token/" + token;
+		}
+		$.ajax({
+			type: "get",
+			url: shuchupd_url,
+			async: true,
+			dateType: 'json',
+			success: function(data) {
+				if(data.resultcode == -1) {
+					alertMsg.warn(data.resultmsg);
+					return;
+				}
+				if(data.resultcode == -2) {
+					alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+					window.location.href = "index.html";
+					return;
+				}
+				if(isDataValid(data.data)) {
+					var strOptions = "";
+					for(var i = 0; i < data.data.length; i++) {
+						strOptions += '<option value="' + data.data[i].excel_url + '">' + data.data[i].yuefen + '</option>';
+					}
+					$(".shuchu_pd").append(strOptions);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+				alertMsg.error(errorThrown);
+			}
+		});
+	}
+	//加载更多
+	function loadmore_pdb() {
+		var html1 = $('#pd_render1_tbody').render(tjpd_data.data.slice(500));
+		$('#tableLeftpd_SPPDB1 tbody').append(html1);
+		var html = $('#pd_render_tbody').render(tjpd_data.data.slice(500));
+		$('#tableLeftpd_SPPDB tbody').append(html);
+		if(shangpinpdb_flag) {
+			$("#pageContainer_SPPDB1").css("margin-left", "-5px");
+			$(".pdhide").css("display", "none");
+			$("#thead_pdb tr td").eq(3).attr("colspan", "10");
+		}
+
+		$("#tbody_pdb1 tr").each(function(i, v) {
+			var _this = $(this);
+			var max = $("#tbody_pdb tr").eq(i).height() - 1;
+			_this.find("td").height(max);
+		})
+	}
+
+	function click_pd(obj) {
+		$(obj).parent().css("border", "2px solid #000");
+	}
+
+	function blur_pd(obj) {
+		$(obj).parent().css("border", "1px solid #c0c0c0");
+	}
+
+	//保存刷新
+	function save_pdb() {
+		alertMsg.confirm("确定要进行盘点，请仔细核对当日实物结存是否正确！", {
+			okCall: function() {
+				alertMsg.confirm("确定要进行盘点扎账，月中扎帐会有盘盈盘亏自动反应到第二天的收支明细中，是否继续？", {
+					okCall: function() {
+						if(shangpinpdb_flag) {
+							pdtj_url = fdmUrl1 + "SPZPD/submit/type/0/token/" + token;
+						} else {
+							pdtj_url = fdmUrl1 + "SPZPD/submit/type/1/token/" + token;
+						}
+						for(var i = 4; i < $("#tbody_pdb tr").length + 4; i++) {
+
+							//财务结存的输入框数据操作
+							tjpd_data["data"][i]["tr"][58] = {
+								"dataType": 1,
+								"colspan": 1,
+								"value": $(".pd_input").eq(i - 4).val()
+							};
+						}
+						$.ajax({
+							type: "post",
+							url: pdtj_url,
+							async: true,
+							dateType: 'json',
+							data: JSON.stringify(tjpd_data),
+							success: function(data) {
+								if(data.resultcode == 0) {
+									navTab._reload(navTab._getTab("xfdmpdb1"), true);
+									alertMsg.info(data.resultmsg);
+								} else if(data.resultcode == -2) {
+									alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+									window.location.href = "index.html";
+									return;
+								} else {
+									alertMsg.info(data.resultmsg);
+								}
+							},
+							error: function(XMLHttpRequest, textStatus, errorThrown, data) {
+								alertMsg.error(errorThrown);
+							}
+						});
+					},
+					cancelCall: function() {}
+				});
+			},
+			cancelCall: function() {}
+		});
+	}
+	//获取默认数据
+	function get_pandianData() {
+		var sdate = $("#startdate_pd").val();
+		var edate1 = $("#enddate_pd").val();
+		if(sdate) {
+			sdate = sdate.replace(/\-/g, "");
+			var edate = $("#enddate_pd").val();
+			if(edate) {
+				edate = edate.replace(/\-/g, "");
+				if(parseInt(edate) < parseInt(sdate)) {
+					alertMsg.warn("起始时间比结束时间大！！！");
+					return;
+				}
+			} else {
+				var mydate = new Date();
+				edate = String(mydate.getFullYear());
+				var mon = mydate.getMonth() + 1;
+				if(mon < 10) {
+					mon = "0" + mon;
+				}
+				var day = mydate.getDate();
+				if(day < 10) {
+					day = "0" + day;
+				}
+			}
+		}
+		$.ajax({
+			type: "get",
+			url: fdmUrl1 + cx + "/token/" + token,
+			dataType: "json",
+			async: true,
+			cache: false,
+			success: function(data) {
+				if(data.hasOwnProperty("resultcode")) {
+					if(data.resultcode == -2) {
+						alertMsg.warn("你的账号在其他地方登录了或者已经超时，请重新登录！");
+						window.location.href = "index.html";
+					}
+					if(data.resultcode == -1) {
+						alertMsg.warn(data.resultmsg);
+
+						return;
+					}
+				}
+				tjpd_data = data;
+				$("#startdate_pd").val(tjpd_data.sdate);
+				$("#enddate_pd").val(tjpd_data.edate);
+				var tableContent_PD = $("#pd_render").render(data);
+				$("#pageContainer_SPPDB1").html("").append(tableContent_PD);
+
+				var tableContent_PD1 = $("#pd_render1").render(data);
+				$("#pdtile").html("").append(tableContent_PD1);
+				if(data.data.length > 500) {
+					showTbody_pd(data.data.slice(4, 500));
+					loadmore_pdb();
+				} else {
+					showTbody_pd(data.data.slice(4));
+				}
+				hidden_row_fdmpdb();
+				sethead_pd(data.data);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alertMsg.error("加载失败，刷新或者检查网络设置！");
+			}
+		});
+		
+	}
+
+	function showTbody_pd(data) {
+		var html1 = $('#pd_render1_tbody').render(data);
+		$('#tableLeftpd_SPPDB1 tbody').html(html1);
+		var html = $('#pd_render_tbody').render(data);
+		$('#tableLeftpd_SPPDB tbody').html(html);
+
+		if(shangpinpdb_flag) {
+			$("#pageContainer_SPPDB1").css("margin-left", "-5px");
+			$(".pdhide").css("display", "none");
+			$("#thead_pdb tr td").eq(3).attr("colspan", "12");
+		}
+
+		$("#tbody_pdb1 tr").each(function(i, v) {
+			var _this = $(this);
+			var max = $("#tbody_pdb tr").eq(i).height() - 1;
+			_this.find("td").height(max);
+		})
+	}
+	//给head设置下拉选项
+	function sethead_pd(data) {
+		$($('.pdbsel_tr1 td')[0]).append('<select class="sel_pd0" onchange="cgData_pd(\'shangpinjc\',0)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr1 td')[1]).append('<select class="sel_pd1" onchange="cgData_pd(\'zhizaobm\',1)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[2]).append('<select class="sel_pd2" onchange="cgData_pd(\'dingdanlb\',2)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[3]).append('<select class="sel_pd3" onchange="cgData_pd(\'dangci\',3)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[4]).append('<select class="sel_pd4" onchange="cgData_pd(\'menkuang\',4)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[5]).append('<select class="sel_pd5" onchange="cgData_pd(\'kuanghou\',5)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[6]).append('<select class="sel_pd6" onchange="cgData_pd(\'qianbanhou\',6)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[7]).append('<select class="sel_pd7" onchange="cgData_pd(\'houbanhou\',7)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[8]).append('<select class="sel_pd8" onchange="cgData_pd(\'dikuangcl\',8)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[9]).append('<select class="sel_pd9" onchange="cgData_pd(\'menshan\',9)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[10]).append('<select class="sel_pd10" onchange="cgData_pd(\'guige\',10)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[11]).append('<select class="sel_pd11" onchange="cgData_pd(\'kaixiang\',11)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[12]).append('<select class="sel_pd12" onchange="cgData_pd(\'jiaolian\',12)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[13]).append('<select class="sel_pd13" onchange="cgData_pd(\'huase\',13)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[14]).append('<select class="sel_pd14" onchange="cgData_pd(\'biaomianfs\',14)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[15]).append('<select class="sel_pd15" onchange="cgData_pd(\'biaomianyq\',15)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[16]).append('<select class="sel_pd16" onchange="cgData_pd(\'chuanghua\',16)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[17]).append('<select class="sel_pd17" onchange="cgData_pd(\'maoyan\',17)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[18]).append('<select class="sel_pd18" onchange="cgData_pd(\'biaopai\',18)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[19]).append('<select class="sel_pd19" onchange="cgData_pd(\'zhusuo\',19)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[20]).append('<select class="sel_pd20" onchange="cgData_pd(\'fusuo\',20)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[21]).append('<select class="sel_pd21" onchange="cgData_pd(\'suoba\',21)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[22]).append('<select class="sel_pd22" onchange="cgData_pd(\'biaojian\',22)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[23]).append('<select class="sel_pd23" onchange="cgData_pd(\'baozhuangpp\',23)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[24]).append('<select class="sel_pd24" onchange="cgData_pd(\'baozhuangfs\',24)"><option value="">全部</option></select>');
+		$($('.pdbsel_tr td')[25]).append('<select class="sel_pd25" onchange="cgData_pd(\'qita\',25)"><option value="">全部</option></select>');
+		getThead_pdb(data);
+	}
+
+	//head下拉选项的一系列方法
+	var filObj_pdb = {};
+	var count_24, count_26, count_29, count_31, count_32, count_34, count_36, count_38, count_40, count_42, count_44, count_46, count_48, count_50, count_52, count_54, count_55, count_57, count_58;
+
+	function cgData_pd(sel, _index) {
+		$("#mengce_pdb").css("display", "block");
+		$(".pageContent_SPPDB").css("opacity", "0.5");
+
+		count_29 = 0;
+		count_31 = 0;
+		count_33 = 0;
+		count_35 = 0;
+		count_37 = 0;
+		count_39 = 0;
+		count_41 = 0;
+		count_43 = 0;
+		count_45 = 0;
+		count_47 = 0;
+		count_49 = 0;
+		count_51 = 0;
+		count_53 = 0;
+		count_55 = 0;
+		count_57 = 0;
+		count_59 = 0;
+		count_60 = 0;
+		count_62 = 0;
+		count_63 = 0;
+
+		var data = tjpd_data.data.slice(4);
+
+		$('#tableLeftpd_SPPDB1 tbody tr').each(function() {
+			$(this).show();
+		});
+		$('#tableLeftpd_SPPDB tbody tr').each(function() {
+			$(this).show();
+		});
+		filObj_pdb[_index] = $('.sel_pd' + _index).val();
+		for(var i in filObj_pdb) {
+			filter_pdb(data, filObj_pdb[i], i);
+		}
+		countselect();
+		if($('#tbody_pdb tr:visible').length == tjpd_data.data.slice(4).length) {
+			$("#tbody_pdb").css("top", "88px");
+			$("#tbody_pdb1").css("top", "88px");
+			$("#thead_pdb").find("tr").eq(4).hide();
+			$("#thead_pdb1").find("tr").eq(3).hide();
+		} else {
+			$("#thead_pdb").find("tr").eq(4).show();
+			$("#thead_pdb1").find("tr").eq(3).show();
+			$("#tbody_pdb").css("top", "108px");
+			$("#tbody_pdb1").css("top", "108px");
+		}
+		setcountselect();
+	}
+
+	function setcountselect() {
+
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(29).find("span").text(count_29);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(31).find("span").text(count_31);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(33).find("span").text(count_33);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(35).find("span").text(count_35);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(37).find("span").text(count_37);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(39).find("span").text(count_39);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(43).find("span").text(count_41);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(43).find("span").text(count_43);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(45).find("span").text(count_45);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(47).find("span").text(count_47);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(49).find("span").text(count_49);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(51).find("span").text(count_51);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(53).find("span").text(count_53);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(55).find("span").text(count_55);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(57).find("span").text(count_57);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(59).find("span").text(count_59);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(60).find("span").text(count_60);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(62).find("span").text(count_62);
+		$("#thead_pdb").find("tr").eq(4).find("td").eq(63).find("span").text(count_63);
+	}
+
+	function filter_pdb(arr, str, index) {
+		if(str == '') {
+			return arr;
+		}
+		for(var i = 0; i < arr.length; i++) {
+			if(arr[i].tr[index].value != str) {
+				$($('#tableLeftpd_SPPDB1 tbody tr')[i]).hide();
+				$($('#tableLeftpd_SPPDB tbody tr')[i]).hide();
+			}
+		}
+	}
+
+	function countselect() {
+		for(i = 0; i < $('#tbody_pdb1 tr:visible').length; i++) {
+			count_24 = (parseFloat(count_24) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(24).find("span").text())).toFixed(2);
+			count_26 = (parseFloat(count_26) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(26).find("span").text())).toFixed(2);
+			count_29 = (parseFloat(count_29) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(29).find("span").text())).toFixed(2);
+			count_31 = (parseFloat(count_31) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(31).find("span").text())).toFixed(2);
+			count_33 = (parseFloat(count_33) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(33).find("span").text())).toFixed(2);
+			count_35 = (parseFloat(count_35) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(35).find("span").text())).toFixed(2);
+			count_37 = (parseFloat(count_37) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(37).find("span").text())).toFixed(2);
+			count_39 = (parseFloat(count_39) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(39).find("span").text())).toFixed(2);
+			count_41 = (parseFloat(count_41) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(41).find("span").text())).toFixed(2);
+			count_43 = (parseFloat(count_43) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(43).find("span").text())).toFixed(2);
+			count_44 = (parseFloat(count_45) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(45).find("span").text())).toFixed(2);
+			count_47 = (parseFloat(count_47) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(47).find("span").text())).toFixed(2);
+			count_49 = (parseFloat(count_49) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(49).find("span").text())).toFixed(2);
+			count_51 = (parseFloat(count_51) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(51).find("span").text())).toFixed(2);
+			count_53 = (parseFloat(count_53) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(53).find("span").text())).toFixed(2);
+			count_55 = (parseFloat(count_55) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(55).find("span").text())).toFixed(2);
+			count_57 = (parseFloat(count_57) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(57).find("span").text())).toFixed(2);
+			count_59 = (parseFloat(count_59) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(59).find("span").text())).toFixed(2);
+			count_60 = (parseFloat(count_60) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(60).find("span").text())).toFixed(2);
+			count_62 = (parseFloat(count_62) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(62).find("span").text())).toFixed(2);
+			count_63 = (parseFloat(count_63) + parseFloat($($('#tbody_pdb tr:visible')[i]).find("td").eq(63).find("span").text())).toFixed(2);
+		}
+		setTimeout(function() {
+			$("#mengce_pdb").css("display", "none");
+			$(".pageContent_SPPDB").css("opacity", "1");
+		}, 500);
+	}
+
+	function getThead_pdb(arr) {
+		arr = arr.slice(3);
+		var my_arr = [];
+		for(var i = 0, len1 = arr.length; i < len1; i++) {
+			for(var j = 0, len2 = 23; j < len2; j++) {
+				if(my_arr[j] == undefined || my_arr[j] == '') {
+					my_arr[j] = [];
+				}
+				if(my_arr[j].indexOf(arr[i].tr[j].value) == -1 && arr[i].tr[j].value != "") {
+					my_arr[j].push(arr[i].tr[j].value);
+				}
+			}
+		}
+		for(var a = 0; a < my_arr.length; a++) {
+			for(var b = 0; b < my_arr[a].length; b++) {
+				$('.sel_pd' + a).append('<option style="background-color:#fff;">' + my_arr[a][b] + '</option>');
+			}
+		}
+	}
+	//重置
+	function reset_pd() {
+		$("#mengce_pdb").css("display", "block");
+		$(".pageContent_SPPDB").css("opacity", "0.5");
+		for(var i = 0; i < 26; i++) {
+			$($('.pdbsel_tr1').find("td")[i]).find("select").val("全部").attr("selected", true);
+		}
+		for(var i = 2; i < 26; i++) {
+			$($('.pdbsel_tr').find("td")[i]).find("select").val("全部").attr("selected", true);
+		}
+		filObj_pdb = {};
+		$($('#tableLeftpd_SPPDB1 tbody tr')).show();
+		$($('#tableLeftpd_SPPDB tbody tr')).show();
+		$("#tbody_pdb").css("top", "88px");
+		$("#tbody_pdb1").css("top", "88px");
+		$("#thead_pdb").find("tr").eq(4).hide();
+		$("#thead_pdb1").find("tr").eq(3).hide();
+		setTimeout(function() {
+			$("#mengce_pdb").css("display", "none");
+			$(".pageContent_SPPDB").css("opacity", "1");
+		}, 500);
+	}
+
+	function pd_yxsj() {
+		shangpinpdb_flag = false;
+		$("#login_shangpinpdx").trigger("click");
+	}
+
+	function pd_wxsj() {
+		shangpinpdb_flag = true;
+		$("#login_shangpinpdx").trigger("click");
+
+	}
+
+	function onlynum_pd(obj) {
+		$(obj).parent().css({
+			"border": "none",
+			"border-left": "1px solid #C0C0C0",
+			"border-bottom": "1px solid #c0c0c0"
+		});
+		var reg = new RegExp("^[0-9]*$");
+		var text1 = $(obj).val();
+		var result = reg.test(text1);
+		if(!result) {
+			alertMsg.warn("请输入正整数！");
+			$(obj).addClass("errorDatapd");
+			$(obj).parent().css({
+				"border": "2px solid red"
+			});
+			return;
+		}
+		var int_replace_res = $(obj).val().replace(/^-?[1-9]\d*|0$/, "");
+		if(int_replace_res) {
+			var float_replace_res = $(obj).val().replace(/^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$/, "");
+			if(float_replace_res) {
+				alertMsg.warn("请输入正整数！");
+				$(obj).addClass("errorDatapd");
+				$(obj).parent().css({
+					"border": "2px solid red"
+				});
+				return;
+			}
+		}
+		$(obj).removeClass("errorDatapd");
+
+	}
+	//隐藏表前面两列
+	function hidden_row_fdmpdb() {
+		$("#thead_pdb tr").eq(1).find("td").eq(0).css("visibility", "hidden");
+		$("#thead_pdb tr").eq(1).find("td").eq(1).css("visibility", "hidden");
+
+		for(var i = 0; i < $("#tbody_pdb tr").length; i++) {
+			$("#tbody_pdb tr").eq(i).find("td").eq(0).css("visibility", "hidden");
+			$("#tbody_pdb tr").eq(i).find("td").eq(1).css("visibility", "hidden");
+		}
+	}
+	window.onresize = function() {
+		
+	}
+
+	function edit_FDMPD(obj) {
+		obj.children().select();
+		obj.css("border", "1px solid #000");
+	};
+	$(".pageContent_SPPDB").scroll(function(top) {
+		$('thead').css('top', $(this).scrollTop() + 'px');
+	})
+	
+	
+</script>
+
+</html>
